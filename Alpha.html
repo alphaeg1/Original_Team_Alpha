@@ -3,289 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Alpha eg</title>
-    <!-- Font Awesome Icons -->
+    <title>Alpha EG | لخدمات الدعاية والإعلان الاحترافية</title>
+    <!-- FontAwesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Animate.css للحركات الذكية -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- جوجل فونت لخط عصري -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #121212;
-            --text-color: #ffffff;
-            --accent-color: #ffffff;
+            --bg-dark: #0a0a0a;
+            --bg-light: #ffffff;
+            --accent-glow: #00f2fe; /* لمسة ذكية مضيئة */
+            --text-main: #f5f5f5;
             --text-muted: #a0a0a0;
-            --border-color: #222222;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
         }
 
-        /* Hero Header Section */
-        .header-container {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            background: #000;
-            overflow: hidden;
+        /* خلفية متحركة ذكية */
+        .background-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 80%);
+            z-index: -1;
+            animation: rotateGlow 20s linear infinite;
         }
 
-        .header-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.85;
-            filter: grayscale(30%);
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* Wave Effect */
-        .wave-container {
-            position: absolute;
-            bottom: -1px;
-            width: 100%;
-            height: 80px;
-            overflow: hidden;
+        /* الهيدر */
+        header {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
         }
 
-        .waves {
-            position: relative;
-            width: 100%;
-            height: 100%;
+        .logo-area h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
-        .parallax > use {
-            animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
-        }
-        .parallax > use:nth-child(1) {
-            animation-delay: -2s;
-            animation-duration: 7s;
-        }
-        .parallax > use:nth-child(2) {
-            animation-delay: -3s;
-            animation-duration: 10s;
-        }
-        .parallax > use:nth-child(3) {
-            animation-delay: -4s;
-            animation-duration: 13s;
-        }
-        .parallax > use:nth-child(4) {
-            animation-delay: -5s;
-            animation-duration: 20s;
+        .logo-area p {
+            color: var(--accent-glow);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        @keyframes move-forever {
-            0% { transform: translate3d(-90px, 0, 0); }
-            100% { transform: translate3d(85px, 0, 0); }
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 2rem 1.5rem;
+        /* القسم الرئيسي */
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .brand-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        .brand-subtitle {
-            text-align: center;
+        .hero p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
-        /* Social Media Buttons Grid */
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 12fr);
-            gap: 1rem;
-            margin-bottom: 3rem;
+        /* شبكة الخدمات الفخمة */
+        .services-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 16px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:active {
-            transform: scale(0.96);
-            background: var(--accent-color);
-            color: #000;
-        }
-
-        .social-btn.full-width {
-            grid-column: span 2;
-        }
-
-        /* Services Section */
-        .services-section {
-            background: linear-gradient(145deg, #121212, #080808);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .services-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.5rem;
             position: relative;
-            display: inline-block;
-            padding-bottom: 8px;
         }
 
-        .services-title::after {
+        .section-title::after {
             content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 40px;
+            display: block;
+            width: 50px;
             height: 3px;
-            background-color: var(--accent-color);
+            background: #fff;
+            margin: 10px auto 0;
             border-radius: 2px;
         }
 
-        .services-list {
-            list-style: none;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* أزرار التواصل الذكية الثابتة والعادية */
+        .cta-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: #ffffff;
+            color: #000000;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-tiktok { background: #000000; color: #fff; border: 1px solid #333; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; }
+        .btn-whatsapp { background: #25D366; color: #fff; }
+        .btn-call { background: #111; color: #fff; }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        /* زرار سريع عائم للموبايل */
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .services-list li {
+        .float-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border-right: 3px solid var(--accent-color);
-            font-size: 1rem;
-            font-weight: 400;
-            transition: transform 0.2s ease;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
         }
 
-        .services-list li i {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        .float-btn.wa { background-color: #25D366; }
+        .float-btn.phone { background-color: #ffffff; color: #000; }
 
-        /* Footer */
+        .float-btn:hover { transform: scale(1.1); }
+
         footer {
-            text-align: center;
-            padding: 3rem 1rem 1.5rem;
-            font-size: 0.8rem;
+            background: #000000;
             color: var(--text-muted);
-            font-weight: 300;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            border-top: 1px solid #111;
         }
 
-        /* Responsive Tweaks for Small Screens */
-        @media (max-width: 400px) {
-            .header-container { height: 300px; }
-            .social-grid { grid-template-columns: 1fr; }
-            .social-btn.full-width { grid-column: span 1; }
+        /* تحسينات الموبايل الشديدة */
+        @media (max-width: 768px) {
+            .logo-area h1 { font-size: 2rem; }
+            .hero h2 { font-size: 1.5rem; }
+            .services-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 5px; } /* تقسيم ذكي للموبايل صفين بجانب بعض */
+            .service-card { padding: 20px 10px; border-radius: 15px; }
+            .service-icon { font-size: 1.8rem; margin-bottom: 10px; }
+            .service-card h3 { font-size: 0.95rem; }
+            .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الجزء العلوي: الصورة والتمويجة المتحركة -->
-    <div class="header-container">
-        <!-- صورتك المرفوعة على جيت هاب بنفس الاسم تماماً -->
-        <img src="" alt="Team Alpha" class="header-img">
-        
-        <!-- التمويجة المتحركة SVG -->
-        <div class="wave-container">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(10, 10, 10, 0.7)" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(10, 10, 10, 0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(10, 10, 10, 0.3)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#0a0a0a" />
-                </g>
-            </svg>
+    <div class="background-glow"></div>
+
+    <!-- الهيدر واللوجو -->
+    <header class="animate__animated animate__fadeInDown">
+        <div class="logo-area">
+            <h1>TEAM ALPHA</h1>
+            <p>EGYPT</p>
         </div>
-    </div>
+    </header>
 
-    <!-- المحتوي الرئيسي -->
-    <div class="main-content">
-        <h1 class="brand-title">TEAM ALPHA</h1>
-        <p class="brand-subtitle">تواصل معنا واكتشف خدماتنا الحصرية</p>
+    <!-- مقدمة البراند -->
+    <section class="hero animate__animated animate__fadeIn">
+        <h2 class="animate__animated animate__zoomIn animate__delay-1s">نوفر لك التميز والاحترافية</h2>
+        <p>نحن شريكك الإعلاني المتكامل، نقدم حلولاً تسويقية ودعائية مبتكرة تلبي تطلعات براندك وتجعلك دائماً في الصدارة.</p>
+    </section>
 
-        <!-- أزرار التواصل الذكية والحديثة -->
-        <div class="social-grid">
-            <a href="https://wa.me/+201150605708" target="_blank" class="social-btn">
-                <i class="fab fa-whatsapp"></i> واتساب
-            </a>
-            <a href="https://www.instagram.com/alpha_.eg1" target="_blank" class="social-btn">
-                <i class="fab fa-instagram"></i> انستجرام
-            </a>
-            <a href="https://www.tiktok.com/@team.alpha.eg?_r=1&_t=ZS-95ZfNV5UMvl" target="_blank" class="social-btn full-width">
+    <!-- شبكة الخدمات -->
+    <section class="services-container">
+        <h2 class="section-title">خدماتنا المتاحة</h2>
+        
+        <div class="services-grid">
+            
+            <!-- خدمة 1 -->
+            <div class="service-card animate__animated animate__fadeInUp">
+                <div class="service-icon"><i class="fas fa-skating"></i></div>
+                <h3>شباب اشر اسكيت</h3>
+            </div>
+
+            <!-- خدمة 2 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="service-icon"><i class="fas fa-flag"></i></div>
+                <h3>طباعة أعلام وتأجير شنطها</h3>
+            </div>
+
+            <!-- خدمة 3 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="service-icon"><i class="fas fa-camera"></i></div>
+                <h3>متاح تصوير محترف</h3>
+            </div>
+
+            <!-- خدمة 4 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="service-icon"><i class="fas fa-truck-monster"></i></div>
+                <h3>متاح دودج رام (Dodge Ram)</h3>
+            </div>
+
+            <!-- خدمة 5 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <div class="service-icon"><i class="fas fa-id-card"></i></div>
+                <h3>كروت NFC الذكية</h3>
+            </div>
+
+            <!-- خدمة 6 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+                <div class="service-icon"><i class="fas fa-video"></i></div>
+                <h3>مونتاج فيديو احترافي</h3>
+            </div>
+
+            <!-- خدمة 7 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                <div class="service-icon"><i class="fas fa-palette"></i></div>
+                <h3>جرافيك ديزاين</h3>
+            </div>
+
+            <!-- خدمة 8 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
+                <div class="service-icon"><i class="fas fa-ad"></i></div>
+                <h3>تصوير دعاية كاملة</h3>
+            </div>
+
+            <!-- خدمة 9 -->
+            <div class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                <div class="service-icon"><i class="fas fa-globe"></i></div>
+                <h3>إنشاء مواقع تعريف شخصي</h3>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم التواصل الفخم (الأبيض) -->
+    <section class="cta-section">
+        <h2>تواصل معنا الآن</h2>
+        <p>ابدأ مشروعك القادم مع فريق ألفا، نحن هنا لخدمتك.</p>
+        
+        <div class="social-buttons">
+            <a href="https://www.tiktok.com/@team.alpha.eg?_r=1&_t=ZS-95ZfNV5UMvl" target="_blank" class="btn btn-tiktok">
                 <i class="fab fa-tiktok"></i> تيك توك
             </a>
-            <a href="tel:+201150605708" class="social-btn full-width">
+            <a href="https://www.instagram.com/alpha_.eg1" target="_blank" class="btn btn-instagram">
+                <i class="fab fa-instagram"></i> انستجرام
+            </a>
+            <a href="https://wa.me/+201150605708" target="_blank" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </a>
+            <a href="tel:+201150605708" class="btn btn-call">
                 <i class="fas fa-phone-alt"></i> إتصال هاتفي
             </a>
         </div>
+    </section>
 
-        <!-- قسم الخدمات بتصميم أنيق -->
-        <div class="services-section">
-            <h2 class="services-title">الخدمات المتاحة</h2>
-            <ul class="services-list">
-                <li><i class="fas fa-circle"></i> متاح شباب اشر اسكيت</li>
-                <li><i class="fas fa-circle"></i> طباعة أعلام وتأجير شنطها</li>
-                <li><i class="fas fa-circle"></i> متاح تصوير</li>
-                <li><i class="fas fa-circle"></i> متاح دودج رام</li>
-                <li><i class="fas fa-circle"></i> كروت NFC ذكية</li>
-                <li><i class="fas fa-circle"></i> مونتاج احترافي</li>
-                <li><i class="fas fa-circle"></i> جرافيك ديزاين</li>
-                <li><i class="fas fa-circle"></i> تصوير دعاية كاملة</li>
-                <li><i class="fas fa-circle"></i> إنشاء مواقع تعريف شخصي</li>
-            </ul>
-        </div>
+    <!-- أزرار عائمة سريعة للموبايل -->
+    <div class="floating-contact">
+        <a href="https://wa.me/+201150605708" target="_blank" class="float-btn wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+201150605708" class="float-btn phone"><i class="fas fa-phone-alt"></i></a>
     </div>
 
+    <!-- الفوتر -->
     <footer>
-        <p>&copy; 2026 Team Alpha. All Rights Reserved.</p>
+        <p>&copy; 2026 Team Alpha EG. All Rights Reserved. Designed Specially For Alpha.</p>
     </footer>
 
 </body>
