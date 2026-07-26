@@ -9,14 +9,15 @@
     
     <style>
         :root {
-            --bg-main: #0d0d10;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #f3f3f5;
-            --text-secondary: #a0a0ab;
-            --accent-glow: rgba(255, 255, 255, 0.06);
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-main: #0a0a0c;
+            --bg-card: #121216;
+            --bg-glass: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --text-primary: #ffffff;
+            --text-secondary: #90909a;
+            --accent-gray: #22222a;
+            --accent-light-gray: #d1d1d6;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -25,20 +26,17 @@
             box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
             scroll-behavior: smooth;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
+        body {
             background-color: var(--bg-main);
             color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
-            font-size: 14px;
-            width: 100%;
-            height: 100%;
+            font-size: 14px; /* تصغير حجم الخط الأساسي */
         }
 
-        /* Dynamic Animated Ambient Background */
+        /* Dynamic Animated Background */
         .bg-glow {
             position: fixed;
             top: 0;
@@ -47,39 +45,28 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-            transition: background 0.2s ease-out;
-        }
-
-        /* Ambient Floating Shapes for Mobile & Desktop */
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 50%);
         }
 
         .floating-shapes div {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            animation: float 18s infinite linear;
-            backdrop-filter: blur(2px);
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            z-index: -1;
+            animation: float 20s infinite linear;
         }
 
-        .floating-shapes div:nth-child(1) { top: 15%; left: 8%; width: 60px; height: 60px; animation-duration: 20s; }
-        .floating-shapes div:nth-child(2) { top: 65%; left: 75%; width: 90px; height: 90px; animation-duration: 24s; }
-        .floating-shapes div:nth-child(3) { top: 80%; left: 15%; width: 50px; height: 50px; animation-duration: 16s; }
+        .floating-shapes div:nth-child(1) { top: 10%; left: 10%; animation-duration: 22s; }
+        .floating-shapes div:nth-child(2) { top: 60%; left: 80%; animation-duration: 18s; }
+        .floating-shapes div:nth-child(3) { top: 80%; left: 20%; animation-duration: 25s; }
 
         @keyframes float {
-            0% { transform: rotate(0deg) translateY(0) scale(1); }
-            50% { transform: rotate(180deg) translateY(-25px) scale(1.05); }
-            100% { transform: rotate(360deg) translateY(0) scale(1); }
+            0% { transform: rotate(0deg) translateY(0); }
+            50% { transform: rotate(180deg) translateY(-20px); }
+            100% { transform: rotate(360deg) translateY(0); }
         }
 
         /* Header & Navbar */
@@ -87,13 +74,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 14px 6%;
+            padding: 12px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(13, 13, 16, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
@@ -101,37 +87,36 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: #18181c;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #1a1a20;
             border: 1px solid var(--border-color);
             object-fit: cover;
-            transition: var(--transition);
         }
 
         .logo-text {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: 1px;
-            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Status Indicator */
+        /* Status Indicator (مؤشر مواعيد العمل) */
         .work-status {
             display: flex;
             align-items: center;
             gap: 8px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 30px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
         }
@@ -140,34 +125,36 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
+            position: relative;
         }
 
+        /* حالات اللمبة */
         .status-dot.open {
             background-color: #22c55e;
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
-            animation: blink-green 2s infinite ease-in-out;
+            box-shadow: 0 0 10px #22c55e;
+            animation: blink-green 1.5s infinite;
         }
 
         .status-dot.closed {
             background-color: #ef4444;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
-            animation: blink-red 2s infinite ease-in-out;
+            box-shadow: 0 0 10px #ef4444;
+            animation: blink-red 1.5s infinite;
         }
 
         @keyframes blink-green {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.85); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
 
         @keyframes blink-red {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.85); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 24px;
+            gap: 20px;
         }
 
         nav a {
@@ -176,16 +163,15 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: var(--transition);
-            position: relative;
         }
 
         nav a:hover {
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
         /* Hero Section */
         .hero {
-            padding: 130px 6% 40px;
+            padding: 110px 6% 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -194,248 +180,221 @@
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
-            margin-bottom: 14px;
-            background: linear-gradient(180deg, #ffffff 30%, #777777 100%);
+            margin-bottom: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
         }
 
         .hero p {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            max-width: 520px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-weight: 400;
+            max-width: 500px;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
-        /* Offers Section */
+        /* Offers Section (قسم العروض الحالية) */
         .offers-section {
             width: 100%;
             max-width: 650px;
             margin: 0 auto 30px;
-            padding: 14px;
+            padding: 12px;
             background: var(--bg-card);
-            border: 1px rgba(255, 255, 255, 0.12) dashed;
-            border-radius: 18px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-
-        .offers-section:active, .offers-section:hover {
-            border-color: rgba(255, 255, 255, 0.25);
-            background: var(--bg-card-hover);
         }
 
         .offers-title {
             font-size: 0.85rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
+            color: var(--accent-light-gray);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-weight: 600;
+            gap: 6px;
         }
 
         .offers-title i {
             animation: pulse 1.5s infinite;
-            color: #d1d1d6;
+            color: #f59e0b;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.3; }
+            0% { opacity: 0.4; }
             50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            100% { opacity: 0.4; }
         }
 
         .offer-banner {
             width: 100%;
-            max-height: 260px;
+            max-height: 250px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
-        /* Services Overview Section */
+        /* Services Overview Section (إجمال الخدمات) */
         .section-title {
             text-align: center;
             font-size: 1.5rem;
             margin-bottom: 30px;
             position: relative;
-            font-weight: 700;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 35px;
+            width: 40px;
             height: 2px;
-            background: rgba(255, 255, 255, 0.4);
-            margin: 8px auto 0;
+            background: var(--text-primary);
+            margin: 6px auto 0;
             border-radius: 2px;
         }
 
         .services-overview {
             padding: 40px 6%;
+            background: rgba(255, 255, 255, 0.005);
         }
 
         .overview-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
         }
 
         .overview-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 26px 20px;
-            border-radius: 18px;
+            padding: 22px 18px;
+            border-radius: 14px;
             text-align: center;
             transition: var(--transition);
             cursor: pointer;
-            backdrop-filter: blur(10px);
         }
 
-        .overview-card:hover, .overview-card:active {
-            transform: translateY(-6px);
+        .overview-card:hover {
+            transform: translateY(-4px);
             border-color: rgba(255, 255, 255, 0.25);
-            background: var(--bg-card-hover);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #16161c;
         }
 
         .overview-card i {
-            font-size: 2rem;
-            margin-bottom: 14px;
-            color: #ffffff;
-            transition: var(--transition);
-        }
-
-        .overview-card:hover i {
-            transform: scale(1.1);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--accent-light-gray);
         }
 
         .overview-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
 
         .overview-card p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.82rem;
+            line-height: 1.4;
         }
 
-        /* Detailed Services Section */
+        /* Detailed Services Section (تفصيل الخدمات) */
         .services-details {
             padding: 40px 6%;
         }
 
         .detail-block {
             margin-bottom: 30px;
-            background: var(--bg-card);
+            background: var(--bg-glass);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-
-        .detail-block:hover {
-            border-color: rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 22px;
+            backdrop-filter: blur(8px);
         }
 
         .detail-header {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 18px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 14px;
+            padding-bottom: 12px;
         }
 
         .detail-header i {
             font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            color: #ffffff;
-            width: 42px;
-            height: 42px;
+            background: var(--accent-gray);
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
+            border-radius: 8px;
         }
 
         .detail-header h3 {
             font-size: 1.2rem;
-            font-weight: 700;
         }
 
         .badge-monthly {
             font-size: 0.7rem;
             background: #ffffff;
-            color: #000000;
-            padding: 3px 10px;
-            border-radius: 20px;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
             font-weight: 700;
-            margin-right: 8px;
+            margin-right: 6px;
         }
 
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
         }
 
         .item-box {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
-            padding: 12px 16px;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 0.88rem;
+            gap: 10px;
+            font-size: 0.85rem;
             transition: var(--transition);
         }
 
-        .item-box:hover, .item-box:active {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(-4px);
+        .item-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(-3px);
         }
 
         .item-box i {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        /* Contact Section */
+        /* Contact Section (قسم التواصل والأرقام) */
         .contact-section {
-            padding: 50px 6%;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 6%;
+            background: var(--bg-card);
             border-top: 1px solid var(--border-color);
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .contact-card {
-            background: var(--bg-card);
+            background: var(--bg-main);
             border: 1px solid var(--border-color);
-            padding: 20px 16px;
-            border-radius: 16px;
+            padding: 16px 12px;
+            border-radius: 12px;
             text-align: center;
             text-decoration: none;
             color: var(--text-primary);
@@ -443,67 +402,59 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(8px);
+            gap: 6px;
         }
 
-        .contact-card:hover, .contact-card:active {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            background: var(--bg-card-hover);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        .contact-card:hover {
+            transform: translateY(-3px);
+            border-color: #ffffff;
         }
 
         .contact-card i {
-            font-size: 1.4rem;
-            color: #ffffff;
+            font-size: 1.3rem;
+            color: var(--accent-light-gray);
         }
 
         .contact-card span {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
         }
 
         .contact-card strong {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             direction: ltr;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 22px;
+            padding: 18px;
             color: var(--text-secondary);
             font-size: 0.8rem;
             border-top: 1px solid var(--border-color);
-            background: var(--bg-main);
         }
 
-        /* Reveal & Animation Classes for Mobile Smoothness */
+        /* Reveal Animation Classes */
         .reveal {
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        /* Responsive Optimization */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            header { padding: 12px 5%; }
+            header { padding: 10px 4%; }
             nav { display: none; }
-            .hero { padding-top: 110px; }
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 0.88rem; }
-            .section-title { font-size: 1.35rem; }
-            .detail-block { padding: 18px; }
-            .work-status span { font-size: 0.75rem; }
-            .overview-grid { grid-template-columns: 1fr; }
-            .items-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.85rem; }
+            .section-title { font-size: 1.3rem; }
+            .detail-block { padding: 15px; }
+            .work-status span { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -519,7 +470,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="WhatsApp Image 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
             <div class="logo-text">TEAM ALPHA</div>
         </div>
 
@@ -548,7 +499,7 @@
                 <i class="fa-solid fa-fire"></i>
                 <span>العروض المميزة الشغالة حالياً</span>
             </div>
-            <img src="WhatsApp Image 2026-07-26 at 23.32.35.jpeg" alt="العرض الحالي" class="offer-banner">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.32.35.jpeg" alt="العرض الحالي" class="offer-banner">
         </div>
     </section>
 
@@ -610,7 +561,7 @@
             </div>
             <div class="items-grid">
                 <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
+                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
                 <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
                 <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
             </div>
@@ -651,30 +602,27 @@
     </footer>
 
     <script>
-        // 1. Force Page Scroll to Top Always on Load & Reload
+        // 1. Force Page Scroll to Top on Refresh (بدء الموقع من الأعلى)
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        window.scrollTo(0, 0);
-        
         window.addEventListener('beforeunload', () => {
             window.scrollTo(0, 0);
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
             window.scrollTo(0, 0);
             checkWorkingHours();
-            revealOnScroll();
-        });
+        };
 
         // 2. Working Hours System (من 12 مساءً حتى 12 صباحاً)
         function checkWorkingHours() {
             const now = new Date();
-            const currentHour = now.getHours();
+            const currentHour = now.getHours(); // 0 - 23
 
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
 
+            // أوقات العمل من 12 ظهراً (12) إلى 12 منتصف الليل (24/0)
             if (currentHour >= 12 && currentHour < 24) {
                 statusDot.className = 'status-dot open';
                 statusText.textContent = 'مفتوح الآن';
@@ -684,44 +632,33 @@
             }
         }
 
-        // 3. Dynamic Glow Effect (Mouse & Touch Move)
+        // 3. Mouse Tracking Radial Dynamic Glow Effect
         const glow = document.getElementById('glow');
-        const updateGlow = (x, y) => {
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
             glow.style.setProperty('--x', `${x}%`);
             glow.style.setProperty('--y', `${y}%`);
-        };
-
-        window.addEventListener('mousemove', (e) => {
-            updateGlow((e.clientX / window.innerWidth) * 100, (e.clientY / window.innerHeight) * 100);
         });
 
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                const touch = e.touches[0];
-                updateGlow((touch.clientX / window.innerWidth) * 100, (touch.clientY / window.innerHeight) * 100);
-            }
-        });
-
-        // 4. Scroll Reveal Animations Optimized
+        // 4. Scroll Reveal Animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 50) {
+                if (elementTop < windowHeight - 80) {
                     el.classList.add('active');
                 }
             });
         };
 
-        window.addEventListener('scroll', revealOnScroll, { passive: true });
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
 
         // 5. Smooth Scroll Helper
         function scrollToSection(id) {
-            const target = document.getElementById(id);
-            if(target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
