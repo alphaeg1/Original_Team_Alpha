@@ -3,410 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Alpha | كيان مش مكان</title>
+    <title>TEAM ALPHA | تيم ألفا للدعاية والبرمجة</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --neon-blue: #00d4ff;
-            --dark-bg: #050505;
-            --card-accent: rgba(0, 212, 255, 0.05);
+            --bg-main: #0a0a0c;
+            --bg-card: #141419;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0ab;
+            --accent-gray: #2d2d38;
+            --accent-light-gray: #e1e1e6;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8; /* لراحة العين أثناء القراءة */
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- شاشة الترحيب والانفجار (Intro & Explosion) --- */
-        #intro-overlay {
+        /* Dynamic Animated Background */
+        .bg-glow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #0a0a0a;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.4s ease;
-        }
-
-        /* الشخصية الكرتونية (CSS Art) */
-        .character-container {
-            position: relative;
-            width: 150px;
-            height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: characterAppear 0.5s ease-out forwards;
-        }
-
-        .char-head {
-            width: 60px;
-            height: 60px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-            position: relative;
-        }
-
-        /* نظارة كرتونية كول */
-        .char-head::after {
-            content: "";
-            position: absolute;
-            top: 22px;
-            left: 5px;
-            width: 50px;
-            height: 15px;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 0 10px #fff;
-        }
-
-        .char-body {
-            width: 70px;
-            height: 90px;
-            background: #111;
-            border: 2px solid var(--neon-blue);
-            border-radius: 15px 15px 5px 5px;
-            margin-top: 10px;
-            position: relative;
-        }
-
-        /* الشنطة المفخخة بالأنميشن */
-        .bag {
-            position: absolute;
-            width: 55px;
-            height: 45px;
-            background: #ff3366; 
-            border-radius: 8px;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%) scale(1);
-            opacity: 0;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
-            /* سقوط ثم اهتزاز ثم انتفاخ سريع قبل الانفجار */
-            animation: dropBag 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.5s forwards, 
-                      shakeAndSwell 0.6s ease-in-out 1.3s forwards;
-        }
-
-        /* يد الشنطة */
-        .bag::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 22px;
-            height: 12px;
-            border: 3px solid #ff3366;
-            border-bottom: none;
-            border-radius: 6px 6px 0 0;
-        }
-
-        /* فلاش وتأثير الانفجار */
-        .explosion-flash {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(circle, #fff 10%, var(--neon-blue) 40%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
             pointer-events: none;
-            z-index: 10000;
-        }
-
-        .explode-active {
-            animation: flashBang 0.5s ease-out forwards;
-        }
-
-        /* أنيميشن ظهور الشخصية */
-        @keyframes characterAppear {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* أنيميشن سقوط الشنطة */
-        @keyframes dropBag {
-            0% { top: 40px; opacity: 0; }
-            30% { opacity: 1; }
-            100% { top: 180px; opacity: 1; }
-        }
-
-        /* اهتزاز الشنطة وانتفاخها استعداداً للانفجار */
-        @keyframes shakeAndSwell {
-            0% { transform: translateX(-50%) rotate(0deg) scale(1); }
-            20% { transform: translateX(-55%) rotate(-8deg) scale(1.1); background: #ff1a53; }
-            40% { transform: translateX(-45%) rotate(8deg) scale(1.2); }
-            60% { transform: translateX(-53%) rotate(-5deg) scale(1.3); background: #ff0040; box-shadow: 0 0 35px #ff0040; }
-            80% { transform: translateX(-47%) rotate(5deg) scale(1.4); }
-            100% { transform: translateX(-50%) rotate(0deg) scale(1.6); background: #fff; box-shadow: 0 0 50px #fff; }
-        }
-
-        /* أنيميشن فلاش الانفجار لتغطية الشاشة */
-        @keyframes flashBang {
-            0% { width: 10px; height: 10px; opacity: 1; transform: scale(1); }
-            50% { opacity: 1; }
-            100% { width: 300vmax; height: 300vmax; opacity: 0; transform: scale(1); }
-        }
-
-        /* إخفاء شاشة الانترو بسلاسة بعد الانفجار */
-        .intro-hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* محتوى الموقع الأساسي يخرج من الانفجار (Zoom & Fade In) */
-        #main-content {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        #main-content.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* نقوش الخلفية (عناصر الدعاية) */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            opacity: 0.03; 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Ctext y='20' font-size='10' fill='white'%3E%3C/text%3E%3Ctext x='30' y='70' font-size='10' fill='white'%3E%3C/text%3E%3C/svg%3E");
-            background-size: 180px;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 50%);
         }
 
-        .hero {
-            text-align: center;
-            padding: 100px 20px 50px;
+        .floating-shapes div {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            z-index: -1;
+            animation: float 20s infinite linear;
         }
 
-        .hero h1 {
-            font-size: clamp(3.5rem, 12vw, 6rem);
-            margin: 0;
-            font-weight: 900;
-            letter-spacing: -2px;
-            background: linear-gradient(to bottom, #fff, #666);
+        .floating-shapes div:nth-child(1) { top: 10%; left: 10%; animation-duration: 22s; }
+        .floating-shapes div:nth-child(2) { top: 60%; left: 80%; animation-duration: 18s; }
+        .floating-shapes div:nth-child(3) { top: 80%; left: 20%; animation-duration: 25s; }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translateY(0); }
+            50% { transform: rotate(180deg) translateY(-30px); }
+            100% { transform: rotate(360deg) translateY(0); }
+        }
+
+        /* Header & Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* مكان اللوجو */
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: #222;
+            border: 1px solid var(--border-color);
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .slogan {
-            font-size: 1.8rem;
-            color: var(--neon-blue);
-            font-weight: 700;
-            display: block;
-            margin-top: -10px;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .intro-text {
-            max-width: 850px;
-            margin: 40px auto;
-            font-size: 1.3rem;
-            color: #999;
-            padding: 0 20px;
-        }
-
-        /* تنسيق الخانات لجعلها مريحة للعين */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 40px;
-            max-width: 1400px;
-            margin: auto;
-        }
-
-        .feature-card {
-            background: linear-gradient(145deg, #0f0f0f, #050505);
-            padding: 40px;
-            border-left: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            transition: 0.4s;
-        }
-
-        .feature-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 30px; height: 2px;
-            background: var(--neon-blue);
-        }
-
-        .feature-card:hover {
-            border-left-color: var(--neon-blue);
-            background: #0f0f0f;
-        }
-
-        .feature-card h3 {
-            color: var(--neon-blue);
-            font-size: 1.7rem;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
-
-        .feature-card p {
-            font-size: 1.1rem;
-            color: #bbb;
-            margin: 0;
-        }
-
-        .feature-card ul {
+        nav ul {
+            display: flex;
             list-style: none;
-            padding: 0;
-            margin: 0;
+            gap: 30px;
         }
 
-        .feature-card li {
-            margin-bottom: 15px;
-            padding-right: 25px;
-            position: relative;
-            color: #ccc;
-        }
-
-        .feature-card li::before {
-            content: "→"; 
-            position: absolute;
-            right: 0;
-            color: var(--neon-blue);
-            font-weight: bold;
-        }
-
-        /* تنسيق الرقم البسيط والراقي */
-        .contact-section {
-            text-align: center;
-            padding: 80px 20px;
-            margin-top: 50px;
-        }
-
-        .contact-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #555;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        .phone-number {
-            font-size: 2.5rem;
-            color: #fff;
+        nav a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 200; 
-            font-family: 'Courier New', Courier, monospace;
-            transition: 0.3s;
+            font-weight: 600;
+            transition: var(--transition);
         }
 
-        .phone-number:hover {
-            color: var(--neon-blue);
-            letter-spacing: 2px;
+        nav a:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            padding: 150px 8% 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #777777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseText 3s infinite alternate;
+        }
+
+        @keyframes pulseText {
+            0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
+            100% { filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Offers Section (قسم العروض الحالية) */
+        .offers-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offers-title {
+            font-size: 1.1rem;
+            color: var(--accent-light-gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .offers-title i {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        .offer-banner {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .offer-banner:hover {
+            transform: scale(1.01);
+        }
+
+        /* Services Overview Section (إجمال الخدمات) */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .services-overview {
+            padding: 80px 8%;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .overview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .overview-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-light-gray);
+        }
+
+        .overview-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .overview-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Detailed Services Section (تفصيل الخدمات) */
+        .services-details {
+            padding: 80px 8%;
+        }
+
+        .detail-block {
+            margin-bottom: 60px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .detail-block:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .detail-header i {
+            font-size: 2rem;
+            background: var(--accent-gray);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+        }
+
+        .detail-header h3 {
+            font-size: 1.8rem;
+        }
+
+        .badge-monthly {
+            font-size: 0.8rem;
+            background: #ffffff;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            margin-right: 10px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .item-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .item-box:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(-5px);
+        }
+
+        .item-box i {
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section (قسم التواصل والأرقام) */
+        .contact-section {
+            padding: 80px 8%;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: #fff;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--accent-light-gray);
+        }
+
+        .contact-card span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-card strong {
+            font-size: 1.1rem;
+            direction: ltr;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 40px;
-            font-size: 0.75rem;
-            color: #222;
-            letter-spacing: 1px;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
         }
 
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav { display: none; } /* يمكن إضافة قائمة موبايل عند الحاجة */
+            .hero h1 { font-size: 2.3rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+            .detail-block { padding: 25px; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="intro-overlay">
-        <div class="character-container">
-            <div class="char-head"></div>
-            <div class="char-body"></div>
-            <div class="bag"></div>
-        </div>
-        <div class="explosion-flash" id="flash-element"></div>
+    <!-- Dynamic Glow Following Mouse -->
+    <div class="bg-glow" id="glow"></div>
+
+    <!-- Floating Background Objects -->
+    <div class="floating-shapes">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
-    <div id="main-content">
-        <section class="hero">
-            <h1>TEAM ALPHA</h1>
-            <span class="slogan">براند ألفا.. كيان مش مكان</span>
-            <div class="intro-text">
-                تيم ألفا مش مجرد براند دعاية مستجد، إحنا فريق حفر اسمه في السوق من خلال العمل مع البراندات و تطويرها . خبرتنا الطويلة هي ضمانك للسيطرة على السوق وتنفيذ الأفكار اللي بتسمّع في الشارع.
-            </div>
-        </section>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <!-- يمكنك وضع مسار شعارك هنا مكان src -->
+            <img src="https://via.placeholder.com/150/111111/ffffff?text=LOGO" alt="TEAM ALPHA Logo" class="logo-img">
+            <div class="logo-text">TEAM ALPHA</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">الرئيسية</a></li>
+                <li><a href="#offers">العروض</a></li>
+                <li><a href="#overview">خدماتنا</a></li>
+                <li><a href="#details">التفاصيل</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div class="grid-container">
-            <div class="feature-card">
-                <h3>تعاله اقولك احنا مين</h3>
-                <p>خمس سنوات من الإبداع والخبرة الميدانية المتواصلة في قلب القاهرة والجيزة. لسنا مجرد مكان، نحن كيان متكامل يخدم علامتك التجارية.</p>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1 class="reveal">TEAM ALPHA</h1>
+        <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
 
-            <div class="feature-card">
-                <h3>لي تخترنا ؟</h3>
-                <p>لأننا نملك آراء حقيقية من عملائنا تثبت جودة عملنا، ولأن تاريخنا مع البراندات الكبرى يجعلنا الخيار الأول والآمن لنمو بيزنس الخاص بك.</p>
+        <!-- Current Offers Section (مكان صورة العروض الحالية) -->
+        <div class="offers-section reveal" id="offers">
+            <div class="offers-title">
+                <i class="fa-solid fa-fire"></i>
+                <span>العروض المميزة الشغالة حالياً</span>
             </div>
+            <!-- استبدل هذا الرابط براك / صورة العرض الجديد في كل مرة تغيير فيها العروض -->
+            <img src="https://via.placeholder.com/800x400/22222b/ffffff?text=عرض+خاص+حالياً+-+احصل+على+خصم+على+خدمات+البرمجة+والدعاية" alt="العرض الحالي" class="offer-banner">
+        </div>
+    </section>
 
-            <div class="feature-card">
-                <h3>الدعاية الميدانية</h3>
-                <ul>
-                    <li>دعاية وعروض بعربات الدودج (Dodge).</li>
-                    <li>فريق سكاترز (Skaters) محترف.</li>
-                    <li>توفير وتجهيز الأعلام الدعائية.</li>
-                    <li>تصوير فوتوغرافي ومونتاج فيديو الي يناسب براندك.</li>
-                    <li>تغطية شاملة لأي فعالية تخص الدعاية.</li>
-                </ul>
+    <!-- Services Overview Section (إجمال الخدمات) -->
+    <section class="services-overview" id="overview">
+        <h2 class="section-title reveal">مجالات اختصاصنا</h2>
+        <div class="overview-grid">
+            <div class="overview-card reveal" onclick="scrollToSection('street-work')">
+                <i class="fa-solid fa-bullhorn"></i>
+                <h3>شغل الشارع</h3>
+                <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة المباشرة لجذب أنظار عملائك في كل مكان.</p>
             </div>
+            <div class="overview-card reveal" onclick="scrollToSection('social-work')">
+                <i class="fa-solid fa-hashtag"></i>
+                <h3>سوشيال ميديا</h3>
+                <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة بباكات اشتراك شهرية متكاملة.</p>
+            </div>
+            <div class="overview-card reveal" onclick="scrollToSection('dev-work')">
+                <i class="fa-solid fa-code"></i>
+                <h3>شغل البرمجة</h3>
+                <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="feature-card">
-                <h3>الحلول الذكية</h3>
-                <ul>
-                    <li>توفير الـ Digital Card NFC بالويب سايت الخاص بها.</li>
-                    <li>تصميم وبرمجة ويب سايت و بورتفوليو.</li>
-                    <li>خدمات التصميم الجرافيكي و المونتاج.</li>
-                    <li>تنفيذ أي فكرة دعائية تخص علامتك التجارية.</li>
-                </ul>
+    <!-- Detailed Services Section (تفاصيل الخدمات) -->
+    <section class="services-details" id="details">
+        <h2 class="section-title reveal">تفاصيل الخدمات</h2>
+
+        <!-- Street Work -->
+        <div class="detail-block reveal" id="street-work">
+            <div class="detail-header">
+                <i class="fa-solid fa-road"></i>
+                <h3>شغل الشارع والدعاية الميدانية</h3>
+            </div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-note-sticky"></i><span>استيكرز بجميع الأنواع</span></div>
+                <div class="item-box"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
+                <div class="item-box"><i class="fa-solid fa-bag-shopping"></i><span>شنط مطبوعة ورقية وبلاستيك</span></div>
+                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز وبروشورات</span></div>
+                <div class="item-box"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
             </div>
         </div>
 
-        <div class="contact-section">
-            <span class="contact-label">اتصل بنا مباشرة</span>
-            <a href="tel:01150605708" class="phone-number">01150605708</a>
+        <!-- Social Media Work -->
+        <div class="detail-block reveal" id="social-work">
+            <div class="detail-header">
+                <i class="fa-solid fa-share-nodes"></i>
+                <h3>إدارة وتسويق السوشيال ميديا <span class="badge-monthly">نظام شهري</span></h3>
+            </div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
+                <div class="item-box"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
+                <div class="item-box"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                <div class="item-box"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+            </div>
         </div>
 
-        <footer>
-            &copy; 2020 TEAM ALPHA | ALL RIGHTS RESERVED
-        </footer>
-    </div>
+        <!-- Programming Work -->
+        <div class="detail-block reveal" id="dev-work">
+            <div class="detail-header">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>شغل البرمجة والحلول الذكية</h3>
+            </div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact & Numbers Section (قسم التواصل) -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title reveal">تواصل معنا</h2>
+        <div class="contact-grid">
+            <!-- الرقم الأول -->
+            <a href="tel:+201000000001" class="contact-card reveal">
+                <i class="fa-solid fa-phone"></i>
+                <span>الرقم الأول</span>
+                <strong>+20 100 000 0001</strong>
+            </a>
+
+            <!-- الرقم الثاني -->
+            <a href="tel:+201000000002" class="contact-card reveal">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span>الرقم الثاني</span>
+                <strong>+20 100 000 0002</strong>
+            </a>
+
+            <!-- الواتساب -->
+            <a href="https://wa.me/201000000001" target="_blank" class="contact-card reveal">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>الواتساب المباشر</span>
+                <strong>تحدث معنا الآن</strong>
+            </a>
+
+            <!-- انستجرام -->
+            <a href="https://instagram.com/" target="_blank" class="contact-card reveal">
+                <i class="fa-brands fa-instagram"></i>
+                <span>حساب الانستجرام</span>
+                <strong>@TEAM_ALPHA</strong>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 TEAM ALPHA - تم التطوير بحب وإتقان.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const overlay = document.getElementById('intro-overlay');
-            const flash = document.getElementById('flash-element');
-            const mainContent = document.getElementById('main-content');
-
-            // بعد ثانية و 900 جزء من الثانية (وقت انتهاء انتفاخ الشنطة) يحدث الانفجار
-            setTimeout(() => {
-                // تفعيل فلاش الانفجار
-                flash.classList.add('explode-active');
-                
-                // في منتصف الفلاش، نخفي شاشة الانترو ونظهر الموقع كأنه خرج من الانفجار
-                setTimeout(() => {
-                    overlay.classList.add('intro-hidden');
-                    mainContent.classList.add('visible');
-                }, 150); // توقيت الفلاش السريع
-
-            }, 1900); 
+        // 1. Mouse Tracking Radial Dynamic Glow Effect
+        const glow = document.getElementById('glow');
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            glow.style.setProperty('--x', `${x}%`);
+            glow.style.setProperty('--y', `${y}%`);
         });
-    </script>
 
+        // 2. Scroll Reveal Animations (تأثير الظهور أثناء التمرير)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach((el) => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger initial view
+
+        // 3. Smooth Scroll Helper
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
