@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Phone - صيانة وبيع هواتف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #fef9e7; /* أصفر هادئ */
+            --primary-black: #111111;
+            --secondary-black: #222222;
+            --white: #ffffff;
+            --gray: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* اللوجو والعنوان */
+        .header {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .logo-box {
+            width: 110px;
+            height: 110px;
+            background-color: var(--white);
+            border: 3px solid var(--primary-black);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-placeholder {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        h1 {
+            font-size: 26px;
+            color: var(--primary-black);
+            margin-bottom: 4px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* الروابط وأزرار الاتصال */
+        .links-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-black);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--secondary-black);
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        .btn-outline {
+            background-color: var(--white);
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-black);
+            color: var(--white);
+        }
+
+        /* خريطة / لوكيشن */
+        .location-section {
+            width: 100%;
+            background-color: var(--white);
+            border: 2px solid var(--primary-black);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .location-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* الخانة السفلية لطلب موقع */
+        .cta-footer {
+            width: 100%;
+            margin-top: 15px;
+            background-color: var(--white);
+            border: 2px dashed var(--primary-black);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .cta-footer p {
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary-black);
+            color: var(--white);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .cta-btn:hover {
+            background-color: #333333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- اللوجو والعنوان -->
+        <header class="header">
+            <div class="logo-box">
+                <!-- استبدل logo.png برابط صورة اللوجو الخاصة بك -->
+                <img src="logo.png" alt="Fix Phone Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-placeholder" style="display:none;">LOGO</span>
+            </div>
+            <h1>Fix Phone</h1>
+            <p class="subtitle">بيع، شراء، وصيانة جميع أنواع الهواتف</p>
+        </header>
+
+        <!-- أزرار الاتصال والسوشيال ميديا -->
+        <section class="links-section">
+            <a href="tel:01000000000" class="btn">
+                <i class="fa-solid fa-phone"></i> الاتصال بنا
+            </a>
+
+            <a href="https://wa.me/201000000000" target="_blank" class="btn">
+                <i class="fa-brands fa-whatsapp"></i> واتساب (WhatsApp)
+            </a>
+
+            <a href="https://facebook.com" target="_blank" class="btn btn-outline">
+                <i class="fa-brands fa-facebook-f"></i> فيسبوك (Facebook)
+            </a>
+
+            <a href="https://instagram.com" target="_blank" class="btn btn-outline">
+                <i class="fa-brands fa-instagram"></i> انستجرام (Instagram)
+            </a>
+
+            <a href="https://tiktok.com" target="_blank" class="btn btn-outline">
+                <i class="fa-brands fa-tiktok"></i> تيك توك (TikTok)
+            </a>
+        </section>
+
+        <!-- قسم اللوكيشن -->
+        <section class="location-section">
+            <h3><i class="fa-solid fa-location-dot"></i> موقعنا على الخريطة</h3>
+            <div class="map-container">
+                <!-- يمكنك استبدال رابط الـ iframe برابط موقعك على خرائط جوجل -->
+                <iframe src="https://maps.google.com/maps?q=Cairo&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- الخانة السفلية (دعوة لتصميم موقع) -->
+        <footer class="cta-footer">
+            <p>عاجبك التصميم؟</p>
+            <a href="https://wa.me/201000000000" target="_blank" class="cta-btn">
+                لو عايز تعمل ويب سايت زي دي دوس هنا
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>
