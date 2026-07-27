@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #fef9e7; /* أصفر هادئ */
-            --primary-black: #111111;
-            --secondary-black: #222222;
-            --white: #ffffff;
-            --gray: #666666;
+            --bg-dark: #0d0d0d;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --primary-white: #ffffff;
+            --text-gray: #a1a1aa;
+            --accent-gray: #27272a;
+            --glow-color: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -22,13 +24,13 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--primary-black);
+            background: radial-gradient(circle at top, #1c1c22 0%, var(--bg-dark) 100%);
+            color: var(--primary-white);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px 16px;
         }
 
         .container {
@@ -37,10 +39,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
 
-        /* اللوجو والعنوان */
+        /* الهيدر واللوجو الرئيسي */
         .header {
             text-align: center;
             margin-top: 10px;
@@ -49,15 +51,17 @@
         .logo-box {
             width: 110px;
             height: 110px;
-            background-color: var(--white);
-            border: 3px solid var(--primary-black);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             overflow: hidden;
+            backdrop-filter: blur(8px);
+            position: relative;
         }
 
         .logo-box img {
@@ -69,48 +73,52 @@
         .logo-placeholder {
             font-weight: bold;
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-gray);
         }
 
         h1 {
-            font-size: 26px;
-            color: var(--primary-black);
-            margin-bottom: 4px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--primary-white);
+            margin-bottom: 6px;
         }
 
         p.subtitle {
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-gray);
         }
 
-        /* الروابط وأزرار الاتصال */
+        /* الروابط والأزرار الفخمة */
         .links-section {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
-            padding: 14px;
-            background-color: var(--primary-black);
-            color: var(--white);
+            padding: 16px;
+            background-color: var(--primary-white);
+            color: var(--bg-dark);
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
+            border-radius: 14px;
+            font-weight: 700;
             font-size: 15px;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            background-color: var(--secondary-black);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+            background-color: #f4f4f5;
         }
 
         .btn i {
@@ -118,41 +126,52 @@
         }
 
         .btn-outline {
-            background-color: var(--white);
-            color: var(--primary-black);
-            border: 2px solid var(--primary-black);
+            background-color: var(--card-bg);
+            color: var(--primary-white);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
         }
 
         .btn-outline:hover {
-            background-color: var(--primary-black);
-            color: var(--white);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--primary-white);
         }
 
-        /* خريطة / لوكيشن */
+        /* قسم الخريطة */
         .location-section {
             width: 100%;
-            background-color: var(--white);
-            border: 2px solid var(--primary-black);
-            border-radius: 12px;
-            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
         .location-section h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
+            color: var(--primary-white);
         }
 
         .map-container {
             width: 100%;
-            height: 180px;
-            border-radius: 8px;
+            height: 200px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border: 1px solid var(--card-border);
+            filter: grayscale(80%) contrast(1.2); /* إعطاء الخريطة مظهر مونوكروم فخم */
+            transition: filter 0.3s ease;
+        }
+
+        .map-container:hover {
+            filter: grayscale(0%);
         }
 
         .map-container iframe {
@@ -161,37 +180,63 @@
             border: 0;
         }
 
+        /* حاوية اللوجو المتحرك (TA Box) */
+        .ta-bounce-box {
+            width: 100%;
+            height: 120px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .ta-logo {
+            position: absolute;
+            padding: 8px 16px;
+            background: var(--primary-white);
+            color: var(--bg-dark);
+            font-weight: 900;
+            font-size: 16px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            user-select: none;
+            will-change: transform;
+        }
+
         /* الخانة السفلية لطلب موقع */
         .cta-footer {
             width: 100%;
-            margin-top: 15px;
-            background-color: var(--white);
-            border: 2px dashed var(--primary-black);
-            border-radius: 12px;
-            padding: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 100%);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            padding: 20px;
             text-align: center;
         }
 
         .cta-footer p {
-            font-size: 13px;
-            color: var(--gray);
-            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 12px;
         }
 
         .cta-btn {
             display: inline-block;
-            background-color: var(--primary-black);
-            color: var(--white);
-            padding: 10px 20px;
+            background-color: var(--primary-white);
+            color: var(--bg-dark);
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 10px;
+            font-weight: 700;
             font-size: 14px;
-            transition: background-color 0.2s;
+            transition: all 0.3s ease;
         }
 
         .cta-btn:hover {
-            background-color: #333333;
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
@@ -202,7 +247,6 @@
         <!-- اللوجو والعنوان -->
         <header class="header">
             <div class="logo-box">
-                <!-- استبدل logo.png برابط صورة اللوجو الخاصة بك -->
                 <img src="WhatsApp Image‏ 2026-07-26 at 22.36.29.jpeg" alt="Fix Phone Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 <span class="logo-placeholder" style="display:none;">LOGO</span>
             </div>
@@ -233,24 +277,79 @@
             </a>
         </section>
 
-        <!-- قسم اللوكيشن -->
+        <!-- قسم الخريطة -->
         <section class="location-section">
             <h3><i class="fa-solid fa-location-dot"></i> موقعنا على الخريطة</h3>
             <div class="map-container">
-                <!-- يمكنك استبدال رابط الـ iframe برابط موقعك على خرائط جوجل -->
-                <iframe src="https://maps.google.com/maps?q=Cairo&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                <iframe id="google-map" src="" allowfullscreen="" loading="lazy"></iframe>
             </div>
+        </section>
+
+        <!-- مستطيل حركة لوجو TA العشوائية -->
+        <section class="ta-bounce-box" id="bounceContainer">
+            <div class="ta-logo" id="taLogo">TA</div>
         </section>
 
         <!-- الخانة السفلية (دعوة لتصميم موقع) -->
         <footer class="cta-footer">
-            <p>عاجبك التصميم؟</p>
+            <p>لو عايز تعمل ويب سايت زاي دي بطريقة أفخم؟</p>
             <a href="https://wa.me/201000000000" target="_blank" class="cta-btn">
-                لو عايز تعمل ويب سايت زي دي دوس هنا
+                دوس هنا وتواصل معنا
             </a>
         </footer>
 
     </div>
 
+    <script>
+        // ----------------------------------------------------
+        // 1. تحديد موقع الخريطة بكل سهولة:
+        // فقط اكتب اسم المكان أو المنطقة التي تريدها هنا
+        // ----------------------------------------------------
+        const myLocation = "Cairo, Egypt"; // اكتب مكانك هنا (مثال: "المهندسين، الجيزة" أو "Nasr City, Cairo")
+        
+        const mapIframe = document.getElementById("google-map");
+        mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(myLocation)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+
+        // ----------------------------------------------------
+        // 2. حركة لوجو TA العشوائية داخل المستطيل
+        // ----------------------------------------------------
+        const container = document.getElementById('bounceContainer');
+        const logo = document.getElementById('taLogo');
+
+        let posX = 20;
+        let posY = 20;
+        let speedX = 1.8;
+        let speedY = 1.5;
+
+        function animate() {
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const logoWidth = logo.offsetWidth;
+            const logoHeight = logo.offsetHeight;
+
+            posX += speedX;
+            posY += speedY;
+
+            // الاصطدام بالحواف الأفقية
+            if (posX + logoWidth >= containerWidth || posX <= 0) {
+                speedX = -speedX;
+            }
+
+            // الاصطدام بالحواف الرأسية
+            if (posY + logoHeight >= containerHeight || posY <= 0) {
+                speedY = -speedY;
+            }
+
+            logo.style.left = posX + 'px';
+            logo.style.top = posY + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        // بدء الحركة بمجرد تحميل الصفحة
+        window.onload = () => {
+            animate();
+        };
+    </script>
 </body>
 </html>
