@@ -1,1 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مكتب الاستشارات المالية والضريبية والحلول البرمجية</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-main: #0B132B;
+      --bg-card: #1C2541;
+      --accent-gold: #C5A059;
+      --accent-cyan: #48CAE4;
+      --text-primary: #EDF2F4;
+      --text-secondary: #8D99AE;
+      --border-color: rgba(197, 160, 89, 0.2);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(11, 19, 43, 0.85);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      background: radial-gradient(circle at center, #1C2541 0%, #0B132B 70%);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #FFF, var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--accent-gold), #9E7D3B);
+      color: #000;
+      padding: 12px 35px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+    }
+
+    /* Services Grid */
+    .services {
+      padding: 80px 8%;
+      background-color: var(--bg-main);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      color: var(--accent-gold);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-gold);
+    }
+
+    .card i {
+      font-size: 2.5rem;
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Contact & Info Section */
+    .info-section {
+      padding: 80px 8%;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .info-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .info-box i {
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      background: rgba(197, 160, 89, 0.1);
+      padding: 12px;
+      border-radius: 50%;
+    }
+
+    .info-box h4 {
+      margin-bottom: 5px;
+    }
+
+    .info-box p, .info-box a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    /* Social Icons Box */
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .social-icon:hover {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    /* Footer Banner (Team Alpha) */
+    .developer-footer {
+      background: #050B14;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dev-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 25px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .dev-cta:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(72, 202, 228, 0.2);
+    }
+
+    /* Moving TA Logo Watermark */
+    .floating-ta {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      opacity: 0.08; /* شفافية هادية تمنع تشتيت العين */
+      pointer-events: none;
+      z-index: 1000;
+      transition: all 4s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFF;
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 2.2rem;
+      color: #FFF;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Transparent TA Logo -->
+  <div class="floating-ta" id="taLogo">TA</div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-brand">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>النخبة للاستشارات</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">الرئيسية</a></li>
+      <li><a href="#services">خدماتنا</a></li>
+      <li><a href="#contact">تواصل معنا</a></li>
+    </ul>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <h1>نعتني بحساباتك.. ونهتم بنمو عملك</h1>
+    <p>شركاؤك الموثوقون في تقديم الاستشارات المالية، الإقرارات الضريبية، وتكامل الحلول البرمجية الذكية لمؤسستك.</p>
+    <a href="https://wa.me/201000000000" class="cta-button" target="_blank"><i class="fa-brands fa-whatsapp"></i> استشارة فورية</a>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <h2 class="section-title">خدماتنا المتكاملة</h2>
+    <div class="grid">
+      
+      <div class="card">
+        <i class="fa-solid fa-calculator"></i>
+        <h3>الاستشارات المالية</h3>
+        <p>إدارة الدفاتر المحاسبية، وإعداد القوائم المالية والدراسات التحليلية بدقة عالية لتأمين مسار استثماري آمن.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <h3>الخدمات الضريبية</h3>
+        <p>تجهيز وتقديم الإقرارات الضريبية، الفاتورة الإلكترونية، والتعامل مع الفحص الضريبي وتجنب الغرامات.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-laptop-code"></i>
+        <h3>حلول البرامج ERP</h3>
+        <p>ترشيح وتطبيق أفضل البرامج المحاسبية والأنظمة السحابية المخصصة لتسهيل حركة المبيعات والمخازن.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact & Location Section -->
+  <section class="info-section" id="contact">
+    <div class="info-grid">
+      
+      <div class="info-box">
+        <i class="fa-solid fa-location-dot"></i>
+        <div>
+          <h4>العنوان</h4>
+          <p>القاهرة، مصر - شارع التسعين الشمالي، التجمع الخامس</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <i class="fa-solid fa-phone"></i>
+        <div>
+          <h4>رقم التواصل</h4>
+          <p><a href="tel:+201000000000">+20 100 000 0000</a></p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <i class="fa-solid fa-share-nodes"></i>
+        <div>
+          <h4>صفحاتنا على التواصل</h4>
+          <div class="social-links">
+            <a href="#" class="social-icon" title="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" title="إنستجرام"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/201000000000" class="social-icon" title="واتساب" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer Banner with Team Alpha CTA -->
+  <footer class="developer-footer">
+    <a href="https://wa.me/201000000000" class="dev-cta" target="_blank">
+      <span>لو عايز ويب سايت زي دي دوس هنا</span>
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+  </footer>
+
+  <!-- Script for Random Floating Movement -->
+  <script>
+    const taLogo = document.getElementById('taLogo');
+
+    function moveLogoRandomly() {
+      const maxX = window.innerWidth - 140;
+      const maxY = window.innerHeight - 140;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      taLogo.style.left = `${randomX}px`;
+      taLogo.style.top = `${randomY}px`;
+    }
+
+    // حركة أولية أول ما الصفحة تفتح
+    moveLogoRandomly();
+
+    // تتغير كل 4 ثواني بطريقة عشوائية ناعمة
+    setInterval(moveLogoRandomly, 4000);
+  </script>
+</body>
+</html>
