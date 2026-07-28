@@ -9,13 +9,21 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   
+  <script>
+    // 1. منع المتصفح تماماً من استعادة موضع التصفح القديم
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // 2. تصفير موضع الشاشة فوراً قبل تحميل الصفحة
+    window.scrollTo(0, 0);
+  </script>
+
   <style>
     :root {
       --bg-dark: #0A1128;
       --bg-card: #1C2541;
       --accent-gold: #C5A059;
       --accent-gold-hover: #D4AF37;
-      --accent-blue: #0077B6;
       --text-main: #F8F9FA;
       --text-muted: #A0AAB2;
       --border-soft: rgba(197, 160, 89, 0.2);
@@ -28,11 +36,10 @@
       font-family: 'Cairo', sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* إخفاء الشاشة لحظياً لمنع قفزة الموبايل للأسفل أثناء فتح الموقع */
     body {
+      opacity: 0;
+      transition: opacity 0.2s ease-in;
       width: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
@@ -208,7 +215,7 @@
       font-size: 0.95rem;
     }
 
-    /* Info Section (Contact, Social & Location) */
+    /* Info Section */
     .info-section {
       padding: 80px 8%;
       background: #0E1738;
@@ -277,7 +284,7 @@
       background: #040814;
       padding: 70px 20px;
       position: relative;
-      overflow: hidden; /* يضمن بقاء اللوجو داخل المستطيل فقط */
+      overflow: hidden;
       border-top: 1px solid var(--border-soft);
       display: flex;
       justify-content: center;
@@ -348,14 +355,14 @@
       <span>النخبة للاستشارات</span>
     </div>
     <ul class="nav-links">
-      <li><a href="#hero">الرئيسية</a></li>
-      <li><a href="#services">خدماتنا</a></li>
-      <li><a href="#contact">تواصل معنا</a></li>
+      <li><a href="#top">الرئيسية</a></li>
+      <li><a href="#sec-services">خدماتنا</a></li>
+      <li><a href="#sec-contact">تواصل معنا</a></li>
     </ul>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="hero">
+  <section class="hero" id="top">
     <span class="hero-badge">حلول مالية وبرمجية متكاملة</span>
     <h1>نعتني بحساباتك.. ونهتم بنمو عملك</h1>
     <p>نُقدم لك منظومة استشارية شاملة تشمل إدارة الدفاتر، حلول الإقرارات الضريبية، والربط الذكي مع أحدث برامج الـ ERP.</p>
@@ -366,7 +373,7 @@
   </section>
 
   <!-- Services Section -->
-  <section class="services" id="services">
+  <section class="services" id="sec-services">
     <div class="section-header">
       <h2>خدماتنا الاستشارية</h2>
       <p>خبرات متخصصة تدعم استقرار ومستقبل مؤسستك</p>
@@ -394,7 +401,7 @@
   </section>
 
   <!-- Contact & Info Section -->
-  <section class="info-section" id="contact">
+  <section class="info-section" id="sec-contact">
     <div class="info-container">
       
       <div class="info-item">
@@ -428,9 +435,8 @@
     </div>
   </section>
 
-  <!-- Footer Banner Container with Localized Moving TA Logo -->
+  <!-- Footer Banner Container -->
   <footer class="cta-footer-banner" id="footerContainer">
-    <!-- Bright Moving TA Logo -->
     <div class="ta-box-logo" id="taBoxLogo">TA</div>
 
     <a href="https://wa.me/201000000000" class="footer-cta-btn" target="_blank">
@@ -441,26 +447,28 @@
 
   <!-- Scripts -->
   <script>
-    // إجبار المتصفح على عدم حفظ موضع التصفح والبدء فوراً من الأعلى عند فتح الصفحة أو التحديث
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    // آلية التصفير الصارمة لمنع القفز لأي مكان آخر على الموبايل
+    function forceScrollToTop() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      window.scrollTo(0, 0);
+    // القضاء على التمرير التلقائي أثناء مراحل التحميل المختلفة
+    window.addEventListener('pageshow', function() {
+      forceScrollToTop();
+      document.body.style.opacity = '1'; // إظهار الصفحة بعد التأكد التام من الموضع الأعلى
     });
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 10);
-    });
+    document.addEventListener('DOMContentLoaded', forceScrollToTop);
 
-    // تحريك لوجو TA داخل مستطيل الفوتر فقط وبوضوح تام
+    // تحريك لوجو TA داخل مستطيل الفوتر فقط
     const container = document.getElementById('footerContainer');
     const taLogo = document.getElementById('taBoxLogo');
 
     function moveTaInsideFooter() {
+      if (!container || !taLogo) return;
+      
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
 
@@ -477,8 +485,8 @@
       taLogo.style.top = `${randomY}px`;
     }
 
-    // تشغيل الحركة والتأكد من وضوحها
     window.addEventListener('load', () => {
+      forceScrollToTop();
       moveTaInsideFooter();
       setInterval(moveTaInsideFooter, 2500);
     });
