@@ -18,10 +18,9 @@
       --accent-blue: #0077B6;
       --text-main: #F8F9FA;
       --text-muted: #A0AAB2;
-      --border-soft: rgba(197, 160, 89, 0.15);
+      --border-soft: rgba(197, 160, 89, 0.2);
     }
 
-    /* Reset & Base Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,18 +28,20 @@
       font-family: 'Cairo', sans-serif;
     }
 
-    html, body {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
       width: 100%;
-      height: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.7;
-      scroll-behavior: smooth;
     }
 
     /* Header & Navigation */
     header {
-      background: rgba(10, 17, 40, 0.9);
+      background: rgba(10, 17, 40, 0.95);
       backdrop-filter: blur(15px);
       position: fixed;
       top: 0;
@@ -91,7 +92,6 @@
       align-items: center;
       text-align: center;
       background: radial-gradient(circle at 50% 30%, #1C2541 0%, #0A1128 75%);
-      position: relative;
     }
 
     .hero-badge {
@@ -103,7 +103,6 @@
       font-size: 0.85rem;
       font-weight: 700;
       margin-bottom: 25px;
-      letter-spacing: 0.5px;
     }
 
     .hero h1 {
@@ -142,7 +141,6 @@
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(197, 160, 89, 0.4);
-      background: var(--accent-gold-hover);
     }
 
     /* Services Section */
@@ -169,7 +167,7 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
     }
 
@@ -179,7 +177,6 @@
       border-radius: 12px;
       border: 1px solid var(--border-soft);
       transition: all 0.3s ease;
-      position: relative;
     }
 
     .service-card:hover {
@@ -220,7 +217,7 @@
 
     .info-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 40px;
     }
 
@@ -247,11 +244,6 @@
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.95rem;
-      transition: color 0.3s;
-    }
-
-    .info-item a:hover {
-      color: var(--accent-gold);
     }
 
     .social-links {
@@ -280,17 +272,17 @@
       border-color: var(--accent-gold);
     }
 
-    /* Special Footer Banner with Localized TA Animation */
+    /* Bounded Footer Section */
     .cta-footer-banner {
-      background: #050B1A;
-      padding: 60px 20px;
+      background: #040814;
+      padding: 70px 20px;
       position: relative;
-      overflow: hidden; /* يضمن إبقاء اللوجو داخل المستطيل فقط */
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      overflow: hidden; /* يضمن بقاء اللوجو داخل المستطيل فقط */
+      border-top: 1px solid var(--border-soft);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 180px;
+      min-height: 220px;
     }
 
     .footer-cta-btn {
@@ -299,48 +291,51 @@
       display: inline-flex;
       align-items: center;
       gap: 15px;
-      color: var(--text-main);
+      color: #FFFFFF;
       text-decoration: none;
       font-weight: 700;
       font-size: 1.05rem;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(28, 37, 65, 0.85);
       padding: 16px 35px;
       border-radius: 50px;
-      border: 1px solid var(--border-soft);
-      backdrop-filter: blur(5px);
+      border: 1.5px solid var(--accent-gold);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
     }
 
     .footer-cta-btn:hover {
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 25px rgba(197, 160, 89, 0.2);
-      transform: scale(1.02);
+      background: var(--accent-gold);
+      color: #000;
     }
 
-    /* Bounded TA Floating Logo */
+    /* Bright Clear Moving TA Logo */
     .ta-box-logo {
       position: absolute;
-      width: 70px;
-      height: 70px;
-      border: 2px solid rgba(255, 255, 255, 0.15);
+      width: 65px;
+      height: 65px;
+      border: 2px solid var(--accent-gold);
+      background: rgba(197, 160, 89, 0.15);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.2);
+      color: var(--accent-gold);
       font-weight: 900;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       letter-spacing: 1px;
       pointer-events: none;
-      z-index: 1;
-      transition: all 3s ease-in-out;
+      z-index: 2;
+      box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+      transition: all 2.5s ease-in-out;
       user-select: none;
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
+      .hero h1 { font-size: 2.1rem; }
       .nav-links { display: none; }
       .hero { padding-top: 140px; }
+      .footer-cta-btn { font-size: 0.9rem; padding: 14px 22px; }
     }
   </style>
 </head>
@@ -435,7 +430,7 @@
 
   <!-- Footer Banner Container with Localized Moving TA Logo -->
   <footer class="cta-footer-banner" id="footerContainer">
-    <!-- Moving TA Logo bounded to this box only -->
+    <!-- Bright Moving TA Logo -->
     <div class="ta-box-logo" id="taBoxLogo">TA</div>
 
     <a href="https://wa.me/201000000000" class="footer-cta-btn" target="_blank">
@@ -444,14 +439,24 @@
     </a>
   </footer>
 
-  <!-- Script for Bounded TA Movement & Normal Scroll -->
+  <!-- Scripts -->
   <script>
-    // التأكد من أن الصفحة تبدأ دائماً من الأعلى عند التحميل
-    window.onload = function() {
-      window.scrollTo(0, 0);
-    };
+    // إجبار المتصفح على عدم حفظ موضع التصفح والبدء فوراً من الأعلى عند فتح الصفحة أو التحديث
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
 
-    // تحريك لوجو TA داخل مستطيل الـ Footer فقط
+    window.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo(0, 0);
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 10);
+    });
+
+    // تحريك لوجو TA داخل مستطيل الفوتر فقط وبوضوح تام
     const container = document.getElementById('footerContainer');
     const taLogo = document.getElementById('taBoxLogo');
 
@@ -462,9 +467,8 @@
       const logoWidth = taLogo.offsetWidth;
       const logoHeight = taLogo.offsetHeight;
 
-      // حساب الحدود العشوائية داخل أبعاد مستطيل الفوتر فقط
-      const maxX = containerWidth - logoWidth;
-      const maxY = containerHeight - logoHeight;
+      const maxX = Math.max(0, containerWidth - logoWidth);
+      const maxY = Math.max(0, containerHeight - logoHeight);
 
       const randomX = Math.floor(Math.random() * maxX);
       const randomY = Math.floor(Math.random() * maxY);
@@ -473,9 +477,11 @@
       taLogo.style.top = `${randomY}px`;
     }
 
-    // تشغيل الحركة فور التحميل وتكرارها كل 3 ثواني
-    moveTaInsideFooter();
-    setInterval(moveTaInsideFooter, 3000);
+    // تشغيل الحركة والتأكد من وضوحها
+    window.addEventListener('load', () => {
+      moveTaInsideFooter();
+      setInterval(moveTaInsideFooter, 2500);
+    });
   </script>
 </body>
 </html>
