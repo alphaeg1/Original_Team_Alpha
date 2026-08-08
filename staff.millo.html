@@ -24,7 +24,7 @@ button { padding: 10px 20px; background-color: #5c3b8a; color: white; border: no
 <script>
 // ضع هنا مفاتيح الاتصال الخاصة بمشروعك من لوحة تحكم Supabase
 const SUPABASE_URL = '@supabase/supabase-js';
-const SUPABASE_ANON_KEY = 'https://ovajvqghwwghgddygarv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YWp2cWdod3dnaGdkZHlnYXJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxNDM5ODEsImV4cCI6MjEwMTcxOTk4MX0.uBBU5TO5P6zI2NJCDsdzhal1HdtkUBaHdLys1ChdS8Q';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 async function updatePoints() {
 const clientId = document.getElementById('clientId').value;
