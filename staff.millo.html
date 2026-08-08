@@ -23,8 +23,8 @@ button { padding: 10px 20px; background-color: #5c3b8a; color: white; border: no
 </div>
 <script>
 // ضع هنا مفاتيح الاتصال الخاصة بمشروعك من لوحة تحكم Supabase
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = '@supabase/supabase-js';
+const SUPABASE_ANON_KEY = 'https://ovajvqghwwghgddygarv.supabase.co';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 async function updatePoints() {
 const clientId = document.getElementById('clientId').value;
