@@ -26,8 +26,10 @@
         }
 
         body {
-            background-color: var(--bg-camel);
-            color: var(--text-dark);
+            /* تدرج خلفية يضمن التوازن 50% جملي و 50% زيتي */
+            background: linear-gradient(135deg, var(--bg-camel) 0%, var(--bg-camel) 45%, var(--olive-dark) 55%, var(--olive-dark) 100%);
+            background-attachment: fixed;
+            color: var(--white);
             overflow-x: hidden;
             position: relative;
             padding-bottom: 120px;
@@ -37,27 +39,28 @@
         /* Dynamic Fluid Background Shapes */
         .bg-shape {
             position: absolute;
-            filter: blur(80px);
+            filter: blur(90px);
             z-index: -1;
-            opacity: 0.5;
+            opacity: 0.65;
             border-radius: 50%;
             animation: float 10s infinite alternate ease-in-out;
         }
 
+        /* تكبير حجم وشعاع اللون الزيتي في الخلفية */
         .shape1 {
-            width: 380px;
-            height: 380px;
+            width: 500px;
+            height: 500px;
             background: var(--olive-dark);
-            top: -60px;
-            right: -60px;
+            top: -100px;
+            left: -100px;
         }
 
         .shape2 {
-            width: 320px;
-            height: 320px;
-            background: var(--olive-accent);
-            bottom: 80px;
-            left: -60px;
+            width: 450px;
+            height: 450px;
+            background: var(--bg-camel);
+            bottom: -50px;
+            right: -50px;
             animation-delay: -5s;
         }
 
@@ -77,15 +80,15 @@
             text-align: center;
         }
 
-        /* Profile Picture with Olive Frame */
+        /* Profile Picture with Olive/Camel Frame */
         .profile-img-container {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 5px solid var(--olive-dark); /* إطار زيتي */
-            outline: 4px solid var(--olive-accent); /* إطار ثانوي إضافي لشكل عصري */
+            border: 5px solid var(--bg-camel); /* إطار جملي ليبرز فوق الزيتي */
+            outline: 4px solid var(--olive-accent);
             margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(42, 59, 44, 0.35);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             animation: pulse 3s infinite;
             overflow: hidden;
             background-color: var(--olive-dark);
@@ -99,33 +102,34 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(42, 59, 44, 0.5); }
-            70% { box-shadow: 0 0 0 22px rgba(42, 59, 44, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(42, 59, 44, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(210, 180, 140, 0.5); }
+            70% { box-shadow: 0 0 0 22px rgba(210, 180, 140, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(210, 180, 140, 0); }
         }
 
         .hero h1 {
             font-size: 2.8rem;
-            color: var(--olive-dark);
+            color: var(--white);
             margin-bottom: 8px;
             font-weight: 800;
             letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* Typewriter Animation Class */
         .typing-text {
             font-size: 1.2rem;
-            color: var(--olive-dark);
+            color: var(--bg-camel);
             font-weight: 600;
             min-height: 35px;
-            border-right: 3px solid var(--olive-dark);
+            border-right: 3px solid var(--bg-camel);
             padding-right: 8px;
             animation: blink 0.75s step-end infinite;
         }
 
         @keyframes blink {
             from, to { border-color: transparent }
-            50% { border-color: var(--olive-dark); }
+            50% { border-color: var(--bg-camel); }
         }
 
         /* Social Media Links Section */
@@ -139,18 +143,18 @@
         }
 
         .social-card {
-            background: rgba(255, 255, 255, 0.25); /* خلفية نصف شفافة تتماشى مع الجملي */
+            background: rgba(42, 59, 44, 0.65); /* خلفية زيتي متناسقة مع التدرج */
             backdrop-filter: blur(12px);
-            border: 2px solid var(--olive-dark);
+            border: 2px solid var(--bg-camel);
             border-radius: 20px;
             padding: 16px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
-            color: var(--olive-dark);
+            color: var(--bg-camel);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .social-info {
@@ -161,7 +165,7 @@
 
         .social-info i {
             font-size: 1.8rem;
-            color: var(--olive-dark);
+            color: var(--bg-camel);
             transition: transform 0.3s ease;
         }
 
@@ -178,15 +182,15 @@
 
         .social-card:hover {
             transform: translateY(-5px) scale(1.02);
-            background: var(--olive-dark);
-            color: var(--bg-camel);
+            background: var(--bg-camel);
+            color: var(--olive-dark);
             border-color: var(--olive-dark);
-            box-shadow: 0 15px 30px rgba(42, 59, 44, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
         .social-card:hover .social-info i,
         .social-card:hover .arrow-icon {
-            color: var(--bg-camel);
+            color: var(--olive-dark);
             transform: translateX(6px);
             opacity: 1;
         }
@@ -200,7 +204,7 @@
             background: var(--olive-dark);
             padding: 12px 24px;
             border-radius: 50px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
             gap: 15px;
@@ -210,7 +214,7 @@
             width: 90%;
             max-width: 500px;
             justify-content: space-between;
-            direction: rtl; /* لجعل النص العربي والزر مضبوطين */
+            direction: rtl;
         }
 
         @keyframes slideUp {
@@ -261,7 +265,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- Profile Image with Olive Frame -->
+        <!-- Profile Image with Frame -->
         <div class="profile-img-container">
             <img src="YOUR_IMAGE_URL.jpg" alt="TAREK">
         </div>
