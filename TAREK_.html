@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,11 @@
     <style>
         /* CSS Variables - Color Palette */
         :root {
-            --bg-beige: #F5EFE6;      /* بيج دافي واضح */
-            --olive-dark: #2A3B2C;     /* زيتي داكن أنيق */
-            --olive-light: #485E4B;    /* زيتي متوسط */
-            --olive-accent: #8FA382;   /* زيتي فاتح للإضاءة */
+            --bg-camel: #D2B48C;        /* لون جملي / بيج غني */
+            --bg-camel-light: #E5C396;  /* جملي أفتح للتأثيرات */
+            --olive-dark: #2A3B2C;      /* زيتي داكن أنيق */
+            --olive-light: #485E4B;     /* زيتي متوسط */
+            --olive-accent: #8FA382;    /* زيتي فاتح للإضاءة */
             --text-dark: #1E281F;
             --white: #FFFFFF;
         }
@@ -25,7 +26,7 @@
         }
 
         body {
-            background-color: var(--bg-beige);
+            background-color: var(--bg-camel);
             color: var(--text-dark);
             overflow-x: hidden;
             position: relative;
@@ -33,12 +34,12 @@
             min-height: 100vh;
         }
 
-        /* Animated Fluid Background Shapes */
+        /* Dynamic Fluid Background Shapes */
         .bg-shape {
             position: absolute;
             filter: blur(80px);
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.5;
             border-radius: 50%;
             animation: float 10s infinite alternate ease-in-out;
         }
@@ -46,7 +47,7 @@
         .shape1 {
             width: 380px;
             height: 380px;
-            background: var(--olive-light);
+            background: var(--olive-dark);
             top: -60px;
             right: -60px;
         }
@@ -67,8 +68,8 @@
 
         /* Hero Section */
         .hero {
-            padding-top: 60px;
-            padding-bottom: 30px;
+            padding-top: 50px;
+            padding-bottom: 25px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -76,28 +77,31 @@
             text-align: center;
         }
 
-        .avatar-box {
-            width: 140px;
-            height: 140px;
+        /* Profile Picture with Olive Frame */
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            background: var(--olive-dark);
-            border: 4px solid var(--olive-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-beige);
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+            border: 5px solid var(--olive-dark); /* إطار زيتي */
+            outline: 4px solid var(--olive-accent); /* إطار ثانوي إضافي لشكل عصري */
             margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(42, 59, 44, 0.25);
+            box-shadow: 0 15px 35px rgba(42, 59, 44, 0.35);
             animation: pulse 3s infinite;
+            overflow: hidden;
+            background-color: var(--olive-dark);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(72, 94, 75, 0.5); }
-            70% { box-shadow: 0 0 0 22px rgba(72, 94, 75, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(72, 94, 75, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(42, 59, 44, 0.5); }
+            70% { box-shadow: 0 0 0 22px rgba(42, 59, 44, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(42, 59, 44, 0); }
         }
 
         .hero h1 {
@@ -105,16 +109,17 @@
             color: var(--olive-dark);
             margin-bottom: 8px;
             font-weight: 800;
+            letter-spacing: 2px;
         }
 
         /* Typewriter Animation Class */
         .typing-text {
-            font-size: 1.3rem;
-            color: var(--olive-light);
+            font-size: 1.2rem;
+            color: var(--olive-dark);
             font-weight: 600;
             min-height: 35px;
-            border-left: 3px solid var(--olive-dark);
-            padding-left: 8px;
+            border-right: 3px solid var(--olive-dark);
+            padding-right: 8px;
             animation: blink 0.75s step-end infinite;
         }
 
@@ -125,8 +130,8 @@
 
         /* Social Media Links Section */
         .social-container {
-            max-width: 680px;
-            margin: 20px auto;
+            max-width: 650px;
+            margin: 15px auto;
             padding: 0 20px;
             display: flex;
             flex-direction: column;
@@ -134,18 +139,18 @@
         }
 
         .social-card {
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.25); /* خلفية نصف شفافة تتماشى مع الجملي */
             backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(72, 94, 75, 0.2);
+            border: 2px solid var(--olive-dark);
             border-radius: 20px;
-            padding: 18px 25px;
+            padding: 16px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: var(--olive-dark);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         }
 
         .social-info {
@@ -167,22 +172,22 @@
 
         .arrow-icon {
             font-size: 1.1rem;
-            opacity: 0.6;
+            opacity: 0.8;
             transition: transform 0.3s ease;
         }
 
         .social-card:hover {
             transform: translateY(-5px) scale(1.02);
             background: var(--olive-dark);
-            color: var(--bg-beige);
+            color: var(--bg-camel);
             border-color: var(--olive-dark);
-            box-shadow: 0 15px 30px rgba(42, 59, 44, 0.3);
+            box-shadow: 0 15px 30px rgba(42, 59, 44, 0.4);
         }
 
         .social-card:hover .social-info i,
         .social-card:hover .arrow-icon {
-            color: var(--bg-beige);
-            transform: translateX(-6px);
+            color: var(--bg-camel);
+            transform: translateX(6px);
             opacity: 1;
         }
 
@@ -195,16 +200,17 @@
             background: var(--olive-dark);
             padding: 12px 24px;
             border-radius: 50px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             gap: 15px;
             z-index: 1000;
-            border: 1px solid var(--olive-accent);
+            border: 2px solid var(--bg-camel);
             animation: slideUp 1s ease-out;
             width: 90%;
             max-width: 500px;
             justify-content: space-between;
+            direction: rtl; /* لجعل النص العربي والزر مضبوطين */
         }
 
         @keyframes slideUp {
@@ -213,13 +219,13 @@
         }
 
         .bottom-cta-bar span {
-            color: var(--bg-beige);
+            color: var(--bg-camel);
             font-size: 0.95rem;
             font-weight: 600;
         }
 
         .cta-btn {
-            background: var(--bg-beige);
+            background: var(--bg-camel);
             color: var(--olive-dark);
             text-decoration: none;
             padding: 10px 22px;
@@ -234,10 +240,10 @@
         }
 
         .cta-btn:hover {
-            background: var(--olive-accent);
-            color: var(--white);
+            background: var(--white);
+            color: var(--olive-dark);
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(143, 163, 130, 0.6);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
         @media (max-width: 480px) {
@@ -255,8 +261,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="avatar-box">TAREK</div>
-        <h1>طـــارق</h1>
+        <!-- Profile Image with Olive Frame -->
+        <div class="profile-img-container">
+            <img src="YOUR_IMAGE_URL.jpg" alt="TAREK">
+        </div>
+        
+        <!-- English Name -->
+        <h1>TAREK</h1>
         <div class="typing-text" id="typing"></div>
     </section>
 
@@ -266,41 +277,41 @@
         <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="social-card">
             <div class="social-info">
                 <i class="fa-brands fa-instagram"></i>
-                <span>إنستجرام | Instagram</span>
+                <span>Instagram</span>
             </div>
-            <i class="fa-solid fa-arrow-left arrow-icon"></i>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </a>
 
         <a href="https://tiktok.com/@YOUR_USERNAME" target="_blank" class="social-card">
             <div class="social-info">
                 <i class="fa-brands fa-tiktok"></i>
-                <span>تيك توك | TikTok</span>
+                <span>TikTok</span>
             </div>
-            <i class="fa-solid fa-arrow-left arrow-icon"></i>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </a>
 
         <a href="https://facebook.com/YOUR_USERNAME" target="_blank" class="social-card">
             <div class="social-info">
                 <i class="fa-brands fa-facebook-f"></i>
-                <span>فيسبوك | Facebook</span>
+                <span>Facebook</span>
             </div>
-            <i class="fa-solid fa-arrow-left arrow-icon"></i>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </a>
 
         <a href="https://youtube.com/@YOUR_USERNAME" target="_blank" class="social-card">
             <div class="social-info">
                 <i class="fa-brands fa-youtube"></i>
-                <span>يوتيوب | YouTube</span>
+                <span>YouTube</span>
             </div>
-            <i class="fa-solid fa-arrow-left arrow-icon"></i>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </a>
 
         <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" class="social-card">
             <div class="social-info">
                 <i class="fa-brands fa-whatsapp"></i>
-                <span>واتساب | WhatsApp</span>
+                <span>WhatsApp</span>
             </div>
-            <i class="fa-solid fa-arrow-left arrow-icon"></i>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </a>
 
     </div>
@@ -315,7 +326,7 @@
 
     <script>
         // Typewriter Effect
-        const words = ["أهلاً بك في حساباتي 🌟", "تواصل معي مباشرة 📩", "تابع جديدي باستمرار 🚀"];
+        const words = ["Welcome to my official links 🌟", "Connect with me directly 📩", "Follow my daily updates 🚀"];
         let count = 0;
         let index = 0;
         let currentText = "";
