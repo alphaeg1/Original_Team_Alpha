@@ -7,15 +7,14 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Variables - Color Palette */
+        /* CSS Variables - Color Palette (No White Allowed in BG) */
         :root {
-            --bg-camel: #D2B48C;        /* لون جملي / بيج غني */
-            --bg-camel-light: #E5C396;  /* جملي أفتح للتأثيرات */
-            --olive-dark: #2A3B2C;      /* زيتي داكن أنيق */
-            --olive-light: #485E4B;     /* زيتي متوسط */
-            --olive-accent: #8FA382;    /* زيتي فاتح للإضاءة */
-            --text-dark: #1E281F;
-            --white: #FFFFFF;
+            --bg-camel: #C5A075;        /* جملي / بيج غني دافئ */
+            --bg-camel-light: #D8B58A;  /* جملي فاتح */
+            --olive-dark: #202D21;      /* زيتي داكن عميق */
+            --olive-light: #364838;     /* زيتي متوسط */
+            --olive-accent: #6E836A;    /* زيتي للحدود */
+            --text-camel: #EAD0B3;     /* نص جملي فاتح */
         }
 
         * {
@@ -26,38 +25,37 @@
         }
 
         body {
-            /* تدرج خلفية يضمن التوازن 50% جملي و 50% زيتي */
-            background: linear-gradient(135deg, var(--bg-camel) 0%, var(--bg-camel) 45%, var(--olive-dark) 55%, var(--olive-dark) 100%);
+            /* خلفية جملي وزيتي متوازنة بدون أي بياض */
+            background: linear-gradient(135deg, var(--bg-camel) 0%, var(--bg-camel) 50%, var(--olive-dark) 50%, var(--olive-dark) 100%);
             background-attachment: fixed;
-            color: var(--white);
+            color: var(--text-camel);
             overflow-x: hidden;
             position: relative;
             padding-bottom: 120px;
             min-height: 100vh;
         }
 
-        /* Dynamic Fluid Background Shapes */
+        /* Dynamic Background Shapes (pure camel & olive) */
         .bg-shape {
             position: absolute;
-            filter: blur(90px);
+            filter: blur(80px);
             z-index: -1;
-            opacity: 0.65;
+            opacity: 0.7;
             border-radius: 50%;
             animation: float 10s infinite alternate ease-in-out;
         }
 
-        /* تكبير حجم وشعاع اللون الزيتي في الخلفية */
         .shape1 {
-            width: 500px;
-            height: 500px;
+            width: 450px;
+            height: 450px;
             background: var(--olive-dark);
             top: -100px;
             left: -100px;
         }
 
         .shape2 {
-            width: 450px;
-            height: 450px;
+            width: 400px;
+            height: 400px;
             background: var(--bg-camel);
             bottom: -50px;
             right: -50px;
@@ -80,12 +78,12 @@
             text-align: center;
         }
 
-        /* Profile Picture with Olive/Camel Frame */
+        /* Profile Picture with Olive & Camel Border */
         .profile-img-container {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 5px solid var(--bg-camel); /* إطار جملي ليبرز فوق الزيتي */
+            border: 5px solid var(--bg-camel);
             outline: 4px solid var(--olive-accent);
             margin-bottom: 20px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
@@ -102,18 +100,18 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(210, 180, 140, 0.5); }
-            70% { box-shadow: 0 0 0 22px rgba(210, 180, 140, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(210, 180, 140, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 117, 0.6); }
+            70% { box-shadow: 0 0 0 22px rgba(197, 160, 117, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 117, 0); }
         }
 
         .hero h1 {
             font-size: 2.8rem;
-            color: var(--white);
+            color: var(--text-camel);
             margin-bottom: 8px;
             font-weight: 800;
             letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
         }
 
         /* Typewriter Animation Class */
@@ -143,8 +141,7 @@
         }
 
         .social-card {
-            background: rgba(42, 59, 44, 0.65); /* خلفية زيتي متناسقة مع التدرج */
-            backdrop-filter: blur(12px);
+            background: var(--olive-dark); /* خلفية زيتي داكن بدون أبيض */
             border: 2px solid var(--bg-camel);
             border-radius: 20px;
             padding: 16px 25px;
@@ -154,7 +151,7 @@
             text-decoration: none;
             color: var(--bg-camel);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         .social-info {
@@ -185,7 +182,7 @@
             background: var(--bg-camel);
             color: var(--olive-dark);
             border-color: var(--olive-dark);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .social-card:hover .social-info i,
@@ -204,7 +201,7 @@
             background: var(--olive-dark);
             padding: 12px 24px;
             border-radius: 50px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             gap: 15px;
@@ -244,10 +241,10 @@
         }
 
         .cta-btn:hover {
-            background: var(--white);
+            background: var(--text-camel);
             color: var(--olive-dark);
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(234, 208, 179, 0.4);
         }
 
         @media (max-width: 480px) {
