@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASH CHICKEN</title>
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --soft-white: #f8f9fa;
+      --primary-red: #d32f2f;
+      --bright-red: #ff1744;
+      --accent-yellow: #ffc107;
+      --text-dark: #1a1a1a;
+      --status-open: #00e676;
+      --status-closed: #ff1744;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Dynamic Moving Background Elements */
+    .bg-animation-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(211, 47, 47, 0.05);
+      animation: float 12s infinite ease-in-out;
+    }
+
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      top: -50px;
+      left: -50px;
+      animation-delay: 0s;
+    }
+
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      bottom: 10%;
+      right: -30px;
+      background: rgba(255, 193, 7, 0.1);
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
+    }
+
+    /* Header & Status Indicator */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      z-index: 1000;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--primary-red);
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--soft-white);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: bold;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transition: background-color 0.5s ease;
+    }
+
+    .status-dot.open {
+      background-color: var(--status-open);
+      box-shadow: 0 0 12px var(--status-open);
+      animation: pulse-green 1.5s infinite;
+    }
+
+    .status-dot.closed {
+      background-color: var(--status-closed);
+      box-shadow: 0 0 12px var(--status-closed);
+      animation: pulse-red 1.5s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 4px var(--status-open); }
+      50% { box-shadow: 0 0 16px var(--status-open); }
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 4px var(--status-closed); }
+      50% { box-shadow: 0 0 16px var(--status-closed); }
+    }
+
+    /* Hero Section & Interactive Elements */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--primary-red);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease-out;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .yellow-badge {
+      display: inline-block;
+      background-color: var(--accent-yellow);
+      color: #000;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 15px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    /* Social Links & Location Section */
+    .links-section {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-white);
+      color: var(--primary-red);
+      border: 2px solid var(--primary-red);
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(211, 47, 47, 0.08);
+    }
+
+    .link-card:hover {
+      background-color: var(--primary-red);
+      color: var(--bg-white);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(211, 47, 47, 0.25);
+    }
+
+    .link-card.location-card {
+      border-color: #333;
+      color: #333;
+    }
+
+    .link-card.location-card:hover {
+      background-color: #333;
+      color: var(--bg-white);
+    }
+
+    /* Footer Banner / CTA */
+    footer {
+      position: relative;
+      z-index: 1;
+      background-color: var(--soft-white);
+      border-top: 2px dashed #ddd;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+
+    .ta-banner {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-red), var(--bright-red));
+      color: var(--bg-white);
+      padding: 24px 32px;
+      border-radius: 20px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(211, 47, 47, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ta-banner:hover {
+      transform: scale(1.03);
+      box-shadow: 0 14px 30px rgba(211, 47, 47, 0.4);
+    }
+
+    .ta-header-slot {
+      font-size: 0.85rem;
+      background: var(--accent-yellow);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .ta-logo {
+      width: 60px;
+      height: 60px;
+      background-color: var(--bg-white);
+      color: var(--primary-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border: 2px solid var(--accent-yellow);
+    }
+
+    .ta-text {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moving Background Objects -->
+  <div class="bg-animation-container">
+    <div class="floating-circle circle-1"></div>
+    <div class="floating-circle circle-2"></div>
+  </div>
+
+  <!-- Header with 10-Second Status Toggle -->
+  <header>
+    <div style="font-weight: 900; color: var(--primary-red); font-size: 1.2rem;">NASH CHICKEN</div>
+    <div class="status-bar">
+      <div id="statusDot" class="status-dot open"></div>
+      <span id="statusText">مفتوح الآن</span>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>NASH CHICKEN</h1>
+    <p>أقوى طعم فرايد تشيكن حار ومقرمش!</p>
+    <div class="yellow-badge">عروض خاصة لفترة محدودة 🔥</div>
+  </section>
+
+  <!-- Social Media & Location Links -->
+  <section class="links-section">
+    <a href="https://wa.me/" target="_blank" class="link-card">
+      💬 واتساب (طلب أونلاين)
+    </a>
+    <a href="https://facebook.com" target="_blank" class="link-card">
+      📘 فيسبوك
+    </a>
+    <a href="https://instagram.com" target="_blank" class="link-card">
+      📷 انستجرام
+    </a>
+    <a href="https://tiktok.com" target="_blank" class="link-card">
+      🎵 تيك توك
+    </a>
+    <a href="https://maps.google.com" target="_blank" class="link-card location-card">
+      📍 موقعنا على الخريطة (Google Maps)
+    </a>
+  </section>
+
+  <!-- Bottom CTA Footer -->
+  <footer>
+    <a href="https://wa.me/" target="_blank" class="ta-banner">
+      <!-- Slot Above Logo -->
+      <div class="ta-header-slot">تصميم وتطوير</div>
+      
+      <!-- TA Logo -->
+      <div class="ta-logo">TA</div>
+      
+      <!-- CTA Text -->
+      <div class="ta-text">لو عايز ويب سايت زي دي دوس هنا</div>
+    </a>
+  </footer>
+
+  <!-- Script for 10-Second Status Toggle -->
+  <script>
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    let isOpen = true;
+
+    setInterval(() => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        statusDot.className = 'status-dot open';
+        statusText.textContent = 'مفتوح الآن';
+      } else {
+        statusDot.className = 'status-dot closed';
+        statusText.textContent = 'مغلق الآن';
+      }
+    }, 10000); // 10000ms = 10 Seconds
+  </script>
+</body>
+</html>
