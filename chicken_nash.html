@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NASH CHICKEN</title>
+  <title>NASH CHICKEN | ناش تشيكن</title>
   <style>
     :root {
-      --bg-red: #d32f2f;
-      --deep-red: #b71c1c;
-      --bright-red: #ff1744;
-      --accent-yellow: #ffc107;
-      --pure-white: #ffffff;
-      --text-dark: #1a1a1a;
+      --bg-dark-red: #1a0505;
+      --bg-gradient: linear-gradient(135deg, #2b0808 0%, #150303 100%);
+      --primary-red: #e50914;
+      --accent-orange: #ff521b;
+      --accent-yellow: #ffb703;
+      --text-white: #ffffff;
+      --text-dim: #d1d1d1;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.12);
       --status-open: #00e676;
       --status-closed: #ff1744;
     }
@@ -24,14 +27,19 @@
     }
 
     body {
-      background-color: var(--bg-red);
-      color: var(--pure-white);
+      background: var(--bg-dark-red);
+      background-image: var(--bg-gradient);
+      color: var(--text-white);
+      min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Dynamic Moving Background Elements */
-    .bg-animation-container {
+    /* Ambient Moving Particles Background */
+    .bg-particles {
       position: fixed;
       top: 0;
       left: 0;
@@ -42,311 +50,467 @@
       overflow: hidden;
     }
 
-    .floating-circle {
+    .particle {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      animation: float 12s infinite ease-in-out;
+      filter: blur(50px);
+      opacity: 0.25;
+      animation: floatAround 18s infinite ease-in-out alternate;
     }
 
-    .circle-1 {
-      width: 320px;
-      height: 320px;
-      top: -60px;
-      left: -60px;
-      animation-delay: 0s;
+    .particle-1 {
+      width: 350px;
+      height: 350px;
+      background: var(--primary-red);
+      top: -100px;
+      right: -50px;
     }
 
-    .circle-2 {
-      width: 220px;
-      height: 220px;
-      bottom: 10%;
-      right: -40px;
-      background: rgba(255, 193, 7, 0.15);
-      animation-delay: 3s;
+    .particle-2 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-orange);
+      bottom: -50px;
+      left: -50px;
+      animation-delay: -5s;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
+    .particle-3 {
+      width: 200px;
+      height: 200px;
+      background: var(--accent-yellow);
+      top: 40%;
+      left: 30%;
+      opacity: 0.15;
+      animation-delay: -10s;
     }
 
-    /* Header & Status Indicator */
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 80px) scale(1.2); }
+      100% { transform: translate(-40px, 40px) scale(0.9); }
+    }
+
+    /* Header */
     header {
       position: sticky;
       top: 0;
-      background: rgba(183, 28, 28, 0.95);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      z-index: 1000;
-      padding: 12px 24px;
+      background: rgba(20, 4, 4, 0.75);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
+      padding: 16px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 3px solid var(--accent-yellow);
     }
 
-    .brand-logo-text {
+    .brand-name {
+      font-size: 1.4rem;
       font-weight: 900;
-      color: var(--pure-white);
-      font-size: 1.3rem;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      background: linear-gradient(45deg, #fff, var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
     }
 
-    .status-bar {
+    .status-badge {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--pure-white);
-      color: var(--text-dark);
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .status-dot {
-      width: 14px;
-      height: 14px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      transition: background-color 0.5s ease;
+      transition: all 0.5s ease;
     }
 
     .status-dot.open {
       background-color: var(--status-open);
       box-shadow: 0 0 12px var(--status-open);
-      animation: pulse-green 1.5s infinite;
+      animation: pulseOpen 1.5s infinite;
     }
 
     .status-dot.closed {
       background-color: var(--status-closed);
       box-shadow: 0 0 12px var(--status-closed);
-      animation: pulse-red 1.5s infinite;
+      animation: pulseClosed 1.5s infinite;
     }
 
-    @keyframes pulse-green {
-      0%, 100% { box-shadow: 0 0 4px var(--status-open); }
-      50% { box-shadow: 0 0 16px var(--status-open); }
+    @keyframes pulseOpen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
     }
 
-    @keyframes pulse-red {
-      0%, 100% { box-shadow: 0 0 4px var(--status-closed); }
-      50% { box-shadow: 0 0 16px var(--status-closed); }
+    @keyframes pulseClosed {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
     }
 
-    /* Hero Section */
-    .hero {
+    /* Main Container */
+    main {
       position: relative;
       z-index: 1;
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* Hero */
+    .hero {
       text-align: center;
-      padding: 50px 20px 30px;
+      margin-bottom: 35px;
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      color: var(--pure-white);
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 900;
       text-transform: uppercase;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-      animation: slideDown 1s ease-out;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.9);
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      margin-bottom: 16px;
     }
 
-    .yellow-badge {
-      display: inline-block;
-      background-color: var(--accent-yellow);
+    .badge-offer {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-yellow));
       color: #000;
       padding: 6px 18px;
       border-radius: 20px;
-      font-weight: bold;
-      margin-top: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      font-weight: 800;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+      animation: bounce 2.5s infinite;
     }
 
     @keyframes bounce {
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
     }
 
-    /* Social Links & Location Section */
-    .links-section {
-      position: relative;
-      z-index: 1;
-      max-width: 550px;
-      margin: 20px auto 40px;
-      padding: 0 20px;
+    /* Social Links Grid */
+    .social-grid {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 14px;
     }
 
-    .link-card {
+    .social-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-white);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .social-card:hover::before {
+      left: 100%;
+    }
+
+    .social-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 16px;
-      background: var(--pure-white);
-      color: var(--deep-red);
-      border: 2px solid var(--accent-yellow);
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      background: rgba(255, 255, 255, 0.08);
+      transition: transform 0.3s ease;
     }
 
-    .link-card:hover {
-      background-color: var(--accent-yellow);
-      color: var(--text-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    .social-card:hover .icon-box {
+      transform: rotate(-8deg) scale(1.1);
     }
 
-    .link-card.location-card {
-      background: rgba(255, 255, 255, 0.95);
-      color: #111;
-      border-color: var(--pure-white);
+    .icon-box svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
     }
 
-    .link-card.location-card:hover {
-      background-color: var(--pure-white);
-      color: var(--deep-red);
+    /* Individual Social Colors on Hover */
+    .social-card.whatsapp:hover { border-color: #25D366; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25); }
+    .social-card.whatsapp .icon-box { background: rgba(37, 211, 102, 0.2); }
+    
+    .social-card.facebook:hover { border-color: #1877F2; box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25); }
+    .social-card.facebook .icon-box { background: rgba(24, 119, 242, 0.2); }
+
+    .social-card.instagram:hover { border-color: #E4405F; box-shadow: 0 8px 20px rgba(228, 64, 95, 0.25); }
+    .social-card.instagram .icon-box { background: rgba(228, 64, 95, 0.2); }
+
+    .social-card.tiktok:hover { border-color: #00f2fe; box-shadow: 0 8px 20px rgba(0, 242, 254, 0.25); }
+    .social-card.tiktok .icon-box { background: rgba(0, 242, 254, 0.15); }
+
+    .social-card.location:hover { border-color: var(--accent-yellow); box-shadow: 0 8px 20px rgba(255, 183, 3, 0.25); }
+    .social-card.location .icon-box { background: rgba(255, 183, 3, 0.2); }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
     }
 
-    /* Footer Banner / CTA (Smaller & Compact) */
+    .arrow-icon {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      transition: transform 0.3s ease;
+    }
+
+    .social-card:hover .arrow-icon {
+      transform: translateX(-5px);
+      color: #fff;
+    }
+
+    /* TA Custom Banner (Exact requested design) */
     footer {
       position: relative;
       z-index: 1;
-      background-color: var(--deep-red);
-      border-top: 2px dashed rgba(255, 255, 255, 0.2);
-      padding: 25px 20px 15px;
-      text-align: center;
+      padding: 20px 20px 40px;
+      display: flex;
+      justify-content: center;
     }
 
-    .ta-banner {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--pure-white);
-      color: var(--deep-red);
+    .ta-card-container {
+      width: 100%;
+      max-width: 440px;
+      background: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 35px 20px 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .ta-card-title {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ta-btn {
+      display: inline-block;
+      width: 80%;
+      max-width: 260px;
+      background: #ffffff;
+      color: #000000;
       padding: 12px 20px;
       border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
       position: relative;
-      max-width: 300px;
-      width: 100%;
+      z-index: 2;
     }
 
-    .ta-banner:hover {
-      transform: scale(1.04);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    .ta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+      background: #f0f0f0;
     }
 
-    .ta-header-slot {
-      font-size: 0.7rem;
-      background: var(--accent-yellow);
-      color: #000;
-      padding: 2px 8px;
-      border-radius: 8px;
-      font-weight: bold;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .ta-logo {
-      width: 38px;
-      height: 38px;
-      background-color: var(--deep-red);
-      color: var(--pure-white);
-      border-radius: 50%;
+    /* Floating TA Logo Random Animation */
+    .ta-floating-logo {
+      position: absolute;
+      width: 90px;
+      height: 60px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.0rem;
+      font-size: 1.6rem;
       font-weight: 900;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-      border: 2px solid var(--accent-yellow);
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 2px;
+      pointer-events: none;
+      z-index: 1;
+      animation: randomMove 10s ease-in-out infinite alternate;
     }
 
-    .ta-text {
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: var(--text-dark);
+    @keyframes randomMove {
+      0% {
+        top: 10%;
+        left: 10%;
+        transform: rotate(-10deg) scale(0.9);
+      }
+      25% {
+        top: 60%;
+        left: 70%;
+        transform: rotate(15deg) scale(1.1);
+      }
+      50% {
+        top: 70%;
+        left: 20%;
+        transform: rotate(-5deg) scale(1);
+      }
+      75% {
+        top: 15%;
+        left: 65%;
+        transform: rotate(8deg) scale(0.95);
+      }
+      100% {
+        top: 50%;
+        left: 45%;
+        transform: rotate(-12deg) scale(1.05);
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Moving Background Objects -->
-  <div class="bg-animation-container">
-    <div class="floating-circle circle-1"></div>
-    <div class="floating-circle circle-2"></div>
+  <!-- Ambient Particles -->
+  <div class="bg-particles">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
   </div>
 
-  <!-- Header with 10-Second Status Toggle -->
+  <!-- Header -->
   <header>
-    <div class="brand-logo-text">NASH CHICKEN</div>
-    <div class="status-bar">
+    <div class="brand-name">Nash Chicken</div>
+    <div class="status-badge">
       <div id="statusDot" class="status-dot open"></div>
       <span id="statusText">مفتوح الآن</span>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>NASH CHICKEN</h1>
-    <p>أقوى طعم فرايد تشيكن حار ومقرمش!</p>
-    <div class="yellow-badge">عروض خاصة لفترة محدودة 🔥</div>
-  </section>
+  <!-- Main Content -->
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">NASH CHICKEN</h1>
+      <p class="hero-subtitle">طعم القرمشة الحقيقية والحرارة المضبوطة 🔥</p>
+      <div class="badge-offer">✨ خصم 15% على أول أوردر أونلاين</div>
+    </section>
 
-  <!-- Social Media & Location Links -->
-  <section class="links-section">
-    <a href="https://wa.me/" target="_blank" class="link-card">
-      💬 واتساب (طلب أونلاين)
-    </a>
-    <a href="https://facebook.com" target="_blank" class="link-card">
-      📘 فيسبوك
-    </a>
-    <a href="https://instagram.com" target="_blank" class="link-card">
-      📷 انستجرام
-    </a>
-    <a href="https://tiktok.com" target="_blank" class="link-card">
-      🎵 تيك توك
-    </a>
-    <a href="https://maps.google.com" target="_blank" class="link-card location-card">
-      📍 موقعنا على الخريطة (Google Maps)
-    </a>
-  </section>
+    <!-- Social Media Grid -->
+    <section class="social-grid">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/" target="_blank" class="social-card whatsapp">
+        <div class="card-left">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          </div>
+          <span class="card-title">واتساب (اطلب أونلاين)</span>
+        </div>
+        <span class="arrow-icon">←</span>
+      </a>
 
-  <!-- Compact Bottom CTA Footer -->
+      <!-- Instagram -->
+      <a href="https://instagram.com" target="_blank" class="social-card instagram">
+        <div class="card-left">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <span class="card-title">تابعنا على انستجرام</span>
+        </div>
+        <span class="arrow-icon">←</span>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://tiktok.com" target="_blank" class="social-card tiktok">
+        <div class="card-left">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.98-.01 3.58.01 7.15-.02 10.72-.11 2.19-.94 4.34-2.42 5.92-1.71 1.86-4.25 2.82-6.76 2.53-2.48-.25-4.75-1.57-6.14-3.62-1.42-2.06-1.8-4.72-1.07-7.1 1.05-3.41 4.25-5.86 7.82-5.92.03 1.58.01 3.16.01 4.74-.92.03-1.85.34-2.58.9-1.04.79-1.59 2.08-1.42 3.37.15 1.25.93 2.34 2.1 2.8 1.16.47 2.52.23 3.44-.57.87-.74 1.34-1.87 1.31-3.01.03-7.51.01-15.02.01-22.53z"/></svg>
+          </div>
+          <span class="card-title">تيك توك (شاهد الفيديوهات)</span>
+        </div>
+        <span class="arrow-icon">←</span>
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://facebook.com" target="_blank" class="social-card facebook">
+        <div class="card-left">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <span class="card-title">صفحتنا على فيسبوك</span>
+        </div>
+        <span class="arrow-icon">←</span>
+      </a>
+
+      <!-- Google Maps Location -->
+      <a href="https://maps.google.com" target="_blank" class="social-card location">
+        <div class="card-left">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.799-8 8.002 0 5.86 7.02 12.982 7.319 13.284.186.19.441.294.701.294s.515-.104.701-.294c.3-.302 7.319-7.424 7.319-13.284 0-4.203-3.802-8.002-8-8.002zm0 12c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>
+          </div>
+          <span class="card-title">موقع المطعم (Google Maps)</span>
+        </div>
+        <span class="arrow-icon">←</span>
+      </a>
+    </section>
+  </main>
+
+  <!-- TA Custom CTA Card -->
   <footer>
-    <a href="https://wa.me/" target="_blank" class="ta-banner">
-      <!-- Slot Above Logo -->
-      <div class="ta-header-slot">تصميم وتطوير</div>
-      
-      <!-- TA Logo -->
-      <div class="ta-logo">TA</div>
-      
-      <!-- CTA Text -->
-      <div class="ta-text">لو عايز ويب سايت زي دي دوس هنا</div>
-    </a>
+    <div class="ta-card-container">
+      <!-- Random Floating Logo -->
+      <div class="ta-floating-logo">TA</div>
+
+      <!-- Main Text -->
+      <h2 class="ta-card-title">لو عايز تعمل ويب سايت زي دي؟</h2>
+
+      <!-- CTA White Button -->
+      <a href="https://wa.me/" target="_blank" class="ta-btn">دوس هنا وتواصل معنا</a>
+    </div>
   </footer>
 
   <!-- Script for 10-Second Status Toggle -->
@@ -364,7 +528,7 @@
         statusDot.className = 'status-dot closed';
         statusText.textContent = 'مغلق الآن';
       }
-    }, 10000); // 10 Seconds
+    }, 10000); // Toggle every 10 Seconds
   </script>
 </body>
 </html>
