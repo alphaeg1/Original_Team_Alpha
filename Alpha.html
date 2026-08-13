@@ -9,15 +9,16 @@
     
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --bg-card: #121216;
-            --bg-glass: rgba(255, 255, 255, 0.02);
-            --border-color: rgba(255, 255, 255, 0.07);
-            --text-primary: #ffffff;
-            --text-secondary: #90909a;
-            --accent-gray: #22222a;
-            --accent-light-gray: #d1d1d6;
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-main: #0D0D0D;
+            --bg-card: #121212;
+            --bg-glass: rgba(18, 18, 18, 0.8);
+            --border-color: #E5E5E5;
+            --border-subtle: rgba(229, 229, 229, 0.2);
+            --text-primary: #FFFFFF;
+            --text-secondary: #E5E5E5;
+            --accent-color: #2563EB;
+            --accent-glow: rgba(37, 99, 235, 0.35);
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -33,7 +34,7 @@
             color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
-            font-size: 14px; /* تصغير حجم الخط الأساسي */
+            font-size: 14px;
         }
 
         /* Dynamic Animated Background */
@@ -45,16 +46,16 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(37, 99, 235, 0.08) 0%, transparent 60%);
         }
 
         .floating-shapes div {
             position: fixed;
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
             z-index: -1;
             animation: float 20s infinite linear;
         }
@@ -78,10 +79,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 12, 0.85);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--border-subtle);
         }
 
         .logo-container {
@@ -93,8 +94,8 @@
         .logo-img {
             width: 38px;
             height: 38px;
-            border-radius: 8px;
-            background: #1a1a20;
+            border-radius: 6px;
+            background: #121212;
             border: 1px solid var(--border-color);
             object-fit: cover;
         }
@@ -103,20 +104,18 @@
             font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: 1px;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
         }
 
-        /* Status Indicator (مؤشر مواعيد العمل) */
+        /* Status Indicator */
         .work-status {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
             padding: 5px 12px;
-            border-radius: 20px;
+            border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
         }
@@ -128,7 +127,6 @@
             position: relative;
         }
 
-        /* حالات اللمبة */
         .status-dot.open {
             background-color: #22c55e;
             box-shadow: 0 0 10px #22c55e;
@@ -166,7 +164,7 @@
         }
 
         nav a:hover {
-            color: var(--text-primary);
+            color: var(--accent-color);
         }
 
         /* Hero Section */
@@ -180,12 +178,12 @@
         }
 
         .hero h1 {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 12px;
-            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .hero p {
@@ -193,34 +191,36 @@
             color: var(--text-secondary);
             max-width: 500px;
             margin-bottom: 25px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* Offers Section (قسم العروض الحالية) */
+        /* Offers Section */
         .offers-section {
             width: 100%;
             max-width: 650px;
             margin: 0 auto 30px;
-            padding: 12px;
+            padding: 14px;
             background: var(--bg-card);
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
             text-align: center;
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         .offers-title {
             font-size: 0.85rem;
-            color: var(--accent-light-gray);
-            margin-bottom: 8px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            font-weight: 700;
         }
 
         .offers-title i {
             animation: pulse 1.5s infinite;
-            color: #f59e0b;
+            color: var(--accent-color);
         }
 
         @keyframes pulse {
@@ -233,131 +233,141 @@
             width: 100%;
             max-height: 250px;
             object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            border: 1px solid var(--border-subtle);
         }
 
-        /* Services Overview Section (إجمال الخدمات) */
+        /* Services Overview Section */
         .section-title {
             text-align: center;
             font-size: 1.5rem;
             margin-bottom: 30px;
             position: relative;
+            color: var(--text-primary);
+            font-weight: 800;
         }
 
         .section-title::after {
             content: '';
             display: block;
             width: 40px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 6px auto 0;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 8px auto 0;
             border-radius: 2px;
         }
 
         .services-overview {
             padding: 40px 6%;
-            background: rgba(255, 255, 255, 0.005);
+            background: var(--bg-main);
         }
 
         .overview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            gap: 18px;
         }
 
         .overview-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 22px 18px;
-            border-radius: 14px;
+            border: 1px solid var(--border-subtle);
+            padding: 24px 18px;
+            border-radius: 8px;
             text-align: center;
             transition: var(--transition);
             cursor: pointer;
+            position: relative;
         }
 
         .overview-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.25);
-            background: #16161c;
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 25px var(--accent-glow);
         }
 
         .overview-card i {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--accent-light-gray);
+            font-size: 2rem;
+            margin-bottom: 14px;
+            color: var(--accent-color);
         }
 
         .overview-card h3 {
             font-size: 1.1rem;
             margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
         .overview-card p {
             color: var(--text-secondary);
             font-size: 0.82rem;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Detailed Services Section (تفصيل الخدمات) */
+        /* Detailed Services Section */
         .services-details {
             padding: 40px 6%;
         }
 
         .detail-block {
             margin-bottom: 30px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 22px;
-            backdrop-filter: blur(8px);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .detail-block:hover {
+            border-color: var(--border-color);
         }
 
         .detail-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 14px;
         }
 
         .detail-header i {
-            font-size: 1.2rem;
-            background: var(--accent-gray);
+            font-size: 1.1rem;
+            background: var(--accent-color);
+            color: var(--text-primary);
             width: 38px;
             height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .detail-header h3 {
             font-size: 1.2rem;
+            color: var(--text-primary);
         }
 
         .badge-monthly {
-            font-size: 0.7rem;
-            background: #ffffff;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 12px;
+            font-size: 0.75rem;
+            background: var(--accent-color);
+            color: var(--text-primary);
+            padding: 2px 10px;
+            border-radius: 4px;
             font-weight: 700;
-            margin-right: 6px;
+            margin-right: 8px;
         }
 
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
+            gap: 12px;
         }
 
         .item-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            padding: 10px 14px;
-            border-radius: 8px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 14px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -366,35 +376,40 @@
         }
 
         .item-box:hover {
-            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--accent-color);
             transform: translateX(-3px);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .item-box i {
-            color: var(--text-secondary);
+            color: var(--accent-color);
             font-size: 0.9rem;
         }
 
-        /* Contact Section (قسم التواصل والأرقام) */
+        .item-box span {
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
         .contact-section {
             padding: 40px 6%;
             background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-subtle);
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
+            gap: 14px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .contact-card {
             background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            padding: 16px 12px;
-            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            padding: 18px 14px;
+            border-radius: 8px;
             text-align: center;
             text-decoration: none;
             color: var(--text-primary);
@@ -402,17 +417,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .contact-card:hover {
             transform: translateY(-3px);
-            border-color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: 0 6px 20px var(--accent-glow);
         }
 
         .contact-card i {
-            font-size: 1.3rem;
-            color: var(--accent-light-gray);
+            font-size: 1.4rem;
+            color: var(--accent-color);
         }
 
         .contact-card span {
@@ -423,15 +439,17 @@
         .contact-card strong {
             font-size: 0.9rem;
             direction: ltr;
+            color: var(--text-primary);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 18px;
+            padding: 20px;
             color: var(--text-secondary);
             font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-main);
         }
 
         /* Reveal Animation Classes */
@@ -453,7 +471,7 @@
             .hero h1 { font-size: 1.8rem; }
             .hero p { font-size: 0.85rem; }
             .section-title { font-size: 1.3rem; }
-            .detail-block { padding: 15px; }
+            .detail-block { padding: 16px; }
             .work-status span { font-size: 0.7rem; }
         }
     </style>
