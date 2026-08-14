@@ -9,24 +9,22 @@
     
     <style>
         :root {
-            /* Palette extracted from image */
-            --color-shadow-grey: #28262c;
-            --color-ocean-mist: #4ea699;
-            --color-flag-red: #c1292e;
-            --color-lavender-mist: #f9f5ff;
-            --color-true-cobalt: #14248a;
+            /* STRICT COLOR PALETTE FROM IMAGE ONLY */
+            --c-dark-grey: #28262C;
+            --c-ocean-mist: #4EA699;
+            --c-flag-red: #C1292E;
+            --c-lavender: #F9F5FF;
+            --c-true-cobalt: #14248A;
 
-            /* Design Tokens */
-            --bg-dark: #121217;
-            --bg-card: rgba(40, 38, 44, 0.7);
-            --bg-card-hover: rgba(40, 38, 44, 0.95);
-            --border-glow: rgba(78, 166, 153, 0.3);
-            --border-subtle: rgba(249, 245, 255, 0.08);
-            --text-primary: #f9f5ff;
-            --text-muted: #a4a2b2;
-            --gradient-accent: linear-gradient(135deg, var(--color-true-cobalt) 0%, var(--color-ocean-mist) 100%);
-            --gradient-red: linear-gradient(135deg, #c1292e 0%, #801216 100%);
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            /* DERIVED LUXURY SHADES (STRICTLY FROM PALETTE) */
+            --bg-deep: #161519;
+            --bg-card: rgba(40, 38, 44, 0.75);
+            --bg-card-alt: rgba(20, 36, 138, 0.2);
+            --border-light: rgba(249, 245, 255, 0.1);
+            --border-teal: rgba(78, 166, 153, 0.4);
+            --border-red: rgba(193, 41, 46, 0.4);
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         * {
@@ -38,667 +36,633 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
+            background-color: var(--bg-deep);
+            color: var(--c-lavender);
             overflow-x: hidden;
-            position: relative;
             font-size: 15px;
             line-height: 1.6;
+            position: relative;
         }
 
-        /* Luxury Canvas Background Effect */
-        .bg-canvas {
+        /* DYNAMIC INTERACTIVE LIGHTING BACKGROUND */
+        .ambient-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: -1;
             background: 
-                radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(20, 36, 138, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 80% 20%, rgba(78, 166, 153, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 10% 80%, rgba(193, 41, 46, 0.1) 0%, transparent 35%);
+                radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(78, 166, 153, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(20, 36, 138, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 10% 85%, rgba(193, 41, 46, 0.15) 0%, transparent 45%);
         }
 
-        .floating-shapes div {
-            position: fixed;
-            width: 80px;
-            height: 80px;
-            background: rgba(249, 245, 255, 0.015);
-            border: 1px solid rgba(249, 245, 255, 0.04);
-            border-radius: 20px;
-            z-index: -1;
-            backdrop-filter: blur(4px);
-            animation: float 22s infinite ease-in-out;
-        }
-
-        .floating-shapes div:nth-child(1) { top: 12%; left: 8%; animation-duration: 25s; }
-        .floating-shapes div:nth-child(2) { top: 65%; left: 85%; animation-duration: 20s; }
-        .floating-shapes div:nth-child(3) { top: 82%; left: 15%; animation-duration: 28s; }
-
-        @keyframes float {
-            0%, 100% { transform: rotate(0deg) translateY(0) scale(1); }
-            50% { transform: rotate(180deg) translateY(-30px) scale(1.05); }
-        }
-
-        /* Glassmorphic Navbar */
+        /* HEADER & NAVIGATION */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 16px 7%;
+            padding: 18px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(18, 18, 23, 0.8);
+            background: rgba(40, 38, 44, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .logo-container {
+        .brand-logo {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
+            text-decoration: none;
         }
 
-        .logo-img {
-            width: 44px;
-            height: 44px;
+        .brand-logo img {
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
-            border: 1px solid var(--border-glow);
+            border: 2px solid var(--c-ocean-mist);
             object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .logo-text {
-            font-size: 1.35rem;
+        .brand-logo span {
+            font-size: 1.4rem;
             font-weight: 900;
             letter-spacing: 1px;
-            background: linear-gradient(135deg, #ffffff 30%, var(--color-ocean-mist) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--c-lavender);
         }
 
-        /* Status Indicator */
-        .work-status {
+        .status-pill {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(40, 38, 44, 0.6);
-            border: 1px solid var(--border-subtle);
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            gap: 8px;
+            background: rgba(20, 36, 138, 0.4);
+            border: 1px solid var(--border-teal);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
             font-weight: 700;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .status-dot {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
         }
 
         .status-dot.open {
-            background-color: var(--color-ocean-mist);
-            box-shadow: 0 0 14px var(--color-ocean-mist);
-            animation: pulse-glow 2s infinite;
+            background-color: var(--c-ocean-mist);
+            box-shadow: 0 0 10px var(--c-ocean-mist);
+            animation: pulse-dot 1.8s infinite;
         }
 
         .status-dot.closed {
-            background-color: var(--color-flag-red);
-            box-shadow: 0 0 14px var(--color-flag-red);
-            animation: pulse-glow 2s infinite;
+            background-color: var(--c-flag-red);
+            box-shadow: 0 0 10px var(--c-flag-red);
+            animation: pulse-dot 1.8s infinite;
         }
 
-        @keyframes pulse-glow {
+        @keyframes pulse-dot {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 28px;
+            gap: 30px;
         }
 
         nav a {
-            color: var(--text-muted);
+            color: var(--c-lavender);
+            opacity: 0.8;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.92rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            right: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--color-ocean-mist);
-            transition: var(--transition);
-            border-radius: 2px;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
         }
 
         nav a:hover {
-            color: var(--color-lavender-mist);
+            opacity: 1;
+            color: var(--c-ocean-mist);
         }
 
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 150px 7% 60px;
-            display: flex;
-            flex-direction: column;
+        /* HERO SECTION - SPLIT LAYOUT */
+        .hero-section {
+            padding: 160px 8% 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
             align-items: center;
-            text-align: center;
+            min-height: 85vh;
         }
 
-        .hero-badge {
-            background: rgba(20, 36, 138, 0.3);
-            border: 1px solid rgba(78, 166, 153, 0.4);
-            color: var(--color-ocean-mist);
-            padding: 8px 22px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            margin-bottom: 24px;
+        .hero-tag {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: var(--c-flag-red);
+            color: var(--c-lavender);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(193, 41, 46, 0.3);
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
+        .hero-content h1 {
+            font-size: 3.6rem;
             font-weight: 900;
-            margin-bottom: 18px;
-            background: linear-gradient(180deg, #ffffff 40%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             line-height: 1.15;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            color: var(--c-lavender);
         }
 
-        .hero p {
+        .hero-content h1 span {
+            color: var(--c-ocean-mist);
+            display: block;
+        }
+
+        .hero-content p {
             font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin-bottom: 40px;
+            color: var(--c-lavender);
+            opacity: 0.85;
+            margin-bottom: 35px;
+            max-width: 580px;
             line-height: 1.8;
         }
 
-        /* Offers Banner Section */
-        .offers-section {
-            width: 100%;
-            max-width: 780px;
-            margin: 0 auto 40px;
-            padding: 20px;
+        .hero-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 24px;
+            border: 1px solid var(--border-light);
+            padding: 16px 24px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border-right: 4px solid var(--c-ocean-mist);
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--c-lavender);
+        }
+
+        .stat-card span {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* HERO PROMO CARD (OFFERS) */
+        .hero-promo-card {
+            background: var(--c-dark-grey);
+            border: 2px solid var(--border-teal);
+            border-radius: 28px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--c-true-cobalt);
+            border: 1px solid var(--border-teal);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--c-ocean-mist);
+        }
+
+        .promo-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--c-lavender);
+        }
+
+        .promo-title i {
+            color: var(--c-flag-red);
+        }
+
+        .promo-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 1px solid var(--border-light);
+        }
+
+        /* SECTION HEADER STANDARD */
+        .section-header {
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--c-lavender);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--c-ocean-mist);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* WHY US - 3D GRID */
+        .why-section {
+            padding: 80px 8%;
+        }
+
+        .why-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .why-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 40px 30px;
+            border-radius: 24px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .why-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--c-ocean-mist);
+            box-shadow: 0 20px 40px rgba(78, 166, 153, 0.15);
+            background: rgba(40, 38, 44, 0.95);
+        }
+
+        .why-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--c-true-cobalt);
+            border: 1px solid var(--border-teal);
+            color: var(--c-ocean-mist);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 18px;
+            margin-bottom: 24px;
+        }
+
+        .why-box h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--c-lavender);
+        }
+
+        .why-box p {
+            opacity: 0.8;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        /* SERVICES - BENTO GRID DESIGN */
+        .services-section {
+            padding: 80px 8%;
+            background: rgba(20, 36, 138, 0.1);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 36px;
+            border-radius: 28px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
 
-        .offers-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 3px;
-            background: var(--gradient-red);
+        .bento-card:hover {
+            transform: scale(1.02);
+            border-color: var(--c-ocean-mist);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .offers-title {
-            font-size: 1rem;
-            color: var(--color-lavender-mist);
-            margin-bottom: 16px;
+        .bento-card.featured {
+            background: linear-gradient(145deg, var(--c-dark-grey) 0%, var(--c-true-cobalt) 100%);
+            border: 1px solid var(--border-teal);
+        }
+
+        .bento-card i.main-i {
+            font-size: 2.8rem;
+            color: var(--c-ocean-mist);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .bento-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--c-lavender);
+        }
+
+        .bento-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .bento-link {
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: var(--c-ocean-mist);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: 800;
+            gap: 8px;
         }
 
-        .offers-title i {
-            color: var(--color-flag-red);
-            font-size: 1.2rem;
-            animation: pulse-red 1.5s infinite;
+        /* WORK PROCESS TIMELINE */
+        .process-section {
+            padding: 80px 8%;
         }
 
-        @keyframes pulse-red {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .offer-banner {
-            width: 100%;
-            max-height: 320px;
-            object-fit: cover;
-            border-radius: 16px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        /* Section Title Styling */
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 45px;
-            position: relative;
-            color: var(--color-lavender-mist);
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--gradient-accent);
-            margin: 12px auto 0;
-            border-radius: 4px;
-        }
-
-        /* Sections General Styling */
-        section {
-            padding: 60px 7%;
-        }
-
-        /* Why Choose Us Cards */
-        .why-grid {
+        .timeline {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .why-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 32px 24px;
-            border-radius: 20px;
-            text-align: center;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        .why-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--color-ocean-mist);
-            background: var(--bg-card-hover);
-            box-shadow: 0 15px 35px rgba(78, 166, 153, 0.15);
-        }
-
-        .why-card i {
-            font-size: 2.4rem;
-            color: var(--color-ocean-mist);
-            margin-bottom: 18px;
-            display: inline-block;
-        }
-
-        .why-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-            color: var(--color-lavender-mist);
-            font-weight: 800;
-        }
-
-        .why-card p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
-
-        /* Services Overview Cards */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .overview-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 36px 28px;
-            border-radius: 22px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            backdrop-filter: blur(10px);
+            gap: 20px;
             position: relative;
         }
 
-        .overview-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--color-true-cobalt);
-            box-shadow: 0 20px 40px rgba(20, 36, 138, 0.35);
-        }
-
-        .overview-card i {
-            font-size: 2.6rem;
-            margin-bottom: 18px;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .overview-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            color: var(--color-lavender-mist);
-            font-weight: 800;
-        }
-
-        .overview-card p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
-
-        /* Work Process Section */
-        .process-section {
-            background: rgba(20, 36, 138, 0.08);
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .process-step {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 30px 22px;
+        .timeline-step {
+            background: var(--c-dark-grey);
+            border: 1px solid var(--border-light);
+            padding: 30px;
             border-radius: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
+            position: relative;
         }
 
-        .process-step:hover {
-            border-color: var(--color-ocean-mist);
-            transform: translateY(-5px);
-        }
-
-        .step-number {
-            width: 44px;
-            height: 44px;
-            background: var(--gradient-accent);
-            color: #ffffff;
+        .timeline-number {
+            font-size: 2.5rem;
             font-weight: 900;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 1.1rem;
-            box-shadow: 0 6px 18px rgba(20, 36, 138, 0.4);
+            color: var(--c-true-cobalt);
+            line-height: 1;
+            margin-bottom: 15px;
+            -webkit-text-stroke: 1px var(--c-ocean-mist);
         }
 
-        .process-step h4 {
+        .timeline-step h4 {
             font-size: 1.15rem;
-            margin-bottom: 10px;
-            color: var(--color-lavender-mist);
             font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--c-lavender);
         }
 
-        .process-step p {
-            color: var(--text-muted);
+        .timeline-step p {
+            opacity: 0.75;
             font-size: 0.88rem;
         }
 
-        /* Detailed Services Section */
-        .detail-block {
-            margin-bottom: 40px;
+        /* DETAILS LIST SECTION */
+        .details-section {
+            padding: 80px 8%;
+            background: rgba(40, 38, 44, 0.4);
+        }
+
+        .detail-group {
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
             border-radius: 24px;
-            padding: 32px;
-            backdrop-filter: blur(12px);
-            transition: var(--transition);
+            padding: 35px;
+            margin-bottom: 30px;
         }
 
-        .detail-block:hover {
-            border-color: rgba(78, 166, 153, 0.3);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .detail-header {
+        .group-header {
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 18px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .detail-header i {
-            font-size: 1.4rem;
-            background: rgba(78, 166, 153, 0.12);
-            color: var(--color-ocean-mist);
-            border: 1px solid rgba(78, 166, 153, 0.25);
-            width: 48px;
-            height: 48px;
+        .group-header i {
+            width: 46px;
+            height: 46px;
+            background: var(--c-flag-red);
+            color: var(--c-lavender);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
+            border-radius: 12px;
+            font-size: 1.2rem;
         }
 
-        .detail-header h3 {
-            font-size: 1.4rem;
+        .group-header h3 {
+            font-size: 1.35rem;
             font-weight: 800;
-            color: var(--color-lavender-mist);
         }
 
-        .badge-monthly {
+        .group-badge {
+            background: var(--c-ocean-mist);
+            color: var(--c-dark-grey);
+            padding: 3px 10px;
+            border-radius: 12px;
             font-size: 0.75rem;
-            background: var(--gradient-red);
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 800;
-            margin-right: 10px;
-            letter-spacing: 0.5px;
+            font-weight: 900;
+            margin-right: auto;
         }
 
-        .items-grid {
+        .items-flex {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
         }
 
-        .item-box {
-            background: rgba(20, 20, 26, 0.6);
-            border: 1px solid var(--border-subtle);
-            padding: 16px 20px;
+        .item-pill {
+            background: rgba(20, 36, 138, 0.25);
+            border: 1px solid var(--border-teal);
+            padding: 14px 20px;
             border-radius: 14px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 0.92rem;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .item-box:hover {
-            background: rgba(78, 166, 153, 0.08);
-            border-color: var(--color-ocean-mist);
-            transform: translateX(-6px);
-            color: var(--color-lavender-mist);
-        }
-
-        .item-box i {
-            color: var(--color-ocean-mist);
-            font-size: 1.05rem;
-        }
-
-        /* Testimonials Section */
-        .testimonials-section {
-            background: rgba(40, 38, 44, 0.3);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 28px;
-            border-radius: 20px;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-
-        .testimonial-card i.quote {
-            color: rgba(249, 245, 255, 0.05);
-            font-size: 2.8rem;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .stars {
-            color: #f59e0b;
+            font-weight: 700;
             font-size: 0.9rem;
-            margin-bottom: 14px;
-            display: flex;
-            gap: 4px;
+            transition: var(--transition-smooth);
         }
 
-        .testimonial-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 16px;
+        .item-pill:hover {
+            background: var(--c-ocean-mist);
+            color: var(--c-dark-grey);
+            transform: translateX(-5px);
+        }
+
+        .item-pill i {
+            color: var(--c-ocean-mist);
+        }
+
+        .item-pill:hover i {
+            color: var(--c-dark-grey);
+        }
+
+        /* REVIEWS SECTION */
+        .reviews-section {
+            padding: 80px 8%;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: var(--c-dark-grey);
+            border: 1px solid var(--border-light);
+            padding: 30px;
+            border-radius: 22px;
             position: relative;
-            z-index: 1;
         }
 
-        .client-info {
-            font-weight: 800;
+        .stars-line {
+            color: var(--c-ocean-mist);
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+        }
+
+        .review-card p {
+            opacity: 0.85;
             font-size: 0.92rem;
-            color: var(--color-ocean-mist);
+            line-height: 1.7;
+            margin-bottom: 18px;
         }
 
-        /* Contact Section */
-        .contact-grid {
+        .client-name {
+            font-weight: 800;
+            color: var(--c-ocean-mist);
+            font-size: 0.88rem;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            padding: 80px 8%;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--c-true-cobalt) 100%);
+        }
+
+        .contact-cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
         }
 
-        .contact-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 28px 20px;
+        .contact-box {
+            background: var(--c-dark-grey);
+            border: 1px solid var(--border-teal);
+            padding: 30px 20px;
             border-radius: 20px;
             text-align: center;
             text-decoration: none;
-            color: var(--color-lavender-mist);
-            transition: var(--transition);
+            color: var(--c-lavender);
+            transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
+            gap: 12px;
         }
 
-        .contact-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--color-ocean-mist);
-            background: var(--bg-card-hover);
-            box-shadow: 0 12px 30px rgba(78, 166, 153, 0.2);
+        .contact-box:hover {
+            transform: translateY(-8px);
+            background: var(--c-ocean-mist);
+            color: var(--c-dark-grey);
         }
 
-        .contact-card i {
-            font-size: 1.8rem;
-            color: var(--color-ocean-mist);
+        .contact-box i {
+            font-size: 2rem;
+            color: var(--c-ocean-mist);
         }
 
-        .contact-card span {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            font-weight: 600;
+        .contact-box:hover i {
+            color: var(--c-dark-grey);
         }
 
-        .contact-card strong {
+        .contact-box span {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .contact-box strong {
             font-size: 1rem;
             direction: ltr;
-            font-weight: 800;
         }
 
-        /* Floating WhatsApp CTA */
-        .floating-whatsapp {
+        /* FLOATING WHATSAPP CTA */
+        .floating-wa {
             position: fixed;
-            bottom: 28px;
-            right: 28px;
-            background: #25d366;
-            color: #ffffff;
-            width: 62px;
-            height: 62px;
+            bottom: 30px;
+            right: 30px;
+            background: var(--c-ocean-mist);
+            color: var(--c-dark-grey);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            font-size: 28px;
+            box-shadow: 0 10px 30px rgba(78, 166, 153, 0.4);
             z-index: 2000;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             text-decoration: none;
         }
 
-        .floating-whatsapp:hover {
-            transform: scale(1.12) rotate(10deg);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.6);
+        .floating-wa:hover {
+            transform: scale(1.15) rotate(12deg);
+            background: var(--c-flag-red);
+            color: var(--c-lavender);
         }
 
-        /* Footer */
+        /* FOOTER */
         footer {
             text-align: center;
-            padding: 28px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            border-top: 1px solid var(--border-subtle);
-            background: #0d0d12;
-            font-weight: 600;
+            padding: 30px;
+            border-top: 1px solid var(--border-light);
+            background: #100f13;
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
 
-        /* Animations */
+        /* REVEAL ANIMATION */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(35px);
+            transition: var(--transition-smooth);
         }
 
         .reveal.active {
@@ -706,38 +670,33 @@
             transform: translateY(0);
         }
 
-        /* Responsive */
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 992px) {
+            .hero-section { grid-template-columns: 1fr; gap: 40px; }
+            .bento-grid { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 768px) {
-            header { padding: 14px 5%; }
+            header { padding: 15px 5%; }
             nav { display: none; }
-            .hero { padding-top: 120px; }
-            .hero h1 { font-size: 2.3rem; }
-            .hero p { font-size: 0.95rem; }
-            .section-title { font-size: 1.5rem; }
-            .detail-block { padding: 22px; }
-            .floating-whatsapp { width: 52px; height: 52px; font-size: 26px; bottom: 20px; right: 20px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Canvas Background Glow -->
-    <div class="bg-canvas" id="canvas"></div>
+    <!-- Ambient Lighting Backdrop -->
+    <div class="ambient-canvas" id="canvas"></div>
 
-    <div class="floating-shapes">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header>
-        <div class="logo-container">
-            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
-            <div class="logo-text">TEAM ALPHA</div>
-        </div>
+        <a href="#" class="brand-logo">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo">
+            <span>TEAM ALPHA</span>
+        </a>
 
-        <div class="work-status">
+        <div class="status-pill">
             <div class="status-dot" id="statusDot"></div>
             <span id="statusText">جاري التحقق...</span>
         </div>
@@ -755,179 +714,225 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-badge reveal">
-            <i class="fa-solid fa-rocket"></i> شريكك النموذجي في الدعاية والتكنولوجيا
+    <section class="hero-section" id="hero">
+        <div class="hero-content">
+            <div class="hero-tag reveal">
+                <i class="fa-solid fa-fire"></i> الحل الإعلاني والبرمجي الأول
+            </div>
+            <h1 class="reveal">نُشكل مستقبل <span>علامتك التجارية</span></h1>
+            <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
+            
+            <div class="hero-stats reveal">
+                <div class="stat-card">
+                    <strong>100%</strong>
+                    <span>تنفيذ ميداني وبرمجي</span>
+                </div>
+                <div class="stat-card">
+                    <strong>All in One</strong>
+                    <span>حلول دعاية متكاملة</span>
+                </div>
+            </div>
         </div>
-        <h1 class="reveal">TEAM ALPHA</h1>
-        <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
 
-        <div class="offers-section reveal" id="offers">
-            <div class="offers-title">
-                <i class="fa-solid fa-fire"></i>
+        <div class="hero-promo-card reveal" id="offers">
+            <div class="promo-badge">عرض حصري</div>
+            <div class="promo-title">
+                <i class="fa-solid fa-bolt"></i>
                 <span>العروض المميزة المتاحة حالياً</span>
             </div>
-            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="offer-banner">
+            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="promo-image">
         </div>
     </section>
 
     <!-- Why Choose Us -->
-    <section class="why-us" id="why-us">
-        <h2 class="section-title reveal">لماذا تختار تيم ألفا؟</h2>
-        <div class="why-grid">
-            <div class="why-card reveal">
-                <i class="fa-solid fa-chart-line"></i>
-                <h4>نتائج ملموسة</h4>
+    <section class="why-section" id="why-us">
+        <div class="section-header reveal">
+            <h2>لماذا تختار تيم ألفا؟</h2>
+            <p>مقومات النجاح التي نقدمها لنشاطك التجاري</p>
+        </div>
+
+        <div class="why-container">
+            <div class="why-box reveal">
+                <div class="why-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>نتائج ملموسة</h3>
                 <p>نركز على زيادة مبيعاتك وتواجدك الميداني والرقفي، وليس مجرد مظهر خارجي.</p>
             </div>
-            <div class="why-card reveal">
-                <i class="fa-solid fa-bolt"></i>
-                <h4>سرعة وتنفيذ احترافي</h4>
+
+            <div class="why-box reveal">
+                <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>سرعة وتنفيذ احترافي</h3>
                 <p>نلتزم بالمواعيد المحددة ونوفر تغطية ميدانية وبناء برمجيات بدقة عالية.</p>
             </div>
-            <div class="why-card reveal">
-                <i class="fa-solid fa-layer-group"></i>
-                <h4>حلول متكاملة (All in One)</h4>
+
+            <div class="why-box reveal">
+                <div class="why-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>حلول متكاملة (All in One)</h3>
                 <p>من شغل الشارع والمطبوعات إلى إدارة الصفحات وتطوير البرمجيات وتقنيات الـ NFC.</p>
             </div>
         </div>
     </section>
 
-    <!-- Services Overview Section -->
-    <section class="services-overview" id="overview">
-        <h2 class="section-title reveal">مجالات اختصاصنا</h2>
-        <div class="overview-grid">
-            <div class="overview-card reveal" onclick="scrollToSection('street-work')">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h3>شغل الشارع</h3>
+    <!-- Services Overview (Bento Grid) -->
+    <section class="services-section" id="overview">
+        <div class="section-header reveal">
+            <h2>مجالات اختصاصنا</h2>
+            <p>خدمات مصممة للنمو والتوسع المباشر</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-card featured reveal" onclick="scrollToSection('street-work')">
+                <i class="fa-solid fa-bullhorn main-i"></i>
+                <h3>شغل الشارع والدعاية الميدانية</h3>
                 <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان.</p>
+                <div class="bento-link">استكشف التغطية الميدانية <i class="fa-solid fa-arrow-left"></i></div>
             </div>
-            <div class="overview-card reveal" onclick="scrollToSection('social-work')">
-                <i class="fa-solid fa-hashtag"></i>
-                <h3>سوشيال ميديا</h3>
+
+            <div class="bento-card reveal" onclick="scrollToSection('social-work')">
+                <i class="fa-solid fa-hashtag main-i"></i>
+                <h3>إدارة السوشيال ميديا</h3>
                 <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
+                <div class="bento-link">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></div>
             </div>
-            <div class="overview-card reveal" onclick="scrollToSection('dev-work')">
-                <i class="fa-solid fa-code"></i>
-                <h3>شغل البرمجة</h3>
+
+            <div class="bento-card reveal" onclick="scrollToSection('dev-work')">
+                <i class="fa-solid fa-code main-i"></i>
+                <h3>البرمجة والحلول الذكية</h3>
                 <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
+                <div class="bento-link">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></div>
             </div>
         </div>
     </section>
 
-    <!-- Process Section -->
+    <!-- Work Process -->
     <section class="process-section" id="process">
-        <h2 class="section-title reveal">كيف نعمل معك؟</h2>
-        <div class="process-grid">
-            <div class="process-step reveal">
-                <div class="step-number">1</div>
+        <div class="section-header reveal">
+            <h2>كيف نعمل معك؟</h2>
+            <p>منهجية منظمة تحول الفكرة إلى واقع ملموس</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-step reveal">
+                <div class="timeline-number">01</div>
                 <h4>تحديد الأهداف</h4>
                 <p>نتواصل معك لفهم مشروعك وتحديد الاستراتيجية الأنسب لنشاطك.</p>
             </div>
-            <div class="process-step reveal">
-                <div class="step-number">2</div>
+
+            <div class="timeline-step reveal">
+                <div class="timeline-number">02</div>
                 <h4>الابتكار والتنفيذ</h4>
                 <p>يبدأ فريقنا بتنفيذ الحملة الإعلانية أو تطوير الموقع بأعلى جودة.</p>
             </div>
-            <div class="process-step reveal">
-                <div class="step-number">3</div>
+
+            <div class="timeline-step reveal">
+                <div class="timeline-number">03</div>
                 <h4>الانطلاق والنتائج</h4>
                 <p>نُسلمك العمل كاملاً مع متابعة دقيقة للنتائج لضمان أقصى نجاح.</p>
             </div>
         </div>
     </section>
 
-    <!-- Detailed Services Section -->
-    <section class="services-details" id="details">
-        <h2 class="section-title reveal">تفاصيل الخدمات</h2>
+    <!-- Detailed Services -->
+    <section class="details-section" id="details">
+        <div class="section-header reveal">
+            <h2>تفاصيل الخدمات</h2>
+            <p>قائمة شاملة بكافة الإمكانيات المتاحة للتنفيذ</p>
+        </div>
 
-        <div class="detail-block reveal" id="street-work">
-            <div class="detail-header">
+        <div class="detail-group reveal" id="street-work">
+            <div class="group-header">
                 <i class="fa-solid fa-road"></i>
                 <h3>شغل الشارع والدعاية الميدانية</h3>
             </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
-                <div class="item-box"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
-                <div class="item-box"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز</span></div>
-                <div class="item-box"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
+            <div class="items-flex">
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>اسكيترز ب أعداد كبيره</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>فلايرز</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
             </div>
         </div>
 
-        <div class="detail-block reveal" id="social-work">
-            <div class="detail-header">
+        <div class="detail-group reveal" id="social-work">
+            <div class="group-header">
                 <i class="fa-solid fa-share-nodes"></i>
-                <h3>إدارة وتسويق السوشيال ميديا <span class="badge-monthly">نظام شهري</span></h3>
+                <h3>إدارة وتسويق السوشيال ميديا</h3>
+                <span class="group-badge">نظام شهري</span>
             </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
-                <div class="item-box"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
-                <div class="item-box"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
-                <div class="item-box"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+            <div class="items-flex">
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم احترافية</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
             </div>
         </div>
 
-        <div class="detail-block reveal" id="dev-work">
-            <div class="detail-header">
+        <div class="detail-group reveal" id="dev-work">
+            <div class="group-header">
                 <i class="fa-solid fa-laptop-code"></i>
                 <h3>شغل البرمجة والحلول الذكية</h3>
             </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
-                <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
-                <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+            <div class="items-flex">
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                <div class="item-pill"><i class="fa-solid fa-check"></i><span>م مواقع ويب مخصصة لخدماتك</span></div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <h2 class="section-title reveal">آراء عملاء تيم ألفا</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card reveal">
-                <i class="fa-solid fa-quote-left quote"></i>
-                <div class="stars">
+    <!-- Testimonials -->
+    <section class="reviews-section">
+        <div class="section-header reveal">
+            <h2>آراء عملاء تيم ألفا</h2>
+            <p>إنطباعات شركائنا بعد التعامل معنا</p>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <div class="stars-line">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
                 <p>"سرعة ممتازة في التنفيذ، شغل السوشيال ميديا والريلزفرق جداً في المبيعات وتفاعل الزبائن مع محلي."</p>
-                <div class="client-info">- أصحاب نشاط تجاري</div>
+                <div class="client-name">- أصحاب نشاط تجاري</div>
             </div>
-            <div class="testimonial-card reveal">
-                <i class="fa-solid fa-quote-left quote"></i>
-                <div class="stars">
+
+            <div class="review-card reveal">
+                <div class="stars-line">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
                 <p>"منتجات الـ NFC وموقع الويب الهبوط خلوا شكل شركتنا احترافي جداً قدام أي عميل جديد."</p>
-                <div class="client-info">- عميل خدمات برمجية</div>
+                <div class="client-name">- عميل خدمات برمجية</div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
-        <h2 class="section-title reveal">تواصل معنا</h2>
-        <div class="contact-grid">
-            <a href="tel:+201150605708" class="contact-card reveal">
+        <div class="section-header reveal">
+            <h2>تواصل معنا</h2>
+            <p>جاهزون لبدء مشروعك القادم فوراً</p>
+        </div>
+
+        <div class="contact-cards-grid">
+            <a href="tel:+201150605708" class="contact-box reveal">
                 <i class="fa-solid fa-phone"></i>
                 <span>الرقم الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="contact-card reveal">
+            <a href="tel:+201031913107" class="contact-box reveal">
                 <i class="fa-solid fa-phone-flip"></i>
                 <span>الرقم الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="contact-card reveal">
+            <a href="https://wa.me/201031913107" target="_blank" class="contact-box reveal">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card reveal">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-box reveal">
                 <i class="fa-brands fa-instagram"></i>
                 <span>حساب الانستجرام</span>
                 <strong>@TEAM_ALPHA</strong>
@@ -936,7 +941,7 @@
     </section>
 
     <!-- Floating WhatsApp CTA -->
-    <a href="https://wa.me/201031913107" target="_blank" class="floating-whatsapp" title="تحدث معنا عبر الواتساب">
+    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa" title="تحدث معنا عبر الواتساب">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -946,7 +951,7 @@
     </footer>
 
     <script>
-        // Force Page Scroll to Top on Refresh
+        // Force Page Scroll to Top
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
@@ -975,22 +980,22 @@
             }
         }
 
-        // Mouse Tracking Interactive Canvas Glow Effect
+        // Ambient Lighting Mouse Follower
         const canvas = document.getElementById('canvas');
         window.addEventListener('mousemove', (e) => {
             const x = (e.clientX / window.innerWidth) * 100;
             const y = (e.clientY / window.innerHeight) * 100;
-            canvas.style.setProperty('--x', `${x}%`);
-            canvas.style.setProperty('--y', `${y}%`);
+            canvas.style.setProperty('--mouse-x', `${x}%`);
+            canvas.style.setProperty('--mouse-y', `${y}%`);
         });
 
-        // Smooth Scroll Reveal Animations
+        // Reveal Animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 60) {
+                if (elementTop < windowHeight - 50) {
                     el.classList.add('active');
                 }
             });
