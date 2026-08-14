@@ -16,15 +16,14 @@
             --c-lavender: #F9F5FF;
             --c-true-cobalt: #14248A;
 
-            /* DERIVED LUXURY SHADES (STRICTLY FROM PALETTE) */
-            --bg-deep: #161519;
-            --bg-card: rgba(40, 38, 44, 0.75);
-            --bg-card-alt: rgba(20, 36, 138, 0.2);
-            --border-light: rgba(249, 245, 255, 0.1);
-            --border-teal: rgba(78, 166, 153, 0.4);
-            --border-red: rgba(193, 41, 46, 0.4);
+            /* LIQUID GLASS & DERIVED LUXURY SHADES */
+            --bg-deep: #121115;
+            --glass-bg: rgba(40, 38, 44, 0.45);
+            --glass-border: rgba(249, 245, 255, 0.15);
+            --glass-glow-teal: rgba(78, 166, 153, 0.35);
+            --glass-glow-cobalt: rgba(20, 36, 138, 0.45);
             
-            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -41,11 +40,11 @@
             overflow-x: hidden;
             font-size: 15px;
             line-height: 1.6;
-            position: relative;
+            perspective: 1200px;
         }
 
-        /* DYNAMIC INTERACTIVE LIGHTING BACKGROUND */
-        .ambient-canvas {
+        /* 3D FLOATING BACKGROUND LIQUID ORBS */
+        .liquid-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -53,26 +52,68 @@
             height: 100vh;
             pointer-events: none;
             z-index: -1;
-            background: 
-                radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(78, 166, 153, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 15%, rgba(20, 36, 138, 0.35) 0%, transparent 50%),
-                radial-gradient(circle at 10% 85%, rgba(193, 41, 46, 0.15) 0%, transparent 45%);
+            overflow: hidden;
         }
 
-        /* HEADER & NAVIGATION */
+        .liquid-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float3D 12s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--c-true-cobalt);
+            top: -100px;
+            right: -50px;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--c-ocean-mist);
+            bottom: 10%;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--c-flag-red);
+            top: 40%;
+            right: 25%;
+            opacity: 0.25;
+            animation-delay: -7s;
+        }
+
+        @keyframes float3D {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
+            100% { transform: translateY(30px) rotate(360deg) scale(0.95); }
+        }
+
+        /* HEADER & LIQUID GLASS NAVIGATION */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 18px 8%;
+            top: 20px;
+            left: 5%;
+            right: 5%;
+            width: 90%;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(40, 38, 44, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(40, 38, 44, 0.55);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
             z-index: 1000;
-            border-bottom: 1px solid var(--border-light);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(249, 245, 255, 0.2);
         }
 
         .brand-logo {
@@ -83,18 +124,19 @@
         }
 
         .brand-logo img {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 12px;
             border: 2px solid var(--c-ocean-mist);
             object-fit: cover;
+            box-shadow: 0 0 15px var(--glass-glow-teal);
         }
 
         .brand-logo span {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
-            letter-spacing: 1px;
             color: var(--c-lavender);
+            letter-spacing: 1px;
         }
 
         .status-pill {
@@ -102,11 +144,11 @@
             align-items: center;
             gap: 8px;
             background: rgba(20, 36, 138, 0.4);
-            border: 1px solid var(--border-teal);
+            border: 1px solid var(--glass-glow-teal);
             padding: 6px 16px;
             border-radius: 50px;
-            font-size: 0.82rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 800;
         }
 
         .status-dot {
@@ -117,17 +159,17 @@
 
         .status-dot.open {
             background-color: var(--c-ocean-mist);
-            box-shadow: 0 0 10px var(--c-ocean-mist);
-            animation: pulse-dot 1.8s infinite;
+            box-shadow: 0 0 12px var(--c-ocean-mist);
+            animation: pulse 1.8s infinite;
         }
 
         .status-dot.closed {
             background-color: var(--c-flag-red);
-            box-shadow: 0 0 10px var(--c-flag-red);
-            animation: pulse-dot 1.8s infinite;
+            box-shadow: 0 0 12px var(--c-flag-red);
+            animation: pulse 1.8s infinite;
         }
 
-        @keyframes pulse-dot {
+        @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.4; transform: scale(0.85); }
         }
@@ -135,7 +177,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         nav a {
@@ -143,55 +185,56 @@
             opacity: 0.8;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: var(--transition-smooth);
         }
 
         nav a:hover {
             opacity: 1;
             color: var(--c-ocean-mist);
+            text-shadow: 0 0 10px var(--c-ocean-mist);
         }
 
-        /* HERO SECTION - SPLIT LAYOUT */
+        /* HERO SECTION */
         .hero-section {
-            padding: 160px 8% 80px;
+            padding: 180px 8% 100px;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
             align-items: center;
-            min-height: 85vh;
+            min-height: 100vh;
         }
 
         .hero-tag {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--c-flag-red);
+            background: linear-gradient(135deg, var(--c-flag-red), #8a1d21);
             color: var(--c-lavender);
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 30px;
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 800;
             margin-bottom: 24px;
-            box-shadow: 0 8px 20px rgba(193, 41, 46, 0.3);
+            box-shadow: 0 10px 25px rgba(193, 41, 46, 0.4);
+            border: 1px solid rgba(249, 245, 255, 0.2);
         }
 
         .hero-content h1 {
-            font-size: 3.6rem;
+            font-size: 3.5rem;
             font-weight: 900;
             line-height: 1.15;
             margin-bottom: 20px;
-            color: var(--c-lavender);
         }
 
         .hero-content h1 span {
             color: var(--c-ocean-mist);
+            text-shadow: 0 0 20px rgba(78, 166, 153, 0.4);
             display: block;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
-            color: var(--c-lavender);
+            font-size: 1.05rem;
             opacity: 0.85;
             margin-bottom: 35px;
             max-width: 580px;
@@ -203,447 +246,525 @@
             gap: 20px;
         }
 
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 16px 24px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
+        .stat-card-3d {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 18px 26px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
             border-right: 4px solid var(--c-ocean-mist);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transform-style: preserve-3d;
+            transition: var(--transition-smooth);
         }
 
-        .stat-card strong {
+        .stat-card-3d:hover {
+            transform: translateZ(15px) rotateX(5deg);
+            border-color: var(--c-ocean-mist);
+        }
+
+        .stat-card-3d strong {
             display: block;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 900;
             color: var(--c-lavender);
         }
 
-        .stat-card span {
+        .stat-card-3d span {
             font-size: 0.8rem;
             opacity: 0.7;
         }
 
-        /* HERO PROMO CARD (OFFERS) */
-        .hero-promo-card {
-            background: var(--c-dark-grey);
-            border: 2px solid var(--border-teal);
-            border-radius: 28px;
-            padding: 24px;
+        /* 3D REALISTIC iPHONE 17 PRO MAX CONTAINER */
+        .iphone-3d-wrapper {
             position: relative;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .iphone-17-frame {
+            width: 320px;
+            height: 640px;
+            background: #1e1d22;
+            border-radius: 54px;
+            padding: 12px;
+            position: relative;
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.8),
+                0 0 40px var(--glass-glow-cobalt),
+                inset 0 0 12px rgba(249, 245, 255, 0.25);
+            border: 3px solid #3d3a43;
+            transform: rotateY(-18deg) rotateX(8deg) rotateZ(2deg);
+            transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.3, 1);
+            transform-style: preserve-3d;
+            animation: phoneFloat 6s infinite ease-in-out alternate;
+        }
+
+        .iphone-3d-wrapper:hover .iphone-17-frame {
+            transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.03);
+        }
+
+        @keyframes phoneFloat {
+            0% { transform: rotateY(-18deg) rotateX(8deg) translateY(0px); }
+            100% { transform: rotateY(-12deg) rotateX(12deg) translateY(-25px); }
+        }
+
+        /* IPHONE SCREEN WITH LIQUID GLASS & LIVE REVIEWS FEED */
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #18171c 0%, #28262C 100%);
+            border-radius: 44px;
             overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .promo-badge {
+        /* DYNAMIC ISLAND */
+        .dynamic-island {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--c-true-cobalt);
-            border: 1px solid var(--border-teal);
-            padding: 6px 14px;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95px;
+            height: 25px;
+            background: #000000;
             border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 800;
-            color: var(--c-ocean-mist);
-        }
-
-        .promo-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 18px;
+            z-index: 10;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .camera-lens {
+            width: 10px;
+            height: 10px;
+            background: #090910;
+            border-radius: 50%;
+            border: 1px solid #1a1a2e;
+        }
+
+        .sensor-dot {
+            width: 6px;
+            height: 6px;
+            background: #14248A;
+            border-radius: 50%;
+        }
+
+        /* IPHONE SCREEN CONTENT HEADER */
+        .phone-header-bar {
+            padding: 45px 16px 10px;
+            background: rgba(20, 36, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .phone-header-bar h5 {
+            font-size: 0.85rem;
+            color: var(--c-ocean-mist);
+            font-weight: 800;
+        }
+
+        .phone-header-bar p {
+            font-size: 0.68rem;
+            opacity: 0.7;
+        }
+
+        /* LIVE FEED ANIMATED REVIEWS */
+        .phone-feed {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: hidden;
+            height: 100%;
+            position: relative;
+        }
+
+        .feed-scroll-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: feedScroll 18s linear infinite;
+        }
+
+        .feed-scroll-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes feedScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .phone-card {
+            background: rgba(40, 38, 44, 0.8);
+            border: 1px solid var(--glass-glow-teal);
+            padding: 12px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .phone-card-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .avatar-circle {
+            width: 26px;
+            height: 26px;
+            background: var(--c-true-cobalt);
+            color: var(--c-ocean-mist);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        .user-info strong {
+            display: block;
+            font-size: 0.72rem;
             color: var(--c-lavender);
         }
 
-        .promo-title i {
-            color: var(--c-flag-red);
+        .stars {
+            color: var(--c-ocean-mist);
+            font-size: 0.6rem;
         }
 
-        .promo-image {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 18px;
-            border: 1px solid var(--border-light);
+        .phone-card p {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            line-height: 1.4;
         }
 
-        /* SECTION HEADER STANDARD */
+        .metric-badge {
+            background: rgba(193, 41, 46, 0.2);
+            border: 1px solid var(--c-flag-red);
+            color: var(--c-lavender);
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 800;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        /* 3D LIQUID GLASS BENTO GRID (SERVICES) */
+        .services-section {
+            padding: 100px 8%;
+            background: linear-gradient(180deg, transparent 0%, rgba(20, 36, 138, 0.15) 100%);
+        }
+
         .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
 
         .section-header h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: var(--c-lavender);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .section-header p {
             color: var(--c-ocean-mist);
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        /* WHY US - 3D GRID */
-        .why-section {
-            padding: 80px 8%;
-        }
-
-        .why-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .why-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 40px 30px;
-            border-radius: 24px;
-            position: relative;
-            transition: var(--transition-smooth);
-        }
-
-        .why-box:hover {
-            transform: translateY(-10px);
-            border-color: var(--c-ocean-mist);
-            box-shadow: 0 20px 40px rgba(78, 166, 153, 0.15);
-            background: rgba(40, 38, 44, 0.95);
-        }
-
-        .why-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--c-true-cobalt);
-            border: 1px solid var(--border-teal);
-            color: var(--c-ocean-mist);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            border-radius: 18px;
-            margin-bottom: 24px;
-        }
-
-        .why-box h3 {
-            font-size: 1.3rem;
             font-weight: 800;
-            margin-bottom: 12px;
-            color: var(--c-lavender);
-        }
-
-        .why-box p {
-            opacity: 0.8;
-            font-size: 0.92rem;
-            line-height: 1.7;
-        }
-
-        /* SERVICES - BENTO GRID DESIGN */
-        .services-section {
-            padding: 80px 8%;
-            background: rgba(20, 36, 138, 0.1);
+            font-size: 1rem;
         }
 
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 28px;
         }
 
-        .bento-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 36px;
-            border-radius: 28px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
+        .bento-card-3d {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 32px;
+            backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
+            transition: var(--transition-smooth);
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        .bento-card:hover {
-            transform: scale(1.02);
+        .bento-card-3d:hover {
+            transform: translateY(-12px) rotateX(6deg) rotateY(-4deg);
             border-color: var(--c-ocean-mist);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 60px rgba(78, 166, 153, 0.25);
         }
 
-        .bento-card.featured {
-            background: linear-gradient(145deg, var(--c-dark-grey) 0%, var(--c-true-cobalt) 100%);
-            border: 1px solid var(--border-teal);
+        .bento-card-3d.featured {
+            background: linear-gradient(135deg, rgba(40, 38, 44, 0.8) 0%, rgba(20, 36, 138, 0.6) 100%);
+            border: 1px solid var(--glass-glow-teal);
         }
 
-        .bento-card i.main-i {
-            font-size: 2.8rem;
+        .bento-icon-3d {
+            width: 70px;
+            height: 70px;
+            background: var(--c-true-cobalt);
+            border: 1px solid var(--glass-glow-teal);
             color: var(--c-ocean-mist);
-            margin-bottom: 20px;
-            display: block;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: translateZ(20px);
         }
 
-        .bento-card h3 {
+        .bento-card-3d h3 {
             font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 12px;
-            color: var(--c-lavender);
+            margin-bottom: 14px;
+            transform: translateZ(15px);
         }
 
-        .bento-card p {
+        .bento-card-3d p {
             opacity: 0.8;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            transform: translateZ(10px);
         }
 
-        .bento-link {
-            font-weight: 800;
-            font-size: 0.85rem;
-            color: var(--c-ocean-mist);
-            display: flex;
+        .bento-btn {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            color: var(--c-ocean-mist);
+            font-weight: 800;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transform: translateZ(15px);
         }
 
-        /* WORK PROCESS TIMELINE */
+        /* WORK PROCESS TIMELINE WITH 3D GLASS CARDS */
         .process-section {
-            padding: 80px 8%;
+            padding: 100px 8%;
         }
 
-        .timeline {
+        .timeline-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            position: relative;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
-        .timeline-step {
-            background: var(--c-dark-grey);
-            border: 1px solid var(--border-light);
-            padding: 30px;
-            border-radius: 20px;
+        .timeline-card-3d {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 35px;
+            border-radius: 28px;
+            backdrop-filter: blur(15px);
             position: relative;
+            transition: var(--transition-smooth);
+            transform-style: preserve-3d;
         }
 
-        .timeline-number {
-            font-size: 2.5rem;
+        .timeline-card-3d:hover {
+            transform: translateZ(20px);
+            border-color: var(--c-flag-red);
+        }
+
+        .timeline-num-3d {
+            font-size: 3rem;
             font-weight: 900;
-            color: var(--c-true-cobalt);
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--c-ocean-mist);
             line-height: 1;
             margin-bottom: 15px;
-            -webkit-text-stroke: 1px var(--c-ocean-mist);
         }
 
-        .timeline-step h4 {
-            font-size: 1.15rem;
+        .timeline-card-3d h4 {
+            font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 10px;
-            color: var(--c-lavender);
         }
 
-        .timeline-step p {
-            opacity: 0.75;
-            font-size: 0.88rem;
+        .timeline-card-3d p {
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
 
-        /* DETAILS LIST SECTION */
+        /* DETAILS SECTION */
         .details-section {
-            padding: 80px 8%;
-            background: rgba(40, 38, 44, 0.4);
+            padding: 100px 8%;
+            background: rgba(40, 38, 44, 0.3);
         }
 
-        .detail-group {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
-            padding: 35px;
-            margin-bottom: 30px;
+        .detail-glass-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .group-header {
+        .detail-header {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 18px;
             margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .group-header i {
-            width: 46px;
-            height: 46px;
+        .detail-header i {
+            width: 50px;
+            height: 50px;
             background: var(--c-flag-red);
             color: var(--c-lavender);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            font-size: 1.2rem;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 20px rgba(193, 41, 46, 0.4);
         }
 
-        .group-header h3 {
-            font-size: 1.35rem;
+        .detail-header h3 {
+            font-size: 1.4rem;
             font-weight: 800;
         }
 
-        .group-badge {
+        .pill-badge {
+            margin-right: auto;
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.78rem;
             font-weight: 900;
-            margin-right: auto;
         }
 
-        .items-flex {
+        .items-flex-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 16px;
         }
 
-        .item-pill {
-            background: rgba(20, 36, 138, 0.25);
-            border: 1px solid var(--border-teal);
-            padding: 14px 20px;
-            border-radius: 14px;
+        .liquid-pill {
+            background: rgba(20, 36, 138, 0.3);
+            border: 1px solid var(--glass-glow-teal);
+            padding: 16px 22px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
+            backdrop-filter: blur(10px);
             transition: var(--transition-smooth);
         }
 
-        .item-pill:hover {
+        .liquid-pill:hover {
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            transform: translateX(-5px);
+            transform: translateX(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(78, 166, 153, 0.3);
         }
 
-        .item-pill i {
+        .liquid-pill i {
             color: var(--c-ocean-mist);
         }
 
-        .item-pill:hover i {
+        .liquid-pill:hover i {
             color: var(--c-dark-grey);
-        }
-
-        /* REVIEWS SECTION */
-        .reviews-section {
-            padding: 80px 8%;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .review-card {
-            background: var(--c-dark-grey);
-            border: 1px solid var(--border-light);
-            padding: 30px;
-            border-radius: 22px;
-            position: relative;
-        }
-
-        .stars-line {
-            color: var(--c-ocean-mist);
-            margin-bottom: 14px;
-            font-size: 0.85rem;
-        }
-
-        .review-card p {
-            opacity: 0.85;
-            font-size: 0.92rem;
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        .client-name {
-            font-weight: 800;
-            color: var(--c-ocean-mist);
-            font-size: 0.88rem;
         }
 
         /* CONTACT SECTION */
         .contact-section {
-            padding: 80px 8%;
+            padding: 100px 8%;
             background: linear-gradient(180deg, var(--bg-deep) 0%, var(--c-true-cobalt) 100%);
         }
 
-        .contact-cards-grid {
+        .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 22px;
         }
 
-        .contact-box {
-            background: var(--c-dark-grey);
-            border: 1px solid var(--border-teal);
-            padding: 30px 20px;
-            border-radius: 20px;
+        .contact-glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-glow-teal);
+            padding: 35px 25px;
+            border-radius: 24px;
             text-align: center;
             text-decoration: none;
             color: var(--c-lavender);
+            backdrop-filter: blur(15px);
             transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .contact-box:hover {
-            transform: translateY(-8px);
+        .contact-glass-card:hover {
+            transform: translateY(-10px) scale(1.03);
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
+            box-shadow: 0 20px 40px rgba(78, 166, 153, 0.4);
         }
 
-        .contact-box i {
-            font-size: 2rem;
+        .contact-glass-card i {
+            font-size: 2.2rem;
             color: var(--c-ocean-mist);
         }
 
-        .contact-box:hover i {
+        .contact-glass-card:hover i {
             color: var(--c-dark-grey);
         }
 
-        .contact-box span {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        .contact-box strong {
-            font-size: 1rem;
+        .contact-glass-card strong {
+            font-size: 1.05rem;
             direction: ltr;
         }
 
-        /* FLOATING WHATSAPP CTA */
-        .floating-wa {
+        /* FLOATING 3D WHATSAPP BUTTON */
+        .floating-wa-3d {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 35px;
+            right: 35px;
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 10px 30px rgba(78, 166, 153, 0.4);
+            font-size: 30px;
+            box-shadow: 0 15px 35px rgba(78, 166, 153, 0.5), inset 0 2px 4px rgba(255,255,255,0.4);
             z-index: 2000;
             transition: var(--transition-smooth);
             text-decoration: none;
+            border: 2px solid rgba(249, 245, 255, 0.3);
         }
 
-        .floating-wa:hover {
-            transform: scale(1.15) rotate(12deg);
+        .floating-wa-3d:hover {
+            transform: scale(1.18) rotate(15deg);
             background: var(--c-flag-red);
             color: var(--c-lavender);
         }
@@ -652,42 +773,29 @@
         footer {
             text-align: center;
             padding: 30px;
-            border-top: 1px solid var(--border-light);
-            background: #100f13;
+            border-top: 1px solid var(--glass-border);
+            background: #0d0c0f;
             font-size: 0.85rem;
             opacity: 0.7;
         }
 
-        /* REVEAL ANIMATION */
-        .reveal {
-            opacity: 0;
-            transform: translateY(35px);
-            transition: var(--transition-smooth);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* RESPONSIVE DESIGN */
+        /* RESPONSIVE */
         @media (max-width: 992px) {
-            .hero-section { grid-template-columns: 1fr; gap: 40px; }
+            .hero-section { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+            .hero-stats { justify-content: center; }
             .bento-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            nav { display: none; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .section-header h2 { font-size: 1.7rem; }
+            header { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Lighting Backdrop -->
-    <div class="ambient-canvas" id="canvas"></div>
+    <!-- LIQUID 3D FLOATING ORBS BACKGROUND -->
+    <div class="liquid-canvas">
+        <div class="liquid-orb orb-1"></div>
+        <div class="liquid-orb orb-2"></div>
+        <div class="liquid-orb orb-3"></div>
+    </div>
 
     <!-- Header -->
     <header>
@@ -704,9 +812,8 @@
         <nav>
             <ul>
                 <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#why-us">لماذا نحن</a></li>
-                <li><a href="#overview">خدماتنا</a></li>
-                <li><a href="#process">خطوات العمل</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#process">طريقة العمل</a></li>
                 <li><a href="#details">التفاصيل</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
@@ -716,223 +823,237 @@
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
         <div class="hero-content">
-            <div class="hero-tag reveal">
-                <i class="fa-solid fa-fire"></i> الحل الإعلاني والبرمجي الأول
+            <div class="hero-tag">
+                <i class="fa-solid fa-cube"></i> الوكالة الأولى للتسويق والحلول الذكية
             </div>
-            <h1 class="reveal">نُشكل مستقبل <span>علامتك التجارية</span></h1>
-            <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
+            <h1>نبتكر رؤيتك بأحدث <span>تقنيات الدعاية والبرمجة</span></h1>
+            <p>نقود علامتك التجارية نحو التميز عبر الشارع والمنصات الرقمية، بتصاميم Liquid Glass وحلول برمجية وميدانية تجذب الأنظار وتضاعف المبيعات.</p>
             
-            <div class="hero-stats reveal">
-                <div class="stat-card">
+            <div class="hero-stats">
+                <div class="stat-card-3d">
                     <strong>100%</strong>
-                    <span>تنفيذ ميداني وبرمجي</span>
+                    <span>تغطية ميدانية ورقمية</span>
                 </div>
-                <div class="stat-card">
-                    <strong>All in One</strong>
-                    <span>حلول دعاية متكاملة</span>
+                <div class="stat-card-3d">
+                    <strong>+150%</strong>
+                    <span>معدل نمو أرباح العملاء</span>
                 </div>
             </div>
         </div>
 
-        <div class="hero-promo-card reveal" id="offers">
-            <div class="promo-badge">عرض حصري</div>
-            <div class="promo-title">
-                <i class="fa-solid fa-bolt"></i>
-                <span>العروض المميزة المتاحة حالياً</span>
+        <!-- 3D REALISTIC iPHONE 17 PRO MAX WITH LIVE REVIEWS FEED -->
+        <div class="iphone-3d-wrapper">
+            <div class="iphone-17-frame">
+                <div class="iphone-screen">
+                    
+                    <!-- Dynamic Island -->
+                    <div class="dynamic-island">
+                        <div class="sensor-dot"></div>
+                        <div class="camera-lens"></div>
+                    </div>
+
+                    <!-- Screen Header -->
+                    <div class="phone-header-bar">
+                        <h5><i class="fa-solid fa-shield-halved"></i> آراء وتقييمات العملاء</h5>
+                        <p>تحديثات حية ومباشرة من النتائج</p>
+                    </div>
+
+                    <!-- Animated Liquid Feed -->
+                    <div class="phone-feed">
+                        <div class="feed-scroll-container">
+                            
+                            <div class="phone-card">
+                                <div class="phone-card-user">
+                                    <div class="avatar-circle">A</div>
+                                    <div class="user-info">
+                                        <strong>مطعم وتيك أواي</strong>
+                                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    </div>
+                                </div>
+                                <p>"شغل السكيترز والدعاية الميدانية غطى المنطقة بالكامل والمبيعات تضاعفت خلال أسبوع!"</p>
+                                <span class="metric-badge">زيادة زبائن +180%</span>
+                            </div>
+
+                            <div class="phone-card">
+                                <div class="phone-card-user">
+                                    <div class="avatar-circle">M</div>
+                                    <div class="user-info">
+                                        <strong>شركة خدمات وتقنية</strong>
+                                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    </div>
+                                </div>
+                                <p>"منتجات كروت الـ NFC مع موقع الـ Landing Page خلوا شكلنا قدام العملاء بروفيشنال جداً."</p>
+                                <span class="metric-badge">تقييم ممتاز 5/5</span>
+                            </div>
+
+                            <div class="phone-card">
+                                <div class="phone-card-user">
+                                    <div class="avatar-circle">S</div>
+                                    <div class="user-info">
+                                        <strong>براند ملابس وتجارة</strong>
+                                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    </div>
+                                </div>
+                                <p>"إدارة صفحات السوشيال ميديا وتصاميم الريلز عملت تفاعل رهيب مع الحملة الإعلانية."</p>
+                                <span class="metric-badge">تفاعل أسبوعي +250%</span>
+                            </div>
+
+                            <!-- Duplicate Feed for Seamless Loop -->
+                            <div class="phone-card">
+                                <div class="phone-card-user">
+                                    <div class="avatar-circle">A</div>
+                                    <div class="user-info">
+                                        <strong>مطعم وتيك أواي</strong>
+                                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    </div>
+                                </div>
+                                <p>"شغل السكيترز والدعاية الميدانية غطى المنطقة بالكامل والمبيعات تضاعفت خلال أسبوع!"</p>
+                                <span class="metric-badge">زيادة زبائن +180%</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="promo-image">
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="why-section" id="why-us">
-        <div class="section-header reveal">
-            <h2>لماذا تختار تيم ألفا؟</h2>
-            <p>مقومات النجاح التي نقدمها لنشاطك التجاري</p>
-        </div>
-
-        <div class="why-container">
-            <div class="why-box reveal">
-                <div class="why-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>نتائج ملموسة</h3>
-                <p>نركز على زيادة مبيعاتك وتواجدك الميداني والرقفي، وليس مجرد مظهر خارجي.</p>
-            </div>
-
-            <div class="why-box reveal">
-                <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
-                <h3>سرعة وتنفيذ احترافي</h3>
-                <p>نلتزم بالمواعيد المحددة ونوفر تغطية ميدانية وبناء برمجيات بدقة عالية.</p>
-            </div>
-
-            <div class="why-box reveal">
-                <div class="why-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <h3>حلول متكاملة (All in One)</h3>
-                <p>من شغل الشارع والمطبوعات إلى إدارة الصفحات وتطوير البرمجيات وتقنيات الـ NFC.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Overview (Bento Grid) -->
-    <section class="services-section" id="overview">
-        <div class="section-header reveal">
-            <h2>مجالات اختصاصنا</h2>
-            <p>خدمات مصممة للنمو والتوسع المباشر</p>
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <h2>خدماتنا الاحترافية</h2>
+            <p>حلول متكاملة ثلاثية الأبعاد تنقل نشاطك التجاري لأبعاد جديدة</p>
         </div>
 
         <div class="bento-grid">
-            <div class="bento-card featured reveal" onclick="scrollToSection('street-work')">
-                <i class="fa-solid fa-bullhorn main-i"></i>
+            <div class="bento-card-3d featured" onclick="scrollToSec('street-work')">
+                <div class="bento-icon-3d"><i class="fa-solid fa-bullhorn"></i></div>
                 <h3>شغل الشارع والدعاية الميدانية</h3>
-                <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان.</p>
-                <div class="bento-link">استكشف التغطية الميدانية <i class="fa-solid fa-arrow-left"></i></div>
+                <p>تغطية كاملة من فرق السكيترز، السيارات الدعاية، الفلايرز والأعلام المطبوعة المبتكرة لجذب الانتباه في الشارع.</p>
+                <a href="#details" class="bento-btn">استكشف التغطية الميدانية <i class="fa-solid fa-arrow-left"></i></a>
             </div>
 
-            <div class="bento-card reveal" onclick="scrollToSection('social-work')">
-                <i class="fa-solid fa-hashtag main-i"></i>
+            <div class="bento-card-3d" onclick="scrollToSec('social-work')">
+                <div class="bento-icon-3d"><i class="fa-solid fa-hashtag"></i></div>
                 <h3>إدارة السوشيال ميديا</h3>
-                <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
-                <div class="bento-link">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></div>
+                <p>صناعة محتوى Reels استثنائي، تصاميم جرافيك مجسمة، وإدارات حملات ممولة باحترافية عالية وباقات شهرية.</p>
+                <a href="#details" class="bento-btn">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></a>
             </div>
 
-            <div class="bento-card reveal" onclick="scrollToSection('dev-work')">
-                <i class="fa-solid fa-code main-i"></i>
-                <h3>البرمجة والحلول الذكية</h3>
-                <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
-                <div class="bento-link">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></div>
+            <div class="bento-card-3d" onclick="scrollToSec('dev-work')">
+                <div class="bento-icon-3d"><i class="fa-solid fa-code"></i></div>
+                <h3>البرمجة وتقنيات الـ NFC</h3>
+                <p>تطوير مواقف هبوط زجاجية حديثة، ومواقع تعريفية مخصصة، مع تصنيع بطاقات ومنتجات الـ NFC الذكية.</p>
+                <a href="#details" class="bento-btn">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- Work Process -->
+    <!-- Process Timeline -->
     <section class="process-section" id="process">
-        <div class="section-header reveal">
-            <h2>كيف نعمل معك؟</h2>
-            <p>منهجية منظمة تحول الفكرة إلى واقع ملموس</p>
+        <div class="section-header">
+            <h2>خطوات العمل الذكية</h2>
+            <p>منهجية ثلاثية الأبعاد لضمان أعلى درجات الدقة والاحترافية</p>
         </div>
 
-        <div class="timeline">
-            <div class="timeline-step reveal">
-                <div class="timeline-number">01</div>
-                <h4>تحديد الأهداف</h4>
-                <p>نتواصل معك لفهم مشروعك وتحديد الاستراتيجية الأنسب لنشاطك.</p>
+        <div class="timeline-grid">
+            <div class="timeline-card-3d">
+                <div class="timeline-num-3d">01</div>
+                <h4>التخطيط والاستراتيجية</h4>
+                <p>ندرس متطلبات نشاطك ونحدد الخطة الإعلانية والبرمجية الأنسب للوصول لأهدافك.</p>
             </div>
 
-            <div class="timeline-step reveal">
-                <div class="timeline-number">02</div>
-                <h4>الابتكار والتنفيذ</h4>
-                <p>يبدأ فريقنا بتنفيذ الحملة الإعلانية أو تطوير الموقع بأعلى جودة.</p>
+            <div class="timeline-card-3d">
+                <div class="timeline-num-3d">02</div>
+                <h4>التصميم والإنتاج 3D</h4>
+                <p>نُصمم الهوية والمحتوى والموقع بأسلوب Liquid Glass عصري يجذب عملائك.</p>
             </div>
 
-            <div class="timeline-step reveal">
-                <div class="timeline-number">03</div>
-                <h4>الانطلاق والنتائج</h4>
-                <p>نُسلمك العمل كاملاً مع متابعة دقيقة للنتائج لضمان أقصى نجاح.</p>
+            <div class="timeline-card-3d">
+                <div class="timeline-num-3d">03</div>
+                <h4>الانطلاق والمتابعة الحية</h4>
+                <p>ننفذ الحملة الميدانية والرقمية ونرسل لك تقارير الأداء ومعدلات النمو باستمرار.</p>
             </div>
         </div>
     </section>
 
-    <!-- Detailed Services -->
+    <!-- Detailed List Section -->
     <section class="details-section" id="details">
-        <div class="section-header reveal">
-            <h2>تفاصيل الخدمات</h2>
-            <p>قائمة شاملة بكافة الإمكانيات المتاحة للتنفيذ</p>
+        <div class="section-header">
+            <h2>قائمة الإمكانيات والخدمات</h2>
+            <p>تفاصيل كل ما يقدمه تيم ألفا لنشاطك التجاري</p>
         </div>
 
-        <div class="detail-group reveal" id="street-work">
-            <div class="group-header">
+        <div class="detail-glass-box" id="street-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-road"></i>
-                <h3>شغل الشارع والدعاية الميدانية</h3>
+                <h3>الدعاية الميدانية وشغل الشارع</h3>
             </div>
-            <div class="items-flex">
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>اسكيترز ب أعداد كبيره</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>فلايرز</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
+            <div class="items-flex-grid">
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>سكيترز بأعداد كبيرة</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>توزيع فلايرز ميداني</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
             </div>
         </div>
 
-        <div class="detail-group reveal" id="social-work">
-            <div class="group-header">
+        <div class="detail-glass-box" id="social-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-share-nodes"></i>
-                <h3>إدارة وتسويق السوشيال ميديا</h3>
-                <span class="group-badge">نظام شهري</span>
+                <h3>تسويق وإدارة السوشيال ميديا</h3>
+                <span class="pill-badge">اشتراكات شهرية</span>
             </div>
-            <div class="items-flex">
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم احترافية</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>إعلانات ممولة (إسبونسر)</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+            <div class="items-flex-grid">
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم 3D احترافية</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>إعلانات ممولة استراتيجية</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>إدارة الصفحات بالكامل</span></div>
             </div>
         </div>
 
-        <div class="detail-group reveal" id="dev-work">
-            <div class="group-header">
+        <div class="detail-glass-box" id="dev-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-laptop-code"></i>
-                <h3>شغل البرمجة والحلول الذكية</h3>
+                <h3>البرمجيات وتقنية الـ NFC</h3>
             </div>
-            <div class="items-flex">
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>جميع منتجات تقنية الـ NFC</span></div>
-                <div class="item-pill"><i class="fa-solid fa-check"></i><span>م مواقع ويب مخصصة لخدماتك</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="reviews-section">
-        <div class="section-header reveal">
-            <h2>آراء عملاء تيم ألفا</h2>
-            <p>إنطباعات شركائنا بعد التعامل معنا</p>
-        </div>
-
-        <div class="reviews-grid">
-            <div class="review-card reveal">
-                <div class="stars-line">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p>"سرعة ممتازة في التنفيذ، شغل السوشيال ميديا والريلزفرق جداً في المبيعات وتفاعل الزبائن مع محلي."</p>
-                <div class="client-name">- أصحاب نشاط تجاري</div>
-            </div>
-
-            <div class="review-card reveal">
-                <div class="stars-line">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p>"منتجات الـ NFC وموقع الويب الهبوط خلوا شكل شركتنا احترافي جداً قدام أي عميل جديد."</p>
-                <div class="client-name">- عميل خدمات برمجية</div>
+            <div class="items-flex-grid">
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>صفحات هبوط Landing Pages</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>مواقع بورتفوليو Portfolio</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>منتجات تقنية الـ NFC</span></div>
+                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة للشركات</span></div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
-        <div class="section-header reveal">
-            <h2>تواصل معنا</h2>
-            <p>جاهزون لبدء مشروعك القادم فوراً</p>
+        <div class="section-header">
+            <h2>تواصل مع فريقنا</h2>
+            <p>جاهزون لبدء مشروعك وتطوير علامتك التجارية فوراً</p>
         </div>
 
-        <div class="contact-cards-grid">
-            <a href="tel:+201150605708" class="contact-box reveal">
+        <div class="contact-grid">
+            <a href="tel:+201150605708" class="contact-glass-card">
                 <i class="fa-solid fa-phone"></i>
-                <span>الرقم الأول</span>
+                <span>الهاتف الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="contact-box reveal">
+            <a href="tel:+201031913107" class="contact-glass-card">
                 <i class="fa-solid fa-phone-flip"></i>
-                <span>الرقم الثاني</span>
+                <span>الهاتف الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="contact-box reveal">
+            <a href="https://wa.me/201031913107" target="_blank" class="contact-glass-card">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-box reveal">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-glass-card">
                 <i class="fa-brands fa-instagram"></i>
                 <span>حساب الانستجرام</span>
                 <strong>@TEAM_ALPHA</strong>
@@ -940,8 +1061,8 @@
         </div>
     </section>
 
-    <!-- Floating WhatsApp CTA -->
-    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa" title="تحدث معنا عبر الواتساب">
+    <!-- Floating 3D WhatsApp Button -->
+    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa-3d" title="تحدث معنا الآن عبر الواتساب">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -955,9 +1076,7 @@
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        window.addEventListener('beforeunload', () => {
-            window.scrollTo(0, 0);
-        });
+        window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
         window.onload = () => {
             window.scrollTo(0, 0);
             checkWorkingHours();
@@ -967,7 +1086,6 @@
         function checkWorkingHours() {
             const now = new Date();
             const currentHour = now.getHours();
-
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
 
@@ -980,32 +1098,8 @@
             }
         }
 
-        // Ambient Lighting Mouse Follower
-        const canvas = document.getElementById('canvas');
-        window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            canvas.style.setProperty('--mouse-x', `${x}%`);
-            canvas.style.setProperty('--mouse-y', `${y}%`);
-        });
-
-        // Reveal Animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            revealElements.forEach((el) => {
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 50) {
-                    el.classList.add('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
-
-        // Smooth Scroll Helper
-        function scrollToSection(id) {
+        // Scroll Helper
+        function scrollToSec(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
