@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEAM ALPHA | تيم ألفا للدعاية والبرمجة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --bg-card: #121216;
-            --bg-glass: rgba(255, 255, 255, 0.02);
-            --border-color: rgba(255, 255, 255, 0.07);
+            --bg-main: #08080a;
+            --bg-card: #111116;
+            --bg-glass: rgba(18, 18, 24, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(0, 212, 255, 0.4);
             --text-primary: #ffffff;
-            --text-secondary: #90909a;
-            --accent-gray: #22222a;
+            --text-secondary: #9a9ab0;
+            --accent-cyan: #00d4ff;
+            --accent-gold: #d4af37;
+            --accent-green: #22c55e;
+            --accent-gray: #1a1a24;
             --accent-light-gray: #d1d1d6;
             --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -33,7 +37,7 @@
             color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
-            font-size: 14px; /* تصغير حجم الخط الأساسي */
+            font-size: 14px;
         }
 
         /* Dynamic Animated Background */
@@ -45,7 +49,7 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.06) 0%, transparent 50%);
         }
 
         .floating-shapes div {
@@ -53,8 +57,8 @@
             width: 50px;
             height: 50px;
             background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
             z-index: -1;
             animation: float 20s infinite linear;
         }
@@ -78,8 +82,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 12, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(8, 8, 10, 0.88);
+            backdrop-filter: blur(16px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
@@ -87,23 +91,23 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             background: #1a1a20;
             border: 1px solid var(--border-color);
             object-fit: cover;
         }
 
         .logo-text {
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.25rem;
+            font-weight: 900;
             letter-spacing: 1px;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -115,7 +119,7 @@
             gap: 8px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
@@ -128,16 +132,15 @@
             position: relative;
         }
 
-        /* حالات اللمبة */
         .status-dot.open {
-            background-color: #22c55e;
-            box-shadow: 0 0 10px #22c55e;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 12px var(--accent-green);
             animation: blink-green 1.5s infinite;
         }
 
         .status-dot.closed {
             background-color: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
+            box-shadow: 0 0 12px #ef4444;
             animation: blink-red 1.5s infinite;
         }
 
@@ -154,7 +157,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 22px;
         }
 
         nav a {
@@ -166,12 +169,12 @@
         }
 
         nav a:hover {
-            color: var(--text-primary);
+            color: var(--accent-cyan);
         }
 
         /* Hero Section */
         .hero {
-            padding: 110px 6% 40px;
+            padding: 120px 6% 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -179,48 +182,65 @@
             text-align: center;
         }
 
+        .hero-badge {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            color: var(--accent-cyan);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .hero h1 {
-            font-size: 2.3rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+            font-size: 2.6rem;
+            font-weight: 900;
+            margin-bottom: 14px;
+            background: linear-gradient(180deg, #ffffff 30%, #a0a0b0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-secondary);
-            max-width: 500px;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            max-width: 580px;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        /* Offers Section (قسم العروض الحالية) */
+        /* Offers Section */
         .offers-section {
             width: 100%;
-            max-width: 650px;
+            max-width: 680px;
             margin: 0 auto 30px;
-            padding: 12px;
+            padding: 14px;
             background: var(--bg-card);
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
+            border: 1px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .offers-title {
-            font-size: 0.85rem;
-            color: var(--accent-light-gray);
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
+            font-weight: 700;
         }
 
         .offers-title i {
             animation: pulse 1.5s infinite;
-            color: #f59e0b;
+            color: var(--accent-gold);
         }
 
         @keyframes pulse {
@@ -231,170 +251,330 @@
 
         .offer-banner {
             width: 100%;
-            max-height: 250px;
+            max-height: 280px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
         }
 
-        /* Services Overview Section (إجمال الخدمات) */
+        /* Section Title Standard */
         .section-title {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 35px;
             position: relative;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 40px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 6px auto 0;
-            border-radius: 2px;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold));
+            margin: 8px auto 0;
+            border-radius: 3px;
         }
 
-        .services-overview {
+        /* Why Choose Us Section (قسم ليه تختارنا) */
+        .why-us {
             padding: 40px 6%;
-            background: rgba(255, 255, 255, 0.005);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.1);
+        }
+
+        .why-card i {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 14px;
+        }
+
+        .why-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .why-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Services Overview Section */
+        .services-overview {
+            padding: 50px 6%;
+            background: rgba(255, 255, 255, 0.003);
         }
 
         .overview-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
         .overview-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 22px 18px;
-            border-radius: 14px;
+            padding: 26px 20px;
+            border-radius: 16px;
             text-align: center;
             transition: var(--transition);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .overview-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.25);
-            background: #16161c;
+            transform: translateY(-6px);
+            border-color: var(--accent-cyan);
+            background: #14141c;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
         }
 
         .overview-card i {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--accent-light-gray);
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+            color: var(--accent-cyan);
         }
 
         .overview-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
         .overview-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Work Process Section (خطوات العمل) */
+        .process-section {
+            padding: 50px 6%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 14px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
+            color: #000;
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 0.95rem;
+        }
+
+        .process-step h4 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
             color: var(--text-secondary);
             font-size: 0.82rem;
             line-height: 1.4;
         }
 
-        /* Detailed Services Section (تفصيل الخدمات) */
+        /* Detailed Services Section */
         .services-details {
-            padding: 40px 6%;
+            padding: 50px 6%;
         }
 
         .detail-block {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             background: var(--bg-glass);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 22px;
-            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            padding: 26px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .detail-block:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .detail-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 14px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
+            padding-bottom: 14px;
         }
 
         .detail-header i {
-            font-size: 1.2rem;
-            background: var(--accent-gray);
-            width: 38px;
-            height: 38px;
+            font-size: 1.3rem;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
         .detail-header h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
         }
 
         .badge-monthly {
-            font-size: 0.7rem;
-            background: #ffffff;
+            font-size: 0.72rem;
+            background: var(--accent-gold);
             color: #000;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 12px;
-            font-weight: 700;
-            margin-right: 6px;
+            font-weight: 800;
+            margin-right: 8px;
         }
 
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
         }
 
         .item-box {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             border: 1px solid var(--border-color);
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             transition: var(--transition);
         }
 
         .item-box:hover {
-            background: rgba(255, 255, 255, 0.04);
-            transform: translateX(-3px);
+            background: rgba(0, 212, 255, 0.05);
+            border-color: var(--accent-cyan);
+            transform: translateX(-4px);
         }
 
         .item-box i {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
         }
 
-        /* Contact Section (قسم التواصل والأرقام) */
-        .contact-section {
-            padding: 40px 6%;
+        /* Testimonials Section (قسم آراء العملاء) */
+        .testimonials-section {
+            padding: 50px 6%;
             background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 14px;
+            position: relative;
+        }
+
+        .testimonial-card i.quote {
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .stars {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .client-info {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 50px 6%;
+            background: var(--bg-main);
             border-top: 1px solid var(--border-color);
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
         .contact-card {
-            background: var(--bg-main);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 16px 12px;
-            border-radius: 12px;
+            padding: 20px 15px;
+            border-radius: 14px;
             text-align: center;
             text-decoration: none;
             color: var(--text-primary);
@@ -402,43 +582,70 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .contact-card:hover {
-            transform: translateY(-3px);
-            border-color: #ffffff;
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.12);
         }
 
         .contact-card i {
-            font-size: 1.3rem;
-            color: var(--accent-light-gray);
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
         }
 
         .contact-card span {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             color: var(--text-secondary);
         }
 
         .contact-card strong {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             direction: ltr;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            background: #25d366;
+            color: #ffffff;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 2000;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1) rotate(8deg);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 18px;
+            padding: 22px;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             border-top: 1px solid var(--border-color);
+            background: #050507;
         }
 
         /* Reveal Animation Classes */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            transform: translateY(25px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -450,16 +657,18 @@
         @media (max-width: 768px) {
             header { padding: 10px 4%; }
             nav { display: none; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero p { font-size: 0.85rem; }
-            .section-title { font-size: 1.3rem; }
-            .detail-block { padding: 15px; }
-            .work-status span { font-size: 0.7rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 0.88rem; }
+            .section-title { font-size: 1.35rem; }
+            .detail-block { padding: 18px; }
+            .work-status span { font-size: 0.72rem; }
+            .floating-whatsapp { width: 50px; height: 50px; font-size: 26px; bottom: 16px; right: 16px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Mouse Tracking Dynamic Glow -->
     <div class="bg-glow" id="glow"></div>
 
     <div class="floating-shapes">
@@ -468,6 +677,7 @@
         <div></div>
     </div>
 
+    <!-- Sticky Header -->
     <header>
         <div class="logo-container">
             <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
@@ -482,27 +692,55 @@
         <nav>
             <ul>
                 <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#offers">العروض</a></li>
+                <li><a href="#why-us">لماذا نحن</a></li>
                 <li><a href="#overview">خدماتنا</a></li>
+                <li><a href="#process">خطوات العمل</a></li>
                 <li><a href="#details">التفاصيل</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero" id="hero">
+        <div class="hero-badge reveal">
+            <i class="fa-solid fa-rocket"></i> شريكك النموذجي في الدعاية والتكنولوجيا
+        </div>
         <h1 class="reveal">TEAM ALPHA</h1>
         <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
 
         <div class="offers-section reveal" id="offers">
             <div class="offers-title">
                 <i class="fa-solid fa-fire"></i>
-                <span>العروض المميزة المتاحه حالياً</span>
+                <span>العروض المميزة المتاحة حالياً</span>
             </div>
             <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="offer-banner">
         </div>
     </section>
 
+    <!-- Trust Section (لماذا تختارنا) -->
+    <section class="why-us" id="why-us">
+        <h2 class="section-title reveal">لماذا تختار تيم ألفا؟</h2>
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <i class="fa-solid fa-chart-line"></i>
+                <h4>نتائج ملموسة</h4>
+                <p>نركز على زيادة مبيعاتك وتواجدك الميداني والرقفي، وليس مجرد مظهر خارجي.</p>
+            </div>
+            <div class="why-card reveal">
+                <i class="fa-solid fa-bolt"></i>
+                <h4>سرعة وتنفيذ احترافي</h4>
+                <p>نلتزم بالمواعيد المحددة ونوفر تغطية ميدانية وبناء برمجيات بدقة عالية.</p>
+            </div>
+            <div class="why-card reveal">
+                <i class="fa-solid fa-layer-group"></i>
+                <h4>حلول متكاملة (All in One)</h4>
+                <p>من شغل الشارع والمطبوعات إلى إدارة الصفحات وتطوير البرمجيات وتقنيات الـ NFC.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview Section -->
     <section class="services-overview" id="overview">
         <h2 class="section-title reveal">مجالات اختصاصنا</h2>
         <div class="overview-grid">
@@ -524,6 +762,29 @@
         </div>
     </section>
 
+    <!-- Process Section (كيف نعمل) -->
+    <section class="process-section" id="process">
+        <h2 class="section-title reveal">كيف نعمل معك؟</h2>
+        <div class="process-grid">
+            <div class="process-step reveal">
+                <div class="step-number">1</div>
+                <h4>تحديد الأهداف</h4>
+                <p>نتواصل معك لفهم مشروعك وتحديد الاستراتيجية الأنسب لنشاطك.</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-number">2</div>
+                <h4>الابتكار والتنفيذ</h4>
+                <p>يبدأ فريقنا بتنفيذ الحملة الإعلانية أو تطوير الموقع بأعلى جودة.</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-number">3</div>
+                <h4>الانطلاق والنتائج</h4>
+                <p>نُسلمك العمل كاملاً مع متابعة دقيقة للنتائج لضمان أقصى نجاح.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Services Section -->
     <section class="services-details" id="details">
         <h2 class="section-title reveal">تفاصيل الخدمات</h2>
 
@@ -536,7 +797,7 @@
                 <div class="item-box"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
                 <div class="item-box"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
                 <div class="item-box"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز </span></div>
+                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز</span></div>
                 <div class="item-box"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
             </div>
         </div>
@@ -561,13 +822,37 @@
             </div>
             <div class="items-grid">
                 <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
                 <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
                 <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
             </div>
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2 class="section-title reveal">آراء عملاء تيم ألفا</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <i class="fa-solid fa-quote-left quote"></i>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"سرعة ممتازة في التنفيذ، شغل السوشيال ميديا والريلزفرق جداً في المبيعات وتفاعل الزبائن مع محلي."</p>
+                <div class="client-info">- أصحاب نشاط تجاري</div>
+            </div>
+            <div class="testimonial-card reveal">
+                <i class="fa-solid fa-quote-left quote"></i>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"منتجات الـ NFC وموقع الويب الهبوط خلوا شكل شركتنا احترافي جداً قدام أي عميل جديد."</p>
+                <div class="client-info">- عميل خدمات برمجية</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section class="contact-section" id="contact">
         <h2 class="section-title reveal">تواصل معنا</h2>
         <div class="contact-grid">
@@ -597,12 +882,18 @@
         </div>
     </section>
 
+    <!-- Floating WhatsApp CTA -->
+    <a href="https://wa.me/201031913107" target="_blank" class="floating-whatsapp" title="تحدث معنا عبر الواتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; TEAM ALPHA</p>
     </footer>
 
     <script>
-        // 1. Force Page Scroll to Top on Refresh (بدء الموقع من الأعلى)
+        // 1. Force Page Scroll to Top on Refresh
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
@@ -622,7 +913,6 @@
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
 
-            // أوقات العمل من 12 ظهراً (12) إلى 12 منتصف الليل (24/0)
             if (currentHour >= 12 && currentHour < 24) {
                 statusDot.className = 'status-dot open';
                 statusText.textContent = 'مفتوح الآن';
@@ -632,7 +922,7 @@
             }
         }
 
-        // 3. Mouse Tracking Radial Dynamic Glow Effect
+        // 3. Mouse Tracking Radial Glow Effect
         const glow = document.getElementById('glow');
         window.addEventListener('mousemove', (e) => {
             const x = (e.clientX / window.innerWidth) * 100;
@@ -647,7 +937,7 @@
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) {
+                if (elementTop < windowHeight - 70) {
                     el.classList.add('active');
                 }
             });
