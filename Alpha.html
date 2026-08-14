@@ -3,181 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM ALPHA | تيم ألفا للدعاية والبرمجة</title>
+    <title>TEAM ALPHA | تيم ألفا للدعاية والإعلان والحلول البرمجية</title>
+    
+    <!-- External Essential Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
+        /* ==========================================================================
+           1. STRICT COLOR PALETTE & SYSTEM VARIABLES
+           ========================================================================== */
         :root {
-            /* STRICT COLOR PALETTE FROM IMAGE ONLY */
+            /* REQUIRED COLOR PALETTE ONLY */
             --c-dark-grey: #28262C;
             --c-ocean-mist: #4EA699;
             --c-flag-red: #C1292E;
             --c-lavender: #F9F5FF;
             --c-true-cobalt: #14248A;
 
-            /* LIQUID GLASS & DERIVED LUXURY SHADES */
-            --bg-deep: #121115;
-            --glass-bg: rgba(40, 38, 44, 0.45);
-            --glass-border: rgba(249, 245, 255, 0.15);
-            --glass-glow-teal: rgba(78, 166, 153, 0.35);
-            --glass-glow-cobalt: rgba(20, 36, 138, 0.45);
+            /* SPECIFIC IPHONE BACK COLOR (ORANGE ACCENT) */
+            --iphone-orange: #FF6B35;
+            --iphone-orange-dark: #C84B1A;
+            --iphone-orange-glow: rgba(255, 107, 53, 0.4);
+
+            /* LUXURY DERIVED GLASS SHADES */
+            --bg-void: #111014;
+            --glass-card: rgba(40, 38, 44, 0.55);
+            --glass-card-hover: rgba(40, 38, 44, 0.85);
+            --glass-border: rgba(249, 245, 255, 0.12);
+            --glass-border-active: rgba(78, 166, 153, 0.5);
             
-            --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow-teal: rgba(78, 166, 153, 0.35);
+            --glow-cobalt: rgba(20, 36, 138, 0.5);
+            --glow-red: rgba(193, 41, 46, 0.35);
+
+            --font-main: 'Cairo', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+
+            --ease-3d: cubic-bezier(0.165, 0.84, 0.44, 1);
+            --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        * {
+        /* ==========================================================================
+           2. GLOBAL RESETS & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-main);
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-void);
             color: var(--c-lavender);
             overflow-x: hidden;
-            font-size: 15px;
-            line-height: 1.6;
-            perspective: 1200px;
+            font-size: 16px;
+            line-height: 1.7;
+            perspective: 2000px;
+            position: relative;
         }
 
-        /* 3D FLOATING BACKGROUND LIQUID ORBS */
-        .liquid-canvas {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-void);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--c-dark-grey);
+            border-radius: 5px;
+            border: 2px solid var(--c-ocean-mist);
+        }
+
+        /* Selection Color */
+        ::selection {
+            background: var(--c-ocean-mist);
+            color: var(--c-dark-grey);
+        }
+
+        /* ==========================================================================
+           3. ADVANCED LIQUID GLASS MESH & CANVAS BACKGROUND
+           ========================================================================== */
+        .ambient-world {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: -1;
+            z-index: -2;
             overflow: hidden;
         }
 
-        .liquid-orb {
+        .mesh-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float3D 12s infinite ease-in-out alternate;
+            filter: blur(100px);
+            opacity: 0.5;
+            will-change: transform;
+            animation: orbFloat 20s infinite ease-in-out alternate;
         }
 
-        .orb-1 {
+        .orb-cobalt {
+            width: 600px;
+            height: 600px;
+            background: var(--c-true-cobalt);
+            top: -200px;
+            right: -100px;
+        }
+
+        .orb-teal {
+            width: 500px;
+            height: 500px;
+            background: var(--c-ocean-mist);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -5s;
+        }
+
+        .orb-red {
             width: 400px;
             height: 400px;
-            background: var(--c-true-cobalt);
-            top: -100px;
-            right: -50px;
-        }
-
-        .orb-2 {
-            width: 350px;
-            height: 350px;
-            background: var(--c-ocean-mist);
-            bottom: 10%;
-            left: -100px;
-            animation-delay: -4s;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
             background: var(--c-flag-red);
             top: 40%;
-            right: 25%;
-            opacity: 0.25;
-            animation-delay: -7s;
+            left: 30%;
+            opacity: 0.2;
+            animation-delay: -10s;
         }
 
-        @keyframes float3D {
-            0% { transform: translateY(0) rotate(0deg) scale(1); }
-            50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
-            100% { transform: translateY(30px) rotate(360deg) scale(0.95); }
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(60px, -80px) scale(1.15) rotate(180deg); }
+            100% { transform: translate(-40px, 50px) scale(0.9) rotate(360deg); }
         }
 
-        /* HEADER & LIQUID GLASS NAVIGATION */
+        /* Grid Overlay for Tech Vibe */
+        .tech-grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(rgba(249, 245, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(249, 245, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ==========================================================================
+           4. NAVIGATION BAR (FLOATING LIQUID GLASS)
+           ========================================================================== */
         header {
             position: fixed;
-            top: 20px;
-            left: 5%;
-            right: 5%;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 90%;
-            padding: 12px 30px;
+            max-width: 1300px;
+            padding: 14px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(40, 38, 44, 0.55);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            background: rgba(40, 38, 44, 0.45);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
             z-index: 1000;
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(249, 245, 255, 0.2);
+            border-radius: 30px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.6),
+                inset 0 1px 1px rgba(249, 245, 255, 0.25);
+            transition: var(--ease-3d);
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             text-decoration: none;
         }
 
         .brand-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
             border: 2px solid var(--c-ocean-mist);
             object-fit: cover;
-            box-shadow: 0 0 15px var(--glass-glow-teal);
+            box-shadow: 0 0 20px var(--glow-teal);
+            transition: var(--ease-3d);
+        }
+
+        .brand-logo:hover img {
+            transform: scale(1.1) rotate(-5deg);
         }
 
         .brand-logo span {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 900;
             color: var(--c-lavender);
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-family: var(--font-tech);
+            text-shadow: 0 0 15px rgba(249, 245, 255, 0.3);
         }
 
-        .status-pill {
+        .status-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: rgba(20, 36, 138, 0.4);
-            border: 1px solid var(--glass-glow-teal);
-            padding: 6px 16px;
+            border: 1px solid var(--glass-border-active);
+            padding: 8px 20px;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 800;
+            box-shadow: inset 0 0 10px rgba(78, 166, 153, 0.2);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
 
         .status-dot.open {
             background-color: var(--c-ocean-mist);
-            box-shadow: 0 0 12px var(--c-ocean-mist);
-            animation: pulse 1.8s infinite;
+            box-shadow: 0 0 15px var(--c-ocean-mist);
+            animation: pulseDot 1.5s infinite;
         }
 
         .status-dot.closed {
             background-color: var(--c-flag-red);
-            box-shadow: 0 0 12px var(--c-flag-red);
-            animation: pulse 1.8s infinite;
+            box-shadow: 0 0 15px var(--c-flag-red);
+            animation: pulseDot 1.5s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulseDot {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
+            50% { opacity: 0.4; transform: scale(0.8); }
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 32px;
         }
 
         nav a {
@@ -185,875 +259,1159 @@
             opacity: 0.8;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.88rem;
-            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+            transition: var(--ease-3d);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--c-ocean-mist);
+            transition: var(--ease-3d);
+            box-shadow: 0 0 8px var(--c-ocean-mist);
         }
 
         nav a:hover {
             opacity: 1;
             color: var(--c-ocean-mist);
-            text-shadow: 0 0 10px var(--c-ocean-mist);
         }
 
-        /* HERO SECTION */
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION & 3D PARALLAX ENVIRONMENT
+           ========================================================================== */
         .hero-section {
-            padding: 180px 8% 100px;
+            padding: 220px 8% 120px;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 60px;
             align-items: center;
             min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .hero-tag {
+        .hero-badge-tag {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--c-flag-red), #8a1d21);
+            gap: 12px;
+            background: linear-gradient(135deg, var(--c-flag-red), #801317);
             color: var(--c-lavender);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
             font-weight: 800;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px rgba(193, 41, 46, 0.4);
-            border: 1px solid rgba(249, 245, 255, 0.2);
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(193, 41, 46, 0.4);
+            border: 1px solid rgba(249, 245, 255, 0.25);
+            transform-style: preserve-3d;
+            transition: var(--ease-3d);
+        }
+
+        .hero-badge-tag:hover {
+            transform: translateZ(20px) rotateX(10deg);
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
+            font-size: 4.2rem;
             font-weight: 900;
-            line-height: 1.15;
-            margin-bottom: 20px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
 
         .hero-content h1 span {
             color: var(--c-ocean-mist);
-            text-shadow: 0 0 20px rgba(78, 166, 153, 0.4);
+            text-shadow: 0 0 30px rgba(78, 166, 153, 0.5);
             display: block;
         }
 
         .hero-content p {
-            font-size: 1.05rem;
-            opacity: 0.85;
-            margin-bottom: 35px;
-            max-width: 580px;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            opacity: 0.88;
+            margin-bottom: 40px;
+            max-width: 620px;
+            line-height: 1.9;
+            font-weight: 400;
         }
 
-        .hero-stats {
+        .hero-stats-row {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .stat-card-3d {
-            background: var(--glass-bg);
+        .stat-glass-box {
+            background: var(--glass-card);
             border: 1px solid var(--glass-border);
-            padding: 18px 26px;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border-right: 4px solid var(--c-ocean-mist);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            padding: 22px 32px;
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border-right: 5px solid var(--c-ocean-mist);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             transform-style: preserve-3d;
-            transition: var(--transition-smooth);
+            transition: var(--ease-3d);
         }
 
-        .stat-card-3d:hover {
-            transform: translateZ(15px) rotateX(5deg);
+        .stat-glass-box:hover {
+            transform: translateY(-8px) translateZ(30px) rotateY(-5deg);
             border-color: var(--c-ocean-mist);
+            box-shadow: 0 30px 60px rgba(78, 166, 153, 0.2);
         }
 
-        .stat-card-3d strong {
+        .stat-glass-box strong {
             display: block;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 900;
             color: var(--c-lavender);
+            font-family: var(--font-tech);
         }
 
-        .stat-card-3d span {
-            font-size: 0.8rem;
-            opacity: 0.7;
+        .stat-glass-box span {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            font-weight: 600;
         }
 
-        /* 3D REALISTIC iPHONE 17 PRO MAX CONTAINER */
-        .iphone-3d-wrapper {
+        /* ==========================================================================
+           6. ULTRA-ADVANCED 3D REALISTIC iPHONE 17 PRO MAX (ORANGE BACK & ROTATION)
+           ========================================================================== */
+        .iphone-3d-scene {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
+            perspective: 1500px;
+            width: 100%;
+            height: 680px;
         }
 
-        .iphone-17-frame {
+        .iphone-3d-body {
             width: 320px;
-            height: 640px;
-            background: #1e1d22;
-            border-radius: 54px;
-            padding: 12px;
+            height: 630px;
             position: relative;
-            box-shadow: 
-                0 30px 80px rgba(0,0,0,0.8),
-                0 0 40px var(--glass-glow-cobalt),
-                inset 0 0 12px rgba(249, 245, 255, 0.25);
-            border: 3px solid #3d3a43;
-            transform: rotateY(-18deg) rotateX(8deg) rotateZ(2deg);
-            transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.3, 1);
             transform-style: preserve-3d;
-            animation: phoneFloat 6s infinite ease-in-out alternate;
+            animation: phoneRotate3D 14s infinite ease-in-out;
+            cursor: pointer;
         }
 
-        .iphone-3d-wrapper:hover .iphone-17-frame {
-            transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.03);
+        /* Continuous 360 Rotation Showing Orange Back & Side Angles */
+        @keyframes phoneRotate3D {
+            0% {
+                transform: rotateY(0deg) rotateX(5deg) rotateZ(-2deg);
+            }
+            25% {
+                transform: rotateY(90deg) rotateX(0deg) scale(0.98);
+            }
+            50% {
+                transform: rotateY(180deg) rotateX(-5deg) rotateZ(2deg);
+            }
+            75% {
+                transform: rotateY(270deg) rotateX(0deg) scale(0.98);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(5deg) rotateZ(-2deg);
+            }
         }
 
-        @keyframes phoneFloat {
-            0% { transform: rotateY(-18deg) rotateX(8deg) translateY(0px); }
-            100% { transform: rotateY(-12deg) rotateX(12deg) translateY(-25px); }
+        /* Hover Pause to Inspect Details */
+        .iphone-3d-scene:hover .iphone-3d-body {
+            animation-play-state: paused;
         }
 
-        /* IPHONE SCREEN WITH LIQUID GLASS & LIVE REVIEWS FEED */
-        .iphone-screen {
+        /* FRONT & BACK FACES */
+        .iphone-face {
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #18171c 0%, #28262C 100%);
-            border-radius: 44px;
+            border-radius: 52px;
+            backface-visibility: hidden;
             overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
         }
 
-        /* DYNAMIC ISLAND */
-        .dynamic-island {
+        /* --- FRONT FACE (SCREEN) --- */
+        .iphone-face.front {
+            background: #151419;
+            border: 4px solid #38353f;
+            transform: translateZ(12px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iphone-island {
             position: absolute;
-            top: 12px;
+            top: 14px;
             left: 50%;
             transform: translateX(-50%);
-            width: 95px;
-            height: 25px;
-            background: #000000;
+            width: 100px;
+            height: 28px;
+            background: #000;
             border-radius: 20px;
-            z-index: 10;
+            z-index: 50;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            padding: 0 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.9);
         }
 
-        .camera-lens {
-            width: 10px;
-            height: 10px;
-            background: #090910;
+        .island-lens {
+            width: 11px;
+            height: 11px;
+            background: #0d0d18;
             border-radius: 50%;
             border: 1px solid #1a1a2e;
         }
 
-        .sensor-dot {
-            width: 6px;
-            height: 6px;
-            background: #14248A;
+        .island-sensor {
+            width: 7px;
+            height: 7px;
+            background: var(--c-true-cobalt);
             border-radius: 50%;
         }
 
-        /* IPHONE SCREEN CONTENT HEADER */
-        .phone-header-bar {
-            padding: 45px 16px 10px;
-            background: rgba(20, 36, 138, 0.3);
-            backdrop-filter: blur(10px);
+        .screen-top-bar {
+            padding: 50px 18px 12px;
+            background: rgba(20, 36, 138, 0.35);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             text-align: center;
         }
 
-        .phone-header-bar h5 {
-            font-size: 0.85rem;
+        .screen-top-bar h6 {
+            font-size: 0.88rem;
             color: var(--c-ocean-mist);
             font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
-        .phone-header-bar p {
-            font-size: 0.68rem;
+        .screen-top-bar span {
+            font-size: 0.7rem;
             opacity: 0.7;
+            display: block;
         }
 
-        /* LIVE FEED ANIMATED REVIEWS */
-        .phone-feed {
-            padding: 14px;
+        .screen-feed-container {
+            padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            overflow-y: hidden;
+            overflow: hidden;
             height: 100%;
-            position: relative;
         }
 
-        .feed-scroll-container {
+        .feed-scroll-inner {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            animation: feedScroll 18s linear infinite;
+            animation: screenFeedScroll 20s linear infinite;
         }
 
-        .feed-scroll-container:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes feedScroll {
+        @keyframes screenFeedScroll {
             0% { transform: translateY(0); }
             100% { transform: translateY(-50%); }
         }
 
-        .phone-card {
-            background: rgba(40, 38, 44, 0.8);
-            border: 1px solid var(--glass-glow-teal);
-            padding: 12px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        .phone-review-card {
+            background: rgba(40, 38, 44, 0.85);
+            border: 1px solid var(--glass-border-active);
+            padding: 14px;
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
-        .phone-card-user {
+        .phone-review-card .user-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
+            gap: 10px;
+            margin-bottom: 8px;
         }
 
-        .avatar-circle {
-            width: 26px;
-            height: 26px;
+        .phone-review-card .avatar {
+            width: 30px;
+            height: 30px;
             background: var(--c-true-cobalt);
             color: var(--c-ocean-mist);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 900;
+            border: 1px solid var(--c-ocean-mist);
         }
 
-        .user-info strong {
+        .phone-review-card .user-meta strong {
+            font-size: 0.75rem;
             display: block;
-            font-size: 0.72rem;
             color: var(--c-lavender);
         }
 
-        .stars {
+        .phone-review-card .stars {
             color: var(--c-ocean-mist);
-            font-size: 0.6rem;
+            font-size: 0.65rem;
         }
 
-        .phone-card p {
-            font-size: 0.7rem;
+        .phone-review-card p {
+            font-size: 0.72rem;
+            line-height: 1.5;
             opacity: 0.9;
-            line-height: 1.4;
         }
 
-        .metric-badge {
-            background: rgba(193, 41, 46, 0.2);
+        .phone-review-card .tag-metric {
+            background: rgba(193, 41, 46, 0.25);
             border: 1px solid var(--c-flag-red);
             color: var(--c-lavender);
-            font-size: 0.65rem;
-            padding: 4px 8px;
-            border-radius: 8px;
+            font-size: 0.68rem;
+            padding: 4px 10px;
+            border-radius: 10px;
             font-weight: 800;
-            margin-top: 6px;
+            margin-top: 8px;
             display: inline-block;
         }
 
-        /* 3D LIQUID GLASS BENTO GRID (SERVICES) */
-        .services-section {
-            padding: 100px 8%;
-            background: linear-gradient(180deg, transparent 0%, rgba(20, 36, 138, 0.15) 100%);
+        /* --- BACK FACE (STUNNING COSMIC AMBER ORANGE) --- */
+        .iphone-face.back {
+            background: linear-gradient(145deg, var(--iphone-orange), var(--iphone-orange-dark));
+            border: 4px solid #4a2818;
+            transform: translateZ(-12px) rotateY(180deg);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--c-lavender);
-            margin-bottom: 12px;
-        }
-
-        .section-header p {
-            color: var(--c-ocean-mist);
-            font-weight: 800;
-            font-size: 1rem;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .bento-card-3d {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 40px 30px;
-            border-radius: 32px;
+        /* CAMERA PLATE 3D */
+        .camera-plate-3d {
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 107, 53, 0.4);
             backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 36px;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.2);
             position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-            transform-style: preserve-3d;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        .bento-card-3d:hover {
-            transform: translateY(-12px) rotateX(6deg) rotateY(-4deg);
-            border-color: var(--c-ocean-mist);
-            box-shadow: 0 30px 60px rgba(78, 166, 153, 0.25);
-        }
-
-        .bento-card-3d.featured {
-            background: linear-gradient(135deg, rgba(40, 38, 44, 0.8) 0%, rgba(20, 36, 138, 0.6) 100%);
-            border: 1px solid var(--glass-glow-teal);
-        }
-
-        .bento-icon-3d {
-            width: 70px;
-            height: 70px;
-            background: var(--c-true-cobalt);
-            border: 1px solid var(--glass-glow-teal);
-            color: var(--c-ocean-mist);
-            border-radius: 22px;
+        .camera-lens-3d {
+            background: #0f0e13;
+            border-radius: 50%;
+            border: 3px solid #332d3a;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.6), inset 0 0 10px var(--c-true-cobalt);
+        }
+
+        .camera-lens-3d::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #14248A;
+            border-radius: 50%;
+            border: 1px solid var(--c-ocean-mist);
+            box-shadow: 0 0 8px var(--c-ocean-mist);
+        }
+
+        .logo-apple-engraved {
+            align-self: center;
+            font-size: 3rem;
+            color: rgba(249, 245, 255, 0.25);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .iphone-orange-badge {
+            text-align: center;
+            background: rgba(40, 38, 44, 0.85);
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .iphone-orange-badge strong {
+            font-size: 0.85rem;
+            color: var(--c-lavender);
+            display: block;
+        }
+
+        .iphone-orange-badge span {
+            font-size: 0.7rem;
+            color: var(--c-ocean-mist);
+            font-weight: 800;
+        }
+
+        /* SIDES / THICKNESS OF THE PHONE */
+        .iphone-side {
+            position: absolute;
+            background: #2b2832;
+            border: 1px solid #4a4555;
+        }
+
+        .iphone-side.left {
+            width: 24px;
+            height: 100%;
+            left: -12px;
+            top: 0;
+            transform: rotateY(-90deg);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .iphone-side.right {
+            width: 24px;
+            height: 100%;
+            right: -12px;
+            top: 0;
+            transform: rotateY(90deg);
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* ==========================================================================
+           7. PROMOTIONAL EXCLUSIVE OFFER CARD
+           ========================================================================== */
+        .promo-banner-section {
+            padding: 40px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glass-offer-card {
+            background: linear-gradient(135deg, rgba(40, 38, 44, 0.9) 0%, rgba(20, 36, 138, 0.7) 100%);
+            border: 2px solid var(--glass-border-active);
+            border-radius: 36px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-tag {
+            background: var(--c-flag-red);
+            color: var(--c-lavender);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(193, 41, 46, 0.4);
+        }
+
+        .offer-info h3 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .offer-info p {
+            opacity: 0.88;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .offer-img-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .offer-img-wrapper img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+            transition: var(--ease-3d);
+        }
+
+        .offer-img-wrapper:hover img {
+            transform: scale(1.08);
+        }
+
+        /* ==========================================================================
+           8. SERVICES SECTION (3D LIQUID GLASS BENTO GRID)
+           ========================================================================== */
+        .services-section {
+            padding: 120px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title-head {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title-head h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--c-lavender);
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title-head p {
+            color: var(--c-ocean-mist);
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .bento-3d-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .bento-glass-card {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            padding: 45px 35px;
+            border-radius: 36px;
+            backdrop-filter: blur(25px);
+            position: relative;
+            transition: var(--ease-3d);
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .bento-glass-card:hover {
+            transform: translateY(-15px) rotateX(8deg) rotateY(-5deg) scale(1.02);
+            border-color: var(--c-ocean-mist);
+            box-shadow: 0 35px 70px rgba(78, 166, 153, 0.25);
+            background: var(--glass-card-hover);
+        }
+
+        .bento-glass-card.highlight {
+            background: linear-gradient(145deg, rgba(40, 38, 44, 0.9) 0%, rgba(20, 36, 138, 0.7) 100%);
+            border: 1px solid var(--glass-border-active);
+        }
+
+        .bento-icon-box {
+            width: 75px;
+            height: 75px;
+            background: var(--c-true-cobalt);
+            border: 1px solid var(--glass-border-active);
+            color: var(--c-ocean-mist);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            transform: translateZ(25px);
+        }
+
+        .bento-glass-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
             transform: translateZ(20px);
         }
 
-        .bento-card-3d h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 14px;
+        .bento-glass-card p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
             transform: translateZ(15px);
         }
 
-        .bento-card-3d p {
-            opacity: 0.8;
-            font-size: 0.92rem;
-            line-height: 1.7;
-            margin-bottom: 22px;
-            transform: translateZ(10px);
-        }
-
-        .bento-btn {
+        .bento-action-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: var(--c-ocean-mist);
             font-weight: 800;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             text-decoration: none;
-            transform: translateZ(15px);
+            transform: translateZ(20px);
+            transition: var(--ease-3d);
         }
 
-        /* WORK PROCESS TIMELINE WITH 3D GLASS CARDS */
+        .bento-action-link:hover {
+            gap: 18px;
+            color: var(--c-lavender);
+        }
+
+        /* ==========================================================================
+           9. WORK PROCESS (TIMELINE)
+           ========================================================================== */
         .process-section {
             padding: 100px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .timeline-grid {
+        .timeline-flex-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .timeline-card-3d {
-            background: var(--glass-bg);
+        .process-card-3d {
+            background: var(--glass-card);
             border: 1px solid var(--glass-border);
-            padding: 35px;
-            border-radius: 28px;
-            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
             position: relative;
-            transition: var(--transition-smooth);
+            transition: var(--ease-3d);
             transform-style: preserve-3d;
         }
 
-        .timeline-card-3d:hover {
-            transform: translateZ(20px);
+        .process-card-3d:hover {
+            transform: translateZ(25px) rotateY(-5deg);
             border-color: var(--c-flag-red);
+            box-shadow: 0 25px 50px rgba(193, 41, 46, 0.2);
         }
 
-        .timeline-num-3d {
-            font-size: 3rem;
+        .step-num-3d {
+            font-size: 3.5rem;
             font-weight: 900;
             color: transparent;
             -webkit-text-stroke: 1.5px var(--c-ocean-mist);
+            font-family: var(--font-tech);
             line-height: 1;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
-        .timeline-card-3d h4 {
-            font-size: 1.2rem;
+        .process-card-3d h4 {
+            font-size: 1.3rem;
             font-weight: 800;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .timeline-card-3d p {
+        .process-card-3d p {
             opacity: 0.8;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
+            line-height: 1.7;
         }
 
-        /* DETAILS SECTION */
-        .details-section {
-            padding: 100px 8%;
-            background: rgba(40, 38, 44, 0.3);
+        /* ==========================================================================
+           10. DETAILED SERVICES BREAKDOWN
+           ========================================================================== */
+        .details-breakdown-section {
+            padding: 120px 8%;
+            background: rgba(40, 38, 44, 0.25);
         }
 
-        .detail-glass-box {
-            background: var(--glass-bg);
+        .details-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .detail-glass-panel {
+            background: var(--glass-card);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 40px;
-            margin-bottom: 35px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-radius: 32px;
+            padding: 45px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
         }
 
-        .detail-header {
+        .panel-head {
             display: flex;
             align-items: center;
-            gap: 18px;
-            margin-bottom: 25px;
-            padding-bottom: 18px;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--glass-border);
         }
 
-        .detail-header i {
-            width: 50px;
-            height: 50px;
+        .panel-head i {
+            width: 55px;
+            height: 55px;
             background: var(--c-flag-red);
             color: var(--c-lavender);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
-            font-size: 1.3rem;
-            box-shadow: 0 8px 20px rgba(193, 41, 46, 0.4);
+            border-radius: 18px;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 25px rgba(193, 41, 46, 0.4);
         }
 
-        .detail-header h3 {
-            font-size: 1.4rem;
+        .panel-head h3 {
+            font-size: 1.5rem;
             font-weight: 800;
         }
 
-        .pill-badge {
+        .pill-tag {
             margin-right: auto;
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            padding: 4px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 900;
         }
 
-        .items-flex-grid {
+        .panel-pills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
         }
 
-        .liquid-pill {
-            background: rgba(20, 36, 138, 0.3);
-            border: 1px solid var(--glass-glow-teal);
-            padding: 16px 22px;
-            border-radius: 18px;
+        .glass-pill-item {
+            background: rgba(20, 36, 138, 0.35);
+            border: 1px solid var(--glass-border-active);
+            padding: 18px 24px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 15px;
             font-weight: 700;
-            font-size: 0.92rem;
-            backdrop-filter: blur(10px);
-            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+            backdrop-filter: blur(12px);
+            transition: var(--ease-3d);
         }
 
-        .liquid-pill:hover {
+        .glass-pill-item:hover {
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            transform: translateX(-8px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(78, 166, 153, 0.3);
+            transform: translateX(-10px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(78, 166, 153, 0.35);
         }
 
-        .liquid-pill i {
+        .glass-pill-item i {
             color: var(--c-ocean-mist);
+            font-size: 1.1rem;
         }
 
-        .liquid-pill:hover i {
+        .glass-pill-item:hover i {
             color: var(--c-dark-grey);
         }
 
-        /* CONTACT SECTION */
+        /* ==========================================================================
+           11. CONTACT & SOCIAL DIRECTORY
+           ========================================================================== */
         .contact-section {
-            padding: 100px 8%;
-            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--c-true-cobalt) 100%);
+            padding: 120px 8%;
+            background: linear-gradient(180deg, var(--bg-void) 0%, var(--c-true-cobalt) 100%);
         }
 
-        .contact-grid {
+        .contact-cards-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .contact-glass-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-glow-teal);
-            padding: 35px 25px;
-            border-radius: 24px;
+        .contact-card-3d {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border-active);
+            padding: 40px 30px;
+            border-radius: 28px;
             text-align: center;
             text-decoration: none;
             color: var(--c-lavender);
-            backdrop-filter: blur(15px);
-            transition: var(--transition-smooth);
+            backdrop-filter: blur(20px);
+            transition: var(--ease-3d);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
-        .contact-glass-card:hover {
-            transform: translateY(-10px) scale(1.03);
+        .contact-card-3d:hover {
+            transform: translateY(-12px) scale(1.04);
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            box-shadow: 0 20px 40px rgba(78, 166, 153, 0.4);
+            box-shadow: 0 25px 50px rgba(78, 166, 153, 0.4);
         }
 
-        .contact-glass-card i {
-            font-size: 2.2rem;
+        .contact-card-3d i {
+            font-size: 2.5rem;
             color: var(--c-ocean-mist);
+            transition: var(--ease-3d);
         }
 
-        .contact-glass-card:hover i {
+        .contact-card-3d:hover i {
             color: var(--c-dark-grey);
+            transform: scale(1.2);
         }
 
-        .contact-glass-card strong {
-            font-size: 1.05rem;
+        .contact-card-3d strong {
+            font-size: 1.1rem;
             direction: ltr;
+            font-family: var(--font-tech);
         }
 
-        /* FLOATING 3D WHATSAPP BUTTON */
-        .floating-wa-3d {
+        /* ==========================================================================
+           12. FLOATING 3D WHATSAPP BUTTON & FOOTER
+           ========================================================================== */
+        .floating-wa-btn {
             position: fixed;
-            bottom: 35px;
-            right: 35px;
+            bottom: 40px;
+            right: 40px;
             background: var(--c-ocean-mist);
             color: var(--c-dark-grey);
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 15px 35px rgba(78, 166, 153, 0.5), inset 0 2px 4px rgba(255,255,255,0.4);
+            font-size: 34px;
+            box-shadow: 0 20px 40px rgba(78, 166, 153, 0.5), inset 0 2px 5px rgba(255,255,255,0.5);
             z-index: 2000;
-            transition: var(--transition-smooth);
+            transition: var(--ease-elastic);
             text-decoration: none;
-            border: 2px solid rgba(249, 245, 255, 0.3);
+            border: 2px solid rgba(249, 245, 255, 0.4);
         }
 
-        .floating-wa-3d:hover {
-            transform: scale(1.18) rotate(15deg);
+        .floating-wa-btn:hover {
+            transform: scale(1.2) rotate(18deg);
             background: var(--c-flag-red);
             color: var(--c-lavender);
         }
 
-        /* FOOTER */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 35px;
             border-top: 1px solid var(--glass-border);
-            background: #0d0c0f;
-            font-size: 0.85rem;
-            opacity: 0.7;
+            background: #09080b;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 600;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .hero-section { grid-template-columns: 1fr; gap: 60px; text-align: center; }
-            .hero-stats { justify-content: center; }
-            .bento-grid { grid-template-columns: 1fr; }
-            header { display: none; }
+        /* ==========================================================================
+           13. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-section { grid-template-columns: 1fr; text-align: center; gap: 80px; }
+            .hero-stats-row { justify-content: center; }
+            .glass-offer-card { grid-template-columns: 1fr; }
+            .bento-3d-grid { grid-template-columns: 1fr; }
+            header nav { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            header { width: 95%; padding: 10px 20px; }
+            .iphone-3d-body { width: 280px; height: 560px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LIQUID 3D FLOATING ORBS BACKGROUND -->
-    <div class="liquid-canvas">
-        <div class="liquid-orb orb-1"></div>
-        <div class="liquid-orb orb-2"></div>
-        <div class="liquid-orb orb-3"></div>
+    <!-- Ambient Mesh Orbs & Tech Grid Canvas Background -->
+    <div class="ambient-world">
+        <div class="mesh-orb orb-cobalt"></div>
+        <div class="mesh-orb orb-teal"></div>
+        <div class="mesh-orb orb-red"></div>
     </div>
+    <div class="tech-grid-bg"></div>
 
-    <!-- Header -->
+    <!-- Floating Navigation Bar -->
     <header>
         <a href="#" class="brand-logo">
             <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo">
             <span>TEAM ALPHA</span>
         </a>
 
-        <div class="status-pill">
+        <div class="status-badge">
             <div class="status-dot" id="statusDot"></div>
-            <span id="statusText">جاري التحقق...</span>
+            <span id="statusText">جاري الفحص...</span>
         </div>
 
         <nav>
             <ul>
                 <li><a href="#hero">الرئيسية</a></li>
+                <li><a href="#offers">العروض</a></li>
                 <li><a href="#services">خدماتنا</a></li>
-                <li><a href="#process">طريقة العمل</a></li>
+                <li><a href="#process">خطوات العمل</a></li>
                 <li><a href="#details">التفاصيل</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Main Hero Section -->
     <section class="hero-section" id="hero">
         <div class="hero-content">
-            <div class="hero-tag">
-                <i class="fa-solid fa-cube"></i> الوكالة الأولى للتسويق والحلول الذكية
+            <div class="hero-badge-tag">
+                <i class="fa-solid fa-cube"></i> الوكالة الأولى للتسويق والحلول البرمجية
             </div>
-            <h1>نبتكر رؤيتك بأحدث <span>تقنيات الدعاية والبرمجة</span></h1>
-            <p>نقود علامتك التجارية نحو التميز عبر الشارع والمنصات الرقمية، بتصاميم Liquid Glass وحلول برمجية وميدانية تجذب الأنظار وتضاعف المبيعات.</p>
+            <h1>نُشكل مستقبل <span>علامتك التجارية</span></h1>
+            <p>نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية وتقنيات الـ NFC.</p>
             
-            <div class="hero-stats">
-                <div class="stat-card-3d">
+            <div class="hero-stats-row">
+                <div class="stat-glass-box">
                     <strong>100%</strong>
-                    <span>تغطية ميدانية ورقمية</span>
+                    <span>تنفيذ ميداني وبرمجي</span>
                 </div>
-                <div class="stat-card-3d">
-                    <strong>+150%</strong>
-                    <span>معدل نمو أرباح العملاء</span>
+                <div class="stat-glass-box">
+                    <strong>ALL IN ONE</strong>
+                    <span>حلول دعاية متكاملة</span>
                 </div>
             </div>
         </div>
 
-        <!-- 3D REALISTIC iPHONE 17 PRO MAX WITH LIVE REVIEWS FEED -->
-        <div class="iphone-3d-wrapper">
-            <div class="iphone-17-frame">
-                <div class="iphone-screen">
-                    
-                    <!-- Dynamic Island -->
-                    <div class="dynamic-island">
-                        <div class="sensor-dot"></div>
-                        <div class="camera-lens"></div>
+        <!-- 3D REALISTIC iPHONE 17 PRO MAX (ORANGE BACK & ROTATION) -->
+        <div class="iphone-3d-scene">
+            <div class="iphone-3d-body" id="iphone3D">
+                
+                <!-- FRONT FACE (SCREEN) -->
+                <div class="iphone-face front">
+                    <div class="iphone-island">
+                        <div class="island-sensor"></div>
+                        <div class="island-lens"></div>
                     </div>
 
-                    <!-- Screen Header -->
-                    <div class="phone-header-bar">
-                        <h5><i class="fa-solid fa-shield-halved"></i> آراء وتقييمات العملاء</h5>
-                        <p>تحديثات حية ومباشرة من النتائج</p>
+                    <div class="screen-top-bar">
+                        <h6><i class="fa-solid fa-shield-halved"></i> آراء وتقييمات العملاء</h6>
+                        <span>تحديثات حية ومباشرة من النتائج</span>
                     </div>
 
-                    <!-- Animated Liquid Feed -->
-                    <div class="phone-feed">
-                        <div class="feed-scroll-container">
+                    <div class="screen-feed-container">
+                        <div class="feed-scroll-inner">
                             
-                            <div class="phone-card">
-                                <div class="phone-card-user">
-                                    <div class="avatar-circle">A</div>
-                                    <div class="user-info">
+                            <div class="phone-review-card">
+                                <div class="user-row">
+                                    <div class="avatar">A</div>
+                                    <div class="user-meta">
                                         <strong>مطعم وتيك أواي</strong>
                                         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                                     </div>
                                 </div>
                                 <p>"شغل السكيترز والدعاية الميدانية غطى المنطقة بالكامل والمبيعات تضاعفت خلال أسبوع!"</p>
-                                <span class="metric-badge">زيادة زبائن +180%</span>
+                                <span class="tag-metric">زيادة زبائن +180%</span>
                             </div>
 
-                            <div class="phone-card">
-                                <div class="phone-card-user">
-                                    <div class="avatar-circle">M</div>
-                                    <div class="user-info">
+                            <div class="phone-review-card">
+                                <div class="user-row">
+                                    <div class="avatar">M</div>
+                                    <div class="user-meta">
                                         <strong>شركة خدمات وتقنية</strong>
                                         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                                     </div>
                                 </div>
                                 <p>"منتجات كروت الـ NFC مع موقع الـ Landing Page خلوا شكلنا قدام العملاء بروفيشنال جداً."</p>
-                                <span class="metric-badge">تقييم ممتاز 5/5</span>
+                                <span class="tag-metric">تقييم ممتاز 5/5</span>
                             </div>
 
-                            <div class="phone-card">
-                                <div class="phone-card-user">
-                                    <div class="avatar-circle">S</div>
-                                    <div class="user-info">
+                            <div class="phone-review-card">
+                                <div class="user-row">
+                                    <div class="avatar">S</div>
+                                    <div class="user-meta">
                                         <strong>براند ملابس وتجارة</strong>
                                         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                                     </div>
                                 </div>
                                 <p>"إدارة صفحات السوشيال ميديا وتصاميم الريلز عملت تفاعل رهيب مع الحملة الإعلانية."</p>
-                                <span class="metric-badge">تفاعل أسبوعي +250%</span>
-                            </div>
-
-                            <!-- Duplicate Feed for Seamless Loop -->
-                            <div class="phone-card">
-                                <div class="phone-card-user">
-                                    <div class="avatar-circle">A</div>
-                                    <div class="user-info">
-                                        <strong>مطعم وتيك أواي</strong>
-                                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                                    </div>
-                                </div>
-                                <p>"شغل السكيترز والدعاية الميدانية غطى المنطقة بالكامل والمبيعات تضاعفت خلال أسبوع!"</p>
-                                <span class="metric-badge">زيادة زبائن +180%</span>
+                                <span class="tag-metric">تفاعل أسبوعي +250%</span>
                             </div>
 
                         </div>
                     </div>
+                </div>
 
+                <!-- BACK FACE (STUNNING COSMIC AMBER ORANGE) -->
+                <div class="iphone-face back">
+                    <div class="camera-plate-3d">
+                        <div class="camera-lens-3d"></div>
+                        <div class="camera-lens-3d"></div>
+                        <div class="camera-lens-3d"></div>
+                        <div class="camera-lens-3d"></div>
+                    </div>
+
+                    <i class="fa-brands fa-apple logo-apple-engraved"></i>
+
+                    <div class="iphone-orange-badge">
+                        <strong>iPhone 17 Pro Max</strong>
+                        <span>TEAM ALPHA EDITION</span>
+                    </div>
+                </div>
+
+                <!-- SIDES THICKNESS -->
+                <div class="iphone-side left"></div>
+                <div class="iphone-side right"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Offers Section -->
+    <section class="promo-banner-section" id="offers">
+        <div class="glass-offer-card">
+            <div class="offer-info">
+                <span class="offer-tag"><i class="fa-solid fa-bolt"></i> عرض حصري محدود</span>
+                <h3>أقوى العروض الإعلانية المتاحة حالياً</h3>
+                <p>احصل على باقة متكاملة تجمع بين الدعاية الميدانية، إدارة صفحات السوشيال ميديا، والحلول البرمجية الذكية بخصومات استثنائية لنشاطك التجاري.</p>
+            </div>
+            <div class="offer-img-wrapper">
+                <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي من تيم ألفا">
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Grid Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-title-head">
+            <h2>مجالات اختصاصنا</h2>
+            <p>حلول دعاية وبرمجة متكاملة مصممة للنمو والتوسع المباشر</p>
+        </div>
+
+        <div class="bento-3d-grid">
+            <div class="bento-glass-card highlight" onclick="scrollToId('street-details')">
+                <div class="bento-icon-box"><i class="fa-solid fa-bullhorn"></i></div>
+                <h3>شغل الشارع والدعاية الميدانية</h3>
+                <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان وتغطية المناطق بالكامل.</p>
+                <a href="#details" class="bento-action-link">استكشف التغطية الميدانية <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+
+            <div class="bento-glass-card" onclick="scrollToId('social-details')">
+                <div class="bento-icon-box"><i class="fa-solid fa-hashtag"></i></div>
+                <h3>إدارة السوشيال ميديا</h3>
+                <p>صناعة المحتوى المرئي، الريلزات الاحترافية، التصاميم والإعلانات الممولة المستهدفة باشتراكات شهرية متكاملة.</p>
+                <a href="#details" class="bento-action-link">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+
+            <div class="bento-glass-card" onclick="scrollToId('dev-details')">
+                <div class="bento-icon-box"><i class="fa-solid fa-code"></i></div>
+                <h3>البرمجة والحلول الذكية</h3>
+                <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية للتواصل المباشر.</p>
+                <a href="#details" class="bento-action-link">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Process Section -->
+    <section class="process-section" id="process">
+        <div class="section-title-head">
+            <h2>كيف نعمل معك؟</h2>
+            <p>منهجية منظمة تحول الفكرة إلى واقع ملموس ونتائج مضاعفة</p>
+        </div>
+
+        <div class="timeline-flex-grid">
+            <div class="process-card-3d">
+                <div class="step-num-3d">01</div>
+                <h4>تحديد الأهداف والتحليل</h4>
+                <p>نتواصل معك لفهم مشروعك ونشاطك التجاري وتحديد الاستراتيجية الأنسب للوصول للزبائن Target Audience.</p>
+            </div>
+
+            <div class="process-card-3d">
+                <div class="step-num-3d">02</div>
+                <h4>الابتكار والتنفيذ 3D</h4>
+                <p>يبدأ فريقنا بتنفيذ الحملة الإعلانية، تصاميم الميديا، أو تطوير الموقع بأعلى درجات الاحترافية والتطور.</p>
+            </div>
+
+            <div class="process-card-3d">
+                <div class="step-num-3d">03</div>
+                <h4>الانطلاق وتحقيق النتائج</h4>
+                <p>نُسلمك العمل كاملاً مع متابعة دقيقة للنتائج لضمان أقصى نجاح ونمو لمبيعات نشاطك.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Services Breakdown -->
+    <section class="details-breakdown-section" id="details">
+        <div class="details-container">
+            <div class="section-title-head">
+                <h2>تفاصيل خدمات تيم ألفا</h2>
+                <p>قائمة شاملة بكافة الإمكانيات المتاحة للتنفيذ الميداني والبرمجي</p>
+            </div>
+
+            <div class="detail-glass-panel" id="street-details">
+                <div class="panel-head">
+                    <i class="fa-solid fa-road"></i>
+                    <h3>شغل الشارع والدعاية الميدانية</h3>
+                </div>
+                <div class="panel-pills-grid">
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>سكيترز بأعداد كبيرة</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>توزيع فلايرز ميداني</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
+                </div>
+            </div>
+
+            <div class="detail-glass-panel" id="social-details">
+                <div class="panel-head">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <h3>إدارة وتسويق السوشيال ميديا</h3>
+                    <span class="pill-tag">اشتراكات شهرية</span>
+                </div>
+                <div class="panel-pills-grid">
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم احترافية</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+                </div>
+            </div>
+
+            <div class="detail-glass-panel" id="dev-details">
+                <div class="panel-head">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>شغل البرمجة والحلول الذكية</h3>
+                </div>
+                <div class="panel-pills-grid">
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                    <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services-section" id="services">
-        <div class="section-header">
-            <h2>خدماتنا الاحترافية</h2>
-            <p>حلول متكاملة ثلاثية الأبعاد تنقل نشاطك التجاري لأبعاد جديدة</p>
-        </div>
-
-        <div class="bento-grid">
-            <div class="bento-card-3d featured" onclick="scrollToSec('street-work')">
-                <div class="bento-icon-3d"><i class="fa-solid fa-bullhorn"></i></div>
-                <h3>شغل الشارع والدعاية الميدانية</h3>
-                <p>تغطية كاملة من فرق السكيترز، السيارات الدعاية، الفلايرز والأعلام المطبوعة المبتكرة لجذب الانتباه في الشارع.</p>
-                <a href="#details" class="bento-btn">استكشف التغطية الميدانية <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-
-            <div class="bento-card-3d" onclick="scrollToSec('social-work')">
-                <div class="bento-icon-3d"><i class="fa-solid fa-hashtag"></i></div>
-                <h3>إدارة السوشيال ميديا</h3>
-                <p>صناعة محتوى Reels استثنائي، تصاميم جرافيك مجسمة، وإدارات حملات ممولة باحترافية عالية وباقات شهرية.</p>
-                <a href="#details" class="bento-btn">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-
-            <div class="bento-card-3d" onclick="scrollToSec('dev-work')">
-                <div class="bento-icon-3d"><i class="fa-solid fa-code"></i></div>
-                <h3>البرمجة وتقنيات الـ NFC</h3>
-                <p>تطوير مواقف هبوط زجاجية حديثة، ومواقع تعريفية مخصصة، مع تصنيع بطاقات ومنتجات الـ NFC الذكية.</p>
-                <a href="#details" class="bento-btn">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Timeline -->
-    <section class="process-section" id="process">
-        <div class="section-header">
-            <h2>خطوات العمل الذكية</h2>
-            <p>منهجية ثلاثية الأبعاد لضمان أعلى درجات الدقة والاحترافية</p>
-        </div>
-
-        <div class="timeline-grid">
-            <div class="timeline-card-3d">
-                <div class="timeline-num-3d">01</div>
-                <h4>التخطيط والاستراتيجية</h4>
-                <p>ندرس متطلبات نشاطك ونحدد الخطة الإعلانية والبرمجية الأنسب للوصول لأهدافك.</p>
-            </div>
-
-            <div class="timeline-card-3d">
-                <div class="timeline-num-3d">02</div>
-                <h4>التصميم والإنتاج 3D</h4>
-                <p>نُصمم الهوية والمحتوى والموقع بأسلوب Liquid Glass عصري يجذب عملائك.</p>
-            </div>
-
-            <div class="timeline-card-3d">
-                <div class="timeline-num-3d">03</div>
-                <h4>الانطلاق والمتابعة الحية</h4>
-                <p>ننفذ الحملة الميدانية والرقمية ونرسل لك تقارير الأداء ومعدلات النمو باستمرار.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detailed List Section -->
-    <section class="details-section" id="details">
-        <div class="section-header">
-            <h2>قائمة الإمكانيات والخدمات</h2>
-            <p>تفاصيل كل ما يقدمه تيم ألفا لنشاطك التجاري</p>
-        </div>
-
-        <div class="detail-glass-box" id="street-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-road"></i>
-                <h3>الدعاية الميدانية وشغل الشارع</h3>
-            </div>
-            <div class="items-flex-grid">
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>سكيترز بأعداد كبيرة</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>توزيع فلايرز ميداني</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
-            </div>
-        </div>
-
-        <div class="detail-glass-box" id="social-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-share-nodes"></i>
-                <h3>تسويق وإدارة السوشيال ميديا</h3>
-                <span class="pill-badge">اشتراكات شهرية</span>
-            </div>
-            <div class="items-flex-grid">
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم 3D احترافية</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>إعلانات ممولة استراتيجية</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>إدارة الصفحات بالكامل</span></div>
-            </div>
-        </div>
-
-        <div class="detail-glass-box" id="dev-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>البرمجيات وتقنية الـ NFC</h3>
-            </div>
-            <div class="items-flex-grid">
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>صفحات هبوط Landing Pages</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>مواقع بورتفوليو Portfolio</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>منتجات تقنية الـ NFC</span></div>
-                <div class="liquid-pill"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة للشركات</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
+    <!-- Contact & Directory -->
     <section class="contact-section" id="contact">
-        <div class="section-header">
-            <h2>تواصل مع فريقنا</h2>
-            <p>جاهزون لبدء مشروعك وتطوير علامتك التجارية فوراً</p>
+        <div class="section-title-head">
+            <h2>تواصل معنا الآن</h2>
+            <p>فريق تيم ألفا جاهز لبدء مشروعك وتطوير نشاطك فوراً</p>
         </div>
 
-        <div class="contact-grid">
-            <a href="tel:+201150605708" class="contact-glass-card">
+        <div class="contact-cards-wrapper">
+            <a href="tel:+201150605708" class="contact-card-3d">
                 <i class="fa-solid fa-phone"></i>
                 <span>الهاتف الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="contact-glass-card">
+            <a href="tel:+201031913107" class="contact-card-3d">
                 <i class="fa-solid fa-phone-flip"></i>
                 <span>الهاتف الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="contact-glass-card">
+            <a href="https://wa.me/201031913107" target="_blank" class="contact-card-3d">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-glass-card">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card-3d">
                 <i class="fa-brands fa-instagram"></i>
                 <span>حساب الانستجرام</span>
                 <strong>@TEAM_ALPHA</strong>
@@ -1062,17 +1420,18 @@
     </section>
 
     <!-- Floating 3D WhatsApp Button -->
-    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa-3d" title="تحدث معنا الآن عبر الواتساب">
+    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa-btn" title="تحدث معنا عبر الواتساب">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; TEAM ALPHA</p>
+        <p>جميع الحقوق محفوظة &copy; TEAM ALPHA - تيم ألفا للدعاية والبرمجة</p>
     </footer>
 
+    <!-- JavaScript Interactions Engine -->
     <script>
-        // Force Page Scroll to Top
+        // Force scroll to top on reload
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
@@ -1082,7 +1441,7 @@
             checkWorkingHours();
         };
 
-        // Working Hours System (من 12 مساءً حتى 12 صباحاً)
+        // Working Hours Engine (12 PM - 12 AM)
         function checkWorkingHours() {
             const now = new Date();
             const currentHour = now.getHours();
@@ -1098,10 +1457,36 @@
             }
         }
 
-        // Scroll Helper
-        function scrollToSec(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        // Scroll Navigation Helper
+        function scrollToId(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
+
+        // 3D Tilt Cards Parallax Interaction
+        const tiltCards = document.querySelectorAll('.bento-glass-card, .process-card-3d, .stat-glass-box');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 12;
+                const rotateY = (centerX - x) / 12;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+            });
+        });
     </script>
 </body>
 </html>
