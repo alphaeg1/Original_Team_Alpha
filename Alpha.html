@@ -3,554 +3,478 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM ALPHA | تيم ألفا للدعاية والإعلان والحلول البرمجية</title>
-    
-    <!-- FontAwesome Reliable Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Google Fonts: Cairo & Orbitron -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    <title>TEAM ALPHA | تيم ألفا للدعاية والبرمجة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ==========================================================================
-           1. COLOR PALETTE & VARIABLES
-           ========================================================================== */
         :root {
-            --c-dark-grey: #1a191d;
-            --c-card-bg: #28262C;
-            --c-ocean-mist: #4EA699;
-            --c-flag-red: #C1292E;
-            --c-lavender: #F9F5FF;
-            --c-true-cobalt: #14248A;
-
-            --bg-void: #0b0f19;
-            --glass-card: rgba(40, 38, 44, 0.65);
-            --glass-border: rgba(249, 245, 255, 0.08);
-            --glass-border-active: rgba(78, 166, 153, 0.4);
-
-            --font-main: 'Cairo', sans-serif;
-            --font-tech: 'Orbitron', sans-serif;
-
-            --ease-3d: cubic-bezier(0.25, 1, 0.5, 1);
+            --bg-main: #0a0a0c;
+            --bg-card: #121216;
+            --bg-glass: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --text-primary: #ffffff;
+            --text-secondary: #90909a;
+            --accent-gray: #22222a;
+            --accent-light-gray: #d1d1d6;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ==========================================================================
-           2. GLOBAL RESETS & BASE STYLES
-           ========================================================================== */
-        *, *::before, *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--font-main);
+            font-family: 'Cairo', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-void);
-            color: var(--c-lavender);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             overflow-x: hidden;
-            font-size: 15px;
-            line-height: 1.6;
+            position: relative;
+            font-size: 14px; /* تصغير حجم الخط الأساسي */
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-void); }
-        ::-webkit-scrollbar-thumb { background: var(--c-card-bg); border-radius: 4px; border: 1px solid var(--c-ocean-mist); }
-
-        /* Ambient Background */
-        .ambient-world {
+        /* Dynamic Animated Background */
+        .bg-glow {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            z-index: -2;
-            overflow: hidden;
+            z-index: -1;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 50%);
         }
 
-        .mesh-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.35;
-            animation: orbFloat 18s infinite ease-in-out alternate;
+        .floating-shapes div {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            z-index: -1;
+            animation: float 20s infinite linear;
         }
 
-        .orb-cobalt { width: 450px; height: 450px; background: var(--c-true-cobalt); top: -100px; right: -50px; }
-        .orb-teal { width: 380px; height: 380px; background: var(--c-ocean-mist); bottom: -100px; left: -100px; }
+        .floating-shapes div:nth-child(1) { top: 10%; left: 10%; animation-duration: 22s; }
+        .floating-shapes div:nth-child(2) { top: 60%; left: 80%; animation-duration: 18s; }
+        .floating-shapes div:nth-child(3) { top: 80%; left: 20%; animation-duration: 25s; }
 
-        @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, -40px) scale(1.08); }
+        @keyframes float {
+            0% { transform: rotate(0deg) translateY(0); }
+            50% { transform: rotate(180deg) translateY(-20px); }
+            100% { transform: rotate(360deg) translateY(0); }
         }
 
-        /* ==========================================================================
-           3. NAVIGATION BAR
-           ========================================================================== */
+        /* Header & Navbar */
         header {
             position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%;
-            max-width: 1200px;
-            padding: 10px 25px;
+            top: 0;
+            width: 100%;
+            padding: 12px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(26, 25, 29, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .brand-logo {
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
+            gap: 10px;
         }
 
-        .brand-logo img {
+        .logo-img {
             width: 38px;
             height: 38px;
-            border-radius: 10px;
-            border: 1px solid var(--c-ocean-mist);
+            border-radius: 8px;
+            background: #1a1a20;
+            border: 1px solid var(--border-color);
             object-fit: cover;
         }
 
-        .brand-logo span {
-            font-size: 1.25rem;
+        .logo-text {
+            font-size: 1.2rem;
             font-weight: 800;
-            color: var(--c-lavender);
-            font-family: var(--font-tech);
             letter-spacing: 1px;
+            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .status-badge {
+        /* Status Indicator (مؤشر مواعيد العمل) */
+        .work-status {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(20, 36, 138, 0.3);
-            border: 1px solid var(--glass-border-active);
-            padding: 5px 14px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
         }
 
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .status-dot.open { background-color: var(--c-ocean-mist); box-shadow: 0 0 10px var(--c-ocean-mist); }
-        .status-dot.closed { background-color: var(--c-flag-red); box-shadow: 0 0 10px var(--c-flag-red); }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            position: relative;
+        }
 
-        nav ul { display: flex; list-style: none; gap: 22px; }
-        nav a { color: var(--c-lavender); opacity: 0.8; text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: var(--ease-3d); }
-        nav a:hover { opacity: 1; color: var(--c-ocean-mist); }
+        /* حالات اللمبة */
+        .status-dot.open {
+            background-color: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            animation: blink-green 1.5s infinite;
+        }
 
-        /* ==========================================================================
-           4. HERO SECTION & REALISTIC FRONT-ONLY 3D iPHONE
-           ========================================================================== */
-        .hero-section {
-            padding: 130px 6% 60px;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
+        .status-dot.closed {
+            background-color: #ef4444;
+            box-shadow: 0 0 10px #ef4444;
+            animation: blink-red 1.5s infinite;
+        }
+
+        @keyframes blink-green {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        @keyframes blink-red {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 110px 6% 40px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            max-width: 1200px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Offers Section (قسم العروض الحالية) */
+        .offers-section {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            padding: 12px;
+            background: var(--bg-card);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .offers-title {
+            font-size: 0.85rem;
+            color: var(--accent-light-gray);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .offers-title i {
+            animation: pulse 1.5s infinite;
+            color: #f59e0b;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .offer-banner {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Services Overview Section (إجمال الخدمات) */
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 6px auto 0;
+            border-radius: 2px;
+        }
+
+        .services-overview {
+            padding: 40px 6%;
+            background: rgba(255, 255, 255, 0.005);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .overview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 22px 18px;
+            border-radius: 14px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: #16161c;
+        }
+
+        .overview-card i {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--accent-light-gray);
+        }
+
+        .overview-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .overview-card p {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            line-height: 1.4;
+        }
+
+        /* Detailed Services Section (تفصيل الخدمات) */
+        .services-details {
+            padding: 40px 6%;
+        }
+
+        .detail-block {
+            margin-bottom: 30px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            backdrop-filter: blur(8px);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .detail-header i {
+            font-size: 1.2rem;
+            background: var(--accent-gray);
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .detail-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .badge-monthly {
+            font-size: 0.7rem;
+            background: #ffffff;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .item-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .item-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(-3px);
+        }
+
+        .item-box i {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section (قسم التواصل والأرقام) */
+        .contact-section {
+            padding: 40px 6%;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        .hero-badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(193, 41, 46, 0.2);
-            color: #ff6b6b;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            margin-bottom: 18px;
-            border: 1px solid rgba(193, 41, 46, 0.4);
-        }
-
-        .hero-content h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
-        .hero-content h1 span { color: var(--c-ocean-mist); }
-        .hero-content p { font-size: 0.98rem; opacity: 0.85; margin-bottom: 28px; max-width: 520px; line-height: 1.7; }
-
-        .hero-stats-row { display: flex; gap: 15px; }
-        .stat-glass-box {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            padding: 14px 22px;
-            border-radius: 16px;
-            border-right: 3px solid var(--c-ocean-mist);
-        }
-        .stat-glass-box strong { display: block; font-size: 1.25rem; font-weight: 800; color: var(--c-lavender); font-family: var(--font-tech); }
-        .stat-glass-box span { font-size: 0.78rem; opacity: 0.7; }
-
-        /* --- REALISTIC FRONT iPHONE 3D (NO BACK) --- */
-        .iphone-front-scene {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-            height: 480px;
-        }
-
-        .iphone-front-body {
-            width: 230px;
-            height: 460px;
-            background: #000;
-            border-radius: 40px;
-            border: 4px solid #2d3748;
-            box-shadow: 
-                0 0 0 2px #1a202c,
-                0 25px 50px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(78, 166, 153, 0.25);
-            position: relative;
-            transform: rotateY(-12deg) rotateX(8deg);
-            transition: transform 0.6s var(--ease-3d);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .iphone-front-body:hover {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.03);
-        }
-
-        /* Glass Reflection Highlight */
-        .iphone-front-body::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(115deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 50%);
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .iphone-island {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 75px;
-            height: 18px;
-            background: #000;
+        .contact-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 16px 12px;
             border-radius: 12px;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 8px;
-        }
-        .island-lens { width: 7px; height: 7px; background: #0d0d18; border-radius: 50%; }
-        .island-sensor { width: 5px; height: 5px; background: var(--c-true-cobalt); border-radius: 50%; }
-
-        .screen-top-bar {
-            padding: 36px 12px 10px;
-            background: rgba(20, 36, 138, 0.4);
-            border-bottom: 1px solid var(--glass-border);
-            text-align: center;
-        }
-        .screen-top-bar h6 { font-size: 0.78rem; color: var(--c-ocean-mist); font-weight: 700; }
-        .screen-top-bar span { font-size: 0.65rem; opacity: 0.7; }
-
-        .screen-feed-container {
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(26,25,29,0.9) 0%, rgba(17,16,20,1) 100%);
-        }
-
-        .phone-review-card {
-            background: rgba(40, 38, 44, 0.85);
-            border: 1px solid var(--glass-border-active);
-            padding: 12px;
-            border-radius: 14px;
-        }
-        .phone-review-card .user-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-        .phone-review-card .avatar {
-            width: 26px; height: 26px;
-            background: var(--c-true-cobalt);
-            color: var(--c-ocean-mist);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; font-weight: 700;
-        }
-        .phone-review-card .user-meta strong { font-size: 0.72rem; display: block; }
-        .phone-review-card .stars { color: var(--c-ocean-mist); font-size: 0.55rem; }
-        .phone-review-card p { font-size: 0.68rem; line-height: 1.4; opacity: 0.85; }
-
-        /* ==========================================================================
-           5. PROMOTIONAL OFFER CARD
-           ========================================================================== */
-        .promo-banner-section { padding: 30px 6%; max-width: 1200px; margin: 0 auto; }
-        .glass-offer-card {
-            background: linear-gradient(135deg, rgba(40, 38, 44, 0.8) 0%, rgba(20, 36, 138, 0.5) 100%);
-            border: 1px solid var(--glass-border-active);
-            border-radius: 24px;
-            padding: 28px;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 25px;
-            align-items: center;
-        }
-        .offer-tag {
-            background: var(--c-flag-red);
-            color: var(--c-lavender);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        .offer-info h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; }
-        .offer-info p { opacity: 0.85; font-size: 0.9rem; line-height: 1.6; }
-        .offer-img-wrapper { border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); max-height: 220px; }
-        .offer-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        /* ==========================================================================
-           6. BENTO GRID SERVICES WITH CUSTOM REALISTIC 3D MOCKUPS
-           ========================================================================== */
-        .services-section { padding: 60px 6%; max-width: 1200px; margin: 0 auto; }
-        .section-title-head { text-align: center; margin-bottom: 40px; }
-        .section-title-head h2 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
-        .section-title-head p { color: var(--c-ocean-mist); font-size: 0.92rem; font-weight: 600; }
-
-        .bento-3d-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .bento-glass-card {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            padding: 28px 22px;
-            border-radius: 24px;
-            transition: var(--ease-3d);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            perspective: 1000px;
-        }
-        .bento-glass-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--c-ocean-mist);
-            background: rgba(40, 38, 44, 0.9);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        }
-
-        /* 3D MOCKUPS CONTAINER FOR SERVICES */
-        .service-mockup-wrapper {
-            height: 140px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        /* --- 3D MOCKUP 1: STREET MEGAPHONE (الدعاية الميدانية) --- */
-        .megaphone-3d {
-            width: 90px;
-            height: 90px;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateY(-20deg) rotateX(15deg);
-            transition: transform 0.5s ease;
-        }
-        .bento-glass-card:hover .megaphone-3d {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.1);
-        }
-        .cone-body {
-            position: absolute;
-            width: 0; height: 0;
-            border-left: 30px solid transparent;
-            border-right: 30px solid transparent;
-            border-bottom: 60px solid var(--c-flag-red);
-            transform: rotate(-45deg);
-            border-radius: 10px;
-            filter: drop-shadow(0 10px 15px rgba(193, 41, 46, 0.4));
-        }
-        .cone-front {
-            position: absolute;
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, var(--c-ocean-mist), #fff);
-            border-radius: 50%;
-            top: 5px; left: 35px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 15px var(--c-ocean-mist);
-        }
-
-        /* --- 3D MOCKUP 2: REALISTIC CAMERA LENS (إدارة السوشيال ميديا) --- */
-        .camera-lens-3d {
-            width: 95px; height: 95px;
-            background: linear-gradient(145deg, #2d3748, #0f172a);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 
-                0 15px 25px rgba(0,0,0,0.7),
-                inset -4px -4px 10px rgba(255,255,255,0.1),
-                inset 4px 4px 10px rgba(0,0,0,0.9);
-            transform: rotateX(20deg) rotateY(-15deg);
-            transition: transform 0.5s ease;
-        }
-        .bento-glass-card:hover .camera-lens-3d {
-            transform: rotateX(0deg) rotateY(0deg) scale(1.1);
-        }
-        .lens-ring {
-            width: 65px; height: 65px;
-            border-radius: 50%;
-            background: #090d16;
-            border: 3px solid #4a5568;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 15px #000;
-        }
-        .lens-glass {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--c-ocean-mist) 0%, var(--c-true-cobalt) 70%, #000 100%);
-            box-shadow: 0 0 20px var(--c-ocean-mist);
-            position: relative;
-        }
-        .lens-glass::after {
-            content: ''; position: absolute;
-            top: 6px; left: 6px; width: 10px; height: 5px;
-            background: rgba(255,255,255,0.7); border-radius: 50%; transform: rotate(-45deg);
-        }
-
-        /* --- 3D MOCKUP 3: GLASS NFC CARD (البرمجة والحلول الذكية) --- */
-        .nfc-card-3d {
-            width: 140px; height: 85px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            padding: 10px 12px;
-            position: relative;
-            transform: rotateY(20deg) rotateX(10deg);
-            backdrop-filter: blur(12px);
-            box-shadow: -10px 15px 25px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2);
-            transition: transform 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .bento-glass-card:hover .nfc-card-3d {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.1);
-        }
-        .nfc-chip {
-            width: 22px; height: 18px;
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-            border-radius: 4px;
-            box-shadow: inset 0 0 3px rgba(0,0,0,0.4);
-        }
-        .nfc-wave {
-            align-self: flex-end;
-            font-size: 1.1rem;
-            color: var(--c-ocean-mist);
-            text-shadow: 0 0 8px var(--c-ocean-mist);
-        }
-
-        .bento-glass-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
-        .bento-glass-card p { opacity: 0.8; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; }
-        .bento-action-link {
-            margin-top: auto;
-            display: inline-flex; align-items: center; gap: 8px;
-            color: var(--c-ocean-mist); font-weight: 700; font-size: 0.85rem; text-decoration: none;
-        }
-
-        /* ==========================================================================
-           7. DETAILED BREAKDOWN PANEL
-           ========================================================================== */
-        .details-breakdown-section { padding: 60px 6%; max-width: 1200px; margin: 0 auto; }
-        .detail-glass-panel { background: var(--glass-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 28px; margin-bottom: 22px; }
-        .panel-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border); }
-        .panel-head i { width: 40px; height: 40px; background: var(--c-flag-red); color: var(--c-lavender); display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.1rem; }
-        .panel-head h3 { font-size: 1.2rem; font-weight: 700; }
-        .pill-tag { margin-right: auto; background: var(--c-ocean-mist); color: var(--c-dark-grey); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
-
-        .panel-pills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-        .glass-pill-item {
-            background: rgba(20, 36, 138, 0.25);
-            border: 1px solid var(--glass-border-active);
-            padding: 12px 16px;
-            border-radius: 12px;
-            display: flex; align-items: center; gap: 10px;
-            font-weight: 600; font-size: 0.88rem; transition: var(--ease-3d);
-        }
-        .glass-pill-item:hover { background: var(--c-ocean-mist); color: var(--c-dark-grey); }
-        .glass-pill-item i { color: var(--c-ocean-mist); font-size: 0.95rem; }
-        .glass-pill-item:hover i { color: var(--c-dark-grey); }
-
-        /* ==========================================================================
-           8. CONTACT CARDS & FLOATING BUTTON
-           ========================================================================== */
-        .contact-section { padding: 60px 6% 80px; max-width: 1200px; margin: 0 auto; }
-        .contact-cards-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-        .contact-card-3d {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border-active);
-            padding: 24px;
-            border-radius: 18px;
             text-align: center;
             text-decoration: none;
-            color: var(--c-lavender);
-            transition: var(--ease-3d);
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            color: var(--text-primary);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
         }
-        .contact-card-3d:hover { transform: translateY(-6px); background: var(--c-ocean-mist); color: var(--c-dark-grey); }
-        .contact-card-3d i { font-size: 1.8rem; color: var(--c-ocean-mist); }
-        .contact-card-3d:hover i { color: var(--c-dark-grey); }
-        .contact-card-3d strong { font-size: 0.95rem; direction: ltr; font-family: var(--font-tech); }
 
-        .floating-wa-btn {
-            position: fixed; bottom: 25px; right: 25px;
-            background: var(--c-ocean-mist); color: var(--c-dark-grey);
-            width: 55px; height: 55px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px; box-shadow: 0 10px 25px rgba(78, 166, 153, 0.4);
-            z-index: 2000; transition: var(--ease-3d); text-decoration: none;
+        .contact-card:hover {
+            transform: translateY(-3px);
+            border-color: #ffffff;
         }
-        .floating-wa-btn:hover { transform: scale(1.1); background: var(--c-flag-red); color: var(--c-lavender); }
 
-        footer { text-align: center; padding: 25px; border-top: 1px solid var(--glass-border); background: #0d0c10; font-size: 0.82rem; opacity: 0.75; }
+        .contact-card i {
+            font-size: 1.3rem;
+            color: var(--accent-light-gray);
+        }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 992px) {
-            .hero-section { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .hero-stats-row { justify-content: center; }
-            .glass-offer-card { grid-template-columns: 1fr; }
-            .bento-3d-grid { grid-template-columns: 1fr; }
-            header nav { display: none; }
+        .contact-card span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-card strong {
+            font-size: 0.9rem;
+            direction: ltr;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header { padding: 10px 4%; }
+            nav { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.85rem; }
+            .section-title { font-size: 1.3rem; }
+            .detail-block { padding: 15px; }
+            .work-status span { font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Orbs -->
-    <div class="ambient-world">
-        <div class="mesh-orb orb-cobalt"></div>
-        <div class="mesh-orb orb-teal"></div>
+    <div class="bg-glow" id="glow"></div>
+
+    <div class="floating-shapes">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
-    <!-- Header Navigation -->
     <header>
-        <a href="#" class="brand-logo">
-            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo">
-            <span>TEAM ALPHA</span>
-        </a>
+        <div class="logo-container">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
+            <div class="logo-text">TEAM ALPHA</div>
+        </div>
 
-        <div class="status-badge">
+        <div class="work-status">
             <div class="status-dot" id="statusDot"></div>
             <span id="statusText">جاري التحقق...</span>
         </div>
@@ -559,239 +483,146 @@
             <ul>
                 <li><a href="#hero">الرئيسية</a></li>
                 <li><a href="#offers">العروض</a></li>
-                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#overview">خدماتنا</a></li>
                 <li><a href="#details">التفاصيل</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="hero">
-        <div class="hero-content">
-            <div class="hero-badge-tag">
-                <i class="fa-solid fa-cube"></i> الوكالة الأولى للتسويق والحلول البرمجية
+    <section class="hero" id="hero">
+        <h1 class="reveal">TEAM ALPHA</h1>
+        <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
+
+        <div class="offers-section reveal" id="offers">
+            <div class="offers-title">
+                <i class="fa-solid fa-fire"></i>
+                <span>العروض المميزة المتاحه حالياً</span>
             </div>
-            <h1>نُشكل مستقبل <span>علامتك التجارية</span></h1>
-            <p>نبتكر الحلول الإعلانية والبرمجية لنقل نشاطك التجاري لمستوى أحدث. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية وتقنيات الـ NFC.</p>
-            
-            <div class="hero-stats-row">
-                <div class="stat-glass-box">
-                    <strong>100%</strong>
-                    <span>تنفيذ ميداني وبرمجي</span>
-                </div>
-                <div class="stat-glass-box">
-                    <strong>ALL IN ONE</strong>
-                    <span>حلول دعاية متكاملة</span>
-                </div>
-            </div>
+            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="offer-banner">
         </div>
+    </section>
 
-        <!-- Realistic 3D iPhone (Front Display Only) -->
-        <div class="iphone-front-scene">
-            <div class="iphone-front-body">
-                <div class="iphone-island">
-                    <div class="island-sensor"></div>
-                    <div class="island-lens"></div>
-                </div>
-
-                <div class="screen-top-bar">
-                    <h6><i class="fa-solid fa-shield-halved"></i> آراء العملاء</h6>
-                    <span>نتائج حقيقية من الشارع</span>
-                </div>
-
-                <div class="screen-feed-container">
-                    <div class="phone-review-card">
-                        <div class="user-row">
-                            <div class="avatar">A</div>
-                            <div class="user-meta">
-                                <strong>مطعم وتيك أواي</strong>
-                                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            </div>
-                        </div>
-                        <p>"شغل السكيترز والدعاية الميدانية غطى المنطقة بالكامل والمبيعات تضاعفت!"</p>
-                    </div>
-
-                    <div class="phone-review-card">
-                        <div class="user-row">
-                            <div class="avatar">M</div>
-                            <div class="user-meta">
-                                <strong>شركة خدمات وتقنية</strong>
-                                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            </div>
-                        </div>
-                        <p>"منتجات كروت الـ NFC مع الموقع خلوا شكلنا قدام العملاء بروفيشنال جداً."</p>
-                    </div>
-                </div>
+    <section class="services-overview" id="overview">
+        <h2 class="section-title reveal">مجالات اختصاصنا</h2>
+        <div class="overview-grid">
+            <div class="overview-card reveal" onclick="scrollToSection('street-work')">
+                <i class="fa-solid fa-bullhorn"></i>
+                <h3>شغل الشارع</h3>
+                <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان.</p>
+            </div>
+            <div class="overview-card reveal" onclick="scrollToSection('social-work')">
+                <i class="fa-solid fa-hashtag"></i>
+                <h3>سوشيال ميديا</h3>
+                <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
+            </div>
+            <div class="overview-card reveal" onclick="scrollToSection('dev-work')">
+                <i class="fa-solid fa-code"></i>
+                <h3>شغل البرمجة</h3>
+                <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
             </div>
         </div>
     </section>
 
-    <!-- Promo Offer Section -->
-    <section class="promo-banner-section" id="offers">
-        <div class="glass-offer-card">
-            <div class="offer-info">
-                <span class="offer-tag"><i class="fa-solid fa-bolt"></i> عرض حصري</span>
-                <h3>أقوى العروض الإعلانية المتاحة</h3>
-                <p>احصل على باقة متكاملة تجمع بين الدعاية الميدانية، إدارة صفحات السوشيال ميديا، والحلول البرمجية الذكية بخصومات استثنائية.</p>
-            </div>
-            <div class="offer-img-wrapper">
-                <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي من تيم ألفا">
-            </div>
-        </div>
-    </section>
+    <section class="services-details" id="details">
+        <h2 class="section-title reveal">تفاصيل الخدمات</h2>
 
-    <!-- Services Section with 3D Real Mockups -->
-    <section class="services-section" id="services">
-        <div class="section-title-head">
-            <h2>مجالات اختصاصنا</h2>
-            <p>حلول دعاية وبرمجة مصممة للنمو والتوسع المباشر</p>
-        </div>
-
-        <div class="bento-3d-grid">
-            <!-- الخدمة الأولى: مجسم مكبر صوت 3D -->
-            <div class="bento-glass-card">
-                <div class="service-mockup-wrapper">
-                    <div class="megaphone-3d">
-                        <div class="cone-body"></div>
-                        <div class="cone-front"></div>
-                    </div>
-                </div>
-                <h3>شغل الشارع والدعاية</h3>
-                <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك وتغطية المنطقة بالكامل.</p>
-                <a href="#details" class="bento-action-link">استكشف التغطية <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-
-            <!-- الخدمة الثانية: مجسم كاميرا واقعية 3D -->
-            <div class="bento-glass-card">
-                <div class="service-mockup-wrapper">
-                    <div class="camera-lens-3d">
-                        <div class="lens-ring">
-                            <div class="lens-glass"></div>
-                        </div>
-                    </div>
-                </div>
-                <h3>إدارة السوشيال ميديا</h3>
-                <p>صناعة المحتوى المرئي، الريلزات الاحترافية، والتصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
-                <a href="#details" class="bento-action-link">استكشف الباقات <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-
-            <!-- الخدمة الثالثة: مجسم كارت NFC زجاجي 3D -->
-            <div class="bento-glass-card">
-                <div class="service-mockup-wrapper">
-                    <div class="nfc-card-3d">
-                        <div class="nfc-chip"></div>
-                        <div style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1px;">TEAM ALPHA</div>
-                        <div class="nfc-wave"><i class="fa-solid fa-wifi"></i></div>
-                    </div>
-                </div>
-                <h3>البرمجة والحلول الذكية</h3>
-                <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية للتواصل المباشر.</p>
-                <a href="#details" class="bento-action-link">استكشف البرمجيات <i class="fa-solid fa-arrow-left"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detailed Services Breakdown -->
-    <section class="details-breakdown-section" id="details">
-        <div class="section-title-head">
-            <h2>تفاصيل خدمات تيم ألفا</h2>
-            <p>قائمة شاملة بكافة الإمكانيات المتاحة للتنفيذ الميداني والبرمجي</p>
-        </div>
-
-        <div class="detail-glass-panel">
-            <div class="panel-head">
+        <div class="detail-block reveal" id="street-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-road"></i>
                 <h3>شغل الشارع والدعاية الميدانية</h3>
             </div>
-            <div class="panel-pills-grid">
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>سكيترز بأعداد كبيرة</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>توزيع فلايرز ميداني</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>عربيات الدعاية المتحركة</span></div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
+                <div class="item-box"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
+                <div class="item-box"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
+                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز </span></div>
+                <div class="item-box"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
             </div>
         </div>
 
-        <div class="detail-glass-panel">
-            <div class="panel-head">
+        <div class="detail-block reveal" id="social-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-share-nodes"></i>
-                <h3>إدارة وتسويق السوشيال ميديا</h3>
-                <span class="pill-tag">اشتراكات شهرية</span>
+                <h3>إدارة وتسويق السوشيال ميديا <span class="badge-monthly">نظام شهري</span></h3>
             </div>
-            <div class="panel-pills-grid">
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم احترافية</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>إعلانات ممولة (إسبونسر)</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
+                <div class="item-box"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
+                <div class="item-box"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                <div class="item-box"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
             </div>
         </div>
 
-        <div class="detail-glass-panel">
-            <div class="panel-head">
+        <div class="detail-block reveal" id="dev-work">
+            <div class="detail-header">
                 <i class="fa-solid fa-laptop-code"></i>
                 <h3>شغل البرمجة والحلول الذكية</h3>
             </div>
-            <div class="panel-pills-grid">
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>منتجات تقنية الـ NFC</span></div>
-                <div class="glass-pill-item"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+            <div class="items-grid">
+                <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="contact-section" id="contact">
-        <div class="section-title-head">
-            <h2>تواصل معنا الآن</h2>
-            <p>فريق تيم ألفا جاهز لبدء مشروعك وتطوير نشاطك فوراً</p>
-        </div>
-
-        <div class="contact-cards-wrapper">
-            <a href="tel:+201150605708" class="contact-card-3d">
+        <h2 class="section-title reveal">تواصل معنا</h2>
+        <div class="contact-grid">
+            <a href="tel:+201150605708" class="contact-card reveal">
                 <i class="fa-solid fa-phone"></i>
-                <span>الهاتف الأول</span>
+                <span>الرقم الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="contact-card-3d">
+            <a href="tel:+201031913107" class="contact-card reveal">
                 <i class="fa-solid fa-phone-flip"></i>
-                <span>الهاتف الثاني</span>
+                <span>الرقم الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="contact-card-3d">
+            <a href="https://wa.me/201031913107" target="_blank" class="contact-card reveal">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card-3d">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card reveal">
                 <i class="fa-brands fa-instagram"></i>
-                <span>الانستجرام</span>
+                <span>حساب الانستجرام</span>
                 <strong>@TEAM_ALPHA</strong>
             </a>
         </div>
     </section>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/201031913107" target="_blank" class="floating-wa-btn">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; TEAM ALPHA - تيم ألفا للدعاية والبرمجة</p>
+        <p>جميع الحقوق محفوظة &copy; TEAM ALPHA</p>
     </footer>
 
     <script>
-        // Check Working Hours Engine
+        // 1. Force Page Scroll to Top on Refresh (بدء الموقع من الأعلى)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+        window.onload = () => {
+            window.scrollTo(0, 0);
+            checkWorkingHours();
+        };
+
+        // 2. Working Hours System (من 12 مساءً حتى 12 صباحاً)
         function checkWorkingHours() {
-            const currentHour = new Date().getHours();
+            const now = new Date();
+            const currentHour = now.getHours(); // 0 - 23
+
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
 
+            // أوقات العمل من 12 ظهراً (12) إلى 12 منتصف الليل (24/0)
             if (currentHour >= 12 && currentHour < 24) {
                 statusDot.className = 'status-dot open';
                 statusText.textContent = 'مفتوح الآن';
@@ -801,7 +632,34 @@
             }
         }
 
-        window.onload = checkWorkingHours;
+        // 3. Mouse Tracking Radial Dynamic Glow Effect
+        const glow = document.getElementById('glow');
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            glow.style.setProperty('--x', `${x}%`);
+            glow.style.setProperty('--y', `${y}%`);
+        });
+
+        // 4. Scroll Reveal Animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach((el) => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // 5. Smooth Scroll Helper
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
