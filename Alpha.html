@@ -9,13 +9,16 @@
     
     <style>
         :root {
-            --shadow-grey: #28262C;
-            --ocean-mist: #4EA699;
-            --flag-red: #C1292E;
-            --lavender-mist: #F9F5FF;
-            --true-cobalt: #14248A;
-            --card-bg: #1f1d23;
-            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            /* ألوان مريحة للعين مأخوذة من درجات ناعمة ومطفأة */
+            --bg-main: #121418;
+            --bg-card: #1c1f26;
+            --bg-accent: #252a34;
+            --text-primary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-teal: #45b7d1;
+            --accent-coral: #e06c75;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --transition: all 0.35s ease;
         }
 
         * {
@@ -27,22 +30,111 @@
         }
 
         body {
-            background-color: var(--shadow-grey);
-            color: var(--lavender-mist);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Top Bar & Branding */
+        /* --- OLD SCHOOL FAST LOADER & EXPLOSION --- */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            transition: opacity 0.3s ease;
+        }
+
+        .old-school-box {
+            border: 2px solid #00ff66;
+            padding: 20px 30px;
+            background: #080808;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .loader-bar {
+            width: 220px;
+            height: 16px;
+            border: 2px solid #00ff66;
+            margin: 15px auto;
+            padding: 2px;
+            position: relative;
+        }
+
+        .loader-fill {
+            height: 100%;
+            background: #00ff66;
+            width: 0%;
+            transition: width 0.05s linear;
+        }
+
+        .loader-text {
+            color: #00ff66;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            font-family: 'Readex Pro', sans-serif;
+            font-weight: 600;
+        }
+
+        /* انيميشن الفرقعة عند انتهاء التحميل */
+        .explode-out {
+            animation: explodeAnimation 0.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards !important;
+        }
+
+        @keyframes explodeAnimation {
+            0% { transform: scale(1); opacity: 1; filter: blur(0); }
+            50% { transform: scale(1.8); opacity: 0.8; filter: blur(4px); }
+            100% { transform: scale(3.5); opacity: 0; filter: blur(12px); display: none; }
+        }
+
+        /* --- BACKGROUND FLOATING ANIMATED SHAPES --- */
+        .bg-floating-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(69,183,209,0.08) 0%, rgba(0,0,0,0) 70%);
+            animation: floatAnim 12s infinite ease-in-out alternate;
+        }
+
+        .circle-1 { width: 350px; height: 350px; top: 10%; left: -50px; animation-delay: 0s; }
+        .circle-2 { width: 450px; height: 450px; bottom: 5%; right: -100px; animation-delay: -4s; }
+        .circle-3 { width: 250px; height: 250px; top: 50%; left: 40%; animation-delay: -7s; }
+
+        @keyframes floatAnim {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-40px) scale(1.1); }
+        }
+
+        /* --- HEADER & BRANDING --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(20, 36, 138, 0.92);
+            background: rgba(18, 20, 24, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 3px solid var(--ocean-mist);
+            border-bottom: 1px solid var(--border-color);
             padding: 14px 6%;
             display: flex;
             justify-content: space-between;
@@ -56,60 +148,65 @@
         }
 
         .brand-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            border: 2px solid var(--ocean-mist);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid var(--accent-teal);
             object-fit: cover;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0px rgba(69, 183, 209, 0); }
+            100% { box-shadow: 0 0 12px rgba(69, 183, 209, 0.4); }
         }
 
         .brand-name {
             font-family: 'Changa', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            color: var(--lavender-mist);
-            letter-spacing: 1.5px;
+            color: var(--text-primary);
+            letter-spacing: 1px;
         }
 
-        /* Working Status Badge */
         .status-container {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: var(--shadow-grey);
+            background: var(--bg-card);
             padding: 6px 14px;
             border-radius: 30px;
-            border: 1px solid var(--ocean-mist);
+            border: 1px solid var(--border-color);
             font-size: 0.82rem;
             font-weight: 600;
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
         }
 
         .status-dot.open {
-            background-color: var(--ocean-mist);
-            box-shadow: 0 0 10px var(--ocean-mist);
+            background-color: #48bb78;
+            box-shadow: 0 0 8px #48bb78;
             animation: pulse-green 1.5s infinite;
         }
 
         .status-dot.closed {
-            background-color: var(--flag-red);
-            box-shadow: 0 0 10px var(--flag-red);
+            background-color: var(--accent-coral);
+            box-shadow: 0 0 8px var(--accent-coral);
             animation: pulse-red 1.5s infinite;
         }
 
         @keyframes pulse-green {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 0.5; }
         }
 
         @keyframes pulse-red {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 0.5; }
         }
 
         nav ul {
@@ -119,20 +216,38 @@
         }
 
         nav a {
-            color: var(--lavender-mist);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
             transition: var(--transition);
+            position: relative;
         }
 
         nav a:hover {
-            color: var(--ocean-mist);
+            color: var(--accent-teal);
         }
 
-        /* Bold Hero Split Layout */
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
         .hero-section {
-            padding: 140px 6% 60px;
+            position: relative;
+            z-index: 1;
+            padding: 150px 6% 60px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
@@ -143,20 +258,21 @@
         .hero-text-side h1 {
             font-family: 'Changa', sans-serif;
             font-size: 3.2rem;
-            line-height: 1.15;
-            color: var(--lavender-mist);
+            line-height: 1.2;
+            color: var(--text-primary);
             margin-bottom: 20px;
             font-weight: 800;
         }
 
         .hero-text-side h1 span {
-            color: var(--ocean-mist);
-            background: linear-gradient(180deg, transparent 65%, var(--true-cobalt) 65%);
+            color: var(--accent-teal);
+            position: relative;
+            display: inline-block;
         }
 
         .hero-text-side p {
             font-size: 1.05rem;
-            color: rgba(249, 245, 255, 0.8);
+            color: var(--text-muted);
             margin-bottom: 30px;
             max-width: 520px;
         }
@@ -167,51 +283,58 @@
         }
 
         .btn-primary {
-            background: var(--flag-red);
-            color: var(--lavender-mist);
+            background: var(--accent-teal);
+            color: #121418;
             padding: 12px 28px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
-            box-shadow: 0 6px 0px #871a1e;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 15px rgba(69, 183, 209, 0.2);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 9px 0px #871a1e;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(69, 183, 209, 0.35);
         }
 
         .btn-secondary {
-            background: var(--true-cobalt);
-            color: var(--lavender-mist);
+            background: var(--bg-card);
+            color: var(--text-primary);
             padding: 12px 28px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
-            border: 1px solid var(--ocean-mist);
+            border: 1px solid var(--border-color);
             transition: var(--transition);
         }
 
         .btn-secondary:hover {
-            background: var(--ocean-mist);
-            color: var(--shadow-grey);
+            background: var(--bg-accent);
+            border-color: var(--accent-teal);
+            transform: translateY(-3px);
         }
 
-        /* Promo Showcase Frame */
+        /* --- PROMO CARD & ANIMATIONS --- */
         .hero-media-side {
             position: relative;
         }
 
         .offer-card-wrapper {
-            background: var(--true-cobalt);
-            border: 3px solid var(--ocean-mist);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 16px;
-            box-shadow: -15px 15px 0px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: floatCard 6s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-15px); }
         }
 
         .offer-header-tag {
@@ -223,13 +346,19 @@
         }
 
         .offer-badge {
-            background: var(--flag-red);
-            color: var(--lavender-mist);
+            background: var(--accent-coral);
+            color: #fff;
             padding: 4px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 800;
             font-family: 'Changa', sans-serif;
+            animation: pulseBadge 2s infinite alternate;
+        }
+
+        @keyframes pulseBadge {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
         }
 
         .offer-img {
@@ -241,8 +370,10 @@
             display: block;
         }
 
-        /* Dynamic Grid Layout for Services */
+        /* --- SECTIONS & PILLARS --- */
         .section-block {
+            position: relative;
+            z-index: 1;
             padding: 80px 6%;
         }
 
@@ -254,7 +385,7 @@
         .section-title-wrap h2 {
             font-family: 'Changa', sans-serif;
             font-size: 2.3rem;
-            color: var(--lavender-mist);
+            color: var(--text-primary);
             display: inline-block;
             position: relative;
         }
@@ -262,9 +393,9 @@
         .section-title-wrap h2::after {
             content: '';
             display: block;
-            width: 60%;
-            height: 5px;
-            background: var(--flag-red);
+            width: 50%;
+            height: 4px;
+            background: var(--accent-teal);
             margin: 8px auto 0;
             border-radius: 4px;
         }
@@ -276,8 +407,8 @@
         }
 
         .pillar-box {
-            background: var(--card-bg);
-            border: 2px solid rgba(78, 166, 153, 0.2);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 18px;
             padding: 35px 25px;
             transition: var(--transition);
@@ -292,60 +423,73 @@
             top: 0;
             right: 0;
             width: 100%;
-            height: 4px;
-            background: var(--ocean-mist);
+            height: 3px;
+            background: transparent;
             transition: var(--transition);
         }
 
         .pillar-box:hover {
-            transform: translateY(-8px);
-            border-color: var(--ocean-mist);
-            background: #25222b;
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(69, 183, 209, 0.3);
+            background: var(--bg-accent);
         }
 
         .pillar-box:hover::before {
-            background: var(--flag-red);
+            background: var(--accent-teal);
         }
 
         .pillar-icon {
             width: 60px;
             height: 60px;
-            background: var(--true-cobalt);
-            color: var(--ocean-mist);
+            background: var(--bg-main);
+            color: var(--accent-teal);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
             margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .pillar-box:hover .pillar-icon {
+            transform: rotate(8deg) scale(1.1);
+            background: var(--accent-teal);
+            color: #121418;
         }
 
         .pillar-box h3 {
             font-family: 'Changa', sans-serif;
             font-size: 1.4rem;
             margin-bottom: 12px;
-            color: var(--lavender-mist);
+            color: var(--text-primary);
         }
 
         .pillar-box p {
-            color: rgba(249, 245, 255, 0.7);
+            color: var(--text-muted);
             font-size: 0.92rem;
             line-height: 1.6;
         }
 
-        /* Detailed Services Accordion Layout */
+        /* --- DETAILED SERVICES --- */
         .services-detail-stack {
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 30px;
         }
 
         .detail-row {
-            background: var(--true-cobalt);
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 30px;
-            border-right: 8px solid var(--ocean-mist);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-right: 6px solid var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .detail-row:hover {
+            transform: translateX(-5px);
+            border-color: rgba(69, 183, 209, 0.4);
         }
 
         .detail-row-header {
@@ -356,9 +500,9 @@
         }
 
         .detail-row-header i {
-            font-size: 1.6rem;
-            color: var(--ocean-mist);
-            background: var(--shadow-grey);
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            background: var(--bg-main);
             width: 48px;
             height: 48px;
             display: flex;
@@ -370,12 +514,12 @@
         .detail-row-header h3 {
             font-family: 'Changa', sans-serif;
             font-size: 1.5rem;
-            color: var(--lavender-mist);
+            color: var(--text-primary);
         }
 
         .monthly-tag {
-            background: var(--flag-red);
-            color: var(--lavender-mist);
+            background: var(--accent-coral);
+            color: #fff;
             font-size: 0.75rem;
             padding: 3px 12px;
             border-radius: 20px;
@@ -390,32 +534,32 @@
         }
 
         .chip-item {
-            background: var(--shadow-grey);
-            border: 1px solid rgba(78, 166, 153, 0.3);
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
             padding: 12px 18px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 0.9rem;
-            color: var(--lavender-mist);
+            color: var(--text-primary);
             transition: var(--transition);
         }
 
         .chip-item:hover {
-            border-color: var(--ocean-mist);
-            transform: scale(1.02);
-            background: #322f37;
+            border-color: var(--accent-teal);
+            transform: translateY(-2px);
+            background: var(--bg-accent);
         }
 
         .chip-item i {
-            color: var(--ocean-mist);
+            color: var(--accent-teal);
         }
 
-        /* Contact Section */
+        /* --- CONTACT SECTION --- */
         .contact-area {
-            background: var(--card-bg);
-            border-top: 3px solid var(--true-cobalt);
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
         }
 
         .contact-grid {
@@ -427,13 +571,13 @@
         }
 
         .contact-card-btn {
-            background: var(--shadow-grey);
-            border: 2px solid var(--true-cobalt);
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
             padding: 22px 16px;
             border-radius: 16px;
             text-align: center;
             text-decoration: none;
-            color: var(--lavender-mist);
+            color: var(--text-primary);
             transition: var(--transition);
             display: flex;
             flex-direction: column;
@@ -442,23 +586,24 @@
         }
 
         .contact-card-btn:hover {
-            border-color: var(--ocean-mist);
+            border-color: var(--accent-teal);
             transform: translateY(-5px);
-            background: var(--true-cobalt);
+            background: var(--bg-accent);
         }
 
         .contact-card-btn i {
             font-size: 1.8rem;
-            color: var(--ocean-mist);
+            color: var(--accent-teal);
+            transition: var(--transition);
         }
 
         .contact-card-btn:hover i {
-            color: var(--lavender-mist);
+            transform: scale(1.2) rotate(-8deg);
         }
 
         .contact-card-btn span {
             font-size: 0.8rem;
-            color: rgba(249, 245, 255, 0.6);
+            color: var(--text-muted);
         }
 
         .contact-card-btn strong {
@@ -467,21 +612,23 @@
             font-family: 'Changa', sans-serif;
         }
 
-        /* Footer */
+        /* --- FOOTER --- */
         footer {
-            background: var(--shadow-grey);
+            position: relative;
+            z-index: 1;
+            background: var(--bg-main);
             text-align: center;
             padding: 25px;
-            color: rgba(249, 245, 255, 0.5);
+            color: var(--text-muted);
             font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
         }
 
-        /* Scroll Reveal Effect */
+        /* --- SCROLL REVEAL ANIMATIONS --- */
         .reveal-element {
             opacity: 0;
-            transform: translateY(25px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(35px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal-element.active {
@@ -489,7 +636,7 @@
             transform: translateY(0);
         }
 
-        /* Mobile Optimization */
+        /* --- RESPONSIVE MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
             .hero-section {
                 grid-template-columns: 1fr;
@@ -506,10 +653,28 @@
 </head>
 <body>
 
+    <!-- OLD SCHOOL LOADER SCREEN -->
+    <div id="loader-wrapper">
+        <div class="old-school-box" id="loaderBox">
+            <div style="color: #00ff66; font-size: 0.8rem;">[ SYSTEM INITIALIZING ]</div>
+            <div class="loader-bar">
+                <div class="loader-fill" id="loaderFill"></div>
+            </div>
+            <div class="loader-text">خليك ديما مستعد للانفجار ف اي وقت</div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND ANIMATED FLOATING SHAPES -->
+    <div class="bg-floating-container">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
     <header>
         <div class="brand-identity">
             <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="OFF GRID Logo" class="brand-logo">
-            <div class="brand-name">OFFGRID</div>
+            <div class="brand-name">OFF GRID</div>
         </div>
 
         <div class="status-container">
@@ -531,7 +696,7 @@
     <section class="hero-section" id="hero">
         <div class="hero-text-side reveal-element">
             <h1>رؤية مبتكرة للتسويق والحلول <span>البرمجية</span></h1>
-            <p>نحن في OFFGRID نمتلك الخبرة لنقل عملك إلى الواجهة. ندمج بين التواجد الميداني في الشارع، وصناعة المحتوى للسوشيال ميديا، والحلول البرمجية الذكية.</p>
+            <p>نحن في OFF GRID نمتلك الخبرة لنقل عملك إلى الواجهة. ندمج بين التواجد الميداني في الشارع، وصناعة المحتوى للسوشيال ميديا، والحلول البرمجية الذكية.</p>
             <div class="action-btns">
                 <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> تواصل معنا</a>
                 <a href="#overview" class="btn-secondary">استكشف خدماتنا</a>
@@ -541,7 +706,7 @@
         <div class="hero-media-side reveal-element" id="offers">
             <div class="offer-card-wrapper">
                 <div class="offer-header-tag">
-                    <span style="font-weight: 700; color: var(--lavender-mist);"><i class="fa-solid fa-fire-flame-curved" style="color:var(--flag-red)"></i> العروض المتاحة الآن</span>
+                    <span style="font-weight: 700; color: var(--text-primary);"><i class="fa-solid fa-fire-flame-curved" style="color:var(--accent-coral)"></i> العروض المتاحة الآن</span>
                     <span class="offer-badge">OFFER</span>
                 </div>
                 <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="عرض OFF GRID" class="offer-img">
@@ -575,7 +740,7 @@
         </div>
     </section>
 
-    <section class="section-block" id="details" style="background: rgba(0,0,0,0.15);">
+    <section class="section-block" id="details">
         <div class="section-title-wrap reveal-element">
             <h2>تفاصيل الخدمات</h2>
         </div>
@@ -616,7 +781,7 @@
                 </div>
                 <div class="features-chips-grid">
                     <div class="chip-item"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>م مواقع البورتفوليو (Portfolio)</span></div>
                     <div class="chip-item"><i class="fa-solid fa-check"></i><span>جميع منتجات تقنية الـ NFC</span></div>
                     <div class="chip-item"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
                 </div>
@@ -661,13 +826,42 @@
     </footer>
 
     <script>
-        // Force Page Scroll to Top on Refresh
+        // --- FAST OLD SCHOOL LOADER LOGIC WITH EXPLOSION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const loaderFill = document.getElementById('loaderFill');
+            const loaderWrapper = document.getElementById('loader-wrapper');
+            const loaderBox = document.getElementById('loaderBox');
+            
+            let progress = 0;
+            // شاشة تحميل فائقة السرعة (تستغرق حوالي 0.6 ثانية)
+            const interval = setInterval(() => {
+                progress += 12;
+                if (progress > 100) progress = 100;
+                loaderFill.style.width = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        // إضافة تأثير الفرقعة
+                        loaderBox.classList.add('explode-out');
+                        loaderWrapper.style.opacity = '0';
+                        setTimeout(() => {
+                            loaderWrapper.style.display = 'none';
+                            revealOnScroll(); // تشغيل انيميشن الظهور
+                        }, 350);
+                    }, 100);
+                }
+            }, 50);
+        });
+
+        // Scroll Restoration
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
         window.addEventListener('beforeunload', () => {
             window.scrollTo(0, 0);
         });
+
         window.onload = () => {
             window.scrollTo(0, 0);
             checkWorkingHours();
@@ -696,14 +890,13 @@
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 70) {
+                if (elementTop < windowHeight - 60) {
                     el.classList.add('active');
                 }
             });
         };
 
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
 
         // Smooth Scroll Helper
         function scrollToSection(id) {
