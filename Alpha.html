@@ -3,479 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM ALPHA | تيم ألفا للدعاية والبرمجة</title>
+    <title>OFF GRID | أوف جريد للدعاية والحلول البرمجية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --bg-card: #121216;
-            --bg-glass: rgba(255, 255, 255, 0.02);
-            --border-color: rgba(255, 255, 255, 0.07);
-            --text-primary: #ffffff;
-            --text-secondary: #90909a;
-            --accent-gray: #22222a;
-            --accent-light-gray: #d1d1d6;
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-base: #030305;
+            --surface-panel: #0a0c10;
+            --surface-card: #12151e;
+            --cyan-glow: #00f0ff;
+            --cyan-dim: rgba(0, 240, 255, 0.15);
+            --border-line: rgba(0, 240, 255, 0.12);
+            --text-main: #f0f4f8;
+            --text-sub: #7a889b;
+            --transition-swift: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Tajawal', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-base);
+            color: var(--text-main);
             overflow-x: hidden;
-            position: relative;
-            font-size: 14px; /* تصغير حجم الخط الأساسي */
+            font-size: 15px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* Dynamic Animated Background */
-        .bg-glow {
+        /* Mouse Glow Aura */
+        .cyber-aura {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+            z-index: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(0, 240, 255, 0.05), transparent 80%);
         }
 
-        .floating-shapes div {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            z-index: -1;
-            animation: float 20s infinite linear;
-        }
-
-        .floating-shapes div:nth-child(1) { top: 10%; left: 10%; animation-duration: 22s; }
-        .floating-shapes div:nth-child(2) { top: 60%; left: 80%; animation-duration: 18s; }
-        .floating-shapes div:nth-child(3) { top: 80%; left: 20%; animation-duration: 25s; }
-
-        @keyframes float {
-            0% { transform: rotate(0deg) translateY(0); }
-            50% { transform: rotate(180deg) translateY(-20px); }
-            100% { transform: rotate(360deg) translateY(0); }
-        }
-
-        /* Header & Navbar */
+        /* Modern Modern Navbar */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 12px 6%;
+            padding: 16px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 12, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(3, 3, 5, 0.85);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-line);
         }
 
-        .logo-container {
+        .brand-box {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .logo-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            background: #1a1a20;
-            border: 1px solid var(--border-color);
+        .brand-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid var(--cyan-glow);
+            box-shadow: 0 0 15px var(--cyan-dim);
             object-fit: cover;
         }
 
-        .logo-text {
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .brand-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
-        /* Status Indicator (مؤشر مواعيد العمل) */
-        .work-status {
+        .status-pill {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            gap: 10px;
+            background: rgba(0, 240, 255, 0.03);
+            border: 1px solid var(--border-line);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
+        .status-light {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            position: relative;
         }
 
-        /* حالات اللمبة */
-        .status-dot.open {
-            background-color: #22c55e;
-            box-shadow: 0 0 10px #22c55e;
-            animation: blink-green 1.5s infinite;
+        .status-light.open {
+            background-color: #00ff88;
+            box-shadow: 0 0 12px #00ff88;
+            animation: pulse-open 1.8s infinite;
         }
 
-        .status-dot.closed {
-            background-color: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
-            animation: blink-red 1.5s infinite;
+        .status-light.closed {
+            background-color: #ff3366;
+            box-shadow: 0 0 12px #ff3366;
+            animation: pulse-closed 1.8s infinite;
         }
 
-        @keyframes blink-green {
+        @keyframes pulse-open {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
-        @keyframes blink-red {
+        @keyframes pulse-closed {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 28px;
         }
 
         nav a {
-            color: var(--text-secondary);
+            color: var(--text-sub);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-swift);
+            position: relative;
         }
 
         nav a:hover {
-            color: var(--text-primary);
+            color: var(--cyan-glow);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 110px 6% 40px;
+        /* Futuristic Hero Section */
+        .hero-banner {
+            padding: 160px 8% 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero h1 {
-            font-size: 2.3rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+        .cyber-tag {
+            background: var(--cyan-dim);
+            color: var(--cyan-glow);
+            border: 1px solid var(--border-line);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        /* Offers Section (قسم العروض الحالية) */
-        .offers-section {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto 30px;
-            padding: 12px;
-            background: var(--bg-card);
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            text-align: center;
-        }
-
-        .offers-title {
-            font-size: 0.85rem;
-            color: var(--accent-light-gray);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .offers-title i {
-            animation: pulse 1.5s infinite;
-            color: #f59e0b;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        .offer-banner {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Services Overview Section (إجمال الخدمات) */
-        .section-title {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 6px auto 0;
-            border-radius: 2px;
-        }
-
-        .services-overview {
-            padding: 40px 6%;
-            background: rgba(255, 255, 255, 0.005);
-        }
-
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
-        .overview-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 22px 18px;
-            border-radius: 14px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .overview-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.25);
-            background: #16161c;
-        }
-
-        .overview-card i {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--accent-light-gray);
-        }
-
-        .overview-card h3 {
+        .hero-banner p {
             font-size: 1.1rem;
-            margin-bottom: 8px;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.7;
         }
 
-        .overview-card p {
-            color: var(--text-secondary);
-            font-size: 0.82rem;
-            line-height: 1.4;
+        /* Offers Banner Module */
+        .promo-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--surface-panel);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Detailed Services Section (تفصيل الخدمات) */
-        .services-details {
-            padding: 40px 6%;
+        .promo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
         }
 
-        .detail-block {
-            margin-bottom: 30px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 22px;
-            backdrop-filter: blur(8px);
-        }
-
-        .detail-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-        }
-
-        .detail-header i {
-            font-size: 1.2rem;
-            background: var(--accent-gray);
-            width: 38px;
-            height: 38px;
+        .promo-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-        }
-
-        .detail-header h3 {
-            font-size: 1.2rem;
-        }
-
-        .badge-monthly {
-            font-size: 0.7rem;
-            background: #ffffff;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-            margin-right: 6px;
-        }
-
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 10px;
+            font-size: 0.9rem;
+            color: var(--cyan-glow);
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
-        .item-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            padding: 10px 14px;
-            border-radius: 8px;
+        .promo-img {
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Specialized Services Grid */
+        .section-wrapper {
+            padding: 80px 8%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-sub);
+            margin-top: 6px;
+            font-size: 0.95rem;
+        }
+
+        .services-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .pillar-card {
+            background: var(--surface-panel);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: var(--transition-swift);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 10px 30px var(--cyan-dim);
+            background: var(--surface-card);
+        }
+
+        .pillar-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: var(--cyan-dim);
+            color: var(--cyan-glow);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            transition: var(--transition);
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-line);
         }
 
-        .item-box:hover {
-            background: rgba(255, 255, 255, 0.04);
-            transform: translateX(-3px);
+        .pillar-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
-        .item-box i {
-            color: var(--text-secondary);
+        .pillar-card p {
+            color: var(--text-sub);
             font-size: 0.9rem;
+            line-height: 1.6;
         }
 
-        /* Contact Section (قسم التواصل والأرقام) */
-        .contact-section {
-            padding: 40px 6%;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
+        /* Detailed Breakdown Block */
+        .breakdown-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .contact-grid {
+        .breakdown-item {
+            background: var(--surface-panel);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .breakdown-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .breakdown-title-bar i {
+            font-size: 1.3rem;
+            color: var(--cyan-glow);
+        }
+
+        .breakdown-title-bar h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .badge-tag {
+            background: var(--cyan-glow);
+            color: #000;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 900;
+            margin-right: auto;
+        }
+
+        .grid-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .feature-node {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
             gap: 12px;
-            max-width: 900px;
+            font-size: 0.9rem;
+            transition: var(--transition-swift);
+        }
+
+        .feature-node:hover {
+            border-color: var(--cyan-glow);
+            background: var(--cyan-dim);
+            transform: translateX(-4px);
+        }
+
+        .feature-node i {
+            color: var(--cyan-glow);
+        }
+
+        /* Contact Network Cards */
+        .contact-hub {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        .contact-card {
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            padding: 16px 12px;
-            border-radius: 12px;
+        .hub-card {
+            background: var(--surface-panel);
+            border: 1px solid var(--border-line);
+            border-radius: 16px;
+            padding: 24px 16px;
             text-align: center;
             text-decoration: none;
-            color: var(--text-primary);
-            transition: var(--transition);
+            color: var(--text-main);
+            transition: var(--transition-swift);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .contact-card:hover {
-            transform: translateY(-3px);
-            border-color: #ffffff;
+        .hub-card:hover {
+            border-color: var(--cyan-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--cyan-dim);
         }
 
-        .contact-card i {
-            font-size: 1.3rem;
-            color: var(--accent-light-gray);
+        .hub-card i {
+            font-size: 1.6rem;
+            color: var(--cyan-glow);
+            margin-bottom: 4px;
         }
 
-        .contact-card span {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+        .hub-card span {
+            font-size: 0.8rem;
+            color: var(--text-sub);
         }
 
-        .contact-card strong {
-            font-size: 0.9rem;
+        .hub-card strong {
+            font-size: 0.95rem;
             direction: ltr;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Footer */
+        /* Minimal Footer */
         footer {
             text-align: center;
-            padding: 18px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
+            padding: 30px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-line);
+            background: var(--bg-base);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Reveal Animation Classes */
-        .reveal {
+        /* Entrance Animations */
+        .reveal-node {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
+        .reveal-node.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Responsive Design */
+        /* Mobile Adaptability */
         @media (max-width: 768px) {
-            header { padding: 10px 4%; }
+            header { padding: 12px 5%; }
             nav { display: none; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero p { font-size: 0.85rem; }
-            .section-title { font-size: 1.3rem; }
-            .detail-block { padding: 15px; }
-            .work-status span { font-size: 0.7rem; }
+            .hero-banner h1 { font-size: 2.2rem; }
+            .hero-banner p { font-size: 0.95rem; }
+            .section-wrapper { padding: 50px 5%; }
+            .breakdown-item { padding: 18px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow" id="glow"></div>
-
-    <div class="floating-shapes">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+    <div class="cyber-aura" id="aura"></div>
 
     <header>
-        <div class="logo-container">
-            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="TEAM ALPHA Logo" class="logo-img">
-            <div class="logo-text">TEAM ALPHA</div>
+        <div class="brand-box">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="OFF GRID Logo" class="brand-avatar">
+            <div class="brand-title">OFF GRID</div>
         </div>
 
-        <div class="work-status">
-            <div class="status-dot" id="statusDot"></div>
+        <div class="status-pill">
+            <div class="status-light" id="statusDot"></div>
             <span id="statusText">جاري التحقق...</span>
         </div>
 
@@ -490,119 +487,132 @@
         </nav>
     </header>
 
-    <section class="hero" id="hero">
-        <h1 class="reveal">TEAM ALPHA</h1>
-        <p class="reveal">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
+    <section class="hero-banner" id="hero">
+        <div class="cyber-tag reveal-node">BEYOND THE STANDARD</div>
+        <h1 class="reveal-node">OFF GRID</h1>
+        <p class="reveal-node">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
 
-        <div class="offers-section reveal" id="offers">
-            <div class="offers-title">
-                <i class="fa-solid fa-fire"></i>
+        <div class="promo-container reveal-node" id="offers">
+            <div class="promo-header">
+                <i class="fa-solid fa-bolt"></i>
                 <span>العروض المميزة المتاحه حالياً</span>
             </div>
-            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="offer-banner">
+            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="promo-img">
         </div>
     </section>
 
-    <section class="services-overview" id="overview">
-        <h2 class="section-title reveal">مجالات اختصاصنا</h2>
-        <div class="overview-grid">
-            <div class="overview-card reveal" onclick="scrollToSection('street-work')">
-                <i class="fa-solid fa-bullhorn"></i>
+    <section class="section-wrapper" id="overview">
+        <div class="section-header reveal-node">
+            <h2>مجالات اختصاصنا</h2>
+            <p>حلول متكاملة مصممة خصيصاً لنمو واستقرار علامتك التجارية</p>
+        </div>
+        <div class="services-pillars">
+            <div class="pillar-card reveal-node" onclick="scrollToSection('street-work')">
+                <div class="pillar-icon"><i class="fa-solid fa-bullhorn"></i></div>
                 <h3>شغل الشارع</h3>
                 <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان.</p>
             </div>
-            <div class="overview-card reveal" onclick="scrollToSection('social-work')">
-                <i class="fa-solid fa-hashtag"></i>
+            <div class="pillar-card reveal-node" onclick="scrollToSection('social-work')">
+                <div class="pillar-icon"><i class="fa-solid fa-hashtag"></i></div>
                 <h3>سوشيال ميديا</h3>
                 <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
             </div>
-            <div class="overview-card reveal" onclick="scrollToSection('dev-work')">
-                <i class="fa-solid fa-code"></i>
+            <div class="pillar-card reveal-node" onclick="scrollToSection('dev-work')">
+                <div class="pillar-icon"><i class="fa-solid fa-code"></i></div>
                 <h3>شغل البرمجة</h3>
                 <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
             </div>
         </div>
     </section>
 
-    <section class="services-details" id="details">
-        <h2 class="section-title reveal">تفاصيل الخدمات</h2>
-
-        <div class="detail-block reveal" id="street-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-road"></i>
-                <h3>شغل الشارع والدعاية الميدانية</h3>
-            </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
-                <div class="item-box"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
-                <div class="item-box"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
-                <div class="item-box"><i class="fa-solid fa-paper-plane"></i><span>فلايرز </span></div>
-                <div class="item-box"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
-            </div>
+    <section class="section-wrapper" id="details">
+        <div class="section-header reveal-node">
+            <h2>تفاصيل الخدمات</h2>
+            <p>نظرة شاملة على كل ما نقدمه لمساعدتك في اتخاذ القرار المناسب</p>
         </div>
 
-        <div class="detail-block reveal" id="social-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-share-nodes"></i>
-                <h3>إدارة وتسويق السوشيال ميديا <span class="badge-monthly">نظام شهري</span></h3>
+        <div class="breakdown-stack">
+            <div class="breakdown-item reveal-node" id="street-work">
+                <div class="breakdown-title-bar">
+                    <i class="fa-solid fa-road"></i>
+                    <h3>شغل الشارع والدعاية الميدانية</h3>
+                </div>
+                <div class="grid-features">
+                    <div class="feature-node"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-paper-plane"></i><span>فلايرز</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
+                </div>
             </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
-                <div class="item-box"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
-                <div class="item-box"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
-                <div class="item-box"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
-            </div>
-        </div>
 
-        <div class="detail-block reveal" id="dev-work">
-            <div class="detail-header">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>شغل البرمجة والحلول الذكية</h3>
+            <div class="breakdown-item reveal-node" id="social-work">
+                <div class="breakdown-title-bar">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <h3>إدارة وتسويق السوشيال ميديا</h3>
+                    <span class="badge-tag">نظام شهري</span>
+                </div>
+                <div class="grid-features">
+                    <div class="feature-node"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+                </div>
             </div>
-            <div class="items-grid">
-                <div class="item-box"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                <div class="item-box"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
-                <div class="item-box"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
-                <div class="item-box"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+
+            <div class="breakdown-item reveal-node" id="dev-work">
+                <div class="breakdown-title-bar">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>شغل البرمجة والحلول الذكية</h3>
+                </div>
+                <div class="grid-features">
+                    <div class="feature-node"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                    <div class="feature-node"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="contact-section" id="contact">
-        <h2 class="section-title reveal">تواصل معنا</h2>
-        <div class="contact-grid">
-            <a href="tel:+201150605708" class="contact-card reveal">
+    <section class="section-wrapper" id="contact">
+        <div class="section-header reveal-node">
+            <h2>تواصل معنا</h2>
+            <p>يسعدنا الرد على استفساراتك وبدء العمل معاً في أي وقت</p>
+        </div>
+        <div class="contact-hub">
+            <a href="tel:+201150605708" class="hub-card reveal-node">
                 <i class="fa-solid fa-phone"></i>
                 <span>الرقم الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="contact-card reveal">
+            <a href="tel:+201031913107" class="hub-card reveal-node">
                 <i class="fa-solid fa-phone-flip"></i>
                 <span>الرقم الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="contact-card reveal">
+            <a href="https://wa.me/201031913107" target="_blank" class="hub-card reveal-node">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card reveal">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="hub-card reveal-node">
                 <i class="fa-brands fa-instagram"></i>
                 <span>حساب الانستجرام</span>
-                <strong>@TEAM_ALPHA</strong>
+                <strong>@OFF_GRID</strong>
             </a>
         </div>
     </section>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; TEAM ALPHA</p>
+        <p>جميع الحقوق محفوظة &copy; OFF GRID</p>
     </footer>
 
     <script>
-        // 1. Force Page Scroll to Top on Refresh (بدء الموقع من الأعلى)
+        // 1. Force Page Scroll to Top on Refresh
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
@@ -617,38 +627,37 @@
         // 2. Working Hours System (من 12 مساءً حتى 12 صباحاً)
         function checkWorkingHours() {
             const now = new Date();
-            const currentHour = now.getHours(); // 0 - 23
+            const currentHour = now.getHours();
 
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
 
-            // أوقات العمل من 12 ظهراً (12) إلى 12 منتصف الليل (24/0)
             if (currentHour >= 12 && currentHour < 24) {
-                statusDot.className = 'status-dot open';
+                statusDot.className = 'status-light open';
                 statusText.textContent = 'مفتوح الآن';
             } else {
-                statusDot.className = 'status-dot closed';
+                statusDot.className = 'status-light closed';
                 statusText.textContent = 'مغلق الآن';
             }
         }
 
-        // 3. Mouse Tracking Radial Dynamic Glow Effect
-        const glow = document.getElementById('glow');
+        // 3. Mouse Tracking Dynamic Aura Effect
+        const aura = document.getElementById('aura');
         window.addEventListener('mousemove', (e) => {
             const x = (e.clientX / window.innerWidth) * 100;
             const y = (e.clientY / window.innerHeight) * 100;
-            glow.style.setProperty('--x', `${x}%`);
-            glow.style.setProperty('--y', `${y}%`);
+            aura.style.setProperty('--x', `${x}%`);
+            aura.style.setProperty('--y', `${y}%`);
         });
 
         // 4. Scroll Reveal Animations
-        const revealElements = document.querySelectorAll('.reveal');
+        const revealElements = document.querySelectorAll('.reveal-node');
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) {
-                    el.classList.add('active');
+                if (elementTop < windowHeight - 60) {
+                    el.classList.add('visible');
                 }
             });
         };
