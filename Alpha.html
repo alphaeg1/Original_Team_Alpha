@@ -3,476 +3,517 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFF GRID | أوف جريد للدعاية والحلول البرمجية</title>
+    <title>OFF GRID | أوف جريد للدعاية والبرمجة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-base: #030305;
-            --surface-panel: #0a0c10;
-            --surface-card: #12151e;
-            --cyan-glow: #00f0ff;
-            --cyan-dim: rgba(0, 240, 255, 0.15);
-            --border-line: rgba(0, 240, 255, 0.12);
-            --text-main: #f0f4f8;
-            --text-sub: #7a889b;
-            --transition-swift: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-grey: #28262C;
+            --ocean-mist: #4EA699;
+            --flag-red: #C1292E;
+            --lavender-mist: #F9F5FF;
+            --true-cobalt: #14248A;
+            --card-bg: #1f1d23;
+            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Readex Pro', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background-color: var(--shadow-grey);
+            color: var(--lavender-mist);
             overflow-x: hidden;
-            font-size: 15px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+            line-height: 1.6;
         }
 
-        /* Mouse Glow Aura */
-        .cyber-aura {
+        /* Top Bar & Branding */
+        header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(0, 240, 255, 0.05), transparent 80%);
-        }
-
-        /* Modern Modern Navbar */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 16px 8%;
+            background: rgba(20, 36, 138, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 3px solid var(--ocean-mist);
+            padding: 14px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(3, 3, 5, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-line);
         }
 
-        .brand-box {
+        .brand-identity {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .brand-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            border: 1px solid var(--cyan-glow);
-            box-shadow: 0 0 15px var(--cyan-dim);
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 2px solid var(--ocean-mist);
             object-fit: cover;
         }
 
-        .brand-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #fff;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        .brand-name {
+            font-family: 'Changa', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--lavender-mist);
+            letter-spacing: 1.5px;
         }
 
-        .status-pill {
+        /* Working Status Badge */
+        .status-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(0, 240, 255, 0.03);
-            border: 1px solid var(--border-line);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            gap: 8px;
+            background: var(--shadow-grey);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--ocean-mist);
+            font-size: 0.82rem;
+            font-weight: 600;
         }
 
-        .status-light {
+        .status-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
         }
 
-        .status-light.open {
-            background-color: #00ff88;
-            box-shadow: 0 0 12px #00ff88;
-            animation: pulse-open 1.8s infinite;
+        .status-dot.open {
+            background-color: var(--ocean-mist);
+            box-shadow: 0 0 10px var(--ocean-mist);
+            animation: pulse-green 1.5s infinite;
         }
 
-        .status-light.closed {
-            background-color: #ff3366;
-            box-shadow: 0 0 12px #ff3366;
-            animation: pulse-closed 1.8s infinite;
+        .status-dot.closed {
+            background-color: var(--flag-red);
+            box-shadow: 0 0 10px var(--flag-red);
+            animation: pulse-red 1.5s infinite;
         }
 
-        @keyframes pulse-open {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
+        @keyframes pulse-green {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
         }
 
-        @keyframes pulse-closed {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 28px;
+            gap: 22px;
         }
 
         nav a {
-            color: var(--text-sub);
+            color: var(--lavender-mist);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition-swift);
-            position: relative;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
 
         nav a:hover {
-            color: var(--cyan-glow);
+            color: var(--ocean-mist);
         }
 
-        /* Futuristic Hero Section */
-        .hero-banner {
-            padding: 160px 8% 60px;
-            display: flex;
-            flex-direction: column;
+        /* Bold Hero Split Layout */
+        .hero-section {
+            padding: 140px 6% 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
             align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            min-height: 85vh;
         }
 
-        .cyber-tag {
-            background: var(--cyan-dim);
-            color: var(--cyan-glow);
-            border: 1px solid var(--border-line);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+        .hero-text-side h1 {
+            font-family: 'Changa', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.15;
+            color: var(--lavender-mist);
             margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero-text-side h1 span {
+            color: var(--ocean-mist);
+            background: linear-gradient(180deg, transparent 65%, var(--true-cobalt) 65%);
+        }
+
+        .hero-text-side p {
+            font-size: 1.05rem;
+            color: rgba(249, 245, 255, 0.8);
+            margin-bottom: 30px;
+            max-width: 520px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: var(--flag-red);
+            color: var(--lavender-mist);
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
             font-weight: 700;
+            box-shadow: 0 6px 0px #871a1e;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .hero-banner h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 16px;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0px #871a1e;
         }
 
-        .hero-banner p {
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            max-width: 600px;
-            margin-bottom: 40px;
-            line-height: 1.7;
+        .btn-secondary {
+            background: var(--true-cobalt);
+            color: var(--lavender-mist);
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid var(--ocean-mist);
+            transition: var(--transition);
         }
 
-        /* Offers Banner Module */
-        .promo-container {
-            width: 100%;
-            max-width: 750px;
-            background: var(--surface-panel);
-            border: 1px solid var(--border-line);
+        .btn-secondary:hover {
+            background: var(--ocean-mist);
+            color: var(--shadow-grey);
+        }
+
+        /* Promo Showcase Frame */
+        .hero-media-side {
+            position: relative;
+        }
+
+        .offer-card-wrapper {
+            background: var(--true-cobalt);
+            border: 3px solid var(--ocean-mist);
             border-radius: 20px;
             padding: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            position: relative;
-            overflow: hidden;
+            box-shadow: -15px 15px 0px rgba(0, 0, 0, 0.3);
         }
 
-        .promo-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
-        }
-
-        .promo-header {
+        .offer-header-tag {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--cyan-glow);
+            justify-content: space-between;
             margin-bottom: 12px;
-            font-weight: 700;
+            padding: 0 6px;
         }
 
-        .promo-img {
+        .offer-badge {
+            background: var(--flag-red);
+            color: var(--lavender-mist);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            font-family: 'Changa', sans-serif;
+        }
+
+        .offer-img {
             width: 100%;
-            max-height: 320px;
+            height: auto;
+            max-height: 380px;
             object-fit: cover;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: block;
         }
 
-        /* Specialized Services Grid */
-        .section-wrapper {
-            padding: 80px 8%;
-            position: relative;
-            z-index: 1;
+        /* Dynamic Grid Layout for Services */
+        .section-block {
+            padding: 80px 6%;
         }
 
-        .section-header {
+        .section-title-wrap {
             text-align: center;
             margin-bottom: 50px;
         }
 
-        .section-header h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        .section-title-wrap h2 {
+            font-family: 'Changa', sans-serif;
+            font-size: 2.3rem;
+            color: var(--lavender-mist);
+            display: inline-block;
+            position: relative;
         }
 
-        .section-header p {
-            color: var(--text-sub);
-            margin-top: 6px;
-            font-size: 0.95rem;
+        .section-title-wrap h2::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 5px;
+            background: var(--flag-red);
+            margin: 8px auto 0;
+            border-radius: 4px;
         }
 
-        .services-pillars {
+        .pillars-flex {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            gap: 25px;
         }
 
-        .pillar-card {
-            background: var(--surface-panel);
-            border: 1px solid var(--border-line);
-            border-radius: 20px;
-            padding: 32px 24px;
-            transition: var(--transition-swift);
+        .pillar-box {
+            background: var(--card-bg);
+            border: 2px solid rgba(78, 166, 153, 0.2);
+            border-radius: 18px;
+            padding: 35px 25px;
+            transition: var(--transition);
             cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
-        .pillar-card:hover {
+        .pillar-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--ocean-mist);
+            transition: var(--transition);
+        }
+
+        .pillar-box:hover {
             transform: translateY(-8px);
-            border-color: var(--cyan-glow);
-            box-shadow: 0 10px 30px var(--cyan-dim);
-            background: var(--surface-card);
+            border-color: var(--ocean-mist);
+            background: #25222b;
+        }
+
+        .pillar-box:hover::before {
+            background: var(--flag-red);
         }
 
         .pillar-icon {
-            width: 54px;
-            height: 54px;
+            width: 60px;
+            height: 60px;
+            background: var(--true-cobalt);
+            color: var(--ocean-mist);
             border-radius: 14px;
-            background: var(--cyan-dim);
-            color: var(--cyan-glow);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            border: 1px solid var(--border-line);
         }
 
-        .pillar-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+        .pillar-box h3 {
+            font-family: 'Changa', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--lavender-mist);
         }
 
-        .pillar-card p {
-            color: var(--text-sub);
-            font-size: 0.9rem;
+        .pillar-box p {
+            color: rgba(249, 245, 255, 0.7);
+            font-size: 0.92rem;
             line-height: 1.6;
         }
 
-        /* Detailed Breakdown Block */
-        .breakdown-stack {
+        /* Detailed Services Accordion Layout */
+        .services-detail-stack {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 35px;
         }
 
-        .breakdown-item {
-            background: var(--surface-panel);
-            border: 1px solid var(--border-line);
+        .detail-row {
+            background: var(--true-cobalt);
             border-radius: 20px;
-            padding: 28px;
+            padding: 30px;
+            border-right: 8px solid var(--ocean-mist);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .breakdown-title-bar {
+        .detail-row-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-line);
+            gap: 15px;
+            margin-bottom: 22px;
         }
 
-        .breakdown-title-bar i {
-            font-size: 1.3rem;
-            color: var(--cyan-glow);
+        .detail-row-header i {
+            font-size: 1.6rem;
+            color: var(--ocean-mist);
+            background: var(--shadow-grey);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
         }
 
-        .breakdown-title-bar h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .detail-row-header h3 {
+            font-family: 'Changa', sans-serif;
+            font-size: 1.5rem;
+            color: var(--lavender-mist);
         }
 
-        .badge-tag {
-            background: var(--cyan-glow);
-            color: #000;
+        .monthly-tag {
+            background: var(--flag-red);
+            color: var(--lavender-mist);
             font-size: 0.75rem;
-            padding: 2px 10px;
+            padding: 3px 12px;
             border-radius: 20px;
-            font-weight: 900;
+            font-weight: 700;
             margin-right: auto;
         }
 
-        .grid-features {
+        .features-chips-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
+            gap: 12px;
         }
 
-        .feature-node {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 14px 18px;
-            border-radius: 12px;
+        .chip-item {
+            background: var(--shadow-grey);
+            border: 1px solid rgba(78, 166, 153, 0.3);
+            padding: 12px 18px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 0.9rem;
-            transition: var(--transition-swift);
+            color: var(--lavender-mist);
+            transition: var(--transition);
         }
 
-        .feature-node:hover {
-            border-color: var(--cyan-glow);
-            background: var(--cyan-dim);
-            transform: translateX(-4px);
+        .chip-item:hover {
+            border-color: var(--ocean-mist);
+            transform: scale(1.02);
+            background: #322f37;
         }
 
-        .feature-node i {
-            color: var(--cyan-glow);
+        .chip-item i {
+            color: var(--ocean-mist);
         }
 
-        /* Contact Network Cards */
-        .contact-hub {
+        /* Contact Section */
+        .contact-area {
+            background: var(--card-bg);
+            border-top: 3px solid var(--true-cobalt);
+        }
+
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .hub-card {
-            background: var(--surface-panel);
-            border: 1px solid var(--border-line);
+        .contact-card-btn {
+            background: var(--shadow-grey);
+            border: 2px solid var(--true-cobalt);
+            padding: 22px 16px;
             border-radius: 16px;
-            padding: 24px 16px;
             text-align: center;
             text-decoration: none;
-            color: var(--text-main);
-            transition: var(--transition-swift);
+            color: var(--lavender-mist);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .hub-card:hover {
-            border-color: var(--cyan-glow);
+        .contact-card-btn:hover {
+            border-color: var(--ocean-mist);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--cyan-dim);
+            background: var(--true-cobalt);
         }
 
-        .hub-card i {
-            font-size: 1.6rem;
-            color: var(--cyan-glow);
-            margin-bottom: 4px;
+        .contact-card-btn i {
+            font-size: 1.8rem;
+            color: var(--ocean-mist);
         }
 
-        .hub-card span {
+        .contact-card-btn:hover i {
+            color: var(--lavender-mist);
+        }
+
+        .contact-card-btn span {
             font-size: 0.8rem;
-            color: var(--text-sub);
+            color: rgba(249, 245, 255, 0.6);
         }
 
-        .hub-card strong {
+        .contact-card-btn strong {
             font-size: 0.95rem;
             direction: ltr;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Changa', sans-serif;
         }
 
-        /* Minimal Footer */
+        /* Footer */
         footer {
+            background: var(--shadow-grey);
             text-align: center;
-            padding: 30px;
-            color: var(--text-sub);
+            padding: 25px;
+            color: rgba(249, 245, 255, 0.5);
             font-size: 0.85rem;
-            border-top: 1px solid var(--border-line);
-            background: var(--bg-base);
-            position: relative;
-            z-index: 1;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Entrance Animations */
-        .reveal-node {
+        /* Scroll Reveal Effect */
+        .reveal-element {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(25px);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal-node.visible {
+        .reveal-element.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Mobile Adaptability */
-        @media (max-width: 768px) {
-            header { padding: 12px 5%; }
+        /* Mobile Optimization */
+        @media (max-width: 900px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                padding-top: 120px;
+                text-align: center;
+            }
+            .hero-text-side p { margin: 0 auto 25px; }
+            .action-btns { justify-content: center; }
             nav { display: none; }
-            .hero-banner h1 { font-size: 2.2rem; }
-            .hero-banner p { font-size: 0.95rem; }
-            .section-wrapper { padding: 50px 5%; }
-            .breakdown-item { padding: 18px; }
+            header { padding: 12px 4%; }
+            .hero-text-side h1 { font-size: 2.3rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cyber-aura" id="aura"></div>
-
     <header>
-        <div class="brand-box">
-            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="OFF GRID Logo" class="brand-avatar">
-            <div class="brand-title">OFF GRID</div>
+        <div class="brand-identity">
+            <img src="WhatsApp Image‏ 2026-07-26 at 23.17.21.jpeg" alt="OFF GRID Logo" class="brand-logo">
+            <div class="brand-name">OFF GRID</div>
         </div>
 
-        <div class="status-pill">
-            <div class="status-light" id="statusDot"></div>
+        <div class="status-container">
+            <div class="status-dot" id="statusDot"></div>
             <span id="statusText">جاري التحقق...</span>
         </div>
 
@@ -487,37 +528,46 @@
         </nav>
     </header>
 
-    <section class="hero-banner" id="hero">
-        <div class="cyber-tag reveal-node">BEYOND THE STANDARD</div>
-        <h1 class="reveal-node">OFF GRID</h1>
-        <p class="reveal-node">نبتكر الحلول الإعلانية والبرمجية لنقل علامتك التجارية إلى المستوى التالي. تميز بشغل الشارع، السوشيال ميديا، والحلول البرمجية الذكية.</p>
-
-        <div class="promo-container reveal-node" id="offers">
-            <div class="promo-header">
-                <i class="fa-solid fa-bolt"></i>
-                <span>العروض المميزة المتاحه حالياً</span>
+    <section class="hero-section" id="hero">
+        <div class="hero-text-side reveal-element">
+            <h1>رؤية مبتكرة للتسويق والحلول <span>البرمجية</span></h1>
+            <p>نحن في OFF GRID نمتلك الخبرة لنقل عملك إلى الواجهة. ندمج بين التواجد الميداني في الشارع، وصناعة المحتوى للسوشيال ميديا، والحلول البرمجية الذكية.</p>
+            <div class="action-btns">
+                <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> تواصل معنا</a>
+                <a href="#overview" class="btn-secondary">استكشف خدماتنا</a>
             </div>
-            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="العرض الحالي" class="promo-img">
+        </div>
+
+        <div class="hero-media-side reveal-element" id="offers">
+            <div class="offer-card-wrapper">
+                <div class="offer-header-tag">
+                    <span style="font-weight: 700; color: var(--lavender-mist);"><i class="fa-solid fa-fire-flame-curved" style="color:var(--flag-red)"></i> العروض المتاحة الآن</span>
+                    <span class="offer-badge">OFFER</span>
+                </div>
+                <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="عرض OFF GRID" class="offer-img">
+            </div>
         </div>
     </section>
 
-    <section class="section-wrapper" id="overview">
-        <div class="section-header reveal-node">
+    <section class="section-block" id="overview">
+        <div class="section-title-wrap reveal-element">
             <h2>مجالات اختصاصنا</h2>
-            <p>حلول متكاملة مصممة خصيصاً لنمو واستقرار علامتك التجارية</p>
         </div>
-        <div class="services-pillars">
-            <div class="pillar-card reveal-node" onclick="scrollToSection('street-work')">
+
+        <div class="pillars-flex">
+            <div class="pillar-box reveal-element" onclick="scrollToSection('street-work')">
                 <div class="pillar-icon"><i class="fa-solid fa-bullhorn"></i></div>
                 <h3>شغل الشارع</h3>
                 <p>حلول الدعاية الميدانية والمطبوعات والتجهيزات المتحركة لجذب أنظار عملائك في كل مكان.</p>
             </div>
-            <div class="pillar-card reveal-node" onclick="scrollToSection('social-work')">
+
+            <div class="pillar-box reveal-element" onclick="scrollToSection('social-work')">
                 <div class="pillar-icon"><i class="fa-solid fa-hashtag"></i></div>
                 <h3>سوشيال ميديا</h3>
-                <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة باشتراكات شهرية متكاملة.</p>
+                <p>صناعة المحتوى المرئي، الريلزات، التصاميم والإعلانات الممولة بااشتراكات شهرية متكاملة.</p>
             </div>
-            <div class="pillar-card reveal-node" onclick="scrollToSection('dev-work')">
+
+            <div class="pillar-box reveal-element" onclick="scrollToSection('dev-work')">
                 <div class="pillar-icon"><i class="fa-solid fa-code"></i></div>
                 <h3>شغل البرمجة</h3>
                 <p>تطوير المواقع والصفحات للتعريف بشركتك، مع أحدث حلول ومنتجات بطاقات الـ NFC الذكية.</p>
@@ -525,81 +575,80 @@
         </div>
     </section>
 
-    <section class="section-wrapper" id="details">
-        <div class="section-header reveal-node">
+    <section class="section-block" id="details" style="background: rgba(0,0,0,0.15);">
+        <div class="section-title-wrap reveal-element">
             <h2>تفاصيل الخدمات</h2>
-            <p>نظرة شاملة على كل ما نقدمه لمساعدتك في اتخاذ القرار المناسب</p>
         </div>
 
-        <div class="breakdown-stack">
-            <div class="breakdown-item reveal-node" id="street-work">
-                <div class="breakdown-title-bar">
+        <div class="services-detail-stack">
+            <div class="detail-row reveal-element" id="street-work">
+                <div class="detail-row-header">
                     <i class="fa-solid fa-road"></i>
                     <h3>شغل الشارع والدعاية الميدانية</h3>
                 </div>
-                <div class="grid-features">
-                    <div class="feature-node"><i class="fa-solid fa-note-sticky"></i><span>اسكيترز ب أعداد كبيره</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-flag"></i><span>أعلام دعاية وتجهيزات</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-bag-shopping"></i><span>فلاج العلم المطبوع</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-paper-plane"></i><span>فلايرز</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-truck-monster"></i><span>جميع أنواع عربيات الدعاية</span></div>
+                <div class="features-chips-grid">
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>اسكيترز ب أعداد كبيره</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>أعلام دعاية وتجهيزات</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>فلاج العلم المطبوع</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>فلايرز</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>جميع أنواع عربيات الدعاية</span></div>
                 </div>
             </div>
 
-            <div class="breakdown-item reveal-node" id="social-work">
-                <div class="breakdown-title-bar">
+            <div class="detail-row reveal-element" id="social-work">
+                <div class="detail-row-header">
                     <i class="fa-solid fa-share-nodes"></i>
                     <h3>إدارة وتسويق السوشيال ميديا</h3>
-                    <span class="badge-tag">نظام شهري</span>
+                    <span class="monthly-tag">نظام شهري</span>
                 </div>
-                <div class="grid-features">
-                    <div class="feature-node"><i class="fa-solid fa-video"></i><span>صناعة المونتاج والـ Reels</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-image"></i><span>بوسترات وتصاميم احترافية</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-rectangle-ad"></i><span>إعلانات ممولة (إسبونسر)</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-users-gear"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
+                <div class="features-chips-grid">
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>صناعة المونتاج والـ Reels</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>بوسترات وتصاميم احترافية</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>إعلانات ممولة (إسبونسر)</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>إدارة ومسك الصفحات بالكامل</span></div>
                 </div>
             </div>
 
-            <div class="breakdown-item reveal-node" id="dev-work">
-                <div class="breakdown-title-bar">
+            <div class="detail-row reveal-element" id="dev-work">
+                <div class="detail-row-header">
                     <i class="fa-solid fa-laptop-code"></i>
                     <h3>شغل البرمجة والحلول الذكية</h3>
                 </div>
-                <div class="grid-features">
-                    <div class="feature-node"><i class="fa-solid fa-browser"></i><span>صفحات الهبوط (Landing Pages)</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-address-card"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-wifi"></i><span>جميع منتجات تقنية الـ NFC</span></div>
-                    <div class="feature-node"><i class="fa-solid fa-globe"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
+                <div class="features-chips-grid">
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>صفحات الهبوط (Landing Pages)</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>مواقع البورتفوليو (Portfolio)</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>جميع منتجات تقنية الـ NFC</span></div>
+                    <div class="chip-item"><i class="fa-solid fa-check"></i><span>مواقع ويب مخصصة لخدماتك</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-wrapper" id="contact">
-        <div class="section-header reveal-node">
+    <section class="section-block contact-area" id="contact">
+        <div class="section-title-wrap reveal-element">
             <h2>تواصل معنا</h2>
-            <p>يسعدنا الرد على استفساراتك وبدء العمل معاً في أي وقت</p>
         </div>
-        <div class="contact-hub">
-            <a href="tel:+201150605708" class="hub-card reveal-node">
+
+        <div class="contact-grid">
+            <a href="tel:+201150605708" class="contact-card-btn reveal-element">
                 <i class="fa-solid fa-phone"></i>
                 <span>الرقم الأول</span>
                 <strong>+2011 5060 5708</strong>
             </a>
 
-            <a href="tel:+201031913107" class="hub-card reveal-node">
+            <a href="tel:+201031913107" class="contact-card-btn reveal-element">
                 <i class="fa-solid fa-phone-flip"></i>
                 <span>الرقم الثاني</span>
                 <strong>+20 1031 91 3107</strong>
             </a>
 
-            <a href="https://wa.me/201031913107" target="_blank" class="hub-card reveal-node">
+            <a href="https://wa.me/201031913107" target="_blank" class="contact-card-btn reveal-element">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>الواتساب المباشر</span>
                 <strong>تحدث معنا الآن</strong>
             </a>
 
-            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="hub-card reveal-node">
+            <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-card-btn reveal-element">
                 <i class="fa-brands fa-instagram"></i>
                 <span>حساب الانستجرام</span>
                 <strong>@OFF_GRID</strong>
@@ -612,7 +661,7 @@
     </footer>
 
     <script>
-        // 1. Force Page Scroll to Top on Refresh
+        // Force Page Scroll to Top on Refresh
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
@@ -624,7 +673,7 @@
             checkWorkingHours();
         };
 
-        // 2. Working Hours System (من 12 مساءً حتى 12 صباحاً)
+        // Working Hours Logic (12 PM - 12 AM)
         function checkWorkingHours() {
             const now = new Date();
             const currentHour = now.getHours();
@@ -633,31 +682,22 @@
             const statusText = document.getElementById('statusText');
 
             if (currentHour >= 12 && currentHour < 24) {
-                statusDot.className = 'status-light open';
+                statusDot.className = 'status-dot open';
                 statusText.textContent = 'مفتوح الآن';
             } else {
-                statusDot.className = 'status-light closed';
+                statusDot.className = 'status-dot closed';
                 statusText.textContent = 'مغلق الآن';
             }
         }
 
-        // 3. Mouse Tracking Dynamic Aura Effect
-        const aura = document.getElementById('aura');
-        window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            aura.style.setProperty('--x', `${x}%`);
-            aura.style.setProperty('--y', `${y}%`);
-        });
-
-        // 4. Scroll Reveal Animations
-        const revealElements = document.querySelectorAll('.reveal-node');
+        // Scroll Reveal Script
+        const revealElements = document.querySelectorAll('.reveal-element');
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             revealElements.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 60) {
-                    el.classList.add('visible');
+                if (elementTop < windowHeight - 70) {
+                    el.classList.add('active');
                 }
             });
         };
@@ -665,7 +705,7 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // 5. Smooth Scroll Helper
+        // Smooth Scroll Helper
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
