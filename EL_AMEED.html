@@ -3,27 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>أنظمة الأمان والأنظمة الذكية - التميز والفخامة</title>
+  <title>EL AMEED | العميد للأنظمة الذكية والأمان</title>
   
-  <!-- Google Fonts: Cairo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome 6.4.0 -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --bg-dark: #070f1e;
-      --navy-primary: #0b1e36;
-      --blue-accent: #0077ff;
-      --cyan-neon: #00f0ff;
-      --glass-bg: rgba(255, 255, 255, 0.07);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      --text-main: #ffffff;
-      --text-sub: #b0c4de;
+      --bg-dark: #030712;
+      --cyan-glow: #00f0ff;
+      --blue-glow: #0077ff;
+      --gold-accent: #ffb703;
+      --glass-bg: rgba(15, 23, 42, 0.65);
+      --glass-border: rgba(0, 240, 255, 0.25);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.15);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
     }
 
     * {
@@ -37,14 +34,24 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
       min-height: 100vh;
-      padding-bottom: 30px;
+      padding-bottom: 40px;
+      position: relative;
     }
 
-    /* خلفية متدرجة ديناميكية مع أشكال جلاس عائمة مشعة */
+    /* Canvas للخلفية التفاعلية */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* خلفية التوهج العائم Dynamic Blobs */
     .bg-blobs {
       position: fixed;
       top: 0;
@@ -53,506 +60,649 @@
       height: 100vh;
       z-index: -1;
       overflow: hidden;
+      pointer-events: none;
     }
 
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.55;
-      animation: floatAnimation 12s infinite ease-in-out alternate;
+      filter: blur(90px);
+      opacity: 0.45;
+      animation: floatAnim 10s infinite ease-in-out alternate;
     }
 
-    .blob-1 {
-      width: 280px;
-      height: 280px;
-      background: #00f0ff;
-      top: -50px;
-      right: -50px;
+    .blob-1 { width: 300px; height: 300px; background: var(--cyan-glow); top: -80px; right: -80px; }
+    .blob-2 { width: 350px; height: 350px; background: #3b82f6; bottom: -50px; left: -100px; animation-delay: -3s; }
+
+    @keyframes floatAnim {
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      100% { transform: translateY(40px) rotate(180deg) scale(1.15); }
     }
 
-    .blob-2 {
-      width: 320px;
-      height: 320px;
-      background: #0055ff;
-      bottom: 10%;
-      left: -80px;
-      animation-delay: -4s;
-    }
-
-    .blob-3 {
-      width: 220px;
-      height: 220px;
-      background: #00d4ff;
-      top: 45%;
-      right: -40px;
-      animation-delay: -8s;
-    }
-
-    @keyframes floatAnimation {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(35px) scale(1.1); }
-      100% { transform: translateY(-25px) scale(0.95); }
-    }
-
-    /* الشريط العلوي - Navbar Glassmorphic */
+    /* الهيدر الزجاجي الفخم */
     .navbar {
       position: sticky;
-      top: 10px;
-      margin: 0 12px;
-      padding: 12px 18px;
-      background: rgba(11, 30, 54, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      top: 12px;
+      margin: 0 14px;
+      padding: 10px 16px;
+      background: rgba(10, 16, 30, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      box-shadow: var(--glass-shadow);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
     }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 900;
+    /* مكان اللوجو الهولوجرام */
+    .brand-logo-wrapper {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #fff;
+      gap: 12px;
     }
 
-    .logo i {
-      color: var(--cyan-neon);
-      filter: drop-shadow(0 0 8px var(--cyan-neon));
+    .logo-frame {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
 
-    .logo span {
-      color: var(--cyan-neon);
+    .logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* مؤشر حالة العمل - Dynamic Status Badge */
+    .logo-frame .logo-placeholder {
+      font-size: 20px;
+      color: var(--cyan-glow);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      background: linear-gradient(135deg, #fff 40%, var(--cyan-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tag {
+      font-size: 10px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    /* مؤشر الحالة الذكي */
     .status-badge {
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
-      border-radius: 30px;
-      background: rgba(46, 204, 113, 0.15);
-      border: 1px solid rgba(46, 204, 113, 0.4);
-      color: #2ecc71;
-      font-weight: 700;
-      font-size: 13px;
-      box-shadow: 0 0 12px rgba(46, 204, 113, 0.2);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #10b981;
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
     }
 
     .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background-color: #2ecc71;
-      box-shadow: 0 0 10px #2ecc71;
-      animation: pulseGreen 1.8s infinite;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.5s infinite;
     }
 
-    @keyframes pulseGreen {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
-    .status-badge.closed {
-      background: rgba(231, 76, 60, 0.15);
-      border-color: rgba(231, 76, 60, 0.4);
-      color: #e74c3c;
-      box-shadow: 0 0 12px rgba(231, 76, 60, 0.2);
-    }
-
-    .status-badge.closed .status-dot {
-      background-color: #e74c3c;
-      box-shadow: 0 0 10px #e74c3c;
-      animation: pulseRed 1.8s infinite;
-    }
-
-    @keyframes pulseRed {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-    }
-
-    /* الهيرو سكشن - Hero Section Mobile Optimized */
+    /* الهيرو سكشن الفخم 3D Glass */
     .hero {
-      padding: 40px 18px 25px;
-      text-align: center;
+      padding: 30px 16px 20px;
     }
 
-    .hero-glass-card {
+    .glass-card-3d {
       background: var(--glass-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 30px 20px;
+      border-radius: 28px;
+      padding: 28px 20px;
       box-shadow: var(--glass-shadow);
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
     }
 
-    .hero-glass-card::before {
+    /* تأثير شاع هولوجرام */
+    .glass-card-3d::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-      transform: rotate(45deg);
-      animation: shine 6s infinite;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, transparent 60%);
+      animation: scan 8s linear infinite;
+      pointer-events: none;
     }
 
-    @keyframes shine {
-      0% { transform: translateX(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) rotate(45deg); }
+    @keyframes scan {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(30%, 30%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--cyan-glow);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .hero h1 {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 900;
-      line-height: 1.3;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #ffffff 30%, var(--cyan-neon));
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--cyan-glow), var(--blue-glow));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       color: var(--text-sub);
-      font-size: 14px;
-      margin-bottom: 25px;
+      font-size: 13px;
+      margin-bottom: 22px;
     }
 
-    /* الأزرار التفاعلية - Action Buttons */
-    .action-group {
+    /* أزرار التفاعل الـ Cyberpunk */
+    .btn-group {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .btn {
+    .cyber-btn {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 14px 20px;
+      padding: 14px;
       border-radius: 16px;
-      font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 14px;
       text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .btn-call {
-      background: linear-gradient(135deg, var(--blue-accent), var(--cyan-neon));
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(0, 119, 255, 0.4);
-      border: none;
+    .cyber-btn-primary {
+      background: linear-gradient(135deg, var(--blue-glow), var(--cyan-glow));
+      color: #030712;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
     }
 
-    .btn-call:active {
+    .cyber-btn-primary:active {
       transform: scale(0.97);
     }
 
-    .btn-drive {
-      background: rgba(255, 255, 255, 0.08);
+    .cyber-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
     }
 
-    .btn-drive:active {
-      background: rgba(255, 255, 255, 0.15);
+    .cyber-btn-secondary:active {
+      background: rgba(255, 255, 255, 0.12);
       transform: scale(0.97);
     }
 
-    /* قسم الخدمات - Glass Cards Grid */
-    .section {
-      padding: 25px 18px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* العداد التفاعلي الرقمي Live Counter */
+    .stats-bar {
+      margin: 20px 16px 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
-    .section-title i {
-      color: var(--cyan-neon);
+    .stat-box {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 12px 8px;
+      text-align: center;
+      backdrop-filter: blur(10px);
     }
 
-    .services-grid {
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--cyan-glow);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    /* قسم الخدمات التفاعلي Accordeon Glass */
+    .section {
+      padding: 20px 16px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-head i {
+      color: var(--cyan-glow);
+      font-size: 18px;
+    }
+
+    .section-head h2 {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .services-accordion {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .service-card {
+    .acc-item {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
-      padding: 22px;
-      box-shadow: var(--glass-shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .acc-header {
+      padding: 16px;
       display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
     }
 
-    .service-card:active {
-      transform: scale(0.98);
-      border-color: var(--cyan-neon);
+    .acc-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .service-icon {
-      width: 52px;
-      height: 52px;
-      min-width: 52px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 119, 255, 0.2));
+    .acc-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(0, 240, 255, 0.1);
       border: 1px solid rgba(0, 240, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      color: var(--cyan-neon);
+      color: var(--cyan-glow);
+      font-size: 18px;
     }
 
-    .service-info h3 {
-      font-size: 17px;
+    .acc-title {
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
     }
 
-    .service-info p {
-      font-size: 13px;
+    .acc-arrow {
       color: var(--text-sub);
-      line-height: 1.5;
+      transition: transform 0.3s ease;
+      font-size: 12px;
     }
 
-    /* قسم الخريطة والتواصل - Map & Social Box */
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 16px;
+      color: var(--text-sub);
+      font-size: 12px;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+    .acc-item.active {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+    }
+
+    .acc-item.active .acc-arrow {
+      transform: rotate(180deg);
+      color: var(--cyan-glow);
+    }
+
+    .acc-item.active .acc-body {
+      max-height: 150px;
+      padding: 0 16px 16px;
+    }
+
+    /* الخريطة والتواصل Glass */
     .contact-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--glass-border);
       border-radius: 24px;
-      padding: 20px;
-      box-shadow: var(--glass-shadow);
-      margin-bottom: 20px;
+      padding: 18px;
+      backdrop-filter: blur(14px);
+      margin-bottom: 16px;
     }
 
-    .map-wrapper {
+    .map-box {
       width: 100%;
-      height: 200px;
+      height: 180px;
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--glass-border);
-      margin-top: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 10px;
     }
 
-    .map-wrapper iframe {
+    .map-box iframe {
       width: 100%;
       height: 100%;
       border: 0;
       filter: invert(90%) hue-rotate(180deg) contrast(100%);
     }
 
-    /* السوشيال ميديا والتواصل - Glass Buttons */
-    .social-links {
+    .social-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 15px;
+      gap: 10px;
+      margin-top: 12px;
     }
 
-    .social-btn {
-      height: 50px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.06);
+    .soc-btn {
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
       color: #fff;
+      font-size: 18px;
       text-decoration: none;
-      backdrop-filter: blur(8px);
       transition: all 0.3s ease;
     }
 
-    .social-btn:active {
-      transform: translateY(-3px);
-      background: var(--cyan-neon);
-      color: var(--bg-dark);
-      box-shadow: 0 0 15px var(--cyan-neon);
+    .soc-btn:active {
+      background: var(--cyan-glow);
+      color: #030712;
+      box-shadow: 0 0 15px var(--cyan-glow);
     }
 
-    /* الفوتر Glass Footer */
     footer {
       text-align: center;
-      padding: 20px 18px;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-sub);
+      padding: 10px;
     }
   </style>
 </head>
 <body>
 
-  <!-- خلفية الأشكال المشعة العائمة -->
+  <!-- Canvas للجسيمات المتفاعلة -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- خلفية الألوان المضيئة -->
   <div class="bg-blobs">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
   </div>
 
-  <!-- الشريط العلوي Floating Glass Header -->
+  <!-- الشريط العلوي مع مكان اللوجو -->
   <header class="navbar">
-    <div class="logo">
-      <i class="fa-solid fa-shield-halved"></i>
-      <span>الأمان <span>الذكي</span></span>
+    <div class="brand-logo-wrapper">
+      <div class="logo-frame">
+        <!-- ضع مسار صلتك هنا استبدال src بـ اسم ملف اللوجو -->
+        <img src="logo.png" alt="EL AMEED Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <i class="fa-solid fa-shield-halved logo-placeholder" style="display:none;"></i>
+      </div>
+      <div class="brand-title">
+        <span class="brand-name">EL AMEED</span>
+        <span class="brand-tag">SECURITY SYSTEMS</span>
+      </div>
     </div>
 
-    <!-- مؤشر حالة العمل - Dynamic Status -->
-    <div class="status-badge" id="statusBadge">
+    <div class="status-badge" id="liveStatus">
       <span class="status-dot"></span>
-      <span class="status-text">مفتوح الآن</span>
+      <span>متاح الآن</span>
     </div>
   </header>
 
-  <!-- القسم الرئيسي - Hero Section -->
+  <!-- قسم الهيرو 3D Glass -->
   <section class="hero">
-    <div class="hero-glass-card">
-      <h1>أنظمة أمان وكاميرات مراقبة ذكية</h1>
-      <p>أحدث تقنيات الحماية والمراقبة للمنازل والشركات بأعلى جودة وأفضل الأسعار.</p>
+    <div class="glass-card-3d" id="heroCard">
+      <div class="hero-badge">
+        <i class="fa-solid fa-bolt"></i> الجيل الجديد من الأمان
+      </div>
+      <h1>أنظمة الحماية الذكية من <span>EL AMEED</span></h1>
+      <p>نقدم أحدث حلول المراقبة والتحكم بالدخول الذكي مع أعلى درجات التشفير والحماية.</p>
       
-      <div class="action-group">
-        <!-- رقم الهاتف للاتصال السريع -->
-        <a href="tel:01000000000" class="btn btn-call">
-          <i class="fa-solid fa-phone-volume"></i> اتصل بنا: 01000000000
+      <div class="btn-group">
+        <a href="tel:01000000000" class="cyber-btn cyber-btn-primary">
+          <i class="fa-solid fa-headset"></i> اتصل بالمبيعات مباشر
         </a>
-        
-        <!-- لينك جوجل درايف للبوسترات والمعرض -->
-        <a href="https://drive.google.com" target="_blank" class="btn btn-drive">
-          <i class="fa-brands fa-google-drive"></i> معرض البوسترات والكتالوج
+        <a href="https://drive.google.com" target="_blank" class="cyber-btn cyber-btn-secondary">
+          <i class="fa-brands fa-google-drive"></i> الكتالوج والبوسترات (Drive)
         </a>
       </div>
     </div>
   </section>
 
-  <!-- قسم الخدمات - Services Glass Cards -->
+  <!-- عداد الأرقام التفاعلي -->
+  <div class="stats-bar">
+    <div class="stat-box">
+      <span class="stat-num">+1500</span>
+      <span class="stat-label">عميل واثق</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">%99.9</span>
+      <span class="stat-label">دقة النظام</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">دعم أمني</span>
+    </div>
+  </div>
+
+  <!-- قسم الخدمات الأكورديون التفاعلي -->
   <section class="section">
-    <h2 class="section-title">
-      <i class="fa-solid fa-microchip"></i> خدماتنا الاحترافية
-    </h2>
+    <div class="section-head">
+      <i class="fa-solid fa-cubes"></i>
+      <h2>خدمات العميد الذكية</h2>
+    </div>
 
-    <div class="services-grid">
-      <!-- خدمة 1 -->
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fa-solid fa-video"></i>
+    <div class="services-accordion">
+      <div class="acc-item active" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-icon"><i class="fa-solid fa-video"></i></div>
+            <div class="acc-title">كاميرات المراقبة IP 4K الذكية</div>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow"></i>
         </div>
-        <div class="service-info">
-          <h3>كاميرات المراقبة IP & HD</h3>
-          <p>اكتب هنا تفاصيل الخدمة الأولى: توريد وتركيب أحدث الكاميرات مع خاصية الرؤية الليلية والتصوير الملون.</p>
+        <div class="acc-body">
+          أنظمة كاميرات متطورة تدعم الذكاء الاصطناعي لتحديد الوجوه والسيارات، مع إمكانية المراقبة المباشرة والتنبيهات الفورية على هاتفك المحمول من أي مكان في العالم.
         </div>
       </div>
 
-      <!-- خدمة 2 -->
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fa-solid fa-fingerprint"></i>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-icon"><i class="fa-solid fa-fingerprint"></i></div>
+            <div class="acc-title">أقفال وحساسات Access Control</div>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow"></i>
         </div>
-        <div class="service-info">
-          <h3>أنظمة التحكم بالدخول (Access Control)</h3>
-          <p>اكتب هنا تفاصيل الخدمة الثانية: أقفال بالبصمة، الكروت الذكية، وفتح الأبواب عن بعد عبر الموبايل.</p>
+        <div class="acc-body">
+          التحكم الكامل في أبواب ومنافذ شركتك أو منزلك عبر البصمة، الكروت الذكية، أو تطبيق الموبايل، مع سجلات دقيقة لجميع عمليات الدخول والخروج.
         </div>
       </div>
 
-      <!-- خدمة 3 -->
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fa-solid fa-shield-virus"></i>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+            <div class="acc-title">أنظمة الإنذار ضد السرقة والحريق</div>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow"></i>
         </div>
-        <div class="service-info">
-          <h3>أنظمة الإنذار ضد السرقة والحريق</h3>
-          <p>اكتب هنا تفاصيل الخدمة الثالثة: حساسات حركة وإنذار مبكر يتصل بهاتفك مباشرة في حالة الطوارئ.</p>
+        <div class="acc-body">
+          حساسات حركة واستشعار كسر الزجاج والإنذار المبكر للحريق المزودة بسيرينات عالية الصوت مع اتصال تلقائي برقمك عند حدوث أي اختراق.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- قسم التواصل والموقع - Contact & Location -->
+  <!-- الخريطة والسوشيال ميديا -->
   <section class="section">
-    <!-- موقع جوجل ماب -->
     <div class="contact-card">
-      <h3 style="font-size: 17px; margin-bottom: 8px;">
-        <i class="fa-solid fa-location-dot" style="color: var(--cyan-neon);"></i> موقعنا على خريطة جوجل
-      </h3>
-      <div class="map-wrapper">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.789!2d31.25!3d29.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjl8MzEnNTcuNiJOIDMxwrAxNScwMC4wIkU!5e0!3m2!1sar!2seg!4v1234567890" 
-          allowfullscreen="" loading="lazy">
-        </iframe>
+      <div class="section-head" style="margin-bottom:8px;">
+        <i class="fa-solid fa-location-dot"></i>
+        <h2>مقر شركة العميد</h2>
+      </div>
+      <div class="map-box">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.789!2d31.25!3d29.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjl8MzEnNTcuNiJOIDMxwrAxNScwMC4wIkU!5e0!3m2!1sar!2seg!4v1234567890" loading="lazy"></iframe>
       </div>
     </div>
 
-    <!-- منصات التواصل الاجتماعي -->
     <div class="contact-card">
-      <h3 style="font-size: 17px; margin-bottom: 4px;">
-        <i class="fa-solid fa-share-nodes" style="color: var(--cyan-neon);"></i> تابعنا على السوشيال ميديا
-      </h3>
-      <p style="font-size: 12px; color: var(--text-sub);">تواصل معنا عبر منصتك المفضلة:</p>
-
-      <div class="social-links">
-        <a href="https://facebook.com" target="_blank" class="social-btn" title="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://instagram.com" target="_blank" class="social-btn" title="إنستغرام"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/201000000000" target="_blank" class="social-btn" title="واتساب"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://drive.google.com" target="_blank" class="social-btn" title="جوجل درايف"><i class="fa-brands fa-google-drive"></i></a>
+      <div class="section-head" style="margin-bottom:8px;">
+        <i class="fa-solid fa-wifi"></i>
+        <h2>قنوات التواصل الرسمية</h2>
+      </div>
+      <div class="social-grid">
+        <a href="#" class="soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/201000000000" class="soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://drive.google.com" class="soc-btn"><i class="fa-brands fa-google-drive"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- الفوتر -->
   <footer>
-    <p>جميع الحقوق محفوظة &copy; 2026 | أنظمة الأمان الذكية</p>
+    <p>جميع الحقوق محفوظة &copy; 2026 | EL AMEED SECURITY</p>
   </footer>
 
-  <!-- سكربت تغيير حالة العمل كل 5 ثواني -->
   <script>
-    const statusBadge = document.getElementById('statusBadge');
-    const statusText = statusBadge.querySelector('.status-text');
-    let isOpen = true;
+    // 1. أكورديون الخدمات التفاعلي
+    function toggleAcc(element) {
+      const allItems = document.querySelectorAll('.acc-item');
+      allItems.forEach(item => {
+        if(item !== element) item.classList.remove('active');
+      });
+      element.classList.toggle('active');
+    }
 
-    setInterval(() => {
-      isOpen = !isOpen;
-      if (isOpen) {
-        statusBadge.classList.remove('closed');
-        statusText.textContent = 'مفتوح الآن';
-      } else {
-        statusBadge.classList.add('closed');
-        statusText.textContent = 'مغلق الآن';
+    // 2. خلفية الجسيمات المتفاعلة (Interactive Canvas Particles)
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
       }
-    }, 5000); // تغيير كل 5 ثواني
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < 40; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    initParticles();
+    animateParticles();
+
+    // 3. حركة 3D الميل للبطاقة الرئيسية عند تحريك الموبايل (Gyroscope / Touch)
+    const card = document.getElementById('heroCard');
+    window.addEventListener('touchmove', (e) => {
+      let touch = e.touches[0];
+      let x = (window.innerWidth / 2 - touch.clientX) / 25;
+      let y = (window.innerHeight / 2 - touch.clientY) / 25;
+      card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+    window.addEventListener('touchend', () => {
+      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
   </script>
 </body>
 </html>
