@@ -9,13 +9,12 @@
     
     <style>
         :root {
-            --bg-void: #030712;
+            --bg-void: #02040a;
             --neon-cyan: #00f2ff;
-            --neon-violet: #7928ca;
-            --neon-pink: #ff0080;
-            --card-glass: rgba(15, 23, 42, 0.6);
-            --card-border: rgba(0, 242, 255, 0.15);
-            --text-glow: #ffffff;
+            --neon-violet: #8a2be2;
+            --neon-pink: #ff007f;
+            --card-glass: rgba(10, 16, 31, 0.65);
+            --card-border: rgba(0, 242, 255, 0.2);
             --text-sub: #94a3b8;
             --cubic-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --cubic-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,15 +44,76 @@
             position: relative;
         }
 
-        /* PARTICLE CANVAS BACKGROUND */
-        #canvas-bg {
+        /* --- HYPER DYNAMIC BACKGROUND ENGINE --- */
+        #bg-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
+            overflow: hidden;
             pointer-events: none;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            animation: floatAurora 18s ease-in-out infinite alternate;
+        }
+
+        .aurora-1 {
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--neon-cyan) 0%, rgba(0,242,255,0) 70%);
+            top: -10vw;
+            right: -10vw;
+        }
+
+        .aurora-2 {
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--neon-violet) 0%, rgba(138,43,226,0) 70%);
+            bottom: -15vw;
+            left: -10vw;
+            animation-delay: -6s;
+            animation-duration: 22s;
+        }
+
+        .aurora-3 {
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, var(--neon-pink) 0%, rgba(255,0,127,0) 70%);
+            top: 30%;
+            left: 25%;
+            animation-delay: -12s;
+            animation-duration: 15s;
+        }
+
+        .cyber-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+        }
+
+        #canvas-particles {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes floatAurora {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(8%, 12%) scale(1.15) rotate(180deg); }
+            100% { transform: translate(-5%, -8%) scale(0.95) rotate(360deg); }
         }
 
         /* --- ADVANCED LOADER --- */
@@ -128,9 +188,9 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(3, 7, 18, 0.75);
+            background: rgba(2, 4, 10, 0.75);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .brand-hub {
@@ -246,7 +306,7 @@
         }
 
         .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-violet) 100%);
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 50%, var(--neon-violet) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -307,12 +367,12 @@
             position: relative;
             border-radius: 28px;
             padding: 3px;
-            background: linear-gradient(135deg, rgba(0,242,255,0.4), rgba(121,40,202,0.4));
+            background: linear-gradient(135deg, rgba(0,242,255,0.4), rgba(255,0,127,0.4), rgba(121,40,202,0.4));
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
         .offer-inner {
-            background: rgba(9, 14, 26, 0.9);
+            background: rgba(9, 14, 26, 0.85);
             border-radius: 26px;
             padding: 24px;
             backdrop-filter: blur(20px);
@@ -349,9 +409,10 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- SERVICES GRID --- */
+        /* --- ENHANCED SERVICES MATRIX --- */
         .services-section {
             padding: 100px 6%;
+            position: relative;
         }
 
         .section-header {
@@ -361,32 +422,37 @@
 
         .section-header h2 {
             font-family: 'Changa', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-header p {
             color: var(--text-sub);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
         }
 
         .services-matrix {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
         }
 
         .matrix-card {
             background: var(--card-glass);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 45px 35px;
-            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 40px 30px;
+            backdrop-filter: blur(25px);
             position: relative;
             overflow: hidden;
             transition: all 0.4s var(--cubic-smooth);
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .matrix-card::before {
@@ -395,67 +461,130 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(0, 242, 255, 0.15), transparent 60%);
-            opacity: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-violet));
+            opacity: 0.6;
             transition: 0.4s;
         }
 
         .matrix-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(0, 242, 255, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 242, 255, 0.2);
         }
 
         .matrix-card:hover::before { opacity: 1; }
 
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
         .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
+            width: 75px;
+            height: 75px;
+            border-radius: 22px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--neon-cyan);
-            margin-bottom: 30px;
             transition: 0.4s var(--cubic-bounce);
         }
 
         .matrix-card:hover .card-icon {
             background: var(--neon-cyan);
             color: #000;
-            box-shadow: 0 0 25px var(--neon-cyan);
-            transform: rotate(-8deg) scale(1.1);
+            box-shadow: 0 0 30px var(--neon-cyan);
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .service-count-badge {
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: var(--neon-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
 
         .matrix-card h3 {
             font-family: 'Changa', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            font-weight: 800;
         }
 
-        .matrix-card p {
+        .matrix-card .card-desc {
             color: var(--text-sub);
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 0.98rem;
+            line-height: 1.6;
             margin-bottom: 25px;
         }
 
-        .click-hint {
+        /* EXPANDED SUB-SERVICES LIST */
+        .service-sub-items {
+            list-style: none;
             display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--neon-cyan);
-            font-size: 0.9rem;
-            font-weight: 600;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
         }
 
-        .click-hint i { transition: 0.3s; }
-        .matrix-card:hover .click-hint i { transform: translateX(-6px); }
+        .service-sub-items li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+
+        .service-sub-items li i {
+            color: var(--neon-cyan);
+            font-size: 0.85rem;
+        }
+
+        .matrix-card:hover .service-sub-items li {
+            border-color: rgba(0, 242, 255, 0.15);
+            background: rgba(0, 242, 255, 0.04);
+            transform: translateX(-4px);
+        }
+
+        .card-action-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .card-action-btn:hover {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet));
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
 
         /* --- INTERACTIVE MODAL (POPUP SYSTEM) --- */
         .modal-overlay {
@@ -639,13 +768,20 @@
             .btn-group { justify-content: center; }
             .hero h1 { font-size: 2.8rem; }
             nav { display: none; }
+            .services-matrix { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PARTICLE CANVAS BACKGROUND -->
-    <canvas id="canvas-bg"></canvas>
+    <!-- DYNAMIC BACKGROUND ENGINE -->
+    <div id="bg-wrapper">
+        <div class="aurora-blob aurora-1"></div>
+        <div class="aurora-blob aurora-2"></div>
+        <div class="aurora-blob aurora-3"></div>
+        <div class="cyber-grid-overlay"></div>
+        <canvas id="canvas-particles"></canvas>
+    </div>
 
     <!-- ADVANCED LOADER -->
     <div id="loader">
@@ -704,36 +840,85 @@
         </div>
     </section>
 
-    <!-- SERVICES MATRIX -->
+    <!-- EXPANDED SERVICES MATRIX -->
     <section class="services-section" id="services">
         <div class="section-header">
-            <h2>منظومة خدماتنا</h2>
-            <p>اضغط على أي قسم لاستعراض التفاصيل التقنية الدقيقة</p>
+            <h2>منظومة خدماتنا المتكاملة</h2>
+            <p>استكشف تفاصيل حلولنا الميدانية والتكنولوجية المصممة لنمو مشرولك</p>
         </div>
 
         <div class="services-matrix">
-            <!-- CARD 1 -->
-            <div class="matrix-card" onclick="openModal('street')">
-                <div class="card-icon"><i class="fa-solid fa-bullhorn"></i></div>
-                <h3>شغل الشارع والدعاية</h3>
-                <p>حلول الانتشار الميداني المبتكرة لجذب الأنظار في قلب التجمعات والأسواق.</p>
-                <div class="click-hint"><span>عرض كافة التفاصيل</span> <i class="fa-solid fa-arrow-left"></i></div>
+            <!-- CARD 1: STREET & FIELD MARKETING -->
+            <div class="matrix-card">
+                <div>
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                        <span class="service-count-badge">5 خدمات متخصصة</span>
+                    </div>
+                    <h3>الدعاية والتواجد الميداني</h3>
+                    <p class="card-desc">حلول الانتشار الميداني المبتكرة لجذب الأنظار وخلق سيطرة بصرية كاملة في الشارع والمهرجانات.</p>
+                    
+                    <ul class="service-sub-items">
+                        <li><i class="fa-solid fa-circle-check"></i> اسكيترز محترفين بأعداد كبيرة للمهرجانات</li>
+                        <li><i class="fa-solid fa-circle-check"></i> تجهيز طباعة أوراق الفلايرز والتوزيع المستهدف</li>
+                        <li><i class="fa-solid fa-circle-check"></i> فلاج العلم المطبوع وتجهيزات الأعلام الخارجية</li>
+                        <li><i class="fa-solid fa-circle-check"></i> تجهيز جميع أنواع سيارات الدعاية الميدانية</li>
+                        <li><i class="fa-solid fa-circle-check"></i> تنظيم الحملات الميدانية في التجمعات الحيوية</li>
+                    </ul>
+                </div>
+
+                <button class="card-action-btn" onclick="openModal('street')">
+                    <span>عرض التفاصيل الكاملة</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
             </div>
 
-            <!-- CARD 2 -->
-            <div class="matrix-card" onclick="openModal('social')">
-                <div class="card-icon"><i class="fa-solid fa-hashtag"></i></div>
-                <h3>تسويق السوشيال ميديا</h3>
-                <p>إدارة الحسابات، صناعة محتوى الريلز، والبوسترات اليومية باشتراكات شهريّة.</p>
-                <div class="click-hint"><span>عرض كافة التفاصيل</span> <i class="fa-solid fa-arrow-left"></i></div>
+            <!-- CARD 2: SOCIAL MEDIA MARKETING -->
+            <div class="matrix-card">
+                <div>
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fa-solid fa-hashtag"></i></div>
+                        <span class="service-count-badge">4 خدمات متخصصة</span>
+                    </div>
+                    <h3>السوشيال ميديا وصناعة المحتوى</h3>
+                    <p class="card-desc">إدارة احترافية شاملة لحساباتك مع صناعة محتوى مرئي جذاب يرفع من نسبة التفاعل والمبيعات.</p>
+
+                    <ul class="service-sub-items">
+                        <li><i class="fa-solid fa-circle-check"></i> تصوير ومونتاج Reels و Shorts بأسلوب سريع</li>
+                        <li><i class="fa-solid fa-circle-check"></i> تصميم بوسترات وبانرات إعلانية بهوية احترافية</li>
+                        <li><i class="fa-solid fa-circle-check"></i> إدارة وإطلاق الحملات الإعلانية الممولة (إسبونسر)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> تطوير وإدارة الحسابات باشتراكات شهريّة متكاملة</li>
+                    </ul>
+                </div>
+
+                <button class="card-action-btn" onclick="openModal('social')">
+                    <span>عرض التفاصيل الكاملة</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
             </div>
 
-            <!-- CARD 3 -->
-            <div class="matrix-card" onclick="openModal('dev')">
-                <div class="card-icon"><i class="fa-solid fa-code"></i></div>
-                <h3>البرمجة وتقنيات NFC</h3>
-                <p>تطوير مواقع الويب الحديثة ومنتجات كروت NFC الذكية المخصصة لشركتك.</p>
-                <div class="click-hint"><span>عرض كافة التفاصيل</span> <i class="fa-solid fa-arrow-left"></i></div>
+            <!-- CARD 3: CODING & NFC -->
+            <div class="matrix-card">
+                <div>
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+                        <span class="service-count-badge">4 خدمات متخصصة</span>
+                    </div>
+                    <h3>البرمجة وتقنيات NFC الذكية</h3>
+                    <p class="card-desc">تطوير منصات ويب فائقة السرعة مع دمج تقنيات الاتصال القريب المدى لتسهيل تجربة عملائك.</p>
+
+                    <ul class="service-sub-items">
+                        <li><i class="fa-solid fa-circle-check"></i> تصميم صفحات الهبوط الاحترافية (Landing Pages)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> برمجة مواقع المعارض، الأعمال، والبورتفوليو</li>
+                        <li><i class="fa-solid fa-circle-check"></i> طباعة وتخصيص كروت وبطاقات NFC الذكية</li>
+                        <li><i class="fa-solid fa-circle-check"></i> حلول ويب وتطبيقات مخصصة حسب متطلبات عملك</li>
+                    </ul>
+                </div>
+
+                <button class="card-action-btn" onclick="openModal('dev')">
+                    <span>عرض التفاصيل الكاملة</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -741,8 +926,8 @@
     <!-- CONTACT HUB -->
     <section class="contact-section" id="contact">
         <div class="section-header">
-            <h2>مركز الاتصال</h2>
-            <p>اختر الوسيلة الأنسب للتواصل المباشر مع فريقنا</p>
+            <h2>مركز الاتصال المباشر</h2>
+            <p>اختر الوسيلة الأنسب للتواصل الفوري مع فريقنا</p>
         </div>
 
         <div class="contact-grid">
@@ -855,8 +1040,8 @@
             if(e.target.id === 'modalOverlay') closeModal();
         });
 
-        // --- PARTICLE MESH ENGINE (CANVAS) ---
-        const canvas = document.getElementById('canvas-bg');
+        // --- PARTICLE BACKGROUND ENGINE ---
+        const canvas = document.getElementById('canvas-particles');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
@@ -867,22 +1052,21 @@
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        const particleCount = 45;
+        const particleCount = 55;
 
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5
+                radius: Math.random() * 2 + 0.5,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.6 + 0.2
             });
         }
 
         function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 242, 255, 0.4)';
-            ctx.strokeStyle = 'rgba(0, 242, 255, 0.05)';
 
             particles.forEach((p, index) => {
                 p.x += p.vx;
@@ -893,15 +1077,17 @@
 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 255, ${p.alpha})`;
                 ctx.fill();
 
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 150) {
+                    if (dist < 140) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${0.12 * (1 - dist / 140)})`;
                         ctx.stroke();
                     }
                 }
