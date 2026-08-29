@@ -18,7 +18,7 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -32,7 +32,11 @@
             max-width: 900px;
         }
 
-        h1 { text-align: center; margin-bottom: 24px; }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 24px;
+            font-size: 1.8rem;
+        }
 
         .card {
             background-color: var(--card-bg);
@@ -40,6 +44,7 @@
             border-radius: 12px;
             padding: 24px;
             margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .form-grid {
@@ -57,7 +62,7 @@
 
         .form-group.full-width { grid-column: 1 / -1; }
 
-        label { font-size: 0.9rem; color: var(--text-muted); }
+        label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
 
         input, textarea {
             background-color: var(--bg-color);
@@ -65,7 +70,13 @@
             color: var(--text-color);
             padding: 10px 14px;
             border-radius: 8px;
+            font-size: 0.95rem;
             outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent-color);
         }
 
         .api-input-container {
@@ -82,6 +93,10 @@
             white-space: nowrap;
         }
 
+        .btn-test:hover {
+            background-color: #334155;
+        }
+
         button {
             background-color: var(--accent-color);
             color: white;
@@ -92,7 +107,7 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: 0.2s;
+            transition: background-color 0.2s;
         }
 
         button:hover { background-color: var(--accent-hover); }
@@ -113,11 +128,12 @@
             border: 1px solid var(--border-color);
             padding: 12px;
             text-align: right;
+            vertical-align: top;
         }
 
         .output-table th { background-color: var(--bg-color); color: var(--accent-color); }
-        .badge-reel { background-color: #3b82f620; color: #60a5fa; border: 1px solid #3b82f6; padding: 2px 6px; border-radius: 4px; }
-        .badge-poster { background-color: #ec489920; color: #f472b6; border: 1px solid #ec4899; padding: 2px 6px; border-radius: 4px; }
+        .badge-reel { background-color: #3b82f620; color: #60a5fa; border: 1px solid #3b82f6; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
+        .badge-poster { background-color: #ec489920; color: #f472b6; border: 1px solid #ec4899; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -136,7 +152,7 @@
                 <div id="apiStatus"></div>
             </div>
             <div class="form-group">
-                <label for="clientName">اسم العميل</label>
+                <label for="clientName">اسم العميل / البراند</label>
                 <input type="text" id="clientName" placeholder="مثال: مطعم زوز">
             </div>
             <div class="form-group">
@@ -167,7 +183,6 @@
 </div>
 
 <script>
-// اختبر صحة المفتاح أولاً
 async function testApiKey() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const statusDiv = document.getElementById('apiStatus');
@@ -222,20 +237,23 @@ async function generateContent() {
     outputContainer.innerHTML = '';
 
     const prompt = `أنت صانع محتوى إبداعي. قم بإنشاء خطة محتوى لعميل:
-- البراند: ${clientName} | المجال: ${industry} | الهدف: ${goals}
+- البراند: ${clientName}
+- المجال: ${industry}
+- الهدف: ${goals}
 - المطلوب: ${reelsCount} ريلز و ${postersCount} بوسترات.
+
 قم بتوليد أفكار تريند وجديدة، ورشح صوت/أغنية لكل فيديو.
-أرجع الإجابة فقط بصيغة JSON بالتنسيق التالي:
+أرجع الإجابة بصيغة JSON فقط بدون أي كلام جانبي وبدون علامات تنصيص Markdown.
+التنسيق المطلوب:
 [
   {
-    "type": "Reel" أو "Poster",
+    "type": "Reel",
     "title": "العنوان",
     "details": "التفاصيل والسكريبت",
     "audio_or_style": "الصوت أو الاستايل"
   }
 ]`;
 
-    // قائمة الموديلات التي يتم تجربتها في حالة فشل أحدهما
     const models = ['gemini-2.5-flash', 'gemini-1.5-flash'];
     let success = false;
 
@@ -245,27 +263,32 @@ async function generateContent() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { responseMimeType: "application/json" }
+                    contents: [{ parts: [{ text: prompt }] }]
                 })
             });
 
             const data = await response.json();
             
-            if (response.ok && data.candidates) {
-                const rawText = data.candidates[0].content.parts[0].text;
+            if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                let rawText = data.candidates[0].content.parts[0].text;
+                
+                // تنظيف النص من أكواد Markdown لو الـ AI أضافها تلقائياً
+                rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+
                 const ideas = JSON.parse(rawText);
                 renderTable(ideas);
                 success = true;
                 break;
+            } else if (data.error) {
+                console.error(`خطأ من الموديل ${model}:`, data.error.message);
             }
         } catch (e) {
-            console.warn(`فشل الاتصال بموديل ${model}`);
+            console.warn(`خطأ في معالجة الاستجابة من ${model}:`, e);
         }
     }
 
     if (!success) {
-        outputContainer.innerHTML = `<p style="color: var(--error-color);">فشل التوليد! اضغط على زر "اختبار المفتاح 🔍" بالأعلى لتحديد سبب المشكلة بدقة.</p>`;
+        outputContainer.innerHTML = `<p style="color: var(--error-color); text-align: center;">حدث خطأ أثناء فك الاستجابة. اضغط على زر توليد الأفكار مرة أخرى.</p>`;
     }
 
     btn.disabled = false;
@@ -287,7 +310,8 @@ function renderTable(ideas) {
     `;
 
     ideas.forEach(item => {
-        const badge = item.type.toLowerCase() === 'reel' ? 'badge-reel' : 'badge-poster';
+        const isReel = (item.type || '').toLowerCase().includes('reel');
+        const badge = isReel ? 'badge-reel' : 'badge-poster';
         html += `
             <tr>
                 <td><span class="${badge}">${item.type}</span></td>
