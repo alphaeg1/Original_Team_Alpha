@@ -220,7 +220,7 @@ async function generateContent() {
     const goals = document.getElementById('goals').value.trim();
 
     if (!apiKey || !clientName || !industry) {
-        alert('برجاء إدخال المفتاح وباقي بيانات العميل الأساسية!');
+        alert('برجاء إدخال المفتاح واسم العميل والمجال على الأقل!');
         return;
     }
 
@@ -234,62 +234,71 @@ async function generateContent() {
     loading.style.display = 'block';
     outputContainer.innerHTML = '';
 
-    const prompt = `أنت صانع محتوى إبداعي. قم بإنشاء خطة محتوى شهرية لعميل:
+    const promptText = `أنت صانع محتوى إبداعي وميديا باير. قم بإنشاء خطة محتوى شهرية لعميل:
 - البراند: ${clientName}
 - المجال: ${industry}
 - الهدف: ${goals}
-- المطلوب: ${reelsCount} فيديو ريلز (Reel) و ${postersCount} تصميم بوستر (Poster).
+- المطلوب: ${reelsCount} فيديو ريلز (Reels) و ${postersCount} تصميم بوستر (Posters).
 
-ابتكر أفكار تريند وجديدة مع اقتراح الصوت أو الأغنية المناسبة لكل فيديو.`;
+المطلوب إرجاع الناتج في صيغة JSON Array فقط بدون أي كلام إضافي وبدون علامات تنصيص markdown.
+مثال التنسيق المطلوب تماماً:
+[
+  {
+    "type": "Reel",
+    "title": "عنوان الفكرة",
+    "details": "تفاصيل الفيديو والسكريبت",
+    "audio_or_style": "الصوت التريند المقترح"
+  }
+]`;
 
-    // استخدام الـ Schema لإجبار الـ API على إرجاع JSON نقي ومضمون
-    const requestBody = {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-            responseMimeType: "application/json",
-            responseSchema: {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        type: { type: "STRING" },
-                        title: { type: "STRING" },
-                        details: { type: "STRING" },
-                        audio_or_style: { type: "STRING" }
-                    },
-                    required: ["type", "title", "details", "audio_or_style"]
-                }
-            }
-        }
-    };
-
-    const models = ['gemini-2.5-flash', 'gemini-1.5-flash'];
+    // قائمة الموديلات بالأولويات الحديثة
+    const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
     let success = false;
+    let lastError = '';
 
     for (let model of models) {
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: promptText }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7
+                    }
+                })
             });
 
             const data = await response.json();
             
             if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-                const rawText = data.candidates[0].content.parts[0].text;
+                let rawText = data.candidates[0].content.parts[0].text;
+                
+                // تنظيف النص في حال أضاف الـ AI أي markdown إضافي
+                rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+
                 const ideas = JSON.parse(rawText);
                 renderTable(ideas);
                 success = true;
                 break;
+            } else if (data.error) {
+                lastError = data.error.message;
             }
         } catch (e) {
-            console.warn(`خطأ عند المحاولة مع موديل ${model}:`, e);
+            console.warn(`خطأ في تجربة ${model}:`, e);
+            lastError = e.message;
         }
     }
 
     if (!success) {
-        outputContainer.innerHTML = `<p style="color: var(--error-color); text-align: center;">حدث خطأ أثناء التواصل مع الـ AI. تأكد من إدخال البيانات بشكل صحيح واضغط مجدداً.</p>`;
+        outputContainer.innerHTML = `
+            <div style="color: var(--error-color); text-align: center; padding: 10px;">
+                <p>⚠️ تعذر توليد الأفكار.</p>
+                <small style="color: var(--text-muted);">سبب الخطأ: ${lastError || 'تأكد من كتابة المفتاح والتأكد من الاتصال بالنت.'}</small>
+            </div>
+        `;
     }
 
     btn.disabled = false;
@@ -311,13 +320,14 @@ function renderTable(ideas) {
     `;
 
     ideas.forEach(item => {
-        const isReel = (item.type || '').toLowerCase().includes('reel');
+        const typeStr = item.type || 'Reel';
+        const isReel = typeStr.toLowerCase().includes('reel');
         const badge = isReel ? 'badge-reel' : 'badge-poster';
         html += `
             <tr>
-                <td><span class="${badge}">${item.type}</span></td>
-                <td><strong>${item.title}</strong></td>
-                <td>${item.details}</td>
+                <td><span class="${badge}">${typeStr}</span></td>
+                <td><strong>${item.title || ''}</strong></td>
+                <td>${item.details || ''}</td>
                 <td>${item.audio_or_style || '-'}</td>
             </tr>
         `;
