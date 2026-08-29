@@ -10,9 +10,9 @@
 
     <style>
         :root {
-            --neon-blue: #00f0ff;
-            --neon-purple: #7000ff;
-            --card-bg: rgba(22, 28, 42, 0.85);
+            --neon-cyan: #00f0ff;
+            --neon-blue: #0077ff;
+            --card-bg: rgba(18, 24, 38, 0.9);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
         }
@@ -26,29 +26,28 @@
         }
 
         body {
-            background: #050608;
+            background: #06080c;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.15) 0%, transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 119, 255, 0.1) 0%, transparent 50%);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 15px 12px;
-            perspective: 1000px;
         }
 
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             position: relative;
         }
 
-        /* شارة الحالة الصغيرة بالزاوية اليسرى العلويّة */
+        /* شارة الحالة أعلى اليسار */
         .status-badge-top-left {
             position: absolute;
             top: 5px;
@@ -57,20 +56,20 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 12px;
+            padding: 5px 12px;
             border-radius: 30px;
             font-size: 0.75rem;
             font-weight: 800;
-            background: rgba(10, 14, 23, 0.9);
+            background: rgba(10, 14, 23, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             transition: all 0.4s ease;
         }
 
         .status-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
         }
 
@@ -94,52 +93,45 @@
             animation: pulse-r 1.5s infinite;
         }
 
-        @keyframes pulse-g { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes pulse-r { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes pulse-g { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        @keyframes pulse-r { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* الهيدر واللوجو 3D المجسم */
+        /* الهيدر واللوجو المعدول والمنسق */
         header {
             text-align: center;
-            padding-top: 25px;
+            padding-top: 20px;
         }
 
-        .logo-3d-box {
-            width: 90px;
-            height: 90px;
+        .logo-box-flat {
+            width: 85px;
+            height: 85px;
             margin: 0 auto 12px;
-            background: linear-gradient(135deg, #1e2638, #0d111a);
-            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 255, 0.05));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            /* مجسم 3D بارز */
-            transform: rotateX(12deg) rotateY(-12deg);
+            transform: none; /* إزالة أي إمالة - اللوجو معدول تماماً */
             box-shadow: 
-                -12px 12px 25px rgba(0, 0, 0, 0.8),
-                0 0 15px rgba(0, 240, 255, 0.25),
-                inset 2px 2px 2px rgba(255, 255, 255, 0.2),
-                inset -3px -3px 5px rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+                0 0 20px rgba(0, 240, 255, 0.25),
+                inset 0 0 15px rgba(0, 240, 255, 0.15);
+            border: 2px solid var(--neon-cyan);
         }
 
-        /* لوجو الفنش الجديد (رش الفنش وتجهيز الدهان) */
-        .logo-3d-box i {
-            font-size: 42px;
-            color: var(--neon-blue);
-            filter: drop-shadow(2px 4px 8px rgba(0, 240, 255, 0.6));
+        .logo-box-flat i {
+            font-size: 38px;
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8));
         }
 
         h1.brand-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.6rem;
+            font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: 3px;
             color: #fff;
-            text-shadow: 
-                -2px 2px 0px #000,
-                2px -2px 0px #000,
-                0 0 15px rgba(0, 240, 255, 0.5);
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
         }
 
         .subtitle {
@@ -148,152 +140,164 @@
             font-weight: 600;
         }
 
-        /* كروت 3D بارزة بتفاعل زوايا الرؤية */
+        /* كروت 3D متناسقة للموبايل */
         .card-3d {
             background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 3px solid rgba(0, 0, 0, 0.8);
-            border-right: 2px solid rgba(0, 0, 0, 0.5);
-            box-shadow: 
-                -10px 15px 30px rgba(0, 0, 0, 0.7),
-                inset 1px 1px 1px rgba(255, 255, 255, 0.1);
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.9);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--neon-blue);
+            margin-bottom: 14px;
+            color: var(--neon-cyan);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* أزرار 3D بارزة */
-        .phones-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        /* تعديل تصميم كروت الأرقام التليفونية لتناسب الموبايل بشكل ممتاذ */
+        .phones-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .btn-3d {
-            background: linear-gradient(145deg, #222c3f, #151a26);
-            border: 1px solid rgba(0, 240, 255, 0.25);
-            padding: 14px;
-            border-radius: 14px;
+        .phone-card-btn {
+            background: linear-gradient(90deg, #161f30, #0f1522);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 12px 16px;
+            border-radius: 12px;
             color: #fff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            justify-content: space-between;
             font-weight: 800;
-            box-shadow: 
-                0 6px 0px #0b0e14,
-                0 10px 15px rgba(0,0,0,0.5);
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
         }
 
-        .btn-3d:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0px #0b0e14, 0 4px 8px rgba(0,0,0,0.5);
+        .phone-card-btn:active {
+            transform: scale(0.98);
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
         }
 
-        /* زر درايف بلون موحد مع لون تواصل سريع (Cyan) */
+        .phone-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .phone-icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .phone-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            direction: ltr;
+        }
+
+        /* زر درايف */
         .drive-btn-3d {
-            background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
-            border: 1px solid var(--neon-blue);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 255, 0.05));
+            border: 1px solid var(--neon-cyan);
             color: #fff;
             font-weight: 900;
             font-size: 1rem;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 14px;
+            border-radius: 12px;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            box-shadow: 
-                0 6px 0px rgba(0, 180, 200, 0.4),
-                0 8px 20px rgba(0, 240, 255, 0.2);
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
             transition: transform 0.1s ease;
         }
 
         .drive-btn-3d:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0px rgba(0, 180, 200, 0.4);
+            transform: scale(0.98);
         }
 
-        /* السوشيال ميديا 3D */
+        /* السوشيال ميديا */
         .social-links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .social-btn-3d {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 13px 16px;
+            border-radius: 12px;
             text-decoration: none;
             color: #fff;
             font-weight: 800;
-            box-shadow: 0 5px 0px rgba(0,0,0,0.6), 0 8px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .social-btn-3d:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0px rgba(0,0,0,0.6);
+            transform: scale(0.98);
         }
 
-        .whatsapp { background: linear-gradient(145deg, #10b981, #047857); }
-        .facebook { background: linear-gradient(145deg, #2563eb, #1e40af); }
-        .instagram { background: linear-gradient(145deg, #d946ef, #be185d); }
+        .whatsapp { background: linear-gradient(90deg, #10b981, #047857); }
+        .facebook { background: linear-gradient(90deg, #2563eb, #1e40af); }
+        .instagram { background: linear-gradient(90deg, #d946ef, #be185d); }
         .tiktok { 
             background: #0d0d0d;
             border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: -2px 0 10px rgba(0, 240, 255, 0.3), 2px 0 10px rgba(255, 0, 85, 0.3), 0 5px 0px #000;
+            box-shadow: -2px 0 10px rgba(0, 240, 255, 0.3), 2px 0 10px rgba(255, 0, 85, 0.3);
         }
 
         /* الخريطة */
         .map-frame {
             width: 100%;
-            height: 170px;
-            border-radius: 14px;
+            height: 160px;
+            border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
             overflow: hidden;
-            box-shadow: inset 0 0 10px #000;
         }
         .map-frame iframe { width: 100%; height: 100%; border: 0; }
 
         /* طلب الموقع */
         .cta-card {
-            background: linear-gradient(145deg, rgba(0, 240, 255, 0.1), rgba(112, 0, 255, 0.1));
-            border: 1px solid var(--neon-blue);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 119, 255, 0.05));
+            border: 1px solid var(--neon-cyan);
             text-align: center;
         }
 
         .cta-btn-3d {
-            background: var(--neon-blue);
+            background: var(--neon-cyan);
             color: #000;
             font-weight: 900;
-            font-size: 1rem;
-            padding: 13px 25px;
+            font-size: 0.95rem;
+            padding: 12px 22px;
             border-radius: 50px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            box-shadow: 0 5px 0px #00b4d8, 0 0 15px rgba(0, 240, 255, 0.4);
+            gap: 8px;
+            margin-top: 8px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
         footer {
@@ -308,41 +312,47 @@
 
     <div class="container">
         
-        <!-- المؤشر المصغر أعلى اليسار -->
         <div id="statusBadge" class="status-badge-top-left status-open">
             <span class="status-dot"></span>
             <span id="statusText">مفتوح الآن</span>
         </div>
 
-        <!-- الهيدر ولوجو الفنش -->
         <header>
-            <div class="logo-3d-box">
-                <!-- أيقونة مسدس الرش والتلميع بالفنش -->
-                <i class="fa-solid fa-spray-can"></i>
+            <div class="logo-box-flat">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
             <h1 class="brand-title">BEBO</h1>
             <p class="subtitle">فنش وتجهيز احترافي للسيارات والموتوسيكلات</p>
         </header>
 
-        <!-- الاتصال السريع -->
         <div class="card-3d">
             <div class="section-title">
-                <i class="fa-solid fa-headset"></i>
+                <i class="fa-solid fa-phone-volume"></i>
                 <span>تواصل سريع</span>
             </div>
-            <div class="phones-grid">
-                <a href="tel:01000000000" class="btn-3d">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>01000000000</span>
+            <div class="phones-list">
+                <a href="tel:01000000000" class="phone-card-btn">
+                    <div class="phone-info">
+                        <div class="phone-icon-box">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <span>الفرع الرئيسي</span>
+                    </div>
+                    <span class="phone-number">01000000000</span>
                 </a>
-                <a href="tel:01100000000" class="btn-3d">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>01100000000</span>
+
+                <a href="tel:01100000000" class="phone-card-btn">
+                    <div class="phone-info">
+                        <div class="phone-icon-box">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <span>خط الحجوزات</span>
+                    </div>
+                    <span class="phone-number">01100000000</span>
                 </a>
             </div>
         </div>
 
-        <!-- معرض الأعمال Drive (نفس لون السايان النيون) -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-photo-film"></i>
@@ -350,13 +360,12 @@
             </div>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد جودة الفنش والتجهيز قبل وبعد</p>
             <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" class="drive-btn-3d">
-                <i class="fa-brands fa-google-drive" style="color: var(--neon-blue); font-size: 1.2rem;"></i>
+                <i class="fa-brands fa-google-drive" style="color: var(--neon-cyan); font-size: 1.2rem;"></i>
                 <span>استعراض الصور والفيديوهات</span>
                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
             </a>
         </div>
 
-        <!-- السوشيال ميديا -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-hashtag"></i>
@@ -382,7 +391,6 @@
             </div>
         </div>
 
-        <!-- الخريطة -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-location-dot"></i>
@@ -393,9 +401,8 @@
             </div>
         </div>
 
-        <!-- طلب موقع -->
         <div class="card-3d cta-card">
-            <h3 style="font-size: 1.1rem;">عايز ويب سايت زي دي لشغلك؟</h3>
+            <h3 style="font-size: 1.05rem;">عايز ويب سايت زي دي لشغلك؟</h3>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 3px;">كارت عمل رقمي احترافي يجذب زباينك</p>
             <a href="https://wa.me/20XXXXXXXXXX?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn-3d">
                 <span>دوس هنا واطلب موقعك</span>
@@ -409,7 +416,7 @@
     </div>
 
     <script>
-        // تبديل حالة المحل تلقائياً كل 3 ثوانٍ (مستمر مؤقتاً)
+        // تبديل حالة المحل تلقائياً كل 3 ثوانٍ
         const badge = document.getElementById('statusBadge');
         const statusText = document.getElementById('statusText');
         let isOpen = true;
@@ -424,20 +431,6 @@
                 statusText.innerText = 'مغلق الآن';
             }
         }, 3000);
-
-        // جافا سكريبت لإعطاء تأثير مجسم 3D التفاعلي للمس أو تحريك الماوس على الكروت
-        document.querySelectorAll('.card-3d').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width/2;
-                const y = e.clientY - rect.top - rect.height/2;
-                card.style.transform = `rotateX(${-y / 12}deg) rotateY(${x / 12}deg) translateZ(10px)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-            });
-        });
     </script>
 </body>
 </html>
