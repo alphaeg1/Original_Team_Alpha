@@ -168,9 +168,11 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.6rem;
             font-weight: 900;
-            background: linear-gradient(90deg, #fff, var(--main-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* تم تعديل الاسم ليكون OFFGRID وباللون الأبيض */
+            color: #fff;
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
         }
 
         .status-pill {
@@ -185,15 +187,16 @@
         }
 
         .status-indicator {
-            width: 8px;
-            height: 8px;
+            /* تم تكبير النقطة الخضراء قليلاً */
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             position: relative;
         }
 
         .status-indicator.active {
             background: #00ff88;
-            box-shadow: 0 0 10px #00ff88;
+            box-shadow: 0 0 12px #00ff88; /* تكبير الظل قليلاً */
         }
 
         .status-indicator.inactive {
@@ -251,12 +254,19 @@
             line-height: 1.1;
             font-weight: 900;
             margin-bottom: 25px;
+            /* تم إلغاء تدرج الألوان هنا */
+            color: #fff;
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
         }
 
         .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--main-blue) 0%, var(--main-red) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* تم جعل الكلمة المميزة زرقاء بدلاً من التدرج */
+            color: var(--main-blue);
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
         }
 
         .hero p {
@@ -287,7 +297,8 @@
         }
 
         .cyber-btn-primary {
-            background: linear-gradient(135deg, var(--main-blue), var(--main-red));
+            /* تم إلغاء تدرج الألوان هنا، خلفية زرقاء */
+            background: var(--main-blue);
             color: #fff;
             box-shadow: 0 0 25px rgba(16, 25, 168, 0.4);
         }
@@ -315,6 +326,7 @@
             position: relative;
             border-radius: 28px;
             padding: 3px;
+            /* تم تعديل التدرج هنا للخلفية */
             background: linear-gradient(135deg, rgba(16, 25, 168, 0.4), rgba(238, 28, 37, 0.4));
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
@@ -372,6 +384,8 @@
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 10px;
+            /* تم إلغاء تدرج الألوان هنا */
+            color: #fff;
         }
 
         .section-header p {
@@ -444,6 +458,8 @@
             font-size: 1.8rem;
             margin-bottom: 15px;
             font-weight: 700;
+            /* تم جعل العنوان أبيض بدلاً من التدرج */
+            color: #fff;
         }
 
         .matrix-card p {
@@ -457,6 +473,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            /* تم جعل لون الكلام "عرض كافة التفاصيل" أزرق وأوضح */
             color: var(--main-blue);
             font-size: 0.9rem;
             font-weight: 600;
@@ -542,6 +559,8 @@
             font-family: 'Changa', sans-serif;
             font-size: 2rem;
             font-weight: 800;
+            /* تم جعل العنوان أبيض بدلاً من التدرج */
+            color: #fff;
         }
 
         .modal-grid-items {
@@ -693,7 +712,7 @@
             <p>نحن في OFFGRID نبتكر حلولاً تسويقية متكاملة تدمج بين الوجود الميداني الحقيقي في الشارع، المونتاج الاحترافي، والبرمجيات الذكية.</p>
             <div class="btn-group">
                 <a href="#services" class="cyber-btn cyber-btn-primary"><i class="fa-solid fa-rocket"></i> استكشف الخدمات</a>
-                <a href="#contact" class="cyber-btn cyber-btn-secondary"><i class="fa-solid fa-comments"></i> تواصل فوري</a>
+                <a href="https://wa.me/201031913107" target="_blank" class="cyber-btn cyber-btn-secondary"><i class="fa-solid fa-comments"></i> تواصل فوري</a>
             </div>
         </div>
 
@@ -837,7 +856,7 @@
             data.items.forEach(item => {
                 const chip = document.createElement('div');
                 chip.className = 'modal-item-chip';
-                chip.innerHTML = `<i class="fa-solid fa-shield-halved"></i> <span>${item}</span>`;
+                chip.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span>${item}</span>`; // تم استبدال fa-shield-halved بـ fa-check-circle
                 body.appendChild(chip);
             });
 
