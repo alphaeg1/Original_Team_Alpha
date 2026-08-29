@@ -5,30 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OFFGRID | أوف جريد للدعاية والبرمجة والحلول الذكية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-void: #060913;
-            --main-blue: #1e40af;
-            --main-blue-bright: #3b82f6;
+            --bg-void: #080c14;
+            --main-blue: #2563eb;
             --main-red: #ef4444;
-            --main-white: #ffffff;
-            
-            --card-glass: rgba(15, 23, 42, 0.75);
-            --card-border: rgba(59, 130, 246, 0.25);
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
             
             --text-main: #f8fafc;
-            --text-sub: #cbd5e1;
+            --text-sub: #94a3b8;
             
-            --cubic-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --cubic-smooth: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-void); }
         ::-webkit-scrollbar-thumb {
-            background: var(--main-blue-bright);
+            background: #1e293b;
             border-radius: 10px;
         }
 
@@ -46,6 +42,7 @@
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
+            line-height: 1.6;
         }
 
         /* BACKGROUND ENGINE */
@@ -57,26 +54,26 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.45; /* زيادة الشفافية لتصبح الأيقونات أصلب وأوضح */
+            opacity: 0.15; /* الشفافية هادئة جداً */
         }
 
         /* LOADER */
         #loader {
             position: fixed;
             inset: 0;
-            background: #030712;
+            background: #080c14;
             z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s var(--cubic-smooth);
+            transition: opacity 0.5s var(--cubic-smooth);
         }
 
         .cyber-loader {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -87,33 +84,17 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 3px solid transparent;
-            border-top-color: var(--main-blue-bright);
-            animation: spinRing 1.2s linear infinite;
-        }
-
-        .loader-ring:nth-child(2) {
-            width: 80%;
-            height: 80%;
-            border-top-color: var(--main-red);
-            animation-duration: 0.8s;
-            animation-direction: reverse;
+            border: 2px solid transparent;
+            border-top-color: var(--main-blue);
+            animation: spinRing 1s linear infinite;
         }
 
         .loader-logo {
             font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #fff;
-            text-shadow: 0 0 12px var(--main-blue-bright);
-        }
-
-        .loader-text-status {
-            margin-top: 25px;
-            color: var(--text-sub);
+            font-weight: 800;
             font-size: 0.95rem;
-            font-weight: 600;
+            color: #fff;
+            letter-spacing: 1px;
         }
 
         @keyframes spinRing {
@@ -126,333 +107,309 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 18px 6%;
+            padding: 14px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(6, 9, 19, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(8, 12, 20, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--card-border);
         }
 
         .brand-hub {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .brand-logo-frame {
-            position: relative;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--main-blue-bright), var(--main-red));
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
         }
 
         .brand-logo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
         }
 
         .brand-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.7rem;
-            font-weight: 900;
+            font-size: 1.3rem;
+            font-weight: 800;
             color: #ffffff;
             letter-spacing: 1px;
         }
 
+        /* تعديل شريط حالة العمل ليكون أنيق وبسيط */
         .status-pill {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 18px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.05);
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--card-border);
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-sub);
         }
 
         .status-indicator {
-            width: 10px;
-            height: 10px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
         }
 
         .status-indicator.active {
             background: #22c55e;
-            box-shadow: 0 0 12px #22c55e;
+            box-shadow: 0 0 8px #22c55e;
         }
 
         .status-indicator.inactive {
             background: var(--main-red);
-            box-shadow: 0 0 10px var(--main-red);
+            box-shadow: 0 0 8px var(--main-red);
         }
 
         nav ul {
             display: flex;
-            gap: 30px;
+            gap: 24px;
             list-style: none;
         }
 
         nav a {
             color: var(--text-sub);
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: 0.3s;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: 0.2s;
         }
 
         nav a:hover {
-            color: var(--main-blue-bright);
+            color: #ffffff;
         }
 
         /* HERO SECTION */
         .hero {
             min-height: 100vh;
-            padding: 160px 6% 80px;
+            padding: 130px 6% 60px;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
             align-items: center;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 18px;
-            border-radius: 30px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid var(--main-blue-bright);
-            color: var(--main-blue-bright);
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 25px;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            color: #60a5fa;
+            font-size: 0.82rem;
+            font-weight: 500;
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
-            line-height: 1.25;
-            font-weight: 900;
-            margin-bottom: 25px;
+            font-size: 2.2rem;
+            line-height: 1.4;
+            font-weight: 800;
+            margin-bottom: 18px;
             color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         .hero p {
             color: var(--text-sub);
-            font-size: 1.15rem;
+            font-size: 0.98rem;
             line-height: 1.8;
-            margin-bottom: 40px;
-            max-width: 580px;
+            margin-bottom: 30px;
+            max-width: 520px;
         }
 
         .btn-group {
             display: flex;
-            gap: 20px;
+            gap: 14px;
         }
 
         .cyber-btn {
-            padding: 16px 36px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
+            padding: 12px 26px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            transition: all 0.3s var(--cubic-smooth);
+            gap: 10px;
+            transition: all 0.2s var(--cubic-smooth);
             cursor: pointer;
         }
 
         .cyber-btn-primary {
-            background: var(--main-blue-bright);
+            background: var(--main-blue);
             color: #ffffff;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
         }
 
         .cyber-btn-primary:hover {
-            transform: translateY(-3px);
-            background: #2563eb;
-            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+            background: #1d4ed8;
         }
 
         .cyber-btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
             border: 1px solid var(--card-border);
         }
 
         .cyber-btn-secondary:hover {
-            border-color: var(--main-blue-bright);
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* OFFER DISPLAY CARD */
+        /* OFFER CARD REDESIGN */
         .offer-showcase {
-            position: relative;
-            border-radius: 24px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--main-blue-bright), var(--main-red));
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px;
+            backdrop-filter: blur(10px);
         }
 
-        .offer-inner {
-            background: rgba(15, 23, 42, 0.95);
-            border-radius: 22px;
-            padding: 24px;
-        }
-
-        .offer-tag {
+        .offer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
 
-        .offer-tag span {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: var(--main-blue-bright);
+        .offer-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .offer-title i {
+            color: var(--main-red);
         }
 
         .offer-badge-live {
-            background: var(--main-red);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 800;
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--main-red);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .offer-img {
             width: 100%;
             height: auto;
-            border-radius: 16px;
+            border-radius: 12px;
             display: block;
-            border: 1px solid var(--card-border);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* SERVICES SECTION */
         .services-section {
-            padding: 90px 6%;
+            padding: 70px 6%;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 45px;
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
             color: #ffffff;
         }
 
         .section-header p {
             color: var(--text-sub);
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .services-matrix {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        /* إعادة هيكلة كروت الخدمات بشكل احترافي واكتفاء بالتفاعل المميز */
         .matrix-card {
-            background: var(--card-glass);
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 35px 30px;
-            position: relative;
+            border-radius: 14px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s var(--cubic-smooth);
+            transition: all 0.25s ease;
             cursor: pointer;
         }
 
         .matrix-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--main-blue-bright);
-            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25);
-            background: rgba(30, 41, 59, 0.85);
-        }
-
-        .card-top {
-            margin-bottom: 25px;
+            border-color: rgba(37, 99, 235, 0.4);
+            background: rgba(15, 23, 42, 0.85);
+            transform: translateY(-3px);
         }
 
         .card-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 16px;
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid var(--main-blue-bright);
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            color: var(--main-blue-bright);
-            margin-bottom: 20px;
-            transition: 0.3s var(--cubic-bounce);
-        }
-
-        .matrix-card:hover .card-icon {
-            background: var(--main-blue-bright);
-            color: #ffffff;
-            transform: scale(1.05);
+            font-size: 1.2rem;
+            color: #60a5fa;
+            margin-bottom: 16px;
         }
 
         .matrix-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
             color: #ffffff;
         }
 
         .matrix-card p {
             color: var(--text-sub);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        /* تفاصيل العرض المعاد هيكلتها داخل الكارت */
         .card-action-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--main-blue-bright);
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .card-action-bar i {
-            transition: transform 0.3s ease;
-        }
-
-        .matrix-card:hover .card-action-bar i {
-            transform: translateX(-8px);
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 0.82rem;
         }
 
         /* POPUP SYSTEM */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(15px);
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(8px);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -460,7 +417,7 @@
             padding: 20px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s var(--cubic-smooth);
+            transition: opacity 0.25s ease;
         }
 
         .modal-overlay.active {
@@ -470,156 +427,143 @@
 
         .modal-container {
             background: #0f172a;
-            border: 1px solid var(--main-blue-bright);
-            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
             width: 100%;
-            max-width: 650px;
-            padding: 35px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            transform: scale(0.9);
-            transition: transform 0.3s var(--cubic-bounce);
+            max-width: 550px;
+            padding: 28px;
             position: relative;
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: scale(1);
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 36px;
-            height: 36px;
+            top: 18px;
+            left: 18px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
-            color: #fff;
+            color: var(--text-sub);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         .modal-close:hover {
+            color: #fff;
             background: var(--main-red);
-            border-color: var(--main-red);
         }
 
         .modal-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .modal-header i {
-            font-size: 2.2rem;
-            color: var(--main-blue-bright);
+            font-size: 1.5rem;
+            color: #60a5fa;
         }
 
         .modal-header h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: #ffffff;
         }
 
         .modal-grid-items {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .modal-item-chip {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--card-border);
-            padding: 16px 20px;
-            border-radius: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1rem;
-            color: #f1f5f9;
-            font-weight: 600;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--text-main);
         }
 
         .modal-item-chip i {
-            color: var(--main-blue-bright);
-            font-size: 1.2rem;
+            color: #22c55e;
+            font-size: 1rem;
         }
 
         /* CONTACT SECTION */
         .contact-section {
-            padding: 90px 6%;
+            padding: 70px 6%;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 1100px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .contact-tile {
-            background: var(--card-glass);
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 28px 20px;
+            border-radius: 14px;
+            padding: 22px 16px;
             text-align: center;
             text-decoration: none;
             color: #fff;
-            transition: all 0.3s var(--cubic-smooth);
+            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .contact-tile i {
-            font-size: 2.2rem;
-            color: var(--main-blue-bright);
-            transition: 0.3s;
+            font-size: 1.6rem;
+            color: #60a5fa;
         }
 
         .contact-tile:hover {
-            transform: translateY(-5px);
-            border-color: var(--main-blue-bright);
-            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(37, 99, 235, 0.4);
+            background: rgba(15, 23, 42, 0.85);
         }
 
         .contact-tile label {
             color: var(--text-sub);
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
         .contact-tile strong {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             direction: ltr;
         }
 
         footer {
-            padding: 35px;
+            padding: 28px;
             text-align: center;
             border-top: 1px solid var(--card-border);
             color: var(--text-sub);
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.82rem;
         }
 
         @media (max-width: 960px) {
             .hero {
                 grid-template-columns: 1fr;
-                padding-top: 130px;
+                padding-top: 110px;
                 text-align: center;
             }
-            .hero p { margin: 0 auto 30px; }
+            .hero p { margin: 0 auto 24px; }
             .btn-group { justify-content: center; }
-            .hero h1 { font-size: 2.3rem; }
+            .hero h1 { font-size: 1.8rem; }
             nav { display: none; }
         }
     </style>
@@ -631,10 +575,8 @@
     <div id="loader">
         <div class="cyber-loader">
             <div class="loader-ring"></div>
-            <div class="loader-ring"></div>
             <div class="loader-logo">OFFGRID</div>
         </div>
-        <div class="loader-text-status">جاري تحميل النظام...</div>
     </div>
 
     <header>
@@ -647,14 +589,14 @@
 
         <div class="status-pill">
             <div class="status-indicator" id="statusDot"></div>
-            <span id="statusText">جارِ الفحص...</span>
+            <span id="statusText">متاح</span>
         </div>
 
         <nav>
             <ul>
                 <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#services">خدماتنا التفاعلية</a></li>
-                <li><a href="#offers">العروض الحالية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#offers">العروض</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
@@ -663,8 +605,8 @@
     <section class="hero" id="hero">
         <div>
             <div class="hero-badge"><i class="fa-solid fa-bolt"></i> جيل جديد من الدعاية والتكنولوجيا</div>
-            <h1>حلول متكاملة في الدعاية والبرمجيات الذكية</h1>
-            <p>نحن في OFFGRID نبتكر حلولاً تسويقية متكاملة تدمج بين الوجود الميداني الحقيقي في الشارع، المونتاج الاحترافي، والبرمجيات الحديثة.</p>
+            <h1>حلول دعاية وبرمجيات متكاملة</h1>
+            <p>نبتكر حلولاً تسويقية متكاملة تدمج بين الوجود الميداني، صناعة المحتوى الاحترافي، والبرمجيات الذكية.</p>
             <div class="btn-group">
                 <a href="#services" class="cyber-btn cyber-btn-primary"><i class="fa-solid fa-rocket"></i> استكشف الخدمات</a>
                 <a href="https://wa.me/201031913107" target="_blank" class="cyber-btn cyber-btn-secondary"><i class="fa-solid fa-comments"></i> تواصل فوري</a>
@@ -672,55 +614,56 @@
         </div>
 
         <div class="offer-showcase" id="offers">
-            <div class="offer-inner">
-                <div class="offer-tag">
-                    <span><i class="fa-solid fa-fire"></i> العروض الحصرية</span>
-                    <span class="offer-badge-live">LIVE OFFER</span>
+            <div class="offer-header">
+                <div class="offer-title">
+                    <i class="fa-solid fa-fire"></i>
+                    <span>العروض الحالية</span>
                 </div>
-                <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="عرض OFFGRID" class="offer-img">
+                <span class="offer-badge-live">عرض خاص</span>
             </div>
+            <img src="WhatsApp Image‏ 2026-07-30 at 20.44.26.jpeg" alt="عرض OFFGRID" class="offer-img">
         </div>
     </section>
 
     <section class="services-section" id="services">
         <div class="section-header">
             <h2>منظومة خدماتنا</h2>
-            <p>اضغط على أي قسم للاطلاع على كافة التفاصيل والحلول المتاحة</p>
+            <p>اختر الخدمة لعرض التفاصيل الكاملة</p>
         </div>
 
         <div class="services-matrix">
             <div class="matrix-card" onclick="openModal('street')">
-                <div class="card-top">
+                <div>
                     <div class="card-icon"><i class="fa-solid fa-bullhorn"></i></div>
-                    <h3>شغل الشارع والدعاية</h3>
+                    <h3>الدعاية الميدانية</h3>
                     <p>حلول الانتشار الميداني المبتكرة لجذب الأنظار في قلب التجمعات والأسواق.</p>
                 </div>
                 <div class="card-action-bar">
-                    <span>استعراض كافة التفاصيل</span>
+                    <span>التفاصيل الكاملة</span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </div>
             </div>
 
             <div class="matrix-card" onclick="openModal('social')">
-                <div class="card-top">
+                <div>
                     <div class="card-icon"><i class="fa-solid fa-hashtag"></i></div>
                     <h3>تسويق السوشيال ميديا</h3>
                     <p>إدارة الحسابات، صناعة محتوى الريلز، والبوسترات اليومية باشتراكات شهريّة.</p>
                 </div>
                 <div class="card-action-bar">
-                    <span>استعراض كافة التفاصيل</span>
+                    <span>التفاصيل الكاملة</span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </div>
             </div>
 
             <div class="matrix-card" onclick="openModal('dev')">
-                <div class="card-top">
+                <div>
                     <div class="card-icon"><i class="fa-solid fa-code"></i></div>
                     <h3>البرمجة وتقنيات NFC</h3>
                     <p>تطوير مواقع الويب الحديثة ومنتجات كروت NFC الذكية المخصصة لشركتك.</p>
                 </div>
                 <div class="card-action-bar">
-                    <span>استعراض كافة التفاصيل</span>
+                    <span>التفاصيل الكاملة</span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </div>
             </div>
@@ -730,7 +673,7 @@
     <section class="contact-section" id="contact">
         <div class="section-header">
             <h2>مركز الاتصال</h2>
-            <p>اختر الوسيلة الأنسب للتواصل المباشر مع فريقنا</p>
+            <p>اختر الوسيلة الأنسب للتواصل المباشر معنا</p>
         </div>
 
         <div class="contact-grid">
@@ -748,20 +691,20 @@
 
             <a href="https://wa.me/201031913107" target="_blank" class="contact-tile">
                 <i class="fa-brands fa-whatsapp"></i>
-                <label>محادثة واتساب</label>
+                <label>واتساب</label>
                 <strong>تواصل فوري</strong>
             </a>
 
             <a href="https://www.instagram.com/ri_25_2?igsh=YnNpbmF2Z2JqcnRl&utm_source=qr" target="_blank" class="contact-tile">
                 <i class="fa-brands fa-instagram"></i>
-                <label>انستجرام OFFGRID</label>
+                <label>انستجرام</label>
                 <strong>@OFFGRID</strong>
             </a>
         </div>
     </section>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; OFFGRID - Realizing Future Concepts</p>
+        <p>جميع الحقوق محفوظة &copy; OFFGRID</p>
     </footer>
 
     <div class="modal-overlay" id="modalOverlay">
@@ -778,7 +721,7 @@
     <script>
         const serviceData = {
             street: {
-                title: 'شغل الشارع والدعاية الميدانية',
+                title: 'الدعاية الميدانية وشغل الشارع',
                 icon: 'fa-bullhorn',
                 items: [
                     'اسكيترز بأعداد كبيرة للمهرجانات',
@@ -794,7 +737,7 @@
                 items: [
                     'صناعة وتعديل فيديو الـ Reels والـ Shorts',
                     'تصميم بوسترات احترافية للهوية',
-                    'إدارة وتمويل الحملات الإعلانية (إسبونسر)',
+                    'إدارة وتمويل الحملات الإعلانية',
                     'إدارة وتطوير الصفحات بشكل شهري متكامل'
                 ]
             },
@@ -823,7 +766,7 @@
             data.items.forEach(item => {
                 const chip = document.createElement('div');
                 chip.className = 'modal-item-chip';
-                chip.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${item}</span>`;
+                chip.innerHTML = `<i class="fa-solid fa-check"></i> <span>${item}</span>`;
                 body.appendChild(chip);
             });
 
@@ -838,7 +781,7 @@
             if(e.target.id === 'modalOverlay') closeModal();
         });
 
-        /* خلفية الأيقونات المتحركة: زيادة الحجم والوضوح والسرعة */
+        /* تقليل الخلفية المتحركة بشكل خفيف جداً وهادئ */
         const canvas = document.getElementById('equipment-bg');
         const ctx = canvas.getContext('2d');
 
@@ -849,25 +792,25 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const equipmentIcons = ['\uf030', '\uf03d', '\uf6cf', '\uf831', '\uf0a1', '\uf110'];
+        const equipmentIcons = ['\uf030', '\uf03d', '\uf6cf', '\uf831', '\uf0a1'];
         const items = [];
-        const itemCount = 30;
+        const itemCount = 12; /* عدد قليل جداً لتجنب الازدحام */
 
         for (let i = 0; i < itemCount; i++) {
             items.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 icon: equipmentIcons[Math.floor(Math.random() * equipmentIcons.length)],
-                size: Math.random() * 25 + 22, /* تكبير الحجم */
-                speedX: (Math.random() - 0.5) * 0.7, /* تسريع الحركة قليلاً */
-                speedY: (Math.random() - 0.5) * 0.7,
-                opacity: Math.random() * 0.4 + 0.3 /* زيادة الشفافية لتكون ظاهرة */
+                size: Math.random() * 12 + 16,
+                speedX: (Math.random() - 0.5) * 0.25,
+                speedY: (Math.random() - 0.5) * 0.25,
+                opacity: Math.random() * 0.2 + 0.1
             });
         }
 
         function drawEquipment() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#3b82f6'; /* تغيير اللون إلى الأزرق الزاهي ليظهر بجودة أفضل */
+            ctx.fillStyle = '#94a3b8';
 
             items.forEach(item => {
                 ctx.globalAlpha = item.opacity;
@@ -893,8 +836,8 @@
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 800);
-            }, 800);
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 500);
 
             checkWorkingHours();
         });
@@ -906,10 +849,10 @@
 
             if (hour >= 12 && hour < 24) {
                 dot.className = 'status-indicator active';
-                text.textContent = 'مفتوح الآن لاستقبال الطلبات';
+                text.textContent = 'متاح الآن';
             } else {
                 dot.className = 'status-indicator inactive';
-                text.textContent = 'مغلق الآن';
+                text.textContent = 'غير متاح';
             }
         }
     </script>
