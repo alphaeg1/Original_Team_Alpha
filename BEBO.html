@@ -96,7 +96,7 @@
         @keyframes pulse-g { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         @keyframes pulse-r { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* الهيدر واللوجو المعدول والمنسق */
+        /* الهيدر واللوجو الجديد */
         header {
             text-align: center;
             padding-top: 20px;
@@ -106,23 +106,23 @@
             width: 85px;
             height: 85px;
             margin: 0 auto 12px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 255, 0.05));
-            border-radius: 50%;
+            background: linear-gradient(145deg, #121a29, #080d15);
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            transform: none; /* إزالة أي إمالة - اللوجو معدول تماماً */
             box-shadow: 
-                0 0 20px rgba(0, 240, 255, 0.25),
-                inset 0 0 15px rgba(0, 240, 255, 0.15);
+                0 10px 25px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 240, 255, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
             border: 2px solid var(--neon-cyan);
         }
 
         .logo-box-flat i {
-            font-size: 38px;
+            font-size: 40px;
             color: var(--neon-cyan);
-            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8));
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.7));
         }
 
         h1.brand-title {
@@ -140,7 +140,7 @@
             font-weight: 600;
         }
 
-        /* كروت 3D متناسقة للموبايل */
+        /* كروت 3D */
         .card-3d {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -161,56 +161,45 @@
             gap: 10px;
         }
 
-        /* تعديل تصميم كروت الأرقام التليفونية لتناسب الموبايل بشكل ممتاذ */
-        .phones-list {
-            display: flex;
-            flex-direction: column;
+        /* الأرقام جنباً إلى جنب (2 Columns Side-by-Side) */
+        .phones-side-by-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        .phone-card-btn {
-            background: linear-gradient(90deg, #161f30, #0f1522);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 12px 16px;
-            border-radius: 12px;
+        .phone-btn-side {
+            background: linear-gradient(145deg, #162032, #0d1320);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 12px 8px;
+            border-radius: 14px;
             color: #fff;
             text-decoration: none;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            font-weight: 800;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
             transition: all 0.2s ease;
         }
 
-        .phone-card-btn:active {
-            transform: scale(0.98);
+        .phone-btn-side:active {
+            transform: translateY(2px);
+            background: rgba(0, 240, 255, 0.15);
             border-color: var(--neon-cyan);
-            background: rgba(0, 240, 255, 0.1);
         }
 
-        .phone-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .phone-icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(0, 240, 255, 0.1);
+        .phone-btn-side i {
+            font-size: 1.2rem;
             color: var(--neon-cyan);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
         }
 
-        .phone-number {
+        .phone-btn-side span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
             direction: ltr;
         }
 
@@ -319,7 +308,7 @@
 
         <header>
             <div class="logo-box-flat">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <i class="fa-solid fa-car-burst"></i>
             </div>
             <h1 class="brand-title">BEBO</h1>
             <p class="subtitle">فنش وتجهيز احترافي للسيارات والموتوسيكلات</p>
@@ -330,25 +319,15 @@
                 <i class="fa-solid fa-phone-volume"></i>
                 <span>تواصل سريع</span>
             </div>
-            <div class="phones-list">
-                <a href="tel:01000000000" class="phone-card-btn">
-                    <div class="phone-info">
-                        <div class="phone-icon-box">
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                        <span>الفرع الرئيسي</span>
-                    </div>
-                    <span class="phone-number">01000000000</span>
+            <div class="phones-side-by-side">
+                <a href="tel:01000000000" class="phone-btn-side">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>01000000000</span>
                 </a>
 
-                <a href="tel:01100000000" class="phone-card-btn">
-                    <div class="phone-info">
-                        <div class="phone-icon-box">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                        </div>
-                        <span>خط الحجوزات</span>
-                    </div>
-                    <span class="phone-number">01100000000</span>
+                <a href="tel:01100000000" class="phone-btn-side">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>01100000000</span>
                 </a>
             </div>
         </div>
