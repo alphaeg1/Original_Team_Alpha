@@ -6,16 +6,14 @@
     <title>Bebo | فنش وتجهيز السيارات والموتوسيكلات</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary: #00e5ff;
-            --bg-dark: #0e1117;
-            --card-bg: #161b22;
+            --card-bg: rgba(22, 27, 34, 0.85);
             --text-main: #ffffff;
-            --text-muted: #8b949e;
-            --accent: #ff3366;
+            --text-muted: #a3b1c2;
         }
 
         * {
@@ -25,14 +23,23 @@
             font-family: 'Tajawal', sans-serif;
         }
 
+        /* خلفية متحركة انسيابية */
         body {
-            background-color: var(--bg-dark);
+            background: linear-gradient(-45deg, #0a0c10, #141a24, #0d1b2a, #1b263b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 20px 15px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -46,31 +53,39 @@
         /* الهيدر واللوجو */
         header {
             text-align: center;
-            padding: 20px 0;
+            padding: 20px 0 10px;
         }
 
         .logo-box {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, var(--primary), #0066ff);
+            width: 95px;
+            height: 95px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
+            backdrop-filter: blur(5px);
         }
 
         .logo-box i {
-            font-size: 45px;
-            color: #000;
+            font-size: 42px;
+            color: var(--primary);
         }
 
-        h1 {
-            font-size: 2rem;
+        /* خط مخصص لكلمة BEBO */
+        h1.brand-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
             font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
+            background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         p.subtitle {
@@ -78,13 +93,14 @@
             font-size: 0.95rem;
         }
 
-        /* كروت الاتصال والسوشيال */
+        /* كروت الأقسام */
         .card {
             background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
         }
 
         .section-title {
@@ -123,12 +139,39 @@
             background: rgba(0, 229, 255, 0.1);
         }
 
+        /* معرض الأعمال - Google Drive */
+        .drive-card {
+            background: linear-gradient(135deg, rgba(255, 186, 8, 0.1), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 186, 8, 0.4);
+            text-align: center;
+        }
+
+        .drive-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #ffba08, #d48806);
+            color: #000;
+            font-weight: 900;
+            font-size: 1.05rem;
+            padding: 14px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 186, 8, 0.2);
+        }
+
+        .drive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 186, 8, 0.4);
+        }
+
         /* روابط السوشيال ميديا */
         .social-links {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 15px;
         }
 
         .social-btn {
@@ -140,12 +183,11 @@
             text-decoration: none;
             color: #fff;
             font-weight: bold;
-            transition: transform 0.2s, filter 0.2s;
+            transition: transform 0.2s;
         }
 
         .social-btn:hover {
             transform: translateY(-2px);
-            filter: brightness(1.1);
         }
 
         .social-btn div {
@@ -158,19 +200,29 @@
             font-size: 1.4rem;
         }
 
-        /* ألوان المنصات */
+        /* ألوان المنصات المعدلة */
         .whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); }
         .facebook { background: linear-gradient(90deg, #1877F2, #0d52b5); }
         .instagram { background: linear-gradient(90deg, #833AB4, #FD1D1D, #F56040); }
-        .tiktok { background: linear-gradient(90deg, #000000, #25f4ee); border: 1px solid #333; }
+        
+        /* تصميم التيك توك الرسمي المعدل */
+        .tiktok { 
+            background: #010101;
+            border: 1px solid #25f4ee;
+            box-shadow: -2px 0 8px rgba(37, 244, 238, 0.4), 2px 0 8px rgba(254, 44, 85, 0.4);
+        }
+        .tiktok i {
+            color: #25f4ee;
+            text-shadow: 2px 2px #fe2c55;
+        }
 
         /* خريطة جوجل */
         .map-container {
             width: 100%;
-            height: 220px;
+            height: 200px;
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .map-container iframe {
@@ -181,10 +233,10 @@
 
         /* قسم الدعاية والطلب */
         .cta-card {
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(255, 51, 102, 0.1));
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(255, 51, 102, 0.05));
             border: 1px solid var(--primary);
             text-align: center;
-            padding: 25px 20px;
+            padding: 22px 20px;
         }
 
         .cta-btn {
@@ -194,18 +246,17 @@
             background: var(--primary);
             color: #000;
             font-weight: 900;
-            font-size: 1.1rem;
-            padding: 14px 28px;
+            font-size: 1rem;
+            padding: 12px 24px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+            margin-top: 12px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
             transition: 0.3s;
         }
 
         .cta-btn:hover {
             transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6);
         }
 
         footer {
@@ -222,10 +273,10 @@
     <div class="container">
         <header>
             <div class="logo-box">
-                <i class="fa-solid fa-motorcycle"></i>
+                <i class="fa-solid fa-car-side"></i>
             </div>
-            <h1>BEBO</h1>
-            <p class="subtitle">عالم فنش وتجهيز السيارات والموتوسيكلات</p>
+            <h1 class="brand-title">BEBO</h1>
+            <p class="subtitle">فنش وتجهيز السيارات والموتوسيكلات</p>
         </header>
 
         <div class="card">
@@ -245,10 +296,23 @@
             </div>
         </div>
 
+        <div class="card drive-card">
+            <div class="section-title" style="color: #ffba08; justify-content: center;">
+                <i class="fa-solid fa-photo-film"></i>
+                <span>معرض التميز والسابقة (Bebo Vault)</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد أحدث صور وفيديوهات التجهيز والفنش قبل وبعد</p>
+            <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" class="drive-btn">
+                <i class="fa-brands fa-google-drive"></i>
+                <span>استعراض معرض الصور والفيديوهات</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+            </a>
+        </div>
+
         <div class="card">
             <div class="section-title">
                 <i class="fa-solid fa-share-nodes"></i>
-                <span>تابعنا على منصات التواصل</span>
+                <span>منصات التواصل الاجتماعي</span>
             </div>
             <div class="social-links">
                 <a href="https://wa.me/201000000000" target="_blank" class="social-btn whatsapp">
@@ -300,8 +364,8 @@
         </div>
 
         <div class="card cta-card">
-            <h3 style="font-size: 1.2rem; margin-bottom: 8px;">عايز ويب سايت زاي دي لشغلك؟</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">صمم كارت عملك الرقمي واعرض خدماتك بشكل احترافي.</p>
+            <h3 style="font-size: 1.1rem; margin-bottom: 6px;">عايز ويب سايت زاي دي لشغلك؟</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">صمم كارت عملك الرقمي واعرض خدماتك بشكل احترافي.</p>
             
             <a href="https://wa.me/20XXXXXXXXXX?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn">
                 <span>دوس هنا واطلب موقعك</span>
@@ -314,11 +378,5 @@
         </footer>
     </div>
 
-    <script>
-        // إمكانية إضافة تفاعلات جافااسكريبت مستقبلاً
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log("موقع Bebo جاهز للعمل!");
-        });
-    </script>
 </body>
 </html>
