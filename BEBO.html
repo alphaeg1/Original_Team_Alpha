@@ -2,381 +2,443 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bebo | فنش وتجهيز السيارات والموتوسيكلات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BEBO | Auto & Moto Detailing</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@600;800;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #00e5ff;
-            --card-bg: rgba(22, 27, 34, 0.85);
+            --neon-blue: #00f0ff;
+            --neon-purple: #7000ff;
+            --card-bg: rgba(18, 22, 32, 0.75);
             --text-main: #ffffff;
-            --text-muted: #a3b1c2;
+            --text-muted: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Changa', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* خلفية متحركة انسيابية */
         body {
-            background: linear-gradient(-45deg, #0a0c10, #141a24, #0d1b2a, #1b263b);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: #08090c;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(112, 0, 255, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 50% 90%, rgba(0, 240, 255, 0.12) 0%, transparent 60%);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 15px;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            padding: 15px 12px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
 
-        /* الهيدر واللوجو */
+        /* شارة حالة العمل المتحركة (مفتوح/مغلق) */
+        .status-bar {
+            align-self: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: all 0.5s ease;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        /* حالة مفتوح */
+        .status-open {
+            border-color: rgba(0, 255, 136, 0.4);
+            color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+        .status-open .status-dot {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+            animation: pulse-green 1.5s infinite;
+        }
+
+        /* حالة مغلق */
+        .status-closed {
+            border-color: rgba(255, 0, 85, 0.4);
+            color: #ff0055;
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+        }
+        .status-closed .status-dot {
+            background: #ff0055;
+            box-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+            animation: pulse-red 1.5s infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        /* الهيدر واللوجو 3D */
         header {
             text-align: center;
-            padding: 20px 0 10px;
+            padding: 10px 0;
+            perspective: 1000px;
         }
 
-        .logo-box {
-            width: 95px;
-            height: 95px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--primary);
-            border-radius: 50%;
+        .logo-3d {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            background: linear-gradient(145deg, #181e2b, #0d1017);
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
-            backdrop-filter: blur(5px);
+            position: relative;
+            transform: rotateX(10deg) rotateY(-10deg);
+            box-shadow: 
+                -10px 10px 20px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(0, 240, 255, 0.3),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            animation: float 4s ease-in-out infinite;
         }
 
-        .logo-box i {
-            font-size: 42px;
-            color: var(--primary);
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(10deg) rotateY(-10deg); }
+            50% { transform: translateY(-10px) rotateX(15deg) rotateY(-5deg); }
         }
 
-        /* خط مخصص لكلمة BEBO */
-        h1.brand-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
+        .logo-3d i {
+            font-size: 48px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-            text-transform: uppercase;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
         }
 
-        p.subtitle {
+        h1.brand-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 
+                0 0 10px rgba(0, 240, 255, 0.6),
+                0 0 20px rgba(112, 0, 255, 0.6),
+                3px 3px 0px #000;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 2px;
         }
 
-        /* كروت الأقسام */
-        .card {
-            background-color: var(--card-bg);
+        /* تصميم كروت الـ 3D */
+        .card-3d {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-3d:active {
+            transform: scale(0.98);
         }
 
         .section-title {
             font-size: 1.1rem;
+            font-weight: 800;
             margin-bottom: 15px;
-            color: var(--primary);
+            color: var(--neon-blue);
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        /* أزرار الاتصال الهاتفية */
-        .phones-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        .phone-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px;
-            border-radius: 10px;
+        /* أزرار الاتصال 3D */
+        .phones-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-3d {
+            background: linear-gradient(145deg, #1e2538, #121624);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 14px;
+            border-radius: 14px;
             color: #fff;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 800;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
         }
 
-        .phone-btn:hover {
-            border-color: var(--primary);
-            background: rgba(0, 229, 255, 0.1);
+        .btn-3d:active {
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.8);
+            transform: translateY(2px);
         }
 
-        /* معرض الأعمال - Google Drive */
+        /* معرض الأعمال 3D النيون */
         .drive-card {
-            background: linear-gradient(135deg, rgba(255, 186, 8, 0.1), rgba(255, 255, 255, 0.03));
-            border: 1px solid rgba(255, 186, 8, 0.4);
-            text-align: center;
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.2), rgba(0, 240, 255, 0.05));
+            border: 1px solid var(--neon-purple);
+            position: relative;
+            overflow: hidden;
         }
 
-        .drive-btn {
+        .drive-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            20%, 100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .drive-btn-3d {
+            background: linear-gradient(90deg, var(--neon-purple), #9d4edd);
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            padding: 16px;
+            border-radius: 14px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: linear-gradient(90deg, #ffba08, #d48806);
-            color: #000;
-            font-weight: 900;
-            font-size: 1.05rem;
-            padding: 14px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 186, 8, 0.2);
+            box-shadow: 0 8px 25px rgba(112, 0, 255, 0.4);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .drive-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 186, 8, 0.4);
-        }
-
-        /* روابط السوشيال ميديا */
+        /* السوشيال ميديا */
         .social-links {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .social-btn {
+        .social-btn-3d {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 14px 18px;
-            border-radius: 12px;
+            border-radius: 14px;
             text-decoration: none;
             color: #fff;
-            font-weight: bold;
-            transition: transform 0.2s;
+            font-weight: 800;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
         }
 
-        .social-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .social-btn div {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .social-btn i {
-            font-size: 1.4rem;
-        }
-
-        /* ألوان المنصات المعدلة */
-        .whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); }
-        .facebook { background: linear-gradient(90deg, #1877F2, #0d52b5); }
-        .instagram { background: linear-gradient(90deg, #833AB4, #FD1D1D, #F56040); }
-        
-        /* تصميم التيك توك الرسمي المعدل */
+        .whatsapp { background: linear-gradient(90deg, #10b981, #059669); }
+        .facebook { background: linear-gradient(90deg, #2563eb, #1d4ed8); }
+        .instagram { background: linear-gradient(90deg, #d946ef, #e11d48, #f59e0b); }
         .tiktok { 
-            background: #010101;
-            border: 1px solid #25f4ee;
-            box-shadow: -2px 0 8px rgba(37, 244, 238, 0.4), 2px 0 8px rgba(254, 44, 85, 0.4);
-        }
-        .tiktok i {
-            color: #25f4ee;
-            text-shadow: 2px 2px #fe2c55;
+            background: #000000;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: -3px 0 12px rgba(0, 240, 255, 0.3), 3px 0 12px rgba(255, 0, 85, 0.3);
         }
 
-        /* خريطة جوجل */
-        .map-container {
+        /* الخريطة */
+        .map-frame {
             width: 100%;
-            height: 200px;
-            border-radius: 12px;
+            height: 180px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
             overflow: hidden;
-            margin-top: 5px;
         }
+        .map-frame iframe { width: 100%; height: 100%; border: 0; }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* قسم الدعاية والطلب */
+        /* طلب الموقع */
         .cta-card {
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(255, 51, 102, 0.05));
-            border: 1px solid var(--primary);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 0, 0, 0.4));
+            border: 1px solid var(--neon-blue);
             text-align: center;
-            padding: 22px 20px;
         }
 
-        .cta-btn {
+        .cta-btn-3d {
+            background: var(--neon-blue);
+            color: #000;
+            font-weight: 900;
+            font-size: 1.05rem;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--primary);
-            color: #000;
-            font-weight: 900;
-            font-size: 1rem;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 12px;
-            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
-            transition: 0.3s;
-        }
-
-        .cta-btn:hover {
-            transform: scale(1.03);
+            margin-top: 10px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
         }
 
         footer {
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 10px;
-            padding-bottom: 20px;
+            font-size: 0.85rem;
+            padding: 10px 0 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        
+        <div id="statusBadge" class="status-bar status-open">
+            <span class="status-dot"></span>
+            <span id="statusText">مفتوح الآن</span>
+        </div>
+
         <header>
-            <div class="logo-box">
-                <i class="fa-solid fa-car-side"></i>
+            <div class="logo-3d">
+                <i class="fa-solid fa-gauge-high"></i>
             </div>
             <h1 class="brand-title">BEBO</h1>
-            <p class="subtitle">فنش وتجهيز السيارات والموتوسيكلات</p>
+            <p class="subtitle">فنش وتجهيز احترافي للسيارات والموتوسيكلات</p>
         </header>
 
-        <div class="card">
+        <div class="card-3d">
             <div class="section-title">
-                <i class="fa-solid fa-phone-volume"></i>
-                <span>اتصل بنا مباشرة</span>
+                <i class="fa-solid fa-headset"></i>
+                <span>تواصل سريع</span>
             </div>
             <div class="phones-grid">
-                <a href="tel:01000000000" class="phone-btn">
-                    <i class="fa-solid fa-headset"></i>
+                <a href="tel:01000000000" class="btn-3d">
+                    <i class="fa-solid fa-phone"></i>
                     <span>01000000000</span>
                 </a>
-                <a href="tel:01100000000" class="phone-btn">
+                <a href="tel:01100000000" class="btn-3d">
                     <i class="fa-solid fa-phone"></i>
                     <span>01100000000</span>
                 </a>
             </div>
         </div>
 
-        <div class="card drive-card">
-            <div class="section-title" style="color: #ffba08; justify-content: center;">
+        <div class="card-3d drive-card">
+            <div class="section-title" style="color: #fff;">
                 <i class="fa-solid fa-photo-film"></i>
-                <span>معرض التميز والسابقة (Bebo Vault)</span>
+                <span>معرض الأعمال والسابقة (Bebo Vault)</span>
             </div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد أحدث صور وفيديوهات التجهيز والفنش قبل وبعد</p>
-            <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" class="drive-btn">
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد جودة الفنش وتفاصيل الشغل قبل وبعد</p>
+            <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" class="drive-btn-3d">
                 <i class="fa-brands fa-google-drive"></i>
-                <span>استعراض معرض الصور والفيديوهات</span>
+                <span>استعراض الصور والفيديوهات</span>
                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
             </a>
         </div>
 
-        <div class="card">
+        <div class="card-3d">
             <div class="section-title">
-                <i class="fa-solid fa-share-nodes"></i>
-                <span>منصات التواصل الاجتماعي</span>
+                <i class="fa-solid fa-hashtag"></i>
+                <span>منصات الميديا</span>
             </div>
             <div class="social-links">
-                <a href="https://wa.me/201000000000" target="_blank" class="social-btn whatsapp">
-                    <div>
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <span>واتساب / WhatsApp</span>
-                    </div>
+                <a href="https://wa.me/201000000000" target="_blank" class="social-btn-3d whatsapp">
+                    <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب / WhatsApp</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-
-                <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="social-btn facebook">
-                    <div>
-                        <i class="fa-brands fa-facebook-f"></i>
-                        <span>صفحة الفيسبوك</span>
-                    </div>
+                <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="social-btn-3d facebook">
+                    <div><i class="fa-brands fa-facebook-f"></i> <span>فيسبوك / Facebook</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-
-                <a href="https://instagram.com/YOUR_ACCOUNT" target="_blank" class="social-btn instagram">
-                    <div>
-                        <i class="fa-brands fa-instagram"></i>
-                        <span>انستجرام / Instagram</span>
-                    </div>
+                <a href="https://instagram.com/YOUR_ACCOUNT" target="_blank" class="social-btn-3d instagram">
+                    <div><i class="fa-brands fa-instagram"></i> <span>انستجرام / Instagram</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-
-                <a href="https://tiktok.com/@YOUR_ACCOUNT" target="_blank" class="social-btn tiktok">
-                    <div>
-                        <i class="fa-brands fa-tiktok"></i>
-                        <span>تيك توك / TikTok</span>
-                    </div>
+                <a href="https://tiktok.com/@YOUR_ACCOUNT" target="_blank" class="social-btn-3d tiktok">
+                    <div><i class="fa-brands fa-tiktok" style="color:#00f0ff;"></i> <span>تيك توك / TikTok</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card-3d">
             <div class="section-title">
-                <i class="fa-solid fa-location-dot"></i>
+                <i class="fa-solid fa-map-pin"></i>
                 <span>موقعنا على الخريطة</span>
             </div>
-            <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.0!2d31.2!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAwJzAwLjAiTiAzM8KwMTInMDAuMCJF!5e0!3m2!1sar!2seg!4v1600000000000" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
+            <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.0!2d31.2!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAwJzAwLjAiTiAzM8KwMTInMDAuMCJF!5e0!3m2!1sar!2seg!4v1600000000000" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
 
-        <div class="card cta-card">
-            <h3 style="font-size: 1.1rem; margin-bottom: 6px;">عايز ويب سايت زاي دي لشغلك؟</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem;">صمم كارت عملك الرقمي واعرض خدماتك بشكل احترافي.</p>
-            
-            <a href="https://wa.me/20XXXXXXXXXX?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn">
+        <div class="card-3d cta-card">
+            <h3 style="font-size: 1.15rem;">عايز ويب سايت زي دي لشغلك؟</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">كارت عمل رقمي احترافي يجذب زباينك</p>
+            <a href="https://wa.me/20XXXXXXXXXX?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn-3d">
                 <span>دوس هنا واطلب موقعك</span>
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
         </div>
 
         <footer>
-            جميع الحقوق محفوظة ©️ Bebo 2026
+            جميع الحقوق محفوظة ©️ BEBO 2026
         </footer>
     </div>
 
+    <script>
+        // تبديل حالة المحل تلقائياً كل 3 ثوانٍ
+        const badge = document.getElementById('statusBadge');
+        const statusText = document.getElementById('statusText');
+        let isOpen = true;
+
+        setInterval(() => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                badge.className = 'status-bar status-open';
+                statusText.innerText = 'مفتوح الآن';
+            } else {
+                badge.className = 'status-bar status-closed';
+                statusText.innerText = 'مغلق الآن';
+            }
+        }, 3000);
+    </script>
 </body>
 </html>
