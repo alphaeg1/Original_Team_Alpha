@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مولد أفكار OFFGRID</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -16,8 +16,12 @@
             --text-muted: #94a3b8;
             --success-color: #10b981;
             --error-color: #ef4444;
-            --reel-color: #3b82f6;
-            --poster-color: #ec4899;
+            --offgrid-gradient: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -25,163 +29,218 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 24px;
+            padding: 12px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 950px;
+            max-width: 800px;
         }
 
-        h1 { 
-            text-align: center; 
-            margin-bottom: 28px;
-            font-size: 2.2rem;
+        /* الهيدر والوجو */
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 8px;
+        }
+
+        .logo-placeholder {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 2px dashed #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text-hint {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            margin: 0;
+            text-align: center;
+        }
+
+        .offgrid-badge {
+            background: var(--offgrid-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-family: Impact, sans-serif, system-ui;
+            letter-spacing: 2px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 20px rgba(255, 70, 85, 0.2);
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-row-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .form-group.full-width { grid-column: 1 / -1; }
-
-        label { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; }
+        label { 
+            font-size: 0.82rem; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+        }
 
         input, textarea {
             background-color: var(--bg-color);
             border: 1px solid var(--card-border);
             color: var(--text-color);
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
             outline: none;
-            transition: all 0.2s ease;
+            width: 100%;
         }
 
         input:focus, textarea:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
         .api-input-container {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
-
-        .api-input-container input { flex: 1; }
 
         .btn-test {
             background-color: #1e293b;
             border: 1px solid var(--card-border);
             color: var(--text-color);
-            padding: 0 18px;
-            border-radius: 10px;
+            padding: 0 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             font-weight: 600;
-            cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s;
         }
-
-        .btn-test:hover { background-color: #334155; }
 
         button.btn-primary {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 14px 20px;
+            padding: 12px;
             border-radius: 10px;
-            font-size: 1.05rem;
+            font-size: 0.98rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            transition: all 0.2s ease;
+            margin-top: 6px;
         }
-
-        button.btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-1px); }
-        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
         .btn-download {
             background-color: var(--success-color);
             color: white;
             border: none;
-            padding: 14px 20px;
+            padding: 12px;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
-            transition: all 0.2s;
+            margin-top: 14px;
         }
-        .btn-download:hover { background-color: #059669; }
 
         #apiStatus {
-            font-size: 0.85rem;
-            margin-top: 6px;
-            font-weight: 500;
+            font-size: 0.8rem;
+            margin-top: 4px;
         }
 
-        /* --- تنسيق التقرير المخصص للتصدير كصورة --- */
+        /* التقرير القابل للتصدير */
         #exportContainer {
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
+            padding: 16px;
+            border-radius: 12px;
             border: 1px solid var(--card-border);
         }
 
         .export-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             border-bottom: 2px solid var(--card-border);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
         }
 
-        .brand-title {
-            font-size: 1.4rem;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .export-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--card-border);
+        }
+
+        .brand-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-client-title {
+            font-size: 1.1rem;
             font-weight: 800;
-            color: #a5b4fc;
+            color: #ffffff;
         }
 
-        .watermark {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            letter-spacing: 1px;
+        /* تحسين استجابة الجداول */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .output-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 10px;
-            border-radius: 12px;
+            min-width: 650px; /* ضمان طول السطور وعدم التكدس */
+            border-collapse: collapse;
+            border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--card-border);
         }
@@ -189,149 +248,228 @@
         .output-table th {
             background-color: #0f172a;
             color: #818cf8;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            padding: 14px 16px;
+            padding: 10px 12px;
             text-align: right;
-            border-bottom: 2px solid var(--card-border);
+            white-space: nowrap;
         }
 
         .output-table td {
             background-color: #151c2c;
             border-bottom: 1px solid var(--card-border);
-            padding: 16px;
+            padding: 12px;
             vertical-align: top;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        .output-table tr:last-child td { border-bottom: none; }
-
-        /* شارات التمييز */
         .badge {
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 4px 8px;
+            border-radius: 6px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: inline-block;
-            text-align: center;
+            white-space: nowrap;
         }
 
-        .badge-reel { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
-        .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
-
-        /* الشوتات داخل التفاصيل */
-        .shots-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 6px;
-        }
+        .badge-reel { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-poster { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
 
         .shot-card {
             background: #0f172a;
             border-right: 3px solid var(--accent-color);
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
+            margin-bottom: 6px;
         }
 
         .shot-title {
             font-weight: 700;
             color: #38bdf8;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
+            font-size: 0.8rem;
         }
 
         .shot-desc {
             color: #cbd5e1;
-            font-size: 0.88rem;
+            font-size: 0.83rem;
+            white-space: normal;
+        }
+
+        /* قسم الملاحظات الثابتة */
+        .default-notes-box {
+            margin-top: 14px;
+            padding: 10px 12px;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px dashed var(--card-border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .default-notes-title {
+            font-weight: 700;
+            color: #818cf8;
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>OFFGRID CONTENT GENERATOR</h1>
+
+    <div class="header-brand">
+        <div class="logo-placeholder" onclick="document.getElementById('logoInput').click()">
+            <img id="logoPreview" src="" style="display:none;">
+            <span id="logoText" class="logo-text-hint">رفع<br>لوجو</span>
+        </div>
+        <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="loadLogo(event)">
+
+        <div class="main-title">
+            مولد أفكار <span class="offgrid-badge">OFFGRID</span>
+        </div>
+    </div>
 
     <div class="card">
         <div class="form-grid">
-            <div class="form-group full-width">
+            <div class="form-group">
                 <label for="apiKey">Gemini API Key</label>
                 <div class="api-input-container">
                     <input type="password" id="apiKey" placeholder="أدخل المفتاح هنا">
-                    <button class="btn-test" id="testBtn" onclick="testApiKey()">اختبار المفتاح 🔍</button>
+                    <button class="btn-test" onclick="testApiKey()">اختبار 🔍</button>
                 </div>
                 <div id="apiStatus"></div>
             </div>
-            <div class="form-group">
-                <label for="clientName">اسم العميل / البراند</label>
-                <input type="text" id="clientName" placeholder="مثال: مطعم زوز">
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="clientName">اسم العميل</label>
+                    <input type="text" id="clientName" placeholder="مثال: مطعم زوز">
+                </div>
+                <div class="form-group">
+                    <label for="industry">المجال</label>
+                    <input type="text" id="industry" placeholder="أكلات سريعة">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="industry">المجال</label>
-                <input type="text" id="industry" placeholder="مثال: مطاعم وجبات سريعة">
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="reelsCount">عدد الريلز</label>
+                    <input type="number" id="reelsCount" value="4" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="postersCount">عدد البوسترات</label>
+                    <input type="number" id="postersCount" value="4" min="0">
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="reelsCount">عدد فيديوهات الريلز</label>
-                <input type="number" id="reelsCount" value="4" min="0">
+                <label for="goals">أهداف الحملة الحالية</label>
+                <textarea id="goals" rows="2" placeholder="زيادة المبيعات والعروض..."></textarea>
             </div>
+
             <div class="form-group">
-                <label for="postersCount">عدد تصميمات البوسترات</label>
-                <input type="number" id="postersCount" value="4" min="0">
-            </div>
-            <div class="form-group full-width">
-                <label for="goals">أهداف الحملة والملاحظات</label>
-                <textarea id="goals" rows="2" placeholder="زيادة مبيعات الوجبات العائلية وتوضيح جودة الخامات..."></textarea>
+                <label for="defaultNotes">ملاحظات وشروط ثابتة (تظهر مع كل خطة)</label>
+                <textarea id="defaultNotes" rows="2" placeholder="مثال: مدة التنفيذ 7 أيام - يشمل التعديل مرتين مجاناً..." oninput="saveDefaultNotes()"></textarea>
             </div>
         </div>
-        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد خطة المحتوى ✨</button>
+
+        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد الخطة ✨</button>
     </div>
 
     <div class="card" id="resultCard" style="display: none;">
-        <div id="loading" style="display:none; text-align:center; padding: 24px; color: var(--text-muted);">
-            جاري تحضير الخطة وتقسيم الشوتات بواسطة الذكاء الاصطناعي... ⏳
+        <div id="loading" style="display:none; text-align:center; padding: 16px; color: var(--text-muted); font-size: 0.9rem;">
+            جاري تحضير الخطة وتقسيم الشوتات... ⏳
         </div>
         
         <div id="exportContainer">
             <div class="export-header">
-                <div class="brand-title" id="planTitle">📋 خطة المحتوى</div>
-                <div class="watermark">POWERED BY OFFGRID</div>
+                <div class="header-left">
+                    <img id="exportLogoImg" class="export-logo" style="display:none;">
+                    <div class="brand-info">
+                        <div class="plan-client-title" id="planTitle">📋 خطة المحتوى</div>
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">TEAM ALPHA</small>
+                    </div>
+                </div>
+                <div class="offgrid-badge" style="font-size: 1.2rem;">OFFGRID</div>
             </div>
-            <div id="outputContainer"></div>
+
+            <div class="table-responsive">
+                <div id="outputContainer"></div>
+            </div>
+
+            <div id="exportNotesBox" class="default-notes-box" style="display:none;">
+                <div class="default-notes-title">📌 ملاحظات الشروط والأحكام:</div>
+                <div id="exportNotesText"></div>
+            </div>
         </div>
 
         <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة 📸</button>
     </div>
+
 </div>
 
 <script>
+// تحميل الملاحظات الثابتة من الموبايل تلقائياً
+window.onload = function() {
+    const savedNotes = localStorage.getItem('offgrid_default_notes');
+    if (savedNotes) {
+        document.getElementById('defaultNotes').value = savedNotes;
+    }
+}
+
+function saveDefaultNotes() {
+    const val = document.getElementById('defaultNotes').value;
+    localStorage.setItem('offgrid_default_notes', val);
+}
+
+// رفع وشعارات اللوجو
+let uploadedLogoUrl = '';
+function loadLogo(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            uploadedLogoUrl = e.target.result;
+            
+            const preview = document.getElementById('logoPreview');
+            preview.src = uploadedLogoUrl;
+            preview.style.display = 'block';
+            document.getElementById('logoText').style.display = 'none';
+
+            const exportImg = document.getElementById('exportLogoImg');
+            exportImg.src = uploadedLogoUrl;
+            exportImg.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
 async function testApiKey() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const statusDiv = document.getElementById('apiStatus');
     
     if (!apiKey) {
         statusDiv.style.color = "var(--error-color)";
-        statusDiv.innerText = "⚠️ يرجى إدخال المفتاح أولاً!";
+        statusDiv.innerText = "⚠️ أدخل المفتاح أولاً!";
         return;
     }
 
     statusDiv.style.color = "var(--text-muted)";
-    statusDiv.innerText = "جاري التحقق من المفتاح...";
+    statusDiv.innerText = "جاري التحقق...";
 
     try {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-        const data = await res.json();
-
         if (res.ok) {
             statusDiv.style.color = "var(--success-color)";
-            statusDiv.innerText = "✅ المفتاح يعمل بنجاح وجاهز للتوليد!";
+            statusDiv.innerText = "✅ المفتاح شغال تمام!";
         } else {
             statusDiv.style.color = "var(--error-color)";
-            statusDiv.innerText = `❌ خطأ: ${data.error?.message || 'المفتاح غير صحيح'}`;
+            statusDiv.innerText = "❌ المفتاح غير صحيح.";
         }
     } catch (e) {
         statusDiv.style.color = "var(--error-color)";
-        statusDiv.innerText = "❌ تعذر الاتصال بالخادم، تأكد من اتصال الإنترنت.";
+        statusDiv.innerText = "❌ خطأ في الاتصال.";
     }
 }
 
@@ -342,9 +480,10 @@ async function generateContent() {
     const reelsCount = document.getElementById('reelsCount').value;
     const postersCount = document.getElementById('postersCount').value;
     const goals = document.getElementById('goals').value.trim();
+    const defaultNotes = document.getElementById('defaultNotes').value.trim();
 
     if (!apiKey || !clientName || !industry) {
-        alert('برجاء إدخال المفتاح، اسم العميل، والمجال!');
+        alert('برجاء كتابة المفتاح، اسم العميل، والمجال!');
         return;
     }
 
@@ -360,7 +499,16 @@ async function generateContent() {
     downloadBtn.style.display = 'none';
     outputContainer.innerHTML = '';
 
-    document.getElementById('planTitle').innerText = `📋 خطة محتوى: ${clientName}`;
+    document.getElementById('planTitle').innerText = `📋 خطة: ${clientName}`;
+
+    // إضافة الملاحظات للتقرير
+    const exportNotesBox = document.getElementById('exportNotesBox');
+    if (defaultNotes) {
+        document.getElementById('exportNotesText').innerText = defaultNotes;
+        exportNotesBox.style.display = 'block';
+    } else {
+        exportNotesBox.style.display = 'none';
+    }
 
     const promptText = `أنت صانع محتوى إبداعي ومخرج إعلانات. قم بإنشاء خطة محتوى شهرية لعميل:
 - البراند: ${clientName}
@@ -368,31 +516,20 @@ async function generateContent() {
 - الهدف: ${goals}
 - المطلوب: ${reelsCount} فيديو ريلز (Reels) و ${postersCount} تصميم بوستر (Posters).
 
-⚠️ شرط هام جداً لتقسيم الفيديوهات:
-لكل فيديو Reel، قم بتقسيم التفاصيل والسكريبت إلى شوتات سينمائية مرتبة (Shots) تحتوي على المشهد البصري والتعليق الصوتي.
-بالنسبة للبوستر (Poster)، ضع تفاصيل التصميم والعناصر البصرية.
+⚠️ لكل فيديو Reel، اقسم السكريبت لشوتات سينمائية (Shots) تحتوي على المشهد والتعليق.
+ولكل بوستر (Poster)، ضع تفاصيل الفكرة والنص الإعلاني.
 
-ارجع الناتج في صيغة JSON Array فقط بدون markdown وبدون أخطاء.
-التنسيق المطلوب تماماً:
+ارجع الناتج في صيغة JSON Array فقط بدون markdown.
 [
   {
     "type": "Reel",
     "title": "عنوان الفكرة الجذاب",
     "shots": [
-      { "name": "Shot 1 - Hook (الخاطف)", "desc": "وصف المشهد البصري والكلمات الأولى" },
-      { "name": "Shot 2 - Value (العرض/القيمة)", "desc": "وصف المشهد الرئيسي والتفاصيل" },
-      { "name": "Shot 3 - CTA (دعوة للاكتشاف)", "desc": "المشهد النهائي وطريقة الإغلاق" }
+      { "name": "Shot 1 - Hook", "desc": "وصف المشهد والبداية" },
+      { "name": "Shot 2 - Value", "desc": "وصف تفاصيل العرض" },
+      { "name": "Shot 3 - CTA", "desc": "المشهد النهائي" }
     ],
-    "audio_or_style": "الصوت المقترح أو المود الموسيقي"
-  },
-  {
-    "type": "Poster",
-    "title": "عنوان البوستر",
-    "shots": [
-      { "name": "الفكرة البصرية", "desc": "وصف البوستر بالتفصيل والألوان المقترحة" },
-      { "name": "النص الإعلاني", "desc": "الكتابة التي ستكون على التصميم" }
-    ],
-    "audio_or_style": "ستايل التصميم والألوان"
+    "audio_or_style": "الصوت المقترح"
   }
 ]`;
 
@@ -417,21 +554,10 @@ async function generateContent() {
             renderTable(ideas);
             downloadBtn.style.display = 'block';
         } else {
-            const errorMsg = data.error?.message || 'فشل التوليد، تأكد من المفتاح والبيانات.';
-            outputContainer.innerHTML = `
-                <div style="color: var(--error-color); text-align: center; padding: 16px;">
-                    <p>⚠️ تعذر توليد الأفكار.</p>
-                    <small style="color: var(--text-muted);">${errorMsg}</small>
-                </div>
-            `;
+            outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ فشل التوليد، تأكد من المفتاح.</div>`;
         }
     } catch (e) {
-        outputContainer.innerHTML = `
-            <div style="color: var(--error-color); text-align: center; padding: 16px;">
-                <p>⚠️ حدث خطأ أثناء المعالجة أو الاتصال بالشبكة.</p>
-                <small style="color: var(--text-muted);">${e.message}</small>
-            </div>
-        `;
+        outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ خطأ في الاتصال بالشبكة.</div>`;
     }
 
     btn.disabled = false;
@@ -443,10 +569,10 @@ function renderTable(ideas) {
         <table class="output-table">
             <thead>
                 <tr>
-                    <th style="width: 12%;">النوع</th>
-                    <th style="width: 23%;">عنوان الفكرة</th>
-                    <th style="width: 45%;">التفاصيل والسكريبت (Shots)</th>
-                    <th style="width: 20%;">الصوت / الستايل</th>
+                    <th style="width: 15%;">النوع</th>
+                    <th style="width: 25%;">عنوان الفكرة</th>
+                    <th style="width: 42%;">التفاصيل والسكريبت (Shots)</th>
+                    <th style="width: 18%;">الصوت / الستايل</th>
                 </tr>
             </thead>
             <tbody>
@@ -457,7 +583,7 @@ function renderTable(ideas) {
         const isReel = typeStr.toLowerCase().includes('reel');
         const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
         
-        let shotsHtml = '<div class="shots-container">';
+        let shotsHtml = '';
         if (item.shots && Array.isArray(item.shots)) {
             item.shots.forEach(s => {
                 shotsHtml += `
@@ -470,12 +596,11 @@ function renderTable(ideas) {
         } else if (item.details) {
             shotsHtml += `<div class="shot-desc">${item.details}</div>`;
         }
-        shotsHtml += '</div>';
 
         html += `
             <tr>
                 <td><span class="badge ${badgeClass}">${typeStr}</span></td>
-                <td><strong style="color: #f8fafc; font-size: 0.95rem;">${item.title || ''}</strong></td>
+                <td><strong style="color: #f8fafc;">${item.title || ''}</strong></td>
                 <td>${shotsHtml}</td>
                 <td><span style="color: #a5b4fc;">${item.audio_or_style || '-'}</span></td>
             </tr>
@@ -493,7 +618,9 @@ function downloadAsImage() {
     html2canvas(element, {
         backgroundColor: '#151c2c',
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = `خطة_محتوى_${clientName}.png`;
