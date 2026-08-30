@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد افكار OFFGRID</title>
+    <title>مولد أفكار OFFGRID</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            --bg-color: #0b0f19;
+            --card-bg: #151c2c;
+            --card-border: #232d42;
             --accent-color: #6366f1;
             --accent-hover: #4f46e5;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #334155;
-            --success-color: #22c55e;
+            --success-color: #10b981;
             --error-color: #ef4444;
+            --reel-color: #3b82f6;
+            --poster-color: #ec4899;
         }
 
         body {
@@ -23,30 +25,34 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
         }
 
         h1 { 
             text-align: center; 
-            margin-bottom: 24px;
-            font-size: 2rem;
+            margin-bottom: 28px;
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: 1px;
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         .form-grid {
@@ -64,21 +70,22 @@
 
         .form-group.full-width { grid-column: 1 / -1; }
 
-        label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+        label { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; }
 
         input, textarea {
             background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--card-border);
             color: var(--text-color);
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 12px 14px;
+            border-radius: 10px;
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         input:focus, textarea:focus {
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
         .api-input-container {
@@ -89,101 +96,169 @@
         .api-input-container input { flex: 1; }
 
         .btn-test {
-            background-color: #475569;
-            width: auto;
-            padding: 10px 16px;
+            background-color: #1e293b;
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            padding: 0 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
             white-space: nowrap;
+            transition: all 0.2s;
         }
 
         .btn-test:hover { background-color: #334155; }
 
-        button {
+        button.btn-primary {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
         }
 
-        button:hover { background-color: var(--accent-hover); }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        button.btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-1px); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
         .btn-download {
             background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
             margin-top: 20px;
+            transition: all 0.2s;
         }
-        .btn-download:hover { background-color: #16a34a; }
+        .btn-download:hover { background-color: #059669; }
 
         #apiStatus {
             font-size: 0.85rem;
-            margin-top: 4px;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
-        /* تنسيق الجدول الأنيق للتصدير */
+        /* --- تنسيق التقرير المخصص للتصدير كصورة --- */
         #exportContainer {
             background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+        }
+
+        .export-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .brand-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #a5b4fc;
+        }
+
+        .watermark {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .output-table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .output-table th {
+            background-color: #0f172a;
+            color: #818cf8;
             font-size: 0.95rem;
-        }
-
-        .output-table th, .output-table td {
-            border: 1px solid var(--border-color);
-            padding: 14px;
+            font-weight: 700;
+            padding: 14px 16px;
             text-align: right;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        .output-table td {
+            background-color: #151c2c;
+            border-bottom: 1px solid var(--card-border);
+            padding: 16px;
             vertical-align: top;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
-        .output-table th { 
-            background-color: #0f172a; 
-            color: #818cf8; 
-            font-size: 1rem;
-        }
+        .output-table tr:last-child td { border-bottom: none; }
 
-        .badge-reel { 
-            background-color: #1e3a8a; 
-            color: #93c5fd; 
-            padding: 4px 10px; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            font-size: 0.85rem;
+        /* شارات التمييز */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
             display: inline-block;
+            text-align: center;
         }
 
-        .badge-poster { 
-            background-color: #831843; 
-            color: #fbcfe8; 
-            padding: 4px 10px; 
-            border-radius: 6px; 
-            font-weight: bold; 
+        .badge-reel { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+
+        /* الشوتات داخل التفاصيل */
+        .shots-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .shot-card {
+            background: #0f172a;
+            border-right: 3px solid var(--accent-color);
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+
+        .shot-title {
+            font-weight: 700;
+            color: #38bdf8;
             font-size: 0.85rem;
-            display: inline-block;
+            margin-bottom: 3px;
+        }
+
+        .shot-desc {
+            color: #cbd5e1;
+            font-size: 0.88rem;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🚀 مولد افكار OFFGRID</h1>
+    <h1>OFFGRID CONTENT GENERATOR</h1>
 
     <div class="card">
         <div class="form-grid">
             <div class="form-group full-width">
                 <label for="apiKey">Gemini API Key</label>
                 <div class="api-input-container">
-                    <input type="password" id="apiKey" placeholder="ضع المفتاح الخاص بك هنا">
+                    <input type="password" id="apiKey" placeholder="أدخل المفتاح هنا">
                     <button class="btn-test" id="testBtn" onclick="testApiKey()">اختبار المفتاح 🔍</button>
                 </div>
                 <div id="apiStatus"></div>
@@ -194,33 +269,38 @@
             </div>
             <div class="form-group">
                 <label for="industry">المجال</label>
-                <input type="text" id="industry" placeholder="مثال: أكلات سريعة">
+                <input type="text" id="industry" placeholder="مثال: مطاعم وجبات سريعة">
             </div>
             <div class="form-group">
-                <label for="reelsCount">عدد الريلز</label>
+                <label for="reelsCount">عدد فيديوهات الريلز</label>
                 <input type="number" id="reelsCount" value="4" min="0">
             </div>
             <div class="form-group">
-                <label for="postersCount">عدد البوسترات</label>
+                <label for="postersCount">عدد تصميمات البوسترات</label>
                 <input type="number" id="postersCount" value="4" min="0">
             </div>
             <div class="form-group full-width">
-                <label for="goals">أهداف الحملة</label>
-                <textarea id="goals" rows="2" placeholder="زيادة المبيعات والعروض..."></textarea>
+                <label for="goals">أهداف الحملة والملاحظات</label>
+                <textarea id="goals" rows="2" placeholder="زيادة مبيعات الوجبات العائلية وتوضيح جودة الخامات..."></textarea>
             </div>
         </div>
-        <button id="generateBtn" onclick="generateContent()">توليد الأفكار الآن ✨</button>
+        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد خطة المحتوى ✨</button>
     </div>
 
     <div class="card" id="resultCard" style="display: none;">
-        <div id="loading" style="display:none; text-align:center; padding: 20px;">جاري توليد الأفكار... ⏳</div>
+        <div id="loading" style="display:none; text-align:center; padding: 24px; color: var(--text-muted);">
+            جاري تحضير الخطة وتقسيم الشوتات بواسطة الذكاء الاصطناعي... ⏳
+        </div>
         
         <div id="exportContainer">
-            <h2 id="planTitle" style="margin-top:0; text-align:center; color: #818cf8;">📋 خطة المحتوى</h2>
+            <div class="export-header">
+                <div class="brand-title" id="planTitle">📋 خطة المحتوى</div>
+                <div class="watermark">POWERED BY OFFGRID</div>
+            </div>
             <div id="outputContainer"></div>
         </div>
 
-        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل الجدول كصورة 📸</button>
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة 📸</button>
     </div>
 </div>
 
@@ -231,7 +311,7 @@ async function testApiKey() {
     
     if (!apiKey) {
         statusDiv.style.color = "var(--error-color)";
-        statusDiv.innerText = "يرجى كتابة المفتاح أولاً!";
+        statusDiv.innerText = "⚠️ يرجى إدخال المفتاح أولاً!";
         return;
     }
 
@@ -244,7 +324,7 @@ async function testApiKey() {
 
         if (res.ok) {
             statusDiv.style.color = "var(--success-color)";
-            statusDiv.innerText = "✅ المفتاح شغال تمام ومظبوط!";
+            statusDiv.innerText = "✅ المفتاح يعمل بنجاح وجاهز للتوليد!";
         } else {
             statusDiv.style.color = "var(--error-color)";
             statusDiv.innerText = `❌ خطأ: ${data.error?.message || 'المفتاح غير صحيح'}`;
@@ -264,7 +344,7 @@ async function generateContent() {
     const goals = document.getElementById('goals').value.trim();
 
     if (!apiKey || !clientName || !industry) {
-        alert('برجاء إدخال المفتاح واسم العميل والمجال!');
+        alert('برجاء إدخال المفتاح، اسم العميل، والمجال!');
         return;
     }
 
@@ -282,20 +362,37 @@ async function generateContent() {
 
     document.getElementById('planTitle').innerText = `📋 خطة محتوى: ${clientName}`;
 
-    const promptText = `أنت صانع محتوى إبداعي وميديا باير. قم بإنشاء خطة محتوى شهرية لعميل:
+    const promptText = `أنت صانع محتوى إبداعي ومخرج إعلانات. قم بإنشاء خطة محتوى شهرية لعميل:
 - البراند: ${clientName}
 - المجال: ${industry}
 - الهدف: ${goals}
 - المطلوب: ${reelsCount} فيديو ريلز (Reels) و ${postersCount} تصميم بوستر (Posters).
 
-المطلوب إرجاع الناتج في صيغة JSON Array فقط بدون أي كلام إضافي وبدون علامات تنصيص markdown.
-مثال التنسيق المطلوب تماماً:
+⚠️ شرط هام جداً لتقسيم الفيديوهات:
+لكل فيديو Reel، قم بتقسيم التفاصيل والسكريبت إلى شوتات سينمائية مرتبة (Shots) تحتوي على المشهد البصري والتعليق الصوتي.
+بالنسبة للبوستر (Poster)، ضع تفاصيل التصميم والعناصر البصرية.
+
+ارجع الناتج في صيغة JSON Array فقط بدون markdown وبدون أخطاء.
+التنسيق المطلوب تماماً:
 [
   {
     "type": "Reel",
-    "title": "عنوان الفكرة",
-    "details": "تفاصيل الفيديو والسكريبت",
-    "audio_or_style": "الصوت التريند المقترح"
+    "title": "عنوان الفكرة الجذاب",
+    "shots": [
+      { "name": "Shot 1 - Hook (الخاطف)", "desc": "وصف المشهد البصري والكلمات الأولى" },
+      { "name": "Shot 2 - Value (العرض/القيمة)", "desc": "وصف المشهد الرئيسي والتفاصيل" },
+      { "name": "Shot 3 - CTA (دعوة للاكتشاف)", "desc": "المشهد النهائي وطريقة الإغلاق" }
+    ],
+    "audio_or_style": "الصوت المقترح أو المود الموسيقي"
+  },
+  {
+    "type": "Poster",
+    "title": "عنوان البوستر",
+    "shots": [
+      { "name": "الفكرة البصرية", "desc": "وصف البوستر بالتفصيل والألوان المقترحة" },
+      { "name": "النص الإعلاني", "desc": "الكتابة التي ستكون على التصميم" }
+    ],
+    "audio_or_style": "ستايل التصميم والألوان"
   }
 ]`;
 
@@ -320,18 +417,18 @@ async function generateContent() {
             renderTable(ideas);
             downloadBtn.style.display = 'block';
         } else {
-            const errorMsg = data.error?.message || 'فشل التوليد، تأكد من صحة البيانات والمفتاح.';
+            const errorMsg = data.error?.message || 'فشل التوليد، تأكد من المفتاح والبيانات.';
             outputContainer.innerHTML = `
-                <div style="color: var(--error-color); text-align: center; padding: 10px;">
+                <div style="color: var(--error-color); text-align: center; padding: 16px;">
                     <p>⚠️ تعذر توليد الأفكار.</p>
-                    <small style="color: var(--text-muted);">سبب الخطأ: ${errorMsg}</small>
+                    <small style="color: var(--text-muted);">${errorMsg}</small>
                 </div>
             `;
         }
     } catch (e) {
         outputContainer.innerHTML = `
-            <div style="color: var(--error-color); text-align: center; padding: 10px;">
-                <p>⚠️ حدث خطأ في الاتصال بالشبكة.</p>
+            <div style="color: var(--error-color); text-align: center; padding: 16px;">
+                <p>⚠️ حدث خطأ أثناء المعالجة أو الاتصال بالشبكة.</p>
                 <small style="color: var(--text-muted);">${e.message}</small>
             </div>
         `;
@@ -347,8 +444,8 @@ function renderTable(ideas) {
             <thead>
                 <tr>
                     <th style="width: 12%;">النوع</th>
-                    <th style="width: 25%;">عنوان الفكرة</th>
-                    <th style="width: 43%;">التفاصيل والسكريبت</th>
+                    <th style="width: 23%;">عنوان الفكرة</th>
+                    <th style="width: 45%;">التفاصيل والسكريبت (Shots)</th>
                     <th style="width: 20%;">الصوت / الستايل</th>
                 </tr>
             </thead>
@@ -358,13 +455,29 @@ function renderTable(ideas) {
     ideas.forEach(item => {
         const typeStr = item.type || 'Reel';
         const isReel = typeStr.toLowerCase().includes('reel');
-        const badge = isReel ? 'badge-reel' : 'badge-poster';
+        const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
+        
+        let shotsHtml = '<div class="shots-container">';
+        if (item.shots && Array.isArray(item.shots)) {
+            item.shots.forEach(s => {
+                shotsHtml += `
+                    <div class="shot-card">
+                        <div class="shot-title">${s.name || 'Shot'}</div>
+                        <div class="shot-desc">${s.desc || ''}</div>
+                    </div>
+                `;
+            });
+        } else if (item.details) {
+            shotsHtml += `<div class="shot-desc">${item.details}</div>`;
+        }
+        shotsHtml += '</div>';
+
         html += `
             <tr>
-                <td><span class="${badge}">${typeStr}</span></td>
-                <td><strong>${item.title || ''}</strong></td>
-                <td>${item.details || ''}</td>
-                <td>${item.audio_or_style || '-'}</td>
+                <td><span class="badge ${badgeClass}">${typeStr}</span></td>
+                <td><strong style="color: #f8fafc; font-size: 0.95rem;">${item.title || ''}</strong></td>
+                <td>${shotsHtml}</td>
+                <td><span style="color: #a5b4fc;">${item.audio_or_style || '-'}</span></td>
             </tr>
         `;
     });
@@ -378,8 +491,9 @@ function downloadAsImage() {
     const clientName = document.getElementById('clientName').value.trim() || 'Client';
 
     html2canvas(element, {
-        backgroundColor: '#1e293b',
-        scale: 2
+        backgroundColor: '#151c2c',
+        scale: 2,
+        useCORS: true
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = `خطة_محتوى_${clientName}.png`;
