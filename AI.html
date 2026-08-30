@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مولد أفكار OFFGRID</title>
+    <!-- مكتبة تحويل العناصر إلى صور -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
@@ -39,40 +40,33 @@
             max-width: 800px;
         }
 
-        /* الهيدر والوجو */
+        /* الهيدر والوجو الثابت */
         .header-brand {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .logo-placeholder {
-            width: 65px;
-            height: 65px;
+        .logo-box {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: #1e293b;
-            border: 2px dashed #475569;
+            border: 2px solid var(--accent-color);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            position: relative;
-            cursor: pointer;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
         }
 
-        .logo-placeholder img {
+        .logo-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .logo-text-hint {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-align: center;
         }
 
         .main-title {
@@ -140,22 +134,6 @@
             border-color: var(--accent-color);
         }
 
-        .api-input-container {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-test {
-            background-color: #1e293b;
-            border: 1px solid var(--card-border);
-            color: var(--text-color);
-            padding: 0 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
         button.btn-primary {
             background-color: var(--accent-color);
             color: white;
@@ -180,11 +158,6 @@
             cursor: pointer;
             width: 100%;
             margin-top: 14px;
-        }
-
-        #apiStatus {
-            font-size: 0.8rem;
-            margin-top: 4px;
         }
 
         /* التقرير القابل للتصدير */
@@ -229,7 +202,6 @@
             color: #ffffff;
         }
 
-        /* تحسين استجابة الجداول */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -238,7 +210,7 @@
 
         .output-table {
             width: 100%;
-            min-width: 650px; /* ضمان طول السطور وعدم التكدس */
+            min-width: 650px;
             border-collapse: collapse;
             border-radius: 8px;
             overflow: hidden;
@@ -296,7 +268,6 @@
             white-space: normal;
         }
 
-        /* قسم الملاحظات الثابتة */
         .default-notes-box {
             margin-top: 14px;
             padding: 10px 12px;
@@ -318,12 +289,11 @@
 
 <div class="container">
 
+    <!-- الهيدر والوجو الثابت -->
     <div class="header-brand">
-        <div class="logo-placeholder" onclick="document.getElementById('logoInput').click()">
-            <img id="WhatsApp Image‏ 2026-08-29 at 17.44.39.jpeg" src="" style="display:none;">
-            <span id="logoText" class="logo-text-hint">رفع<br>لوجو</span>
+        <div class="logo-box">
+            <img id="mainLogo" src="" alt="TEAM ALPHA Logo">
         </div>
-        <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="loadLogo(event)">
 
         <div class="main-title">
             مولد أفكار <span class="offgrid-badge">OFFGRID</span>
@@ -332,13 +302,10 @@
 
     <div class="card">
         <div class="form-grid">
+
             <div class="form-group">
-                <label for="apiKey">Gemini API Key</label>
-                <div class="api-input-container">
-                    <input type="password" id="apiKey" placeholder="أدخل المفتاح هنا">
-                    <button class="btn-test" onclick="testApiKey()">اختبار 🔍</button>
-                </div>
-                <div id="apiStatus"></div>
+                <label for="apiKey">Gemini API Key (سيتم حفظه في متصفحك تلقائياً)</label>
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API هنا مرة واحدة فقط" oninput="saveApiKey()">
             </div>
 
             <div class="form-row-2">
@@ -382,10 +349,11 @@
             جاري تحضير الخطة وتقسيم الشوتات... ⏳
         </div>
         
+        <!-- التقرير القابل للتصدير -->
         <div id="exportContainer">
             <div class="export-header">
                 <div class="header-left">
-                    <img id="exportLogoImg" class="export-logo" style="display:none;">
+                    <img id="exportLogoImg" class="export-logo" src="">
                     <div class="brand-info">
                         <div class="plan-client-title" id="planTitle">📋 خطة المحتوى</div>
                         <small style="color: var(--text-muted); font-size: 0.75rem;">TEAM ALPHA</small>
@@ -410,67 +378,35 @@
 </div>
 
 <script>
-// تحميل الملاحظات الثابتة من الموبايل تلقائياً
+// ضع رابط صورة اللوجو المباشر من GitHub هنا (Raw URL)
+const GITHUB_LOGO_URL = "https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/logo.png";
+
 window.onload = function() {
+    if (GITHUB_LOGO_URL && !GITHUB_LOGO_URL.includes("YOUR_USER")) {
+        document.getElementById('mainLogo').src = GITHUB_LOGO_URL;
+        document.getElementById('exportLogoImg').src = GITHUB_LOGO_URL;
+    }
+
+    // استرجاع الـ API Key والملاحظات من المتصفح تلقائياً
+    const savedKey = localStorage.getItem('offgrid_api_key');
+    if (savedKey) {
+        document.getElementById('apiKey').value = savedKey;
+    }
+
     const savedNotes = localStorage.getItem('offgrid_default_notes');
     if (savedNotes) {
         document.getElementById('defaultNotes').value = savedNotes;
     }
 }
 
+function saveApiKey() {
+    const key = document.getElementById('apiKey').value.trim();
+    localStorage.setItem('offgrid_api_key', key);
+}
+
 function saveDefaultNotes() {
     const val = document.getElementById('defaultNotes').value;
     localStorage.setItem('offgrid_default_notes', val);
-}
-
-// رفع وشعارات اللوجو
-let uploadedLogoUrl = '';
-function loadLogo(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            uploadedLogoUrl = e.target.result;
-            
-            const preview = document.getElementById('logoPreview');
-            preview.src = uploadedLogoUrl;
-            preview.style.display = 'block';
-            document.getElementById('logoText').style.display = 'none';
-
-            const exportImg = document.getElementById('exportLogoImg');
-            exportImg.src = uploadedLogoUrl;
-            exportImg.style.display = 'block';
-        }
-        reader.readAsDataURL(file);
-    }
-}
-
-async function testApiKey() {
-    const apiKey = document.getElementById('apiKey').value.trim();
-    const statusDiv = document.getElementById('apiStatus');
-    
-    if (!apiKey) {
-        statusDiv.style.color = "var(--error-color)";
-        statusDiv.innerText = "⚠️ أدخل المفتاح أولاً!";
-        return;
-    }
-
-    statusDiv.style.color = "var(--text-muted)";
-    statusDiv.innerText = "جاري التحقق...";
-
-    try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-        if (res.ok) {
-            statusDiv.style.color = "var(--success-color)";
-            statusDiv.innerText = "✅ المفتاح شغال تمام!";
-        } else {
-            statusDiv.style.color = "var(--error-color)";
-            statusDiv.innerText = "❌ المفتاح غير صحيح.";
-        }
-    } catch (e) {
-        statusDiv.style.color = "var(--error-color)";
-        statusDiv.innerText = "❌ خطأ في الاتصال.";
-    }
 }
 
 async function generateContent() {
@@ -482,8 +418,13 @@ async function generateContent() {
     const goals = document.getElementById('goals').value.trim();
     const defaultNotes = document.getElementById('defaultNotes').value.trim();
 
-    if (!apiKey || !clientName || !industry) {
-        alert('برجاء كتابة المفتاح، اسم العميل، والمجال!');
+    if (!apiKey) {
+        alert('برجاء إدخال الـ API Key!');
+        return;
+    }
+
+    if (!clientName || !industry) {
+        alert('برجاء كتابة اسم العميل والمجال!');
         return;
     }
 
@@ -501,7 +442,6 @@ async function generateContent() {
 
     document.getElementById('planTitle').innerText = `📋 خطة: ${clientName}`;
 
-    // إضافة الملاحظات للتقرير
     const exportNotesBox = document.getElementById('exportNotesBox');
     if (defaultNotes) {
         document.getElementById('exportNotesText').innerText = defaultNotes;
@@ -554,7 +494,7 @@ async function generateContent() {
             renderTable(ideas);
             downloadBtn.style.display = 'block';
         } else {
-            outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ فشل التوليد، تأكد من المفتاح.</div>`;
+            outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ فشل التوليد، تأكد من صحة الـ API Key.</div>`;
         }
     } catch (e) {
         outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ خطأ في الاتصال بالشبكة.</div>`;
