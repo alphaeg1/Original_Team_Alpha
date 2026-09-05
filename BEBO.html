@@ -96,7 +96,7 @@
         @keyframes pulse-g { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         @keyframes pulse-r { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* الهيدر واللوجو الجديد */
+        /* الهيدر واللوجو */
         header {
             text-align: center;
             padding-top: 20px;
@@ -161,7 +161,7 @@
             gap: 10px;
         }
 
-        /* الأرقام جنباً إلى جنب (2 Columns Side-by-Side) */
+        /* الأرقام جنباً إلى جنب */
         .phones-side-by-side {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -197,7 +197,7 @@
 
         .phone-btn-side span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 800;
             letter-spacing: 0.5px;
             direction: ltr;
@@ -257,15 +257,25 @@
             box-shadow: -2px 0 10px rgba(0, 240, 255, 0.3), 2px 0 10px rgba(255, 0, 85, 0.3);
         }
 
-        /* الخريطة */
-        .map-frame {
-            width: 100%;
-            height: 160px;
+        /* خريطة الموقع زر */
+        .map-btn-3d {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-weight: 800;
+            padding: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
         }
-        .map-frame iframe { width: 100%; height: 100%; border: 0; }
+        .map-btn-3d:active {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
+        }
 
         /* طلب الموقع */
         .cta-card {
@@ -317,17 +327,16 @@
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-phone-volume"></i>
-                <span>تواصل سريع</span>
+                <span>تواصل سريع (اتصال)</span>
             </div>
             <div class="phones-side-by-side">
-                <a href="tel:01000000000" class="phone-btn-side">
+                <a href="tel:01145068889" class="phone-btn-side">
                     <i class="fa-solid fa-headset"></i>
-                    <span>01000000000</span>
+                    <span>01145068889</span>
                 </a>
-
-                <a href="tel:01100000000" class="phone-btn-side">
+                <a href="tel:01207675933" class="phone-btn-side">
                     <i class="fa-solid fa-phone"></i>
-                    <span>01100000000</span>
+                    <span>01207675933</span>
                 </a>
             </div>
         </div>
@@ -338,7 +347,7 @@
                 <span>معرض الأعمال والسابقة (Bebo Vault)</span>
             </div>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد جودة الفنش والتجهيز قبل وبعد</p>
-            <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" class="drive-btn-3d">
+            <a href="https://drive.google.com/drive/folders/1mxiukGqaLTC-EKE4hxbm0GlD1_Gg0jPn" target="_blank" class="drive-btn-3d">
                 <i class="fa-brands fa-google-drive" style="color: var(--neon-cyan); font-size: 1.2rem;"></i>
                 <span>استعراض الصور والفيديوهات</span>
                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
@@ -348,22 +357,30 @@
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-hashtag"></i>
-                <span>منصات الميديا</span>
+                <span>منصات الميديا والواتساب</span>
             </div>
             <div class="social-links">
-                <a href="https://wa.me/201000000000" target="_blank" class="social-btn-3d whatsapp">
-                    <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب / WhatsApp</span></div>
+                <a href="https://wa.me/201145068889" target="_blank" class="social-btn-3d whatsapp">
+                    <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (اتصال ودردشة)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="social-btn-3d facebook">
-                    <div><i class="fa-brands fa-facebook-f"></i> <span>فيسبوك / Facebook</span></div>
+                <a href="https://wa.me/201207675933" target="_blank" class="social-btn-3d whatsapp" style="filter: hue-rotate(20deg);">
+                    <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (رسائل فقط)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <a href="https://instagram.com/YOUR_ACCOUNT" target="_blank" class="social-btn-3d instagram">
+                <a href="https://www.facebook.com/share/19GsSDQct5/" target="_blank" class="social-btn-3d facebook">
+                    <div><i class="fa-brands fa-facebook-f"></i> <span>فيسبوك - الصفحة الرئيسية</span></div>
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100054966092915" target="_blank" class="social-btn-3d facebook" style="filter: brightness(1.2);">
+                    <div><i class="fa-brands fa-facebook"></i> <span>فيسبوك - البروفايل الثاني</span></div>
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+                <a href="https://www.instagram.com/bebo_car.protection?igsi=MmVqanFtam1hNjJm" target="_blank" class="social-btn-3d instagram">
                     <div><i class="fa-brands fa-instagram"></i> <span>انستجرام / Instagram</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <a href="https://tiktok.com/@YOUR_ACCOUNT" target="_blank" class="social-btn-3d tiktok">
+                <a href="https://www.tiktok.com/@user5633313690204?_r=1&_t=ZS-99SSjWq3kf7" target="_blank" class="social-btn-3d tiktok">
                     <div><i class="fa-brands fa-tiktok" style="color:#00f0ff;"></i> <span>تيك توك / TikTok</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
@@ -375,15 +392,17 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span>موقعنا على الخريطة</span>
             </div>
-            <div class="map-frame">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.0!2d31.2!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAwJzAwLjAiTiAzM8KwMTInMDAuMCJF!5e0!3m2!1sar!2seg!4v1600000000000" allowfullscreen="" loading="lazy"></iframe>
-            </div>
+            <a href="https://share.google/YhXBKTrvTkVPgv3eJ" target="_blank" class="map-btn-3d">
+                <i class="fa-solid fa-map-location-dot" style="color: var(--neon-cyan); font-size: 1.3rem;"></i>
+                <span>فتح المكان على Google Maps</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+            </a>
         </div>
 
         <div class="card-3d cta-card">
             <h3 style="font-size: 1.05rem;">عايز ويب سايت زي دي لشغلك؟</h3>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 3px;">كارت عمل رقمي احترافي يجذب زباينك</p>
-            <a href="https://wa.me/20XXXXXXXXXX?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn-3d">
+            <a href="https://wa.me/201145068889?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn-3d">
                 <span>دوس هنا واطلب موقعك</span>
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
