@@ -313,7 +313,7 @@
         
         <div id="statusBadge" class="status-badge-top-left status-open">
             <span class="status-dot"></span>
-            <span id="statusText">مفتوح الآن</span>
+            <span id="statusText">جارٍ التحقق...</span>
         </div>
 
         <header>
@@ -324,6 +324,7 @@
             <p class="subtitle">فنش وتجهيز احترافي للسيارات والموتوسيكلات</p>
         </header>
 
+        <!-- الاتصال السريع -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-phone-volume"></i>
@@ -341,6 +342,7 @@
             </div>
         </div>
 
+        <!-- معرض الأعمال -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-photo-film"></i>
@@ -354,32 +356,39 @@
             </a>
         </div>
 
+        <!-- منصات الميديا والواتساب -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-hashtag"></i>
                 <span>منصات الميديا والواتساب</span>
             </div>
             <div class="social-links">
+                <!-- واتساب 1 -->
                 <a href="https://wa.me/201145068889" target="_blank" class="social-btn-3d whatsapp">
                     <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (اتصال ودردشة)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
+                <!-- واتساب 2 -->
                 <a href="https://wa.me/201207675933" target="_blank" class="social-btn-3d whatsapp" style="filter: hue-rotate(20deg);">
                     <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (رسائل فقط)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
+                <!-- فيسبوك 1 -->
                 <a href="https://www.facebook.com/share/19GsSDQct5/" target="_blank" class="social-btn-3d facebook">
                     <div><i class="fa-brands fa-facebook-f"></i> <span>فيسبوك - الصفحة الرئيسية</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
+                <!-- فيسبوك 2 -->
                 <a href="https://www.facebook.com/profile.php?id=100054966092915" target="_blank" class="social-btn-3d facebook" style="filter: brightness(1.2);">
                     <div><i class="fa-brands fa-facebook"></i> <span>فيسبوك - البروفايل الثاني</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
+                <!-- انستجرام -->
                 <a href="https://www.instagram.com/bebo_car.protection?igsi=MmVqanFtam1hNjJm" target="_blank" class="social-btn-3d instagram">
                     <div><i class="fa-brands fa-instagram"></i> <span>انستجرام / Instagram</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
+                <!-- تيك توك -->
                 <a href="https://www.tiktok.com/@user5633313690204?_r=1&_t=ZS-99SSjWq3kf7" target="_blank" class="social-btn-3d tiktok">
                     <div><i class="fa-brands fa-tiktok" style="color:#00f0ff;"></i> <span>تيك توك / TikTok</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
@@ -387,6 +396,7 @@
             </div>
         </div>
 
+        <!-- الموقع على الخريطة -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-location-dot"></i>
@@ -399,10 +409,11 @@
             </a>
         </div>
 
+        <!-- طلب موقع -->
         <div class="card-3d cta-card">
             <h3 style="font-size: 1.05rem;">عايز ويب سايت زي دي لشغلك؟</h3>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 3px;">كارت عمل رقمي احترافي يجذب زباينك</p>
-            <a href="https://wa.me/201145068889?text=أريد%20تصميم%20موقع%20مشابه%20لموقع%20Bebo" target="_blank" class="cta-btn-3d">
+            <a href="https://alphaeg1.github.io/Original_Team_Alpha/Alpha.html#services" target="_blank" class="cta-btn-3d">
                 <span>دوس هنا واطلب موقعك</span>
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
@@ -414,21 +425,34 @@
     </div>
 
     <script>
-        // تبديل حالة المحل تلقائياً كل 3 ثوانٍ
-        const badge = document.getElementById('statusBadge');
-        const statusText = document.getElementById('statusText');
-        let isOpen = true;
+        function updateStatus() {
+            const badge = document.getElementById('statusBadge');
+            const statusText = document.getElementById('statusText');
+            
+            const now = new Date();
+            const day = now.getDay(); // 0 = الأحد, 1 = الإثنين...
+            const hour = now.getHours(); // 0 - 23
 
-        setInterval(() => {
-            isOpen = !isOpen;
-            if (isOpen) {
-                badge.className = 'status-badge-top-left status-open';
-                statusText.innerText = 'مفتوح الآن';
-            } else {
+            // يوم الأحد إجازة (day === 0)
+            if (day === 0) {
                 badge.className = 'status-badge-top-left status-closed';
-                statusText.innerText = 'مغلق الآن';
+                statusText.innerText = 'الأحد إجازة';
+            } 
+            // مواعيد العمل من 2 مساءً (14) حتى 2 صباحاً (2)
+            else if (hour >= 14 || hour < 2) {
+                badge.className = 'status-badge-top-left status-open';
+                statusText.innerText = 'مفتوح الآن (من 2م إلى 2ص)';
+            } 
+            // خارج مواعيد العمل
+            else {
+                badge.className = 'status-badge-top-left status-closed';
+                statusText.innerText = 'مغلق الآن (المواعيد من 2م إلى 2ص)';
             }
-        }, 3000);
+        }
+
+        // تشغيل التحديث فوراً وثم كل دقيقة
+        updateStatus();
+        setInterval(updateStatus, 60000);
     </script>
 </body>
 </html>
