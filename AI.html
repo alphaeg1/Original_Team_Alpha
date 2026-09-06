@@ -285,7 +285,7 @@
         }
 
         /* ----------------------------------------------------
-           3. شريط التقدم والمعرض للقسم الجديد للصور
+           3. شريط التقدم المعالج للصور
         ---------------------------------------------------- */
         .progress-box {
             background: var(--bg-dark);
@@ -336,8 +336,8 @@
 
         .generated-images-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
             margin-top: 16px;
         }
 
@@ -352,31 +352,33 @@
 
         .generated-image-card img {
             width: 100%;
-            height: 180px;
+            height: 220px;
             object-fit: cover;
+            background: #000;
         }
 
         .generated-image-actions {
-            padding: 8px;
+            padding: 10px;
             text-align: center;
+            background: var(--surface-card);
         }
 
         .btn-download-img {
-            background: var(--surface-elevated);
-            color: var(--offgrid-blue-glow);
-            border: 1px solid var(--border-subtle);
-            padding: 6px 10px;
+            background: var(--offgrid-grad);
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 800;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            display: block;
             width: 100%;
         }
 
         /* ----------------------------------------------------
-           4. عرض الأفكار والسكريبتات المستجيبة (Card / Timeline Grid)
+           4. عرض الأفكار والسكريبتات المستجيبة
         ---------------------------------------------------- */
         .export-container {
             background-color: var(--surface-card);
@@ -529,7 +531,7 @@
 
 <div class="app-wrapper">
 
-    <!-- الهيدر الرئيسي الفاخر مع شعار OFFGRID Studio -->
+    <!-- الهيدر الرئيسي الفاخر -->
     <header class="brand-header">
         <div class="brand-identity">
             <span class="brand-logo-badge">OFFGRID</span>
@@ -592,7 +594,7 @@
         </div>
     </section>
 
-    <!-- 2. قسم جديد: مولد الصور بالذكاء الاصطناعي (Unlimited & No Watermark) -->
+    <!-- 2. قسم مولد الصور بالذكاء الاصطناعي (محدث ومضمون الظهور) -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">🎨 مولد الصور بالذكاء الاصطناعي (مجاني - بدون ليميت - بدون علامة مائية)</span>
@@ -600,7 +602,7 @@
         <div class="form-grid">
             <div class="form-group">
                 <label for="imagePrompt">وصف الصورة المطلوبة (Prompt):</label>
-                <textarea id="imagePrompt" rows="2" placeholder="أكتب وصف الصورة هنا باللغة الإنجليزية أو العربية (مثال: Cinematic food photography of a juicy burger, dark lighting, highly detailed 8k)"></textarea>
+                <textarea id="imagePrompt" rows="2" placeholder="أكتب وصف الصورة بالإنجليزية للحصول على أفضل نتيجة (مثال: Cinematic food photography of a juicy burger, dark studio lighting, 8k resolution)"></textarea>
             </div>
 
             <div class="form-row-2">
@@ -653,7 +655,6 @@
     <!-- 4. عرض التقرير والنتيجة النهائية القابلة للتصدير كصورة -->
     <section class="card" id="resultCard" style="display: none;">
         
-        <!-- شريط التقدم للتوليد الضخم -->
         <div id="progressBox" class="progress-box" style="display:none;">
             <div id="progressStatus" class="progress-text">جاري بدء التوليد... ⏳</div>
             <div class="progress-bar-bg">
@@ -670,7 +671,6 @@
                 <div class="brand-logo-badge" style="font-size: 1.2rem;">OFFGRID</div>
             </div>
 
-            <!-- شبكة الأفكار المستجيبة -->
             <div id="outputContainer" class="ideas-grid"></div>
 
             <div id="exportNotesBox" class="notes-footer-box" style="display:none;">
@@ -706,7 +706,6 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
 }
 
-// معاينة الصورة المرجعية المرفوعة
 function previewRefImage(event) {
     const file = event.target.files[0];
     if (file) {
@@ -720,7 +719,7 @@ function previewRefImage(event) {
     }
 }
 
-// محرك توليد الصور بالذكاء الاصطناعي (بدون ليميت وبدون علامة مائية)
+// محرك توليد الصور المحدث (يجبر المتصفح على الانتظار لحين اكتمال تجهيز الصورة)
 async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const count = parseInt(document.getElementById('imgCount').value) || 1;
@@ -742,30 +741,25 @@ async function startImageGeneration() {
     genBtn.disabled = true;
     stopBtn.disabled = false;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري بدء توليد ${count} صورة... ⏳`;
+    statusText.innerText = `جاري بدء التوليد والتجهيز... ⏳`;
     gallery.innerHTML = '';
 
     for (let i = 1; i <= count; i++) {
-        if (signal.aborted) {
-            statusText.innerText = `🛑 تم إيقاف توليد الصور عند الصورة رقم (${i - 1} من ${count})`;
-            break;
-        }
+        if (signal.aborted) break;
 
-        statusText.innerText = `⏳ جاري توليد الصورة ${i} من أصل ${count}...`;
+        statusText.innerText = `⏳ جاري معالجة وبناء الصورة (${i} من أصل ${count})... قد يستغرق ذلك بضع ثوانٍ`;
 
         try {
-            // إضافة كلمات مفتاحية في حالة ربط صورة مرجعية
             let finalPrompt = promptText;
             if (refImageBase64) {
-                finalPrompt += " in similar composition and style to reference concept";
+                finalPrompt += " in similar theme and arrangement";
             }
 
+            const seed = Math.floor(Math.random() * 999999);
             const encodedPrompt = encodeURIComponent(finalPrompt);
-            const seed = Math.floor(Math.random() * 1000000);
-            
-            // رابط الـ API المباشر عالي الجودة وبدون علامات مائية
             const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1024&height=1024&seed=${seed}&nologo=true`;
 
+            // جلب الصورة كـ Blob لتأكيد معالجتها بالكامل من السيرفر
             const response = await fetch(imageUrl, { signal: signal });
             
             if (response.ok) {
@@ -775,25 +769,25 @@ async function startImageGeneration() {
                 const card = document.createElement('div');
                 card.className = 'generated-image-card';
                 card.innerHTML = `
-                    <img src="${blobUrl}" alt="AI Generated Image">
+                    <img src="${blobUrl}" alt="AI Image ${i}">
                     <div class="generated-image-actions">
-                        <a href="${blobUrl}" download="OFFGRID_AI_IMG_${i}.jpg" class="btn-download-img">تحميل الصورة 📥</a>
+                        <a href="${blobUrl}" download="OFFGRID_AI_${i}.jpg" class="btn-download-img">تحميل الصورة 📥</a>
                     </div>
                 `;
                 gallery.appendChild(card);
             }
         } catch (error) {
             if (error.name === 'AbortError') {
-                statusText.innerText = `🛑 تم إيقاف العملية! تم إنشاء ${i - 1} صورة فقط.`;
+                statusText.innerText = `🛑 تم إيقاف عملية توليد الصور.`;
                 break;
             } else {
-                console.error("Image generation error", error);
+                console.error("Error generating image", error);
             }
         }
     }
 
     if (!signal.aborted) {
-        statusText.innerText = `✨ اكتمل توليد ${gallery.children.length} صورة بنجاح!`;
+        statusText.innerText = `✨ تم توليد وعرض ${gallery.children.length} صورة بنجاح!`;
     }
 
     genBtn.disabled = false;
@@ -802,12 +796,12 @@ async function startImageGeneration() {
 
 function stopImageGeneration() {
     if (imgAbortController) {
-        document.getElementById('imgProgressStatus').innerText = 'جاري إيقاف العملية... ⏳';
+        document.getElementById('imgProgressStatus').innerText = 'جاري إيقاف عملية التوليد... ⏳';
         imgAbortController.abort();
     }
 }
 
-// محرك التوليد الدفعي المتسلسل للسكريبتات حتى 1000 فكرة
+// محرك التوليد الدفعي المتسلسل للسكريبتات
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -872,10 +866,7 @@ async function startGenerationProcess() {
 
         const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1, signal);
         
-        if (signal.aborted) {
-            progressStatus.innerText = `🛑 تم إيقاف التوليد بنجاح عند (${currentIdeas.length} فكرة).`;
-            break;
-        }
+        if (signal.aborted) break;
 
         if (batchIdeas && batchIdeas.length > 0) {
             currentIdeas = currentIdeas.concat(batchIdeas);
@@ -883,7 +874,6 @@ async function startGenerationProcess() {
             generatedPosters += reqPosters;
             renderIdeasGrid(currentIdeas);
         } else {
-            alert('تم الاكتفاء بالأفكار المكتملة لضمان استقرار الاتصال.');
             break;
         }
     }
@@ -950,11 +940,7 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
             return JSON.parse(rawText);
         }
     } catch (e) {
-        if (e.name === 'AbortError') {
-            console.log("تم إلغاء الطلب بواسطة المستخدم.");
-        } else {
-            console.error("Batch Generation Error", e);
-        }
+        console.error("Batch Error", e);
     }
     return null;
 }
