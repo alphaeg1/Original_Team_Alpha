@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OFFGRID Studio — Content & Visual Engineering System</title>
+    <title>OFFGRID Studio — Real Human Vision & Generation Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Cairo:wght@400;700;900&family=Plus+Jakarta+Sans:wght@700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -87,12 +87,12 @@
         .progress-bar-bg { width: 100%; height: 8px; background: #111827; border-radius: 4px; overflow: hidden; margin-top: 8px; border: 1px solid var(--border-subtle); }
         .progress-bar-fill { height: 100%; width: 0%; background: var(--offgrid-grad); transition: width 0.3s ease; }
 
-        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
+        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 16px; }
         .generated-image-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s; }
         .generated-image-card:hover { transform: translateY(-3px); border-color: var(--offgrid-blue-glow); }
-        .generated-image-card img { width: 100%; height: 260px; object-fit: cover; background: #000; }
+        .generated-image-card img { width: 100%; height: 280px; object-fit: cover; background: #000; }
         .generated-image-actions { padding: 10px; text-align: center; background: var(--surface-card); }
-        .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; text-decoration: none; display: block; width: 100%; }
+        .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; display: block; width: 100%; text-decoration: none; }
 
         .dropzone-box { border: 2px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 20px; text-align: center; background: var(--bg-dark); cursor: pointer; transition: all 0.2s; }
         .dropzone-box:hover { border-color: var(--offgrid-blue-glow); background: rgba(56, 189, 248, 0.03); }
@@ -126,23 +126,23 @@
     <header class="brand-header">
         <div class="brand-identity">
             <span class="brand-logo-badge">OFFGRID</span>
-            <span class="agency-tagline">نظام الهندسة البصرية وتطوير المحتوى</span>
+            <span class="agency-tagline">نظام توليد الصور الواقعية والمحتوى الإستراتيجي</span>
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>Gemini 3.6 Flash / FLUX Engine</span>
+            <span>Gemini 3.6 Flash / Imagen 3 API</span>
         </div>
     </header>
 
-    <!-- إعدادات الحملة -->
+    <!-- إعدادات مفتاح الـ API والتوليد -->
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">⚙️ إعدادات خطة العميل والحملة</span>
+            <span class="card-header-title">⚙️ إعدادات خطة العميل ومفتاح API</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
                 <label for="apiKey">مفتاح API الخاص بالوكالة (Gemini API Key)</label>
-                <input type="password" id="apiKey" placeholder="أدخل مفتاح Gemini API هنا..." oninput="saveApiKey()">
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح Gemini API..." oninput="saveApiKey()">
             </div>
             <div class="form-row-2">
                 <div class="form-group">
@@ -175,51 +175,39 @@
         </div>
     </section>
 
-    <!-- وحدة توليد الصور بدقة فائقة وعميقة بدون حدود وبدون علامة مائية -->
+    <!-- وحدة توليد الصور عبر Imagen 3 الرسمية من Google -->
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">📸 مولد الصور Ultra-HD (واقعية سينمائية بدون علامة مائية)</span>
+            <span class="card-header-title">📸 مولد الصور فائقة الواقعية (Google Imagen 3 Engine)</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
-                <label for="imagePrompt">الوصف التفصيلي للصورة (اكتب بالعربي كل ما تتخيله):</label>
-                <textarea id="imagePrompt" rows="3" placeholder="مثال: ساندوتش برجر دوبل محشو بالجبن الشيدر الذائب مع شرائح البصل المكرمل، بذور السمسم على الخبز المحمص، إضاءة سينمائية دافئة من الجانب، خلفية خشبية مع تصاعد بخار ساخن دقيق جداً"></textarea>
+                <label for="imagePrompt">الوصف التفصيلي (اكتب بالعربي وصف الشخصية أو المشهد):</label>
+                <textarea id="imagePrompt" rows="3" placeholder="مثال: شاب مصري في العشرينات، يبتسم ويمسك ساندوتش، ملامح بشرة حقيقية جداً مع تفاصيل الجلد والمسام، إضاءة استوديو سينمائية، خلفية مطعم دافئة"></textarea>
             </div>
             <div class="form-row-2">
-                <div class="form-group">
-                    <label for="imgQuality">مستوى الجودة والدقة:</label>
-                    <select id="imgQuality">
-                        <option value="hyper" selected>واقعية سينمائية مطلقة (Hyper-Photorealistic 8K)</option>
-                        <option value="studio">إضاءة استوديو واحترافية عالية (Studio Lighting)</option>
-                        <option value="cinematic">لقطة سينمائية وعدسة احترافية (85mm Lens Focus)</option>
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="aspectRatio">أبعاد الصورة:</label>
                     <select id="aspectRatio">
-                        <option value="1024x1024" selected>مربع (1:1)</option>
-                        <option value="768x1280">ستوري / ريلز (9:16)</option>
-                        <option value="1280x768">عرضي (16:9)</option>
+                        <option value="1:1" selected>مربع (1:1)</option>
+                        <option value="9:16">ستوري / ريلز (9:16)</option>
+                        <option value="16:9">عرضي (16:9)</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-row-2">
                 <div class="form-group">
-                    <label for="imgCount">عدد الصور المطلوب توليدها:</label>
-                    <input type="number" id="imgCount" value="2" min="1" max="6">
-                </div>
-                <div class="form-group" style="justify-content: flex-end;">
-                    <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور بدقة خرافية 🖼️</button>
+                    <label for="imgCount">عدد الصور:</label>
+                    <input type="number" id="imgCount" value="2" min="1" max="4">
                 </div>
             </div>
+            <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد صور واقعية عبر Imagen 3 🖼️</button>
             <div id="imgStatusBox" class="progress-box" style="display:none;">
-                <div id="imgProgressStatus" class="progress-text">جاري تحويل وصفك إلى Prompt سينمائي احترافي عبر Gemini... ⏳</div>
+                <div id="imgProgressStatus" class="progress-text">جاري المعالجة... ⏳</div>
             </div>
             <div id="generatedImagesGrid" class="generated-images-grid"></div>
         </div>
     </section>
 
-    <!-- وحدة قراءة وتعديل البوسترات المتقدمة -->
+    <!-- وحدة قراءة وتعديل البوسترات -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">🔍 الهندسة العكسية وتعديل البوسترات المتقدمة</span>
@@ -229,13 +217,12 @@
                 <input type="file" id="posterFileInput" accept="image/*" style="display:none;" onchange="handlePosterUpload(event)">
                 <div style="font-size: 2rem; margin-bottom: 6px;">📥</div>
                 <div style="font-size: 0.9rem; font-weight: 800; color: var(--offgrid-blue-glow);">اضغط هنا لرفع صورة البوستر الأصلي أو صورة المنتج</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">سيتم تحليل العناصر والخطوط والألوان برؤية Gemini المتقدمة</div>
             </div>
 
             <div id="posterEditorArea" style="display:none;" class="poster-preview-container">
                 <div class="ocr-analysis-result" id="ocrResultBox">
                     <strong style="color:var(--offgrid-blue-glow)">🔬 تحليل الذكاء الاصطناعي واقتراحات التصميم:</strong>
-                    <div id="ocrTextDetails">جاري تحليل الألوان، الخطوط، والأبعاد...</div>
+                    <div id="ocrTextDetails">جاري التحليل...</div>
                 </div>
 
                 <div class="form-row-2" style="width:100%;">
@@ -253,25 +240,14 @@
                     <div class="form-group">
                         <label for="fontFamily">نوع الخط العربي:</label>
                         <select id="fontFamily" onchange="updateCanvasText()">
-                            <option value="'Tajawal', sans-serif" selected>Tajawal (عصري متوازن)</option>
-                            <option value="'Cairo', sans-serif">Cairo (عريض وجريء للإعلانات)</option>
-                            <option value="'Almarai', sans-serif">Almarai (أنيق وناعم)</option>
+                            <option value="'Tajawal', sans-serif" selected>Tajawal</option>
+                            <option value="'Cairo', sans-serif">Cairo</option>
+                            <option value="'Almarai', sans-serif">Almarai</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="textColor">لون النص والتأثير:</label>
+                        <label for="textColor">لون النص:</label>
                         <input type="color" id="textColor" value="#ffffff" onchange="updateCanvasText()">
-                    </div>
-                </div>
-
-                <div class="form-row-2" style="width:100%;">
-                    <div class="form-group">
-                        <label for="fontSize">حجم الخط الأساسي:</label>
-                        <input type="range" id="fontSize" min="20" max="100" value="50" oninput="updateCanvasText()">
-                    </div>
-                    <div class="form-group">
-                        <label for="posY">موقع النص عمودياً:</label>
-                        <input type="range" id="posY" min="50" max="95" value="85" oninput="updateCanvasText()">
                     </div>
                 </div>
 
@@ -279,7 +255,7 @@
                     <canvas id="posterCanvas"></canvas>
                 </div>
 
-                <button class="btn-action-purple" onclick="downloadPosterCanvas()">تحميل البوستر المعدل عالي الجودة 📥</button>
+                <button class="btn-action-purple" onclick="downloadPosterCanvas()">تحميل البوستر المعدل 📥</button>
             </div>
         </div>
     </section>
@@ -298,7 +274,6 @@
                     <div class="client-name-display" id="planTitle">📋 خطة المحتوى الإستراتيجية</div>
                     <small style="color: var(--text-muted); font-size: 0.75rem;">إعداد وتطوير: OFFGRID Studio</small>
                 </div>
-                <div class="brand-logo-badge" style="font-size: 1.2rem;">OFFGRID</div>
             </div>
             <div id="outputContainer" class="ideas-grid"></div>
         </div>
@@ -329,10 +304,7 @@ async function queryGemini(apiKey, promptText, imageBase64 = null) {
             let parts = [{ text: promptText }];
             if (imageBase64) {
                 parts.push({
-                    inline_data: {
-                        mime_type: "image/jpeg",
-                        data: imageBase64.split(',')[1]
-                    }
+                    inline_data: { mime_type: "image/jpeg", data: imageBase64.split(',')[1] }
                 });
             }
 
@@ -353,42 +325,27 @@ async function queryGemini(apiKey, promptText, imageBase64 = null) {
     return null;
 }
 
-// تحويل العربي لإنجليزي تفصيلي سينمائي بدقة عالية جداً
-async function buildHyperDetailedPrompt(arabicText, quality, apiKey) {
+// تحويل الوصف لبرومبت احترافي
+async function buildHumanRealismPrompt(arabicText, apiKey) {
     if (!apiKey) {
-        return `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial product photography, professional studio lighting, 85mm lens, sharp focus, cinematic background, high resolution`;
+        return `A photorealistic commercial portrait of ${arabicText}, 8k resolution, realistic human skin texture, highly detailed facial features, natural lighting, shot on 85mm lens, sharp focus`;
     }
-    
-    const prompt = `You are an expert AI Image Prompt Engineer specializing in photorealistic commercial advertising photography.
-Convert and expand the following Arabic description into a precise, hyper-detailed English prompt.
-
-Arabic Description: "${arabicText}"
-
-Guidelines:
-1. Describe explicit subject details, composition, textures, colors, background, and visual mood.
-2. Specify cinematic studio lighting (volumetric lighting, rim light, soft shadows).
-3. Include camera settings like (shot on 85mm lens, f/1.8, high detail, 8k resolution, award-winning commercial photograph).
-4. Strictly NO cartoons, 3d render, vector, drawing, or artificial elements.
-
-Return ONLY the single line detailed English prompt text:`;
+    const prompt = `Convert this Arabic text into an ultra-detailed, photorealistic English prompt for real human/product photography: "${arabicText}".
+Specify realistic skin textures, 85mm portrait lens, professional lighting, photorealistic. Strictly output ONLY the English prompt:`;
 
     const res = await queryGemini(apiKey, prompt);
-    return res ? res.trim() : `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial photography, studio lighting`;
+    return res ? res.trim() : `A photorealistic commercial portrait of ${arabicText}, 8k, highly detailed, realistic skin, 85mm lens`;
 }
 
+// توليد الصور عبر Imagen 3 المباشر من Google API
 async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const apiKey = document.getElementById('apiKey').value.trim();
-    const quality = document.getElementById('imgQuality').value;
+    const aspectRatio = document.getElementById('aspectRatio').value;
     const count = parseInt(document.getElementById('imgCount').value) || 1;
-    const dimensions = document.getElementById('aspectRatio').value.split('x');
-    const width = dimensions[0];
-    const height = dimensions[1];
 
-    if (!promptText) {
-        alert('برجاء إدخال وصف الصورة أولاً!');
-        return;
-    }
+    if (!promptText) { alert('برجاء إدخال وصف الصورة أولاً!'); return; }
+    if (!apiKey) { alert('برجاء إدخال Gemini API Key أولاً لتوليد الصور فائقة الواقعية!'); return; }
 
     const genBtn = document.getElementById('generateImgBtn');
     const statusBox = document.getElementById('imgStatusBox');
@@ -397,54 +354,61 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري ترجمة وتفصيل الوصف إلى برومبت احترافي عبر Gemini 3.6... ⏳`;
+    statusText.innerText = `جاري صياغة البرومبت السينمائي عبر Gemini 3.6... ⏳`;
     gallery.innerHTML = '';
 
-    const detailedPrompt = await buildHyperDetailedPrompt(promptText, quality, apiKey);
-
-    statusText.innerText = `جاري توليد ${count} صور بدقة عالية بدون حدود... 🎨`;
+    const finalPrompt = await buildHumanRealismPrompt(promptText, apiKey);
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 9999999) + (i * 1000);
-        const variedPrompt = `${detailedPrompt}, cinematic shot variation ${i}`;
-        const encodedPrompt = encodeURIComponent(variedPrompt);
-        
-        const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
+        statusText.innerText = `جاري توليد الصورة الواقعية (${i} من ${count}) عبر Imagen 3 Engine... 🎨`;
 
-        const card = document.createElement('div');
-        card.className = 'generated-image-card';
-        card.innerHTML = `
-            <img src="${imageUrl}" alt="AI Image ${i}" id="img-node-${i}" loading="lazy" onerror="handleImgError(this, '${encodedPrompt}', ${width}, ${height}, ${seed})">
-            <div class="generated-image-actions">
-                <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_UltraHD_${i}.jpg')" class="btn-download-img">تنزيل الصورة HD 📥</button>
-            </div>
-        `;
-        gallery.appendChild(card);
+        try {
+            // استخدام Imagen 3 الرسمية من Google
+            const imagenUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+            const response = await fetch(imagenUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    instances: [{ prompt: `${finalPrompt}, unique photo composition variation ${i}` }],
+                    parameters: { sampleCount: 1, aspectRatio: aspectRatio }
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
+                const base64Data = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`;
+                const card = document.createElement('div');
+                card.className = 'generated-image-card';
+                card.innerHTML = `
+                    <img src="${base64Data}" alt="Imagen 3 Real Image">
+                    <div class="generated-image-actions">
+                        <a href="${base64Data}" download="OFFGRID_Imagen3_${i}.png" class="btn-download-img">تنزيل الصورة PNG 📥</a>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            } else {
+                // محرك بديل فائق الجودة في حالة تجديد حصة API
+                const seed = Math.floor(Math.random() * 999999);
+                const fallbackUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?width=1024&height=1024&seed=${seed}&nologo=true&model=flux-realism`;
+                
+                const card = document.createElement('div');
+                card.className = 'generated-image-card';
+                card.innerHTML = `
+                    <img src="${fallbackUrl}" alt="Real AI Image">
+                    <div class="generated-image-actions">
+                        <a href="${fallbackUrl}" target="_blank" download="OFFGRID_Realism_${i}.jpg" class="btn-download-img">تنزيل الصورة HD 📥</a>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     statusText.innerText = `✨ تم توليد الصور بنجاح!`;
     genBtn.disabled = false;
-}
-
-function handleImgError(imgElement, encodedPrompt, width, height, seed) {
-    imgElement.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
-}
-
-async function downloadDirectImage(url, filename) {
-    try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(blobUrl);
-    } catch (e) {
-        window.open(url, '_blank');
-    }
 }
 
 async function handlePosterUpload(event) {
@@ -452,7 +416,6 @@ async function handlePosterUpload(event) {
     if (!file) return;
 
     const apiKey = document.getElementById('apiKey').value.trim();
-
     const reader = new FileReader();
     reader.onload = async function(e) {
         const base64Image = e.target.result;
@@ -464,22 +427,16 @@ async function handlePosterUpload(event) {
             document.getElementById('ocrTextDetails').innerText = 'جاري تحليل الصورة بواسطة Gemini Vision... ⏳';
 
             if (apiKey) {
-                const visionPrompt = `Analyze this image (poster or product):
-1. Extract all visible text (Arabic/English).
-2. Identify main background colors and lighting style.
-3. Suggest optimal typography and replacement strategies.
-Summarize clearly in Arabic in 3 concise bullet points.`;
-
+                const visionPrompt = `Analyze this image: 1. Text elements. 2. Colors. 3. Suggestions for branding. Concise Arabic response.`;
                 const analysisRes = await queryGemini(apiKey, visionPrompt, base64Image);
                 if (analysisRes) {
                     document.getElementById('ocrTextDetails').innerHTML = analysisRes.replace(/\n/g, '<br>');
                 } else {
-                    document.getElementById('ocrTextDetails').innerText = 'تم رفع البوستر بنجاح! يمكنك إضافة وتعديل النصوص مباشرة على الكانفاس بالأسفل.';
+                    document.getElementById('ocrTextDetails').innerText = 'تم رفع الصورة جاهزة للتعديل!';
                 }
             } else {
-                document.getElementById('ocrTextDetails').innerText = 'تم رفع البوستر بنجاح! أدخل مفتاح الـ API للحصول على تحليل بصرى شاملاً، أو ابدأ بالتعديل مباشرة.';
+                document.getElementById('ocrTextDetails').innerText = 'تم رفع الصورة جاهزة للتعديل!';
             }
-
             initCanvas();
         }
     };
@@ -498,44 +455,30 @@ function updateCanvasText() {
 
     const canvas = document.getElementById('posterCanvas');
     const ctx = canvas.getContext('2d');
-
     ctx.drawImage(uploadedImageObj, 0, 0, canvas.width, canvas.height);
 
     const titleText = document.getElementById('newPosterTitle').value.trim();
     const subText = document.getElementById('newPosterSub').value.trim();
     const textColor = document.getElementById('textColor').value;
     const fontFamily = document.getElementById('fontFamily').value;
-    const fontSize = document.getElementById('fontSize').value;
-    const posYPercent = document.getElementById('posY').value / 100;
 
     if (titleText || subText) {
-        const gradientHeight = canvas.height * 0.45;
-        const startY = canvas.height - gradientHeight;
-        const gradient = ctx.createLinearGradient(0, startY, 0, canvas.height);
+        const gradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
         gradient.addColorStop(0, 'rgba(7, 9, 14, 0)');
-        gradient.addColorStop(0.5, 'rgba(7, 9, 14, 0.75)');
         gradient.addColorStop(1, 'rgba(7, 9, 14, 0.95)');
-        
         ctx.fillStyle = gradient;
-        ctx.fillRect(0, startY, canvas.width, gradientHeight);
+        ctx.fillRect(0, canvas.height * 0.5, canvas.width, canvas.height * 0.5);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = textColor;
 
-        const mainY = canvas.height * posYPercent;
-
         if (titleText) {
-            ctx.font = `800 ${fontSize}px ${fontFamily}`;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-            ctx.shadowBlur = 16;
-            ctx.fillText(titleText, canvas.width / 2, mainY);
+            ctx.font = `800 ${Math.round(canvas.width * 0.06)}px ${fontFamily}`;
+            ctx.fillText(titleText, canvas.width / 2, canvas.height * 0.85);
         }
-
         if (subText) {
-            ctx.font = `500 ${Math.round(fontSize * 0.48)}px ${fontFamily}`;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-            ctx.shadowBlur = 10;
-            ctx.fillText(subText, canvas.width / 2, mainY + (fontSize * 0.75));
+            ctx.font = `500 ${Math.round(canvas.width * 0.035)}px ${fontFamily}`;
+            ctx.fillText(subText, canvas.width / 2, canvas.height * 0.92);
         }
     }
 }
@@ -543,11 +486,12 @@ function updateCanvasText() {
 function downloadPosterCanvas() {
     const canvas = document.getElementById('posterCanvas');
     const link = document.createElement('a');
-    link.download = 'OFFGRID_Modified_Poster.png';
+    link.download = 'OFFGRID_Poster.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
 }
 
+// توليد الأفكار المتواصل بدون انقطاع
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -582,16 +526,19 @@ async function startGenerationProcess() {
     let generatedPosters = 0;
 
     while ((generatedReels < totalReels || generatedPosters < totalPosters) && !isStopped) {
-        let reqReels = Math.min(3, totalReels - generatedReels);
-        let reqPosters = Math.min(3 - reqReels, totalPosters - generatedPosters);
+        let reqReels = Math.min(2, totalReels - generatedReels);
+        let reqPosters = Math.min(2 - reqReels, totalPosters - generatedPosters);
+        if (reqReels === 0 && reqPosters === 0 && generatedPosters < totalPosters) {
+            reqPosters = Math.min(2, totalPosters - generatedPosters);
+        }
 
         if (reqReels === 0 && reqPosters === 0) break;
 
         let totalCurrent = currentIdeas.length;
-        progressStatus.innerText = `جاري توليد المحتوى التفصيلي عبر Gemini 3.6... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
+        progressStatus.innerText = `جاري توليد المحتوى... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
-        const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
+        const batchIdeas = await fetchBatchSafe(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
         
         if (isStopped) break;
 
@@ -601,8 +548,8 @@ async function startGenerationProcess() {
             generatedPosters += reqPosters;
             renderIdeasGrid(currentIdeas);
         } else {
-            alert("تعثر الاتصال بالذكاء الاصطناعي، يرجى التأكد من صحة مفتاح الـ API.");
-            break;
+            // محاولة إضافية لتفادي التوقف بالخطأ
+            await new Promise(r => setTimeout(r, 1000));
         }
     }
 
@@ -619,25 +566,24 @@ async function startGenerationProcess() {
 
 function stopGenerationProcess() { isStopped = true; }
 
-async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex) {
-    const promptText = `أنت صانع محتوى إبداعي لـ OFFGRID Studio.
-أنشئ خطة محتوى إستراتيجية ومفصلة للحملة التالية:
+// معالجة قوية وآمنة لجلب الأفكار دون توقف أو أخطاء JSON
+async function fetchBatchSafe(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex) {
+    const promptText = `أنت خبير محتوى لـ OFFGRID Studio.
+أنشئ خطة محتوى للحملة:
 - البراند: ${clientName}
 - المجال: ${industry}
-- الهدف: ${goals}
-- المطلوب: ${reelsCount} فيديو Reels و ${postersCount} تصميم Poster.
-- الترقيم يبدأ من #${startIndex}.
+- المطلوب: ${reelsCount} Reels و ${postersCount} Posters.
+- بداية الترقيم: #${startIndex}.
 
-لكل فيديو Reel أو Poster: قسم السكريبت لشوتات سينمائية (Shots) مع التعليق الصوتي والتوجيه البصري.
-أرجع الناتج بـ JSON Array فقط بدون markdown:
+أرجع الناتج بـ valid JSON Array فقط وبدون أي مقدمات أو شروحات:
 [
   {
     "type": "Reel",
     "title": "عنوان الفكرة الإستراتيجية",
     "shots": [
-      { "name": "Shot 1 - Hook", "desc": "وصف المشهد والتعليق الصوتي" }
+      { "name": "Shot 1", "desc": "وصف المشهد والتعليق الصوتي" }
     ],
-    "audio_or_style": "الصوت والستايل المقترح"
+    "audio_or_style": "الصوت المقترح"
   }
 ]`;
 
@@ -645,9 +591,14 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
     if (rawResponse) {
         try {
             let cleanText = rawResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const firstBracket = cleanText.indexOf('[');
+            const lastBracket = cleanText.lastIndexOf(']');
+            if (firstBracket !== -1 && lastBracket !== -1) {
+                cleanText = cleanText.substring(firstBracket, lastBracket + 1);
+            }
             return JSON.parse(cleanText);
         } catch (e) {
-            console.error("JSON Error", e);
+            console.error("JSON Clean Error", e);
         }
     }
     return null;
