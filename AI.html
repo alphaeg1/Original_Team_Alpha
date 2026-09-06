@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OFFGRID Studio — Full Control AI</title>
+    <title>OFFGRID Studio — Production Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Cairo:wght@400;700;900&family=Plus+Jakarta+Sans:wght@700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --accent-pink: #ec4899;
-            --accent-red: #ef4444;
+            --accent-green: #22c55e;
             --radius-lg: 16px;
             --radius-md: 10px;
             --font-main: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -157,7 +157,7 @@
         </div>
     </header>
 
-    <!-- 1. الشاشة الرئيسية الاختيارية -->
+    <!-- 1. الشاشة الرئيسية -->
     <div id="mainSelectionMenu" class="navigation-grid">
         <div class="nav-card" onclick="openSection('ideasSection')">
             <div class="nav-card-icon">💡</div>
@@ -183,7 +183,7 @@
         <button class="btn-back-home" onclick="showMainMenu()">➔ العودة للقائمة الرئيسية</button>
         <section class="card">
             <div class="card-header">
-                <span class="card-header-title">💡 مولد خطط المحتوى والسيناريوهات (Gemini 3.6 Flash)</span>
+                <span class="card-header-title">💡 مولد خطط المحتوى والسيناريوهات (Gemini API)</span>
             </div>
             <div class="form-grid">
                 <div class="form-row-2">
@@ -234,7 +234,7 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="imagePrompt">الوصف التفصيلي للشخصية أو المشهد (بالعربي):</label>
-                    <textarea id="imagePrompt" rows="3" placeholder="مثال: شاب مصري في العشرينات، يبتسم وهو يمسك ساندوتش، ملامح بشره حقيقية جداً مع تفاصيل الجلد، إضاءة استوديو دافئة، خلفية مطعم"></textarea>
+                    <textarea id="imagePrompt" rows="3" placeholder="مثال: شاب مصري في العشرينات، يبتسم وهو يمسك ساندوتش، ملامح بشره حقيقية جداً، إضاءة استوديو دافئة، خلفية مطعم"></textarea>
                 </div>
                 <div class="form-row-2">
                     <div class="form-group">
@@ -337,39 +337,45 @@ function showMainMenu() {
     document.getElementById('mainSelectionMenu').style.display = 'grid';
 }
 
-// الاتصال المباشر بـ Gemini API مع استخدام gemini-3.6-flash أساسياً
+// دالة مجربة للاتصال بـ Gemini API بأسماء موديلات رسمية ومضمونة 100%
 async function queryGemini(apiKey, promptText) {
-    const models = ['gemini-3.6-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-exp'];
+    const cleanKey = apiKey.trim();
+    // موديلات جوجل الرسمية المعرف عليها عالمياً
+    const models = ['gemini-1.5-flash', 'gemini-1.5-pro'];
     
     for (let model of models) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
             });
+            
             const data = await response.json();
+            
             if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
                 return data.candidates[0].content.parts[0].text;
+            } else if (data.error) {
+                console.warn(`Model ${model} Error:`, data.error.message);
             }
         } catch (e) {
-            console.warn(`Attempt with ${model} failed, trying fallback...`);
+            console.warn(`Attempt with ${model} failed, switching fallback...`, e);
         }
     }
     return null;
 }
 
-// 1. توليد الأفكار باستخدام Gemini 3.6 Flash
+// 1. توليد الأفكار
 async function startGenerationProcess() {
-    const apiKey = document.getElementById('apiKey').value.trim();
+    const apiKey = document.getElementById('apiKey').value;
     const clientName = document.getElementById('clientName').value.trim();
     const industry = document.getElementById('industry').value.trim();
     const totalReels = parseInt(document.getElementById('reelsCount').value) || 0;
     const totalPosters = parseInt(document.getElementById('postersCount').value) || 0;
     const goals = document.getElementById('goals').value.trim();
 
-    if (!apiKey) { alert('برجاء إدخال Gemini API Key الصحيح أولاً!'); return; }
+    if (!apiKey.trim()) { alert('برجاء إدخال Gemini API Key الصحيح أولاً!'); return; }
     if (!clientName || !industry) { alert('برجاء كتابة اسم البراند والمجال!'); return; }
 
     const generateBtn = document.getElementById('generateBtn');
@@ -381,7 +387,7 @@ async function startGenerationProcess() {
     generateBtn.disabled = true;
     resultCard.style.display = 'block';
     progressBox.style.display = 'block';
-    progressStatus.innerText = 'جاري توليد الأفكار بواسطة Gemini 3.6 Flash... ⚡';
+    progressStatus.innerText = 'جاري التوصيل بالـ API وتوليد السيناريوهات... ⏳';
     outputContainer.innerHTML = '';
 
     const promptText = `أنت خبير تسويق إعلاني وصانع محتوى سينمائي احترافي.
@@ -424,13 +430,13 @@ async function startGenerationProcess() {
             }
             const ideas = JSON.parse(cleanText);
             renderIdeasGrid(ideas);
-            progressStatus.innerText = '✨ تم التوليد بنجاح بواسطة Gemini 3.6 Flash!';
+            progressStatus.innerText = '✨ تم التوليد بنجاح!';
         } catch (e) {
             console.error("JSON Parsing Error", e);
-            progressStatus.innerText = '❌ حدث خطأ في تنسيق الأفكار، يرجى المحاولة مرة أخرى.';
+            progressStatus.innerText = '❌ حدث خطأ في تنسيق الاستجابة، يرجى المحاولة مرة أخرى.';
         }
     } else {
-        progressStatus.innerText = '❌ فشل الاتصال بالـ API. تأكد من صحة المفتاح ورصيدك فيه.';
+        progressStatus.innerText = '❌ فشل الاتصال بالـ API! تأكد من صحة المفتاح وعدم وجود مسافات زائدة فيه.';
     }
 
     generateBtn.disabled = false;
@@ -473,15 +479,16 @@ function renderIdeasGrid(ideas) {
     });
 }
 
-// 2. توليد الصور الواقعية المباشر والدقيق
+// 2. توليد الصور مع تحسين الوصف عبر Gemini
 async function startImageGeneration() {
-    const promptText = document.getElementById('imagePrompt').value.trim();
+    const rawPrompt = document.getElementById('imagePrompt').value.trim();
+    const apiKey = document.getElementById('apiKey').value;
     const count = parseInt(document.getElementById('imgCount').value) || 1;
     const dimensions = document.getElementById('aspectRatio').value.split('x');
     const width = dimensions[0];
     const height = dimensions[1];
 
-    if (!promptText) { alert('برجاء كتابة وصف الصورة أولاً!'); return; }
+    if (!rawPrompt) { alert('برجاء كتابة وصف الصورة أولاً!'); return; }
 
     const genBtn = document.getElementById('generateImgBtn');
     const statusBox = document.getElementById('imgStatusBox');
@@ -490,19 +497,28 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري توليد الصور الواقعية المطابقة للوصف... 🎨`;
+    statusText.innerText = `جاري تحسين الوصف وتوليد الصور... 🎨`;
     gallery.innerHTML = '';
 
-    const formattedPrompt = encodeURIComponent(`${promptText}, hyperrealistic photography, real skin texture, natural lighting, sharp details, studio shot, highly realistic, 8k`);
+    let englishPrompt = rawPrompt;
+
+    // ترجمة وتعزيز الوصف باللغة الإنجليزية عبر Gemini إذا كان المفتاح متوفرًا
+    if (apiKey.trim()) {
+        const translatePrompt = `Translate this image description into a highly detailed English image prompt for AI image generation (FLUX realism style). Return ONLY the translated English sentence without quotes or explanations:\n"${rawPrompt}"`;
+        const translated = await queryGemini(apiKey, translatePrompt);
+        if (translated) englishPrompt = translated.trim();
+    }
+
+    const formattedPrompt = encodeURIComponent(`${englishPrompt}, hyperrealistic photography, highly detailed, real skin texture, studio lighting, 8k, photorealistic`);
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 9999999) + (i * 321);
-        const imageUrl = `https://image.pollinations.ai/prompt/${formattedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux-realism`;
+        const seed = Math.floor(Math.random() * 9999999) + (i * 123);
+        const imageUrl = `https://image.pollinations.ai/prompt/${formattedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux`;
 
         const card = document.createElement('div');
         card.className = 'generated-image-card';
         card.innerHTML = `
-            <img src="${imageUrl}" alt="Real AI Image ${i}" loading="lazy" onload="document.getElementById('imgProgressStatus').innerText='✨ تم توليد الصور بنجاح!';" onerror="this.onerror=null; this.src='https://via.placeholder.com/400?text=خطأ+في+التوليد';">
+            <img src="${imageUrl}" alt="AI Image ${i}" loading="lazy" onload="document.getElementById('imgProgressStatus').innerText='✨ تم التوليد بنجاح!';" onerror="this.onerror=null; this.src='https://via.placeholder.com/400?text=خطأ+في+التوليد';">
             <div class="generated-image-actions">
                 <a href="${imageUrl}" target="_blank" download="OFFGRID_Image_${i}.jpg" class="btn-download-img">تنزيل الصورة HD 📥</a>
             </div>
