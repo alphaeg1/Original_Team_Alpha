@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OFFGRID Studio — Content & Visual Engineering System</title>
+    <title>OFFGRID Studio — Visual & AI Generation System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Cairo:wght@400;700;900&family=Plus+Jakarta+Sans:wght@700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -87,12 +87,12 @@
         .progress-bar-bg { width: 100%; height: 8px; background: #111827; border-radius: 4px; overflow: hidden; margin-top: 8px; border: 1px solid var(--border-subtle); }
         .progress-bar-fill { height: 100%; width: 0%; background: var(--offgrid-grad); transition: width 0.3s ease; }
 
-        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
+        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 16px; }
         .generated-image-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s; }
         .generated-image-card:hover { transform: translateY(-3px); border-color: var(--offgrid-blue-glow); }
-        .generated-image-card img { width: 100%; height: 260px; object-fit: cover; background: #000; }
+        .generated-image-card img { width: 100%; height: 280px; object-fit: cover; background: #000; }
         .generated-image-actions { padding: 10px; text-align: center; background: var(--surface-card); }
-        .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; text-decoration: none; display: block; width: 100%; }
+        .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; display: block; width: 100%; }
 
         .dropzone-box { border: 2px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 20px; text-align: center; background: var(--bg-dark); cursor: pointer; transition: all 0.2s; }
         .dropzone-box:hover { border-color: var(--offgrid-blue-glow); background: rgba(56, 189, 248, 0.03); }
@@ -126,23 +126,23 @@
     <header class="brand-header">
         <div class="brand-identity">
             <span class="brand-logo-badge">OFFGRID</span>
-            <span class="agency-tagline">نظام الهندسة البصرية وتطوير المحتوى</span>
+            <span class="agency-tagline">نظام توليد الصور الواقعية والمحتوى الإستراتيجي</span>
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>Gemini 3.6 Flash / FLUX Engine</span>
+            <span>Gemini 3.6 Flash / Real-Human Engine</span>
         </div>
     </header>
 
-    <!-- إعدادات الحملة -->
+    <!-- إعدادات مفتاح الـ API والتوليد -->
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">⚙️ إعدادات خطة العميل والحملة</span>
+            <span class="card-header-title">⚙️ إعدادات خطة العميل ومفتاح API</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
                 <label for="apiKey">مفتاح API الخاص بالوكالة (Gemini API Key)</label>
-                <input type="password" id="apiKey" placeholder="أدخل مفتاح Gemini API هنا..." oninput="saveApiKey()">
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح Gemini API..." oninput="saveApiKey()">
             </div>
             <div class="form-row-2">
                 <div class="form-group">
@@ -175,27 +175,27 @@
         </div>
     </section>
 
-    <!-- وحدة توليد الصور بدقة فائقة وعميقة بدون حدود وبدون علامة مائية -->
+    <!-- وحدة توليد الصور فائقة الواقعية للأشخاص والمنتجات -->
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">📸 مولد الصور Ultra-HD (واقعية سينمائية بدون علامة مائية)</span>
+            <span class="card-header-title">📸 مولد صور البشر والمنتجات فائقة الواقعية (Real Human Portrait)</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
-                <label for="imagePrompt">الوصف التفصيلي للصورة (اكتب بالعربي كل ما تتخيله):</label>
-                <textarea id="imagePrompt" rows="3" placeholder="مثال: ساندوتش برجر دوبل محشو بالجبن الشيدر الذائب مع شرائح البصل المكرمل، بذور السمسم على الخبز المحمص، إضاءة سينمائية دافئة من الجانب، خلفية خشبية مع تصاعد بخار ساخن دقيق جداً"></textarea>
+                <label for="imagePrompt">الوصف التفصيلي (اكتب بالعربي وصف الشخصية أو المشهد):</label>
+                <textarea id="imagePrompt" rows="3" placeholder="مثال: شاب مصري في العشرينات من عمره، يرتدي قميص أسود، يبتسم وهو يمسك ساندوتش برجر، ملامح حقيقية جداً مع تفاصيل البشرة، إضاءة استوديو سينمائية، خلفية مطعم دافئة"></textarea>
             </div>
             <div class="form-row-2">
                 <div class="form-group">
-                    <label for="imgQuality">مستوى الجودة والدقة:</label>
+                    <label for="imgQuality">الأسلوب البصري والواقعية:</label>
                     <select id="imgQuality">
-                        <option value="hyper" selected>واقعية سينمائية مطلقة (Hyper-Photorealistic 8K)</option>
-                        <option value="studio">إضاءة استوديو واحترافية عالية (Studio Lighting)</option>
-                        <option value="cinematic">لقطة سينمائية وعدسة احترافية (85mm Lens Focus)</option>
+                        <option value="human_portrait" selected>وجه بشري حقيقي (Real Human Skin & 85mm Lens)</option>
+                        <option value="commercial">إعلان تجاري واستوديو (Commercial Studio Light)</option>
+                        <option value="cinematic">لقطة سينمائية واقعية (Ultra-Realistic Cinematic)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="aspectRatio">أبعاد الصورة:</label>
+                    <label for="aspectRatio">الأبعاد:</label>
                     <select id="aspectRatio">
                         <option value="1024x1024" selected>مربع (1:1)</option>
                         <option value="768x1280">ستوري / ريلز (9:16)</option>
@@ -206,20 +206,20 @@
             <div class="form-row-2">
                 <div class="form-group">
                     <label for="imgCount">عدد الصور المطلوب توليدها:</label>
-                    <input type="number" id="imgCount" value="2" min="1" max="6">
+                    <input type="number" id="imgCount" value="2" min="1" max="4">
                 </div>
                 <div class="form-group" style="justify-content: flex-end;">
-                    <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور بدقة خرافية 🖼️</button>
+                    <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد صور واقعية كأنها بشر حقيقيون 🖼️</button>
                 </div>
             </div>
             <div id="imgStatusBox" class="progress-box" style="display:none;">
-                <div id="imgProgressStatus" class="progress-text">جاري تحويل وصفك إلى Prompt سينمائي احترافي عبر Gemini... ⏳</div>
+                <div id="imgProgressStatus" class="progress-text">جاري معالجة الوصف العربي وتحويله لبرومبت بشر حقيقيين... ⏳</div>
             </div>
             <div id="generatedImagesGrid" class="generated-images-grid"></div>
         </div>
     </section>
 
-    <!-- وحدة قراءة وتعديل البوسترات المتقدمة -->
+    <!-- وحدة قراءة وتعديل البوسترات -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">🔍 الهندسة العكسية وتعديل البوسترات المتقدمة</span>
@@ -353,27 +353,27 @@ async function queryGemini(apiKey, promptText, imageBase64 = null) {
     return null;
 }
 
-// تحويل العربي لإنجليزي تفصيلي سينمائي بدقة عالية جداً
-async function buildHyperDetailedPrompt(arabicText, quality, apiKey) {
+// محرك تحويل الوصف لبرومبت بشر وملمس حقيقي فائقة الجودة
+async function buildHumanRealismPrompt(arabicText, quality, apiKey) {
     if (!apiKey) {
-        return `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial product photography, professional studio lighting, 85mm lens, sharp focus, cinematic background, high resolution`;
+        return `A hyper-realistic photography of ${arabicText}, realistic human skin texture, pores, authentic facial expressions, natural eyes, sharp focus, shot on 85mm portrait lens, professional lighting, photorealistic, 8k resolution, no drawing, no cartoon, award winning photograph`;
     }
     
-    const prompt = `You are an expert AI Image Prompt Engineer specializing in photorealistic commercial advertising photography.
-Convert and expand the following Arabic description into a precise, hyper-detailed English prompt.
+    const prompt = `You are a world-class prompt engineer for realistic human portrait photography and advertising.
+Convert this Arabic description into a highly detailed English image prompt:
 
-Arabic Description: "${arabicText}"
+Arabic Input: "${arabicText}"
 
-Guidelines:
-1. Describe explicit subject details, composition, textures, colors, background, and visual mood.
-2. Specify cinematic studio lighting (volumetric lighting, rim light, soft shadows).
-3. Include camera settings like (shot on 85mm lens, f/1.8, high detail, 8k resolution, award-winning commercial photograph).
-4. Strictly NO cartoons, 3d render, vector, drawing, or artificial elements.
+Strict Rules for Prompt Generation:
+1. Make any human character look 100% like a real human being (explicitly detail skin pores, natural skin tone, detailed eyes, facial hair/features, natural hair strand details).
+2. Specify cinematic portrait lighting (soft studio rim light, natural catchlight in the eyes).
+3. Specify camera gear: "Shot on Sony A7IV with 85mm f/1.4 lens, shallow depth of field, sharp focus on face".
+4. Strictly ban terms like "cartoon", "3d render", "illustration", "anime", "painting".
 
-Return ONLY the single line detailed English prompt text:`;
+Output ONLY the final English prompt text in one paragraph:`;
 
     const res = await queryGemini(apiKey, prompt);
-    return res ? res.trim() : `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial photography, studio lighting`;
+    return res ? res.trim() : `A photorealistic portrait of ${arabicText}, real human skin, detailed eyes, 85mm lens, 8k resolution`;
 }
 
 async function startImageGeneration() {
@@ -386,7 +386,7 @@ async function startImageGeneration() {
     const height = dimensions[1];
 
     if (!promptText) {
-        alert('برجاء إدخال وصف الصورة أولاً!');
+        alert('برجاء إدخال وصف الصورة أو الشخصية أولاً!');
         return;
     }
 
@@ -397,54 +397,53 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري ترجمة وتفصيل الوصف إلى برومبت احترافي عبر Gemini 3.6... ⏳`;
+    statusText.innerText = `جاري تحويل الوصف لبرومبت حقيقي سينمائي للوجوه والبشر عبر Gemini 3.6... ⏳`;
     gallery.innerHTML = '';
 
-    const detailedPrompt = await buildHyperDetailedPrompt(promptText, quality, apiKey);
-
-    statusText.innerText = `جاري توليد ${count} صور بدقة عالية بدون حدود... 🎨`;
+    const detailedPrompt = await buildHumanRealismPrompt(promptText, quality, apiKey);
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 9999999) + (i * 1000);
-        const variedPrompt = `${detailedPrompt}, cinematic shot variation ${i}`;
-        const encodedPrompt = encodeURIComponent(variedPrompt);
+        statusText.innerText = `جاري توليد الصورة (${i} من ${count}) كـ Base64 مباشر لحفظها كصورة حقيقية... 🎨`;
         
+        const seed = Math.floor(Math.random() * 9999999) + (i * 888);
+        const variedPrompt = `${detailedPrompt}, unique angle ${i}`;
+        const encodedPrompt = encodeURIComponent(variedPrompt);
+
+        // رابط توليد ديناميكي ثابت لتوليد الصورة مباشرة
         const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
 
-        const card = document.createElement('div');
-        card.className = 'generated-image-card';
-        card.innerHTML = `
-            <img src="${imageUrl}" alt="AI Image ${i}" id="img-node-${i}" loading="lazy" onerror="handleImgError(this, '${encodedPrompt}', ${width}, ${height}, ${seed})">
-            <div class="generated-image-actions">
-                <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_UltraHD_${i}.jpg')" class="btn-download-img">تنزيل الصورة HD 📥</button>
-            </div>
-        `;
-        gallery.appendChild(card);
+        try {
+            // جلب الصورة وتحويلها لـ Blob لضمان تنزيلها كصورة بصرية سليمة
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            const localBlobUrl = URL.createObjectURL(blob);
+
+            const card = document.createElement('div');
+            card.className = 'generated-image-card';
+            card.innerHTML = `
+                <img src="${localBlobUrl}" alt="Real Human AI Image ${i}">
+                <div class="generated-image-actions">
+                    <button onclick="downloadBlobImage('${localBlobUrl}', 'OFFGRID_Human_Realism_${i}.png')" class="btn-download-img">تنزيل الصورة PNG 📥</button>
+                </div>
+            `;
+            gallery.appendChild(card);
+        } catch (err) {
+            console.error("Error generating image blob:", err);
+        }
     }
 
-    statusText.innerText = `✨ تم توليد الصور بنجاح!`;
+    statusText.innerText = `✨ تم توليد الصور فائقة الواقعية بنجاح!`;
     genBtn.disabled = false;
 }
 
-function handleImgError(imgElement, encodedPrompt, width, height, seed) {
-    imgElement.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
-}
-
-async function downloadDirectImage(url, filename) {
-    try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(blobUrl);
-    } catch (e) {
-        window.open(url, '_blank');
-    }
+// دالة التحميل المباشرة التي تضمن التحميل كـ PNG/JPG حقيقي وليس ملف نصي
+function downloadBlobImage(blobUrl, filename) {
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
 async function handlePosterUpload(event) {
