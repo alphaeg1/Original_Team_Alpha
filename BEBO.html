@@ -10,11 +10,13 @@
 
     <style>
         :root {
-            --neon-cyan: #00f0ff;
-            --neon-blue: #0077ff;
-            --card-bg: rgba(18, 24, 38, 0.9);
+            /* تعديل الألوان لتتناسب مع الذهبي والأسود الخالص الخاص باللوجو */
+            --gold-main: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --card-bg: rgba(18, 18, 18, 0.95);
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #a1a1aa;
         }
 
         * {
@@ -26,10 +28,10 @@
         }
 
         body {
-            background: #06080c;
+            background: #080808;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(0, 119, 255, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
@@ -60,7 +62,7 @@
             border-radius: 30px;
             font-size: 0.75rem;
             font-weight: 800;
-            background: rgba(10, 14, 23, 0.95);
+            background: rgba(10, 10, 10, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
@@ -96,33 +98,35 @@
         @keyframes pulse-g { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         @keyframes pulse-r { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* الهيدر واللوجو */
+        /* الهيدر واللوجو المربع */
         header {
             text-align: center;
             padding-top: 20px;
         }
 
-        .logo-box-flat {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 12px;
-            background: linear-gradient(145deg, #121a29, #080d15);
-            border-radius: 22px;
+        /* تصميم المربع الخاص باللوجو */
+        .logo-box-square {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 14px;
+            background: #000;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
             box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.8),
-                0 0 15px rgba(0, 240, 255, 0.3),
-                inset 0 1px 1px rgba(255, 255, 255, 0.2);
-            border: 2px solid var(--neon-cyan);
+                0 10px 25px rgba(0, 0, 0, 0.9),
+                0 0 20px var(--gold-glow);
+            border: 2px solid var(--gold-main);
         }
 
-        .logo-box-flat i {
-            font-size: 40px;
-            color: var(--neon-cyan);
-            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.7));
+        .logo-box-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         h1.brand-title {
@@ -130,8 +134,8 @@
             font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            color: var(--gold-light);
+            text-shadow: 0 0 15px var(--gold-glow);
         }
 
         .subtitle {
@@ -146,16 +150,16 @@
             backdrop-filter: blur(12px);
             border-radius: 18px;
             padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-bottom: 3px solid rgba(0, 0, 0, 0.9);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
         }
 
         .section-title {
             font-size: 1.05rem;
             font-weight: 800;
             margin-bottom: 14px;
-            color: var(--neon-cyan);
+            color: var(--gold-main);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -169,8 +173,8 @@
         }
 
         .phone-btn-side {
-            background: linear-gradient(145deg, #162032, #0d1320);
-            border: 1px solid rgba(0, 240, 255, 0.25);
+            background: linear-gradient(145deg, #1c1c1c, #111111);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             padding: 12px 8px;
             border-radius: 14px;
             color: #fff;
@@ -180,19 +184,19 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
             transition: all 0.2s ease;
         }
 
         .phone-btn-side:active {
             transform: translateY(2px);
-            background: rgba(0, 240, 255, 0.15);
-            border-color: var(--neon-cyan);
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-main);
         }
 
         .phone-btn-side i {
             font-size: 1.2rem;
-            color: var(--neon-cyan);
+            color: var(--gold-main);
         }
 
         .phone-btn-side span {
@@ -205,8 +209,8 @@
 
         /* زر درايف */
         .drive-btn-3d {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 255, 0.05));
-            border: 1px solid var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0, 0, 0, 0.4));
+            border: 1px solid var(--gold-main);
             color: #fff;
             font-weight: 900;
             font-size: 1rem;
@@ -217,7 +221,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
             transition: transform 0.1s ease;
         }
 
@@ -253,14 +257,14 @@
         .instagram { background: linear-gradient(90deg, #d946ef, #be185d); }
         .tiktok { 
             background: #0d0d0d;
-            border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: -2px 0 10px rgba(0, 240, 255, 0.3), 2px 0 10px rgba(255, 0, 85, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: -2px 0 10px rgba(212, 175, 55, 0.2), 2px 0 10px rgba(255, 0, 85, 0.2);
         }
 
         /* خريطة الموقع زر */
         .map-btn-3d {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: #fff;
             font-weight: 800;
             padding: 14px;
@@ -273,19 +277,19 @@
             transition: all 0.2s ease;
         }
         .map-btn-3d:active {
-            border-color: var(--neon-cyan);
-            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--gold-main);
+            background: rgba(212, 175, 55, 0.1);
         }
 
         /* طلب الموقع */
         .cta-card {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 119, 255, 0.05));
-            border: 1px solid var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(0, 0, 0, 0.6));
+            border: 1px solid var(--gold-main);
             text-align: center;
         }
 
         .cta-btn-3d {
-            background: var(--neon-cyan);
+            background: var(--gold-main);
             color: #000;
             font-weight: 900;
             font-size: 0.95rem;
@@ -296,7 +300,7 @@
             align-items: center;
             gap: 8px;
             margin-top: 8px;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         footer {
@@ -317,14 +321,13 @@
         </div>
 
         <header>
-            <div class="logo-box-flat">
-                <i class="fa-solid fa-car-burst"></i>
+            <div class="logo-box-square">
+                <img src="YOUR_GITHUB_IMAGE_URL_HERE.png" alt="BEBO Logo">
             </div>
             <h1 class="brand-title">BEBO</h1>
             <p class="subtitle">فنش وتجهيز احترافي للسيارات والموتوسيكلات</p>
         </header>
 
-        <!-- الاتصال السريع -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-phone-volume"></i>
@@ -342,7 +345,6 @@
             </div>
         </div>
 
-        <!-- معرض الأعمال -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-photo-film"></i>
@@ -350,66 +352,57 @@
             </div>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">شاهد جودة الفنش والتجهيز قبل وبعد</p>
             <a href="https://drive.google.com/drive/folders/1mxiukGqaLTC-EKE4hxbm0GlD1_Gg0jPn" target="_blank" class="drive-btn-3d">
-                <i class="fa-brands fa-google-drive" style="color: var(--neon-cyan); font-size: 1.2rem;"></i>
+                <i class="fa-brands fa-google-drive" style="color: var(--gold-main); font-size: 1.2rem;"></i>
                 <span>استعراض الصور والفيديوهات</span>
                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
             </a>
         </div>
 
-        <!-- منصات الميديا والواتساب -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-hashtag"></i>
                 <span>منصات الميديا والواتساب</span>
             </div>
             <div class="social-links">
-                <!-- واتساب 1 -->
                 <a href="https://wa.me/201145068889" target="_blank" class="social-btn-3d whatsapp">
                     <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (اتصال ودردشة)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <!-- واتساب 2 -->
                 <a href="https://wa.me/201207675933" target="_blank" class="social-btn-3d whatsapp" style="filter: hue-rotate(20deg);">
                     <div><i class="fa-brands fa-whatsapp"></i> <span>واتساب (رسائل فقط)</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <!-- فيسبوك 1 -->
                 <a href="https://www.facebook.com/share/19GsSDQct5/" target="_blank" class="social-btn-3d facebook">
                     <div><i class="fa-brands fa-facebook-f"></i> <span>فيسبوك - الصفحة الرئيسية</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <!-- فيسبوك 2 -->
                 <a href="https://www.facebook.com/profile.php?id=100054966092915" target="_blank" class="social-btn-3d facebook" style="filter: brightness(1.2);">
                     <div><i class="fa-brands fa-facebook"></i> <span>فيسبوك - البروفايل الثاني</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <!-- انستجرام -->
                 <a href="https://www.instagram.com/bebo_car.protection?igsi=MmVqanFtam1hNjJm" target="_blank" class="social-btn-3d instagram">
                     <div><i class="fa-brands fa-instagram"></i> <span>انستجرام / Instagram</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                <!-- تيك توك -->
                 <a href="https://www.tiktok.com/@user5633313690204?_r=1&_t=ZS-99SSjWq3kf7" target="_blank" class="social-btn-3d tiktok">
-                    <div><i class="fa-brands fa-tiktok" style="color:#00f0ff;"></i> <span>تيك توك / TikTok</span></div>
+                    <div><i class="fa-brands fa-tiktok" style="color:var(--gold-main);"></i> <span>تيك توك / TikTok</span></div>
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
             </div>
         </div>
 
-        <!-- الموقع على الخريطة -->
         <div class="card-3d">
             <div class="section-title">
                 <i class="fa-solid fa-location-dot"></i>
                 <span>موقعنا على الخريطة</span>
             </div>
             <a href="https://share.google/YhXBKTrvTkVPgv3eJ" target="_blank" class="map-btn-3d">
-                <i class="fa-solid fa-map-location-dot" style="color: var(--neon-cyan); font-size: 1.3rem;"></i>
+                <i class="fa-solid fa-map-location-dot" style="color: var(--gold-main); font-size: 1.3rem;"></i>
                 <span>فتح المكان على Google Maps</span>
                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
             </a>
         </div>
 
-        <!-- طلب موقع -->
         <div class="card-3d cta-card">
             <h3 style="font-size: 1.05rem;">عايز ويب سايت زي دي لشغلك؟</h3>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 3px;">كارت عمل رقمي احترافي يجذب زباينك</p>
