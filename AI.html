@@ -3,270 +3,579 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OFFGRID Studio — Fast & Accurate AI</title>
+    <title>OFFGRID Studio — Full Control AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Cairo:wght@400;700;900&family=Plus+Jakarta+Sans:wght@700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #07090e;
             --surface-card: #0d111a;
+            --surface-elevated: #131b2e;
             --border-subtle: #1e293b;
-            --offgrid-blue: #38bdf8;
-            --offgrid-grad: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            --offgrid-blue-glow: #38bdf8;
+            --offgrid-primary: #2563eb;
+            --offgrid-grad: linear-gradient(135deg, #38bdf8 0%, #3b82f6 50%, #1d4ed8 100%);
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
-            --radius: 12px;
-            --font-main: 'Tajawal', sans-serif;
+            --accent-pink: #ec4899;
+            --accent-red: #ef4444;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --font-main: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-brand: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: var(--font-main); background-color: var(--bg-dark); color: var(--text-main); padding: 16px 12px; display: flex; justify-content: center; min-height: 100vh; }
-        .app-wrapper { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 16px; }
+        .app-wrapper { width: 100%; max-width: 980px; display: flex; flex-direction: column; gap: 16px; }
 
-        .brand-header { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 16px; display: flex; justify-content: space-between; align-items: center; }
-        .brand-logo { font-size: 1.5rem; font-weight: 900; background: var(--offgrid-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-header {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .brand-identity { display: flex; align-items: center; gap: 12px; }
+        .brand-logo-badge {
+            font-family: var(--font-brand);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: var(--offgrid-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+        .agency-tagline { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; border-right: 2px solid var(--border-subtle); padding-right: 12px; }
         
-        .navigation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .nav-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 20px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .nav-card:hover { border-color: var(--offgrid-blue); transform: translateY(-2px); }
-        .nav-card-icon { font-size: 2rem; margin-bottom: 8px; }
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 10px;
+        }
+        .nav-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-card:hover {
+            border-color: var(--offgrid-blue-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+        }
+        .nav-card-icon { font-size: 2.5rem; }
+        .nav-card-title { font-size: 1.1rem; font-weight: 800; color: #ffffff; }
+        .nav-card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
 
-        .btn-back { background: #131b2e; color: var(--offgrid-blue); border: 1px solid var(--border-subtle); padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
+        .btn-back-home {
+            background: var(--surface-elevated);
+            color: var(--offgrid-blue-glow);
+            border: 1px solid var(--border-subtle);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+        .btn-back-home:hover { border-color: var(--offgrid-blue-glow); }
 
-        .card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 18px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-        label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 700; }
-        input, textarea, select { background: var(--bg-dark); border: 1px solid var(--border-subtle); color: #fff; padding: 10px; border-radius: 8px; font-family: inherit; font-size: 0.9rem; }
-        input:focus, textarea:focus, select:focus { border-color: var(--offgrid-blue); outline: none; }
+        .card { background-color: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); }
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; }
+        .card-header-title { font-size: 1.1rem; font-weight: 800; color: var(--offgrid-blue-glow); display: flex; align-items: center; gap: 8px; }
+        .form-grid { display: flex; flex-direction: column; gap: 12px; }
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        @media (max-width: 768px) {
+            .navigation-grid { grid-template-columns: 1fr; }
+            .form-row-2 { grid-template-columns: 1fr; }
+            .brand-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .agency-tagline { border-right: none; padding-right: 0; }
+        }
 
-        .btn-primary { background: var(--offgrid-grad); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; font-size: 1rem; }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 700; }
+        input, textarea, select { background-color: var(--bg-dark); border: 1px solid var(--border-subtle); color: var(--text-main); padding: 10px 12px; border-radius: var(--radius-md); font-size: 0.9rem; font-family: inherit; outline: none; width: 100%; }
+        input:focus, textarea:focus, select:focus { border-color: var(--offgrid-blue-glow); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
 
-        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 14px; }
-        .img-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; }
-        .img-card img { width: 100%; height: 280px; object-fit: cover; }
-        .img-card a { display: block; text-align: center; padding: 8px; background: var(--offgrid-grad); color: #fff; text-decoration: none; font-weight: 700; font-size: 0.85rem; }
+        .btn-action-primary { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.2s ease; width: 100%; }
+        .btn-action-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn-action-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .idea-item { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-        .idea-badge { background: rgba(56, 189, 248, 0.15); color: var(--offgrid-blue); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; }
-        .shot-box { background: var(--surface-card); border-right: 3px solid var(--offgrid-blue); padding: 8px 12px; margin-top: 6px; border-radius: 4px; font-size: 0.85rem; }
+        .progress-box { background: var(--bg-dark); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md); margin-top: 10px; text-align: center; }
+        .progress-text { font-size: 0.85rem; font-weight: 800; color: var(--offgrid-blue-glow); }
 
-        @media (max-width: 600px) { .navigation-grid { grid-template-columns: 1fr; } }
+        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 16px; }
+        .generated-image-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; }
+        .generated-image-card img { width: 100%; height: 300px; object-fit: cover; background: #000; }
+        .generated-image-actions { padding: 10px; text-align: center; background: var(--surface-card); }
+        .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; display: block; width: 100%; text-decoration: none; text-align: center; }
+
+        .dropzone-box { border: 2px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 20px; text-align: center; background: var(--bg-dark); cursor: pointer; }
+        .dropzone-box:hover { border-color: var(--offgrid-blue-glow); }
+        .poster-preview-container { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 14px; }
+        .canvas-wrapper { position: relative; max-width: 100%; border: 2px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+        canvas { display: block; max-width: 100%; height: auto; }
+
+        .ideas-grid { display: flex; flex-direction: column; gap: 14px; }
+        .idea-card-item { background-color: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .badge { padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.72rem; text-transform: uppercase; }
+        .badge-reel { background-color: rgba(56, 189, 248, 0.15); color: var(--offgrid-blue-glow); border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.3); }
+        .shot-block { background-color: var(--surface-card); border-right: 3px solid var(--offgrid-blue-glow); padding: 10px 12px; border-radius: 6px; margin-top: 6px; }
     </style>
 </head>
 <body>
 
 <div class="app-wrapper">
+
     <header class="brand-header">
-        <span class="brand-logo">OFFGRID AI</span>
-        <input type="password" id="apiKey" placeholder="Gemini API Key..." style="width: 180px;" oninput="localStorage.setItem('offgrid_key', this.value.trim())">
+        <div class="brand-identity">
+            <span class="brand-logo-badge">OFFGRID</span>
+            <span class="agency-tagline">منظومة التسويق الذكية وصناعة المحتوى</span>
+        </div>
+        <div class="form-group" style="max-width: 250px;">
+            <input type="password" id="apiKey" placeholder="مفتاح Gemini API..." oninput="saveApiKey()">
+        </div>
     </header>
 
-    <!-- القائمة الرئيسية -->
-    <div id="mainMenu" class="navigation-grid">
-        <div class="nav-card" onclick="openSection('ideasSec')">
-            <div class="nav-card-icon">⚡</div>
-            <h3>مولد الأفكار السريع</h3>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top:4px;">توليد كلي فور في ثوانٍ معدودة</p>
+    <!-- 1. الشاشة الرئيسية الاختيارية -->
+    <div id="mainSelectionMenu" class="navigation-grid">
+        <div class="nav-card" onclick="openSection('ideasSection')">
+            <div class="nav-card-icon">💡</div>
+            <div class="nav-card-title">مولد الأفكار والسيناريوهات</div>
+            <div class="nav-card-desc">خطط محتوى كاملة، سكريبتات ريلز بشوتات سينمائية، وأفكار بوسترات</div>
         </div>
-        <div class="nav-card" onclick="openSection('imgSec')">
-            <div class="nav-card-icon">🎯</div>
-            <h3>مولد الصور الدقيق</h3>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top:4px;">صور واقعية مطابقة تماماً لوصفك</p>
+
+        <div class="nav-card" onclick="openSection('imageSection')">
+            <div class="nav-card-icon">📸</div>
+            <div class="nav-card-title">مولد الصور الواقعية</div>
+            <div class="nav-card-desc">توليد صور واقعية ومطابقة 100% بناءً على وصفك العربي التفصيلي</div>
         </div>
-        <div class="nav-card" onclick="openSection('posterSec')">
+
+        <div class="nav-card" onclick="openSection('posterSection')">
             <div class="nav-card-icon">🎨</div>
-            <h3>محرر البوسترات</h3>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top:4px;">الكتابة والتعديل على الصور</p>
+            <div class="nav-card-title">محرر وتصميم البوسترات</div>
+            <div class="nav-card-desc">رفع الصور وإضافة العناوين والخطوط العربية الاحترافية والتصدير المباشر</div>
         </div>
     </div>
 
-    <!-- قسم الأفكار -->
-    <div id="ideasSec" style="display:none;">
-        <button class="btn-back" onclick="showMenu()">➔ العودة</button>
-        <div class="card">
-            <div class="form-group">
-                <label>اسم البراند والمجال</label>
-                <input type="text" id="brandInfo" placeholder="مثال: مطعم أكلات سريعة في الحوامدية">
+    <!-- 2. قسم مولد الأفكار -->
+    <div id="ideasSection" style="display: none;">
+        <button class="btn-back-home" onclick="showMainMenu()">➔ العودة للقائمة الرئيسية</button>
+        <section class="card">
+            <div class="card-header">
+                <span class="card-header-title">💡 مولد خطط المحتوى والسيناريوهات (Gemini 3.6 Flash)</span>
             </div>
-            <div class="form-group">
-                <label>تفاصيل ووصف الحملة / الهدف</label>
-                <textarea id="campaignGoals" rows="2" placeholder="التركيز على العروض وجودة الأكل"></textarea>
+            <div class="form-grid">
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="clientName">اسم البراند / العميل</label>
+                        <input type="text" id="clientName" placeholder="مثال: مطعم دبابا">
+                    </div>
+                    <div class="form-group">
+                        <label for="industry">مجال العمل</label>
+                        <input type="text" id="industry" placeholder="أكلات سريعة">
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="reelsCount">عدد فيديوهات Reels</label>
+                        <input type="number" id="reelsCount" value="3" min="0" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="postersCount">عدد أفكار البوسترات</label>
+                        <input type="number" id="postersCount" value="2" min="0" max="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="goals">هدف الحملة والتفاصيل</label>
+                    <textarea id="goals" rows="2" placeholder="إبراز العروض، زيادة المبيعات، الجودة العالية..."></textarea>
+                </div>
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية ✨</button>
             </div>
-            <button id="genIdeasBtn" class="btn-primary" onclick="generateIdeasFast()">توليد الخطة فوراً 🚀</button>
-            <div id="ideasStatus" style="margin-top:10px; font-weight:700; color:var(--offgrid-blue);"></div>
-            <div id="ideasOutput" style="margin-top:14px;"></div>
-        </div>
+        </section>
+
+        <section class="card" id="resultCard" style="display: none; margin-top: 16px;">
+            <div id="progressBox" class="progress-box" style="display:none;">
+                <div id="progressStatus" class="progress-text">جاري بدء التوليد... ⏳</div>
+            </div>
+            <div style="margin-top: 14px;">
+                <div id="outputContainer" class="ideas-grid"></div>
+            </div>
+        </section>
     </div>
 
-    <!-- قسم الصور -->
-    <div id="imgSec" style="display:none;">
-        <button class="btn-back" onclick="showMenu()">➔ العودة</button>
-        <div class="card">
-            <div class="form-group">
-                <label>اكتب الوصف بالتفصيل (بالعربي أو الإنجليزي):</label>
-                <textarea id="imgPrompt" rows="3" placeholder="مثال: صورة فوتوغرافية حقيقية لشاب مصري 25 سنة يبتسم ويمسك ساندوتش، تفاصيل الوجه والجلد واضحة جدا، إضاءة استوديو سينمائية"></textarea>
+    <!-- 3. قسم مولد الصور الواقعية -->
+    <div id="imageSection" style="display: none;">
+        <button class="btn-back-home" onclick="showMainMenu()">➔ العودة للقائمة الرئيسية</button>
+        <section class="card">
+            <div class="card-header">
+                <span class="card-header-title">📸 مولد الصور فائقة الواقعية</span>
             </div>
-            <div class="form-group">
-                <label>العدد الأبعاد:</label>
-                <select id="imgAspect">
-                    <option value="1024x1024">مربع (1:1)</option>
-                    <option value="768x1280">ستوري / ريلز (9:16)</option>
-                </select>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="imagePrompt">الوصف التفصيلي للشخصية أو المشهد (بالعربي):</label>
+                    <textarea id="imagePrompt" rows="3" placeholder="مثال: شاب مصري في العشرينات، يبتسم وهو يمسك ساندوتش، ملامح بشره حقيقية جداً مع تفاصيل الجلد، إضاءة استوديو دافئة، خلفية مطعم"></textarea>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="aspectRatio">الأبعاد:</label>
+                        <select id="aspectRatio">
+                            <option value="1024x1024" selected>مربع (1:1)</option>
+                            <option value="768x1280">ستوري / ريلز (9:16)</option>
+                            <option value="1280x768">عرضي (16:9)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="imgCount">عدد الصور المطلوب توليدها:</label>
+                        <input type="number" id="imgCount" value="2" min="1" max="4">
+                    </div>
+                </div>
+                <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد صور حقيقية ومطابقة للوصف 🎯</button>
+                <div id="imgStatusBox" class="progress-box" style="display:none;">
+                    <div id="imgProgressStatus" class="progress-text">جاري المعالجة والتوليد... ⏳</div>
+                </div>
+                <div id="generatedImagesGrid" class="generated-images-grid"></div>
             </div>
-            <button id="genImgBtn" class="btn-primary" onclick="generateRealImage()">توليد الصورة المطابقة 🎯</button>
-            <div id="imgStatus" style="margin-top:10px; font-weight:700; color:var(--offgrid-blue);"></div>
-            <div id="imgGallery" class="generated-images-grid"></div>
-        </div>
+        </section>
     </div>
 
-    <!-- قسم البوسترات -->
-    <div id="posterSec" style="display:none;">
-        <button class="btn-back" onclick="showMenu()">➔ العودة</button>
-        <div class="card">
-            <input type="file" accept="image/*" onchange="loadPoster(event)">
-            <div style="margin-top:10px; display:flex; gap:8px;">
-                <input type="text" id="pTitle" placeholder="العنوان الرئيسي" oninput="drawPoster()">
-                <input type="text" id="pSub" placeholder="العنوان الفرعي" oninput="drawPoster()">
+    <!-- 4. قسم محرر البوسترات -->
+    <div id="posterSection" style="display: none;">
+        <button class="btn-back-home" onclick="showMainMenu()">➔ العودة للقائمة الرئيسية</button>
+        <section class="card">
+            <div class="card-header">
+                <span class="card-header-title">🎨 محرر وتصميم البوسترات</span>
             </div>
-            <canvas id="pCanvas" style="max-width:100%; margin-top:10px; border:1px solid var(--border-subtle); display:none;"></canvas>
-        </div>
+            <div class="form-grid">
+                <div class="dropzone-box" onclick="document.getElementById('posterFileInput').click()">
+                    <input type="file" id="posterFileInput" accept="image/*" style="display:none;" onchange="handlePosterUpload(event)">
+                    <div style="font-size: 2rem;">📥</div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: var(--offgrid-blue-glow);">اضغط هنا لرفع صورة البوستر أو المنتج</div>
+                </div>
+
+                <div id="posterEditorArea" style="display:none;" class="poster-preview-container">
+                    <div class="form-row-2" style="width:100%;">
+                        <div class="form-group">
+                            <label for="newPosterTitle">العنوان الرئيسي:</label>
+                            <input type="text" id="newPosterTitle" placeholder="مثال: خصم 50% على الوجبات" oninput="updateCanvasText()">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPosterSub">النص الفرعي:</label>
+                            <input type="text" id="newPosterSub" placeholder="مثال: اطلب الآن لفترة محدودة" oninput="updateCanvasText()">
+                        </div>
+                    </div>
+                    <div class="form-row-2" style="width:100%;">
+                        <div class="form-group">
+                            <label for="fontFamily">نوع الخط العربي:</label>
+                            <select id="fontFamily" onchange="updateCanvasText()">
+                                <option value="'Tajawal', sans-serif" selected>Tajawal</option>
+                                <option value="'Cairo', sans-serif">Cairo</option>
+                                <option value="'Almarai', sans-serif">Almarai</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="textColor">لون النص:</label>
+                            <input type="color" id="textColor" value="#ffffff" onchange="updateCanvasText()">
+                        </div>
+                    </div>
+                    <div class="canvas-wrapper">
+                        <canvas id="posterCanvas"></canvas>
+                    </div>
+                    <button class="btn-action-primary" onclick="downloadPosterCanvas()">تحميل البوستر النهائي 📥</button>
+                </div>
+            </div>
+        </section>
     </div>
+
 </div>
 
 <script>
-window.onload = () => {
-    const k = localStorage.getItem('offgrid_key');
-    if(k) document.getElementById('apiKey').value = k;
-};
+let uploadedImageObj = null;
 
-function openSection(id) {
-    document.getElementById('mainMenu').style.display = 'none';
-    ['ideasSec', 'imgSec', 'posterSec'].forEach(s => document.getElementById(s).style.display = 'none');
-    document.getElementById(id).style.display = 'block';
+window.onload = function() {
+    const savedKey = localStorage.getItem('offgrid_api_key');
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
 }
 
-function showMenu() {
-    ['ideasSec', 'imgSec', 'posterSec'].forEach(s => document.getElementById(s).style.display = 'none');
-    document.getElementById('mainMenu').style.display = 'grid';
+function saveApiKey() {
+    localStorage.setItem('offgrid_api_key', document.getElementById('apiKey').value.trim());
 }
 
-// 1. توليد أفكار سريع جداً بطلب واحد مباشر
-async function generateIdeasFast() {
-    const key = document.getElementById('apiKey').value.trim();
-    const info = document.getElementById('brandInfo').value.trim();
-    const goals = document.getElementById('campaignGoals').value.trim();
+function openSection(sectionId) {
+    document.getElementById('mainSelectionMenu').style.display = 'none';
+    document.getElementById('ideasSection').style.display = 'none';
+    document.getElementById('imageSection').style.display = 'none';
+    document.getElementById('posterSection').style.display = 'none';
 
-    if(!key || !info) { alert('ادخل API Key واسم البراند!'); return; }
+    document.getElementById(sectionId).style.display = 'block';
+}
 
-    const btn = document.getElementById('genIdeasBtn');
-    const status = document.getElementById('ideasStatus');
-    const out = document.getElementById('ideasOutput');
+function showMainMenu() {
+    document.getElementById('ideasSection').style.display = 'none';
+    document.getElementById('imageSection').style.display = 'none';
+    document.getElementById('posterSection').style.display = 'none';
+    document.getElementById('mainSelectionMenu').style.display = 'grid';
+}
 
-    btn.disabled = true;
-    status.innerText = 'جاري التوليد السريع... ⚡';
-    out.innerHTML = '';
+// الاتصال المباشر بـ Gemini API مع استخدام gemini-3.6-flash أساسياً
+async function queryGemini(apiKey, promptText) {
+    const models = ['gemini-3.6-flash', 'gemini-1.5-flash', 'gemini-2.0-flash-exp'];
+    
+    for (let model of models) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+            });
+            const data = await response.json();
+            if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
+            }
+        } catch (e) {
+            console.warn(`Attempt with ${model} failed, trying fallback...`);
+        }
+    }
+    return null;
+}
 
-    const prompt = `أنت خبير تسويق. قم بكتابة 3 أفكار ريلز وفكرتين بوستر لـ (${info}) والهدف (${goals}).
-أرجع الناتج في صيغة JSON Array فقط كالتالي بدون أي كلام آخر:
+// 1. توليد الأفكار باستخدام Gemini 3.6 Flash
+async function startGenerationProcess() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const clientName = document.getElementById('clientName').value.trim();
+    const industry = document.getElementById('industry').value.trim();
+    const totalReels = parseInt(document.getElementById('reelsCount').value) || 0;
+    const totalPosters = parseInt(document.getElementById('postersCount').value) || 0;
+    const goals = document.getElementById('goals').value.trim();
+
+    if (!apiKey) { alert('برجاء إدخال Gemini API Key الصحيح أولاً!'); return; }
+    if (!clientName || !industry) { alert('برجاء كتابة اسم البراند والمجال!'); return; }
+
+    const generateBtn = document.getElementById('generateBtn');
+    const resultCard = document.getElementById('resultCard');
+    const progressBox = document.getElementById('progressBox');
+    const progressStatus = document.getElementById('progressStatus');
+    const outputContainer = document.getElementById('outputContainer');
+
+    generateBtn.disabled = true;
+    resultCard.style.display = 'block';
+    progressBox.style.display = 'block';
+    progressStatus.innerText = 'جاري توليد الأفكار بواسطة Gemini 3.6 Flash... ⚡';
+    outputContainer.innerHTML = '';
+
+    const promptText = `أنت خبير تسويق إعلاني وصانع محتوى سينمائي احترافي.
+قم بإنشاء خطة محتوى شاملة للحملة الإعلانية التالية:
+- البراند: ${clientName}
+- المجال: ${industry}
+- الهدف والتفاصيل: ${goals}
+- المطلوب: ${totalReels} فيديوهات Reels و ${totalPosters} أفكار بوسترات إعلانية.
+
+قم بالرد في صيغة JSON Array فقط بدون أي مقدمات أو نصوص أخرى، كالتالي:
 [
-  {"type": "Reel", "title": "عنوان الفكرة", "desc": "وصف المشهد والسكريبت المختصر"},
-  {"type": "Poster", "title": "عنوان البوستر", "desc": "الوصف والفكره البصرية"}
+  {
+    "type": "Reel",
+    "title": "عنوان الفكرة الإعلانية",
+    "audio_or_style": "الصوت أو النمط الموسيقي المقترح",
+    "shots": [
+      { "name": "Shot 1 (الافتتاحية)", "desc": "وصف المشهد البصري والتعليق الصوتي أو النص على الشاشة" },
+      { "name": "Shot 2 (العرض والحل)", "desc": "وصف التفاصيل والخدمة أو الوجبة" }
+    ]
+  },
+  {
+    "type": "Poster",
+    "title": "عنوان البوستر الرئيسي",
+    "audio_or_style": "الفكرة البصرية والألوان",
+    "shots": [
+      { "name": "تفاصيل البوستر", "desc": "وصف العناصر البصرية، المنتج، والنص المكتوب على البوستر" }
+    ]
+  }
 ]`;
 
-    try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-        const data = await res.json();
-        let txt = data.candidates[0].content.parts[0].text;
-        txt = txt.replace(/```json/g, '').replace(/```/g, '').trim();
-        const json = JSON.parse(txt);
+    const responseText = await queryGemini(apiKey, promptText);
 
-        json.forEach(item => {
-            out.innerHTML += `
-                <div class="idea-item">
-                    <span class="idea-badge">${item.type}</span>
-                    <strong style="margin-right:6px;">${item.title}</strong>
-                    <div class="shot-box">${item.desc}</div>
-                </div>
-            `;
-        });
-        status.innerText = '✨ تم التوليد بنجاح!';
-    } catch(e) {
-        status.innerText = '❌ حدث خطأ، تأكد من المفتاح أو حاول مجدداً.';
+    if (responseText) {
+        try {
+            let cleanText = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const firstBracket = cleanText.indexOf('[');
+            const lastBracket = cleanText.lastIndexOf(']');
+            if (firstBracket !== -1 && lastBracket !== -1) {
+                cleanText = cleanText.substring(firstBracket, lastBracket + 1);
+            }
+            const ideas = JSON.parse(cleanText);
+            renderIdeasGrid(ideas);
+            progressStatus.innerText = '✨ تم التوليد بنجاح بواسطة Gemini 3.6 Flash!';
+        } catch (e) {
+            console.error("JSON Parsing Error", e);
+            progressStatus.innerText = '❌ حدث خطأ في تنسيق الأفكار، يرجى المحاولة مرة أخرى.';
+        }
+    } else {
+        progressStatus.innerText = '❌ فشل الاتصال بالـ API. تأكد من صحة المفتاح ورصيدك فيه.';
     }
-    btn.disabled = false;
+
+    generateBtn.disabled = false;
 }
 
-// 2. توليد صور واقعية ومطابقة 100%
-function generateRealImage() {
-    const promptText = document.getElementById('imgPrompt').value.trim();
-    if(!promptText) { alert('اكتب وصف الصورة أولاً!'); return; }
+function renderIdeasGrid(ideas) {
+    const container = document.getElementById('outputContainer');
+    container.innerHTML = '';
 
-    const status = document.getElementById('imgStatus');
-    const gallery = document.getElementById('imgGallery');
-    const dim = document.getElementById('imgAspect').value.split('x');
+    ideas.forEach((item) => {
+        const typeStr = item.type || 'Reel';
+        const isReel = typeStr.toLowerCase().includes('reel');
+        const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
+        
+        let shotsHtml = '';
+        if (item.shots && Array.isArray(item.shots)) {
+            item.shots.forEach(s => {
+                shotsHtml += `
+                    <div class="shot-block">
+                        <div style="font-weight:800; color:var(--offgrid-blue-glow); font-size:0.8rem;">${s.name || 'Shot'}</div>
+                        <div style="font-size:0.9rem; line-height:1.6; white-space:pre-line;">${s.desc || ''}</div>
+                    </div>
+                `;
+            });
+        }
 
-    status.innerText = 'جاري التوليد بدقة عالية... 🎯';
+        const card = document.createElement('div');
+        card.className = 'idea-card-item';
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <span class="badge ${badgeClass}">${typeStr}</span>
+                    <strong style="margin-right:8px; font-size:1.05rem;">${item.title || 'فكرة إعلانية'}</strong>
+                </div>
+                ${item.audio_or_style ? `<span style="font-size:0.8rem; color:var(--text-secondary);">🎵 ${item.audio_or_style}</span>` : ''}
+            </div>
+            <div>${shotsHtml}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// 2. توليد الصور الواقعية المباشر والدقيق
+async function startImageGeneration() {
+    const promptText = document.getElementById('imagePrompt').value.trim();
+    const count = parseInt(document.getElementById('imgCount').value) || 1;
+    const dimensions = document.getElementById('aspectRatio').value.split('x');
+    const width = dimensions[0];
+    const height = dimensions[1];
+
+    if (!promptText) { alert('برجاء كتابة وصف الصورة أولاً!'); return; }
+
+    const genBtn = document.getElementById('generateImgBtn');
+    const statusBox = document.getElementById('imgStatusBox');
+    const statusText = document.getElementById('imgProgressStatus');
+    const gallery = document.getElementById('generatedImagesGrid');
+
+    genBtn.disabled = true;
+    statusBox.style.display = 'block';
+    statusText.innerText = `جاري توليد الصور الواقعية المطابقة للوصف... 🎨`;
     gallery.innerHTML = '';
 
-    // إجبار الموديل على إخراج صورة فوتوغرافية واقعية ومطابقة
-    const fullPrompt = encodeURIComponent(`${promptText}, photorealistic photo, hyperrealistic skin texture, detailed face, studio lighting, highly detailed, 8k resolution`);
-    const seed = Math.floor(Math.random() * 9999999);
-    const imgUrl = `https://image.pollinations.ai/prompt/${fullPrompt}?width=${dim[0]}&height=${dim[1]}&seed=${seed}&model=flux&nologo=true`;
+    const formattedPrompt = encodeURIComponent(`${promptText}, hyperrealistic photography, real skin texture, natural lighting, sharp details, studio shot, highly realistic, 8k`);
 
-    const card = document.createElement('div');
-    card.className = 'img-card';
-    card.innerHTML = `
-        <img src="${imgUrl}" alt="Real Image" onload="document.getElementById('imgStatus').innerText='✨ تم التوليد بنجاح!';" onerror="document.getElementById('imgStatus').innerText='❌ حاول مرة أخرى';">
-        <a href="${imgUrl}" target="_blank" download>تحميل الصورة HD 📥</a>
-    `;
-    gallery.appendChild(card);
+    for (let i = 1; i <= count; i++) {
+        const seed = Math.floor(Math.random() * 9999999) + (i * 321);
+        const imageUrl = `https://image.pollinations.ai/prompt/${formattedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux-realism`;
+
+        const card = document.createElement('div');
+        card.className = 'generated-image-card';
+        card.innerHTML = `
+            <img src="${imageUrl}" alt="Real AI Image ${i}" loading="lazy" onload="document.getElementById('imgProgressStatus').innerText='✨ تم توليد الصور بنجاح!';" onerror="this.onerror=null; this.src='https://via.placeholder.com/400?text=خطأ+في+التوليد';">
+            <div class="generated-image-actions">
+                <a href="${imageUrl}" target="_blank" download="OFFGRID_Image_${i}.jpg" class="btn-download-img">تنزيل الصورة HD 📥</a>
+            </div>
+        `;
+        gallery.appendChild(card);
+    }
+
+    genBtn.disabled = false;
 }
 
-// 3. البوسترات
-let loadedImg = null;
-function loadPoster(e) {
-    const file = e.target.files[0];
-    if(!file) return;
-    const r = new FileReader();
-    r.onload = (evt) => {
-        loadedImg = new Image();
-        loadedImg.src = evt.target.result;
-        loadedImg.onload = () => {
-            document.getElementById('pCanvas').style.display = 'block';
-            drawPoster();
+// 3. محرر البوسترات
+function handlePosterUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        uploadedImageObj = new Image();
+        uploadedImageObj.src = e.target.result;
+        uploadedImageObj.onload = function() {
+            document.getElementById('posterEditorArea').style.display = 'flex';
+            initCanvas();
         }
     };
-    r.readAsDataURL(file);
+    reader.readAsDataURL(file);
 }
 
-function drawPoster() {
-    if(!loadedImg) return;
-    const cvs = document.getElementById('pCanvas');
-    const ctx = cvs.getContext('2d');
-    cvs.width = loadedImg.width;
-    cvs.height = loadedImg.height;
-    ctx.drawImage(loadedImg, 0, 0);
+function initCanvas() {
+    const canvas = document.getElementById('posterCanvas');
+    canvas.width = uploadedImageObj.width;
+    canvas.height = uploadedImageObj.height;
+    updateCanvasText();
+}
 
-    const t = document.getElementById('pTitle').value;
-    const s = document.getElementById('pSub').value;
+function updateCanvasText() {
+    if (!uploadedImageObj) return;
+    const canvas = document.getElementById('posterCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(uploadedImageObj, 0, 0, canvas.width, canvas.height);
 
-    if(t || s) {
-        ctx.fillStyle = 'rgba(0,0,0,0.6)';
-        ctx.fillRect(0, cvs.height * 0.75, cvs.width, cvs.height * 0.25);
-        ctx.fillStyle = '#fff';
+    const titleText = document.getElementById('newPosterTitle').value.trim();
+    const subText = document.getElementById('newPosterSub').value.trim();
+    const textColor = document.getElementById('textColor').value;
+    const fontFamily = document.getElementById('fontFamily').value;
+
+    if (titleText || subText) {
+        const gradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
+        gradient.addColorStop(0, 'rgba(7, 9, 14, 0)');
+        gradient.addColorStop(1, 'rgba(7, 9, 14, 0.95)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, canvas.height * 0.5, canvas.width, canvas.height * 0.5);
+
         ctx.textAlign = 'center';
-        ctx.font = `bold ${cvs.width * 0.05}px Tajawal`;
-        if(t) ctx.fillText(t, cvs.width/2, cvs.height * 0.85);
-        ctx.font = `${cvs.width * 0.03}px Tajawal`;
-        if(s) ctx.fillText(s, cvs.width/2, cvs.height * 0.92);
+        ctx.fillStyle = textColor;
+
+        if (titleText) {
+            ctx.font = `800 ${Math.round(canvas.width * 0.06)}px ${fontFamily}`;
+            ctx.fillText(titleText, canvas.width / 2, canvas.height * 0.85);
+        }
+        if (subText) {
+            ctx.font = `500 ${Math.round(canvas.width * 0.035)}px ${fontFamily}`;
+            ctx.fillText(subText, canvas.width / 2, canvas.height * 0.92);
+        }
     }
 }
+
+function downloadPosterCanvas() {
+    const canvas = document.getElementById('posterCanvas');
+    const link = document.createElement('a');
+    link.download = 'OFFGRID_Poster.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
 </script>
+
 </body>
 </html>
