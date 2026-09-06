@@ -130,7 +130,7 @@
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>Gemini 2.5 Flash / FLUX Engine</span>
+            <span>Gemini 3.6 Flash / FLUX Engine</span>
         </div>
     </header>
 
@@ -169,7 +169,7 @@
                 <textarea id="goals" rows="2" placeholder="زيادة المبيعات، إبراز جودة المكونات والعروض..."></textarea>
             </div>
             <div class="action-buttons-group">
-                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية (Gemini 2.5) ✨</button>
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية (Gemini 3.6) ✨</button>
                 <button id="stopBtn" class="btn-action-stop" onclick="stopGenerationProcess()" disabled>إيقاف التوليد 🛑</button>
             </div>
         </div>
@@ -321,7 +321,7 @@ function saveApiKey() {
 }
 
 async function queryGemini(apiKey, promptText, imageBase64 = null) {
-    const models = ['gemini-2.5-flash', 'gemini-1.5-flash'];
+    const models = ['gemini-3.6-flash', 'gemini-2.5-flash'];
 
     for (let model of models) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -353,27 +353,27 @@ async function queryGemini(apiKey, promptText, imageBase64 = null) {
     return null;
 }
 
-// هندسة البرومبت وتحويل العربي لإنجليزي احترافي فائق الدقة
+// تحويل العربي لإنجليزي تفصيلي سينمائي بدقة عالية جداً
 async function buildHyperDetailedPrompt(arabicText, quality, apiKey) {
     if (!apiKey) {
-        return `${arabicText}, hyper-photorealistic 8k, ultra-detailed product photography, professional studio lighting, 85mm lens, depth of field, vibrant colors, commercial quality`;
+        return `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial product photography, professional studio lighting, 85mm lens, sharp focus, cinematic background, high resolution`;
     }
     
-    const prompt = `You are a world-class AI Prompt Engineer specializing in commercial advertising photography and photorealism.
-Translate and drastically expand the following Arabic description into an ultra-detailed, photorealistic English prompt.
+    const prompt = `You are an expert AI Image Prompt Engineer specializing in photorealistic commercial advertising photography.
+Convert and expand the following Arabic description into a precise, hyper-detailed English prompt.
 
-User Arabic Description: "${arabicText}"
+Arabic Description: "${arabicText}"
 
-Style / Quality Requirements:
-1. Describe explicit cinematic camera gear (e.g. shot on Hasselblad H6D-100c, 85mm f/1.4 lens, shallow depth of field).
-2. Specify exact studio lighting setup (e.g. soft volumetric lighting, rim light highlights, moody atmospheric depth).
-3. Detail realistic surfaces, subtle textures, steam/vapor, or dynamic motion drops if applicable.
-4. Avoid any render, illustration, line-art, 3D render, cartoon, or drawing aesthetics. Must look like a real high-budget commercial photograph.
+Guidelines:
+1. Describe explicit subject details, composition, textures, colors, background, and visual mood.
+2. Specify cinematic studio lighting (volumetric lighting, rim light, soft shadows).
+3. Include camera settings like (shot on 85mm lens, f/1.8, high detail, 8k resolution, award-winning commercial photograph).
+4. Strictly NO cartoons, 3d render, vector, drawing, or artificial elements.
 
-Return ONLY the final expanded English prompt text without explanations:`;
+Return ONLY the single line detailed English prompt text:`;
 
     const res = await queryGemini(apiKey, prompt);
-    return res ? res.trim() : `${arabicText}, hyper-photorealistic 8k, professional commercial photography, studio lighting`;
+    return res ? res.trim() : `${arabicText}, hyper-photorealistic 8k, ultra-detailed commercial photography, studio lighting`;
 }
 
 async function startImageGeneration() {
@@ -397,24 +397,24 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري تحويل المشهد إلى برومبت سينمائي عبر Gemini... ⏳`;
+    statusText.innerText = `جاري ترجمة وتفصيل الوصف إلى برومبت احترافي عبر Gemini 3.6... ⏳`;
     gallery.innerHTML = '';
 
     const detailedPrompt = await buildHyperDetailedPrompt(promptText, quality, apiKey);
 
-    statusText.innerText = `جاري توليد الصور عبر محرك FLUX الفائق (بدون حدود وبدون علامة مائية)... 🎨`;
+    statusText.innerText = `جاري توليد ${count} صور بدقة عالية بدون حدود... 🎨`;
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 9999999) + 10000;
-        const encodedPrompt = encodeURIComponent(detailedPrompt);
+        const seed = Math.floor(Math.random() * 9999999) + (i * 1000);
+        const variedPrompt = `${detailedPrompt}, cinematic shot variation ${i}`;
+        const encodedPrompt = encodeURIComponent(variedPrompt);
         
-        // المحرك الخالي من العلامة المائية ومفتوح الحدود
         const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
 
         const card = document.createElement('div');
         card.className = 'generated-image-card';
         card.innerHTML = `
-            <img src="${imageUrl}" alt="AI Image ${i}" id="img-node-${i}" onerror="handleImgError(this, '${encodedPrompt}', ${width}, ${height}, ${seed})">
+            <img src="${imageUrl}" alt="AI Image ${i}" id="img-node-${i}" loading="lazy" onerror="handleImgError(this, '${encodedPrompt}', ${width}, ${height}, ${seed})">
             <div class="generated-image-actions">
                 <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_UltraHD_${i}.jpg')" class="btn-download-img">تنزيل الصورة HD 📥</button>
             </div>
@@ -422,7 +422,7 @@ async function startImageGeneration() {
         gallery.appendChild(card);
     }
 
-    statusText.innerText = `✨ تم توليد الصور بنجاح بدقة فائقة!`;
+    statusText.innerText = `✨ تم توليد الصور بنجاح!`;
     genBtn.disabled = false;
 }
 
@@ -499,7 +499,6 @@ function updateCanvasText() {
     const canvas = document.getElementById('posterCanvas');
     const ctx = canvas.getContext('2d');
 
-    // رسم الصورة الأصلية
     ctx.drawImage(uploadedImageObj, 0, 0, canvas.width, canvas.height);
 
     const titleText = document.getElementById('newPosterTitle').value.trim();
@@ -510,7 +509,6 @@ function updateCanvasText() {
     const posYPercent = document.getElementById('posY').value / 100;
 
     if (titleText || subText) {
-        // إنشاء شريط تدرج ظلي متناسق لإبراز النصوص بدون إتلاف خلفية التصميم
         const gradientHeight = canvas.height * 0.45;
         const startY = canvas.height - gradientHeight;
         const gradient = ctx.createLinearGradient(0, startY, 0, canvas.height);
@@ -590,7 +588,7 @@ async function startGenerationProcess() {
         if (reqReels === 0 && reqPosters === 0) break;
 
         let totalCurrent = currentIdeas.length;
-        progressStatus.innerText = `جاري توليد المحتوى التفصيلي... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
+        progressStatus.innerText = `جاري توليد المحتوى التفصيلي عبر Gemini 3.6... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
         const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
