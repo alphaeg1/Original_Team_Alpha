@@ -126,7 +126,7 @@
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>نظام الوكالة نشط</span>
+            <span>Gemini 3.6 Flash - نشط</span>
         </div>
     </header>
 
@@ -168,7 +168,7 @@
                 <textarea id="defaultNotes" rows="2" placeholder="مدة التنفيذ 7 أيام - يشمل التعديل مرتين مجاناً..." oninput="saveDefaultNotes()"></textarea>
             </div>
             <div class="action-buttons-group">
-                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد خطة المحتوى الكاملة ✨</button>
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد خطة المحتوى (Gemini 3.6) ✨</button>
                 <button id="stopBtn" class="btn-action-stop" onclick="stopGenerationProcess()" disabled>إيقاف التوليد 🛑</button>
             </div>
         </div>
@@ -176,12 +176,12 @@
 
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">🎨 مولد الصور بالذكاء الاصطناعي</span>
+            <span class="card-header-title">🎨 مولد الصور بالذكاء الاصطناعي (مطابق للوصف)</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
-                <label for="imagePrompt">وصف الصورة المطلوبة (يمكنك الكتابة بالعربي عادي):</label>
-                <textarea id="imagePrompt" rows="2" placeholder="مثال: وجبة برجر بريميوم مع البطاطس وإضاءة سينمائية داخل مطعم"></textarea>
+                <label for="imagePrompt">وصف الصورة المطلوبة بالتفصيل (اكتب بالعربي):</label>
+                <textarea id="imagePrompt" rows="2" placeholder="مثال: ساندوتش برجر كبير يمر منه الجبن الذائب، خلفية سينمائية مظلمة مع إضاءة سبوت لايت زرقاء وبخار يتصاعد"></textarea>
             </div>
             <div class="form-row-2">
                 <div class="form-group">
@@ -198,10 +198,10 @@
                 </div>
             </div>
             <div class="action-buttons-group">
-                <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور بالذكاء الاصطناعي 🖼️</button>
+                <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور المترجمة بدقة 🖼️</button>
             </div>
             <div id="imgStatusBox" class="progress-box" style="display:none;">
-                <div id="imgProgressStatus" class="progress-text">جاري بدء توليد الصور... ⏳</div>
+                <div id="imgProgressStatus" class="progress-text">جاري بدء تحسين الوصف وتوليد الصورة... ⏳</div>
             </div>
             <div id="generatedImagesGrid" class="generated-images-grid"></div>
         </div>
@@ -270,30 +270,42 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
 }
 
-// تحويل النص العربي إلى Prompt إنجليزي دقيق احترافي عبر Gemini
-async function translatePromptToEnglish(arabicText, apiKey) {
-    if (!apiKey) return arabicText;
-    const prompt = `Translate and enhance the following Arabic prompt into a detailed, high-quality, ultra-realistic visual image generation prompt in English. Output ONLY the English prompt text and nothing else:
-"${arabicText}"`;
+// دالة الربط المحدثة بموديل gemini-3.6-flash وموديلات Gemini 3
+async function queryGemini(apiKey, promptText) {
+    const models = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-1.5-flash'];
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-        const data = await response.json();
-        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            return data.candidates[0].content.parts[0].text.trim();
+    for (let model of models) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+            });
+
+            const data = await response.json();
+            if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
+            }
+        } catch (e) {
+            console.warn(`Model ${model} try failed...`);
         }
-    } catch(e) {
-        console.error("Translation Error:", e);
     }
-    return arabicText;
+    return null;
 }
 
-// توليد الصور المباشر
+// دالة صياغة وصف الصور الدقيق المحسن جداً لتسهيل عمل الذكاء الاصطناعي
+async function buildDetailedEnglishPrompt(arabicText, apiKey) {
+    if (!apiKey) return arabicText;
+    const prompt = `You are a professional AI photography prompt generator. Translate and enhance this Arabic image description into a hyper-detailed, visual English prompt for image generation. Include cinematic lighting, camera angle, photorealistic details, and texture. 
+Output ONLY the final English prompt without commentary:
+"${arabicText}"`;
+
+    const res = await queryGemini(apiKey, prompt);
+    return res ? res.trim() : arabicText;
+}
+
+// توليد الصور المعتمدة على محرك المحاكاة المتقدم FLUX
 async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const apiKey = document.getElementById('apiKey').value.trim();
@@ -314,16 +326,15 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري ترجمة وتحسين الوصف العربي وتوليد الصورة... ⏳`;
+    statusText.innerText = `جاري ترجمة وصياغة تفاصيل المشهد سينمائياً... ⏳`;
     gallery.innerHTML = '';
 
-    // ترجمة الوصف تلقائياً للإنجليزية
-    const englishPrompt = await translatePromptToEnglish(promptText, apiKey);
+    const englishPrompt = await buildDetailedEnglishPrompt(promptText, apiKey);
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 999999);
+        const seed = Math.floor(Math.random() * 899999) + 100000;
         const encodedPrompt = encodeURIComponent(englishPrompt);
-        const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux`;
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
 
         const card = document.createElement('div');
         card.className = 'generated-image-card';
@@ -336,7 +347,7 @@ async function startImageGeneration() {
         gallery.appendChild(card);
     }
 
-    statusText.innerText = `✨ تم توليد الصور بنجاح!`;
+    statusText.innerText = `✨ تم توليد الصور بنجاح مطابقة للوصف!`;
     genBtn.disabled = false;
 }
 
@@ -357,7 +368,7 @@ async function downloadDirectImage(url, filename) {
     }
 }
 
-// توليد الأفكار عبر API Gemini المضمون
+// توليد الأفكار بموديل gemini-3.6-flash
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -409,7 +420,7 @@ async function startGenerationProcess() {
         if (reqReels === 0 && reqPosters === 0) break;
 
         let totalCurrent = currentIdeas.length;
-        progressStatus.innerText = `جاري توليد الأفكار... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
+        progressStatus.innerText = `جاري توليد الأفكار بواسطة Gemini 3.6 Flash... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
         const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
@@ -422,7 +433,7 @@ async function startGenerationProcess() {
             generatedPosters += reqPosters;
             renderIdeasGrid(currentIdeas);
         } else {
-            alert("فشل التوصيل بالـ API! يرجى التأكد من أن مفتاح Gemini يعمل وأن لديك اتصال إنترنت جيد.");
+            alert("حدث تعثر أثناء الاتصال بموديل Gemini 3.6 Flash. تأكد من أن مفتاح API مفعّل وصحيح.");
             break;
         }
     }
@@ -473,27 +484,14 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
   }
 ]`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
-        });
-
-        const data = await response.json();
-        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            let rawText = data.candidates[0].content.parts[0].text;
-            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-            return JSON.parse(rawText);
-        } else if (data.error) {
-            console.error("Gemini Error Detail:", data.error);
+    const rawResponse = await queryGemini(apiKey, promptText);
+    if (rawResponse) {
+        try {
+            let cleanText = rawResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
+            return JSON.parse(cleanText);
+        } catch (e) {
+            console.error("JSON Parsing Error", e);
         }
-    } catch (e) {
-        console.error("Batch Fetch Error:", e);
     }
     return null;
 }
@@ -561,7 +559,7 @@ async function modifyScriptWithAI() {
     const aiEditBtn = document.getElementById('aiEditBtn');
 
     aiEditBtn.disabled = true;
-    aiEditBtn.innerText = 'جاري التعديل... ⏳';
+    aiEditBtn.innerText = 'جاري التعديل عبر Gemini 3.6... ⏳';
 
     const promptText = `أنت مخرج سكريبت بشركة OFFGRID. قم بإعادة صياغة الفكرة التالية:
 العنوان: ${selectedIdea.title}
@@ -578,30 +576,18 @@ async function modifyScriptWithAI() {
   "audio_or_style": "${selectedIdea.audio_or_style || ''}"
 }`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
-        });
-
-        const data = await response.json();
-        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            let rawText = data.candidates[0].content.parts[0].text;
-            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-
-            const updatedIdea = JSON.parse(rawText);
+    const rawResponse = await queryGemini(apiKey, promptText);
+    if (rawResponse) {
+        try {
+            let cleanText = rawResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const updatedIdea = JSON.parse(cleanText);
             currentIdeas[selectedIdx] = updatedIdea;
             renderIdeasGrid(currentIdeas);
             document.getElementById('aiPromptInput').value = '';
             alert('تم تعديل السكريبت بنجاح! ✨');
+        } catch (e) {
+            alert('حدث خطأ أثناء تعديل السكريبت.');
         }
-    } catch (e) {
-        alert('حدث خطأ أثناء تعديل السكريبت.');
     }
 
     aiEditBtn.disabled = false;
