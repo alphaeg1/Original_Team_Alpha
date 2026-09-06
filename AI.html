@@ -14,7 +14,6 @@
             --surface-card: #0d111a;
             --surface-elevated: #131b2e;
             --border-subtle: #1e293b;
-            --border-highlight: #2a3b5c;
             --offgrid-blue-glow: #38bdf8;
             --offgrid-primary: #2563eb;
             --offgrid-grad: linear-gradient(135deg, #38bdf8 0%, #3b82f6 50%, #1d4ed8 100%);
@@ -181,8 +180,8 @@
         </div>
         <div class="form-grid">
             <div class="form-group">
-                <label for="imagePrompt">وصف الصورة المطلوبة (Prompt):</label>
-                <textarea id="imagePrompt" rows="2" placeholder="أكتب وصف الصورة بالإنجليزية (مثال: Cinematic food photography of a burger, studio lighting)"></textarea>
+                <label for="imagePrompt">وصف الصورة المطلوبة (يمكنك الكتابة بالعربي عادي):</label>
+                <textarea id="imagePrompt" rows="2" placeholder="مثال: وجبة برجر بريميوم مع البطاطس وإضاءة سينمائية داخل مطعم"></textarea>
             </div>
             <div class="form-row-2">
                 <div class="form-group">
@@ -271,9 +270,33 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
 }
 
-// توليد وتحميل الصور مباشرة وبدون فتح أية مواقع خارجية
-function startImageGeneration() {
+// تحويل النص العربي إلى Prompt إنجليزي دقيق احترافي عبر Gemini
+async function translatePromptToEnglish(arabicText, apiKey) {
+    if (!apiKey) return arabicText;
+    const prompt = `Translate and enhance the following Arabic prompt into a detailed, high-quality, ultra-realistic visual image generation prompt in English. Output ONLY the English prompt text and nothing else:
+"${arabicText}"`;
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await response.json();
+        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            return data.candidates[0].content.parts[0].text.trim();
+        }
+    } catch(e) {
+        console.error("Translation Error:", e);
+    }
+    return arabicText;
+}
+
+// توليد الصور المباشر
+async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
+    const apiKey = document.getElementById('apiKey').value.trim();
     const count = parseInt(document.getElementById('imgCount').value) || 1;
     const dimensions = document.getElementById('aspectRatio').value.split('x');
     const width = dimensions[0];
@@ -291,13 +314,15 @@ function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري توليد الصورة وتجهيز التحميل... ⏳`;
+    statusText.innerText = `جاري ترجمة وتحسين الوصف العربي وتوليد الصورة... ⏳`;
     gallery.innerHTML = '';
+
+    // ترجمة الوصف تلقائياً للإنجليزية
+    const englishPrompt = await translatePromptToEnglish(promptText, apiKey);
 
     for (let i = 1; i <= count; i++) {
         const seed = Math.floor(Math.random() * 999999);
-        const encodedPrompt = encodeURIComponent(promptText);
-        // تم تعيين المسار المباشر لخدمة الصور
+        const encodedPrompt = encodeURIComponent(englishPrompt);
         const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux`;
 
         const card = document.createElement('div');
@@ -315,7 +340,6 @@ function startImageGeneration() {
     genBtn.disabled = false;
 }
 
-// دالة تنزيل الصور مباشرة على جهازك دون توجيه لأي صفحة
 async function downloadDirectImage(url, filename) {
     try {
         const response = await fetch(url);
@@ -333,7 +357,7 @@ async function downloadDirectImage(url, filename) {
     }
 }
 
-// توليد الأفكار عبر API Gemini وإصلاح مسار الـ Key
+// توليد الأفكار عبر API Gemini المضمون
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -425,13 +449,15 @@ function stopGenerationProcess() {
 }
 
 async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex) {
-    const promptText = `أنت موجه المحتوى ومخرج الإعلانات لـ OFFGRID Studio.
-قم بإنشاء دفعة أفكار للحملة التالية:
-- العميل: ${clientName} | المجال: ${industry} | الأهداف: ${goals}
+    const promptText = `أنت صانع محتوى إبداعي ومخرج إعلانات لـ OFFGRID Studio.
+قم بإنشاء خطة محتوى إستراتيجية للحملة التالية:
+- البراند: ${clientName}
+- المجال: ${industry}
+- أهداف الحملة: ${goals}
 - المطلوبة بالدفعة: ${reelsCount} فيديو Reels و ${postersCount} تصميم Poster.
 - ترقيم الأفكار يبدأ من رقم #${startIndex}.
 
-لكل فيديو Reel: قسم السكريبت لشوتات سينمائية (Shots) مع كتابة نص التعليق الصوتي والتمثيل بخط واضح وعريض ومفصل.
+لكل فيديو Reel: قسم السكريبت لشوتات سينمائية (Shots) مع كتابة نص التعليق الصوتي والتمثيل بشكل مفصل.
 لكل بوستر Poster: حدد الفكرة، النص الإعلاني، والعنصر البصري.
 
 أرجع الناتج في صيغة JSON Array فقط بدون markdown:
@@ -447,7 +473,6 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
   }
 ]`;
 
-    // تعديل الرابط لاستخدام الكويري المعتمد وإزالة التعارض في CORS
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
