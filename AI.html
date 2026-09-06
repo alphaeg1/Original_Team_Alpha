@@ -130,10 +130,11 @@
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>Gemini 3.8 Flash Engine</span>
+            <span>Gemini 2.5 Flash / FLUX Engine</span>
         </div>
     </header>
 
+    <!-- إعدادات الحملة -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">⚙️ إعدادات خطة العميل والحملة</span>
@@ -168,12 +169,13 @@
                 <textarea id="goals" rows="2" placeholder="زيادة المبيعات، إبراز جودة المكونات والعروض..."></textarea>
             </div>
             <div class="action-buttons-group">
-                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية (Gemini 3.8 Flash) ✨</button>
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية (Gemini 2.5) ✨</button>
                 <button id="stopBtn" class="btn-action-stop" onclick="stopGenerationProcess()" disabled>إيقاف التوليد 🛑</button>
             </div>
         </div>
     </section>
 
+    <!-- وحدة توليد الصور بدقة فائقة وعميقة بدون حدود وبدون علامة مائية -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">📸 مولد الصور Ultra-HD (واقعية سينمائية بدون علامة مائية)</span>
@@ -211,12 +213,13 @@
                 </div>
             </div>
             <div id="imgStatusBox" class="progress-box" style="display:none;">
-                <div id="imgProgressStatus" class="progress-text">جاري تحويل وصفك إلى Prompt سينمائي عبر Gemini 3.8 Flash... ⏳</div>
+                <div id="imgProgressStatus" class="progress-text">جاري تحويل وصفك إلى Prompt سينمائي احترافي عبر Gemini... ⏳</div>
             </div>
             <div id="generatedImagesGrid" class="generated-images-grid"></div>
         </div>
     </section>
 
+    <!-- وحدة قراءة وتعديل البوسترات المتقدمة -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">🔍 الهندسة العكسية وتعديل البوسترات المتقدمة</span>
@@ -226,7 +229,7 @@
                 <input type="file" id="posterFileInput" accept="image/*" style="display:none;" onchange="handlePosterUpload(event)">
                 <div style="font-size: 2rem; margin-bottom: 6px;">📥</div>
                 <div style="font-size: 0.9rem; font-weight: 800; color: var(--offgrid-blue-glow);">اضغط هنا لرفع صورة البوستر الأصلي أو صورة المنتج</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">سيتم تحليل العناصر والخطوط والألوان برؤية Gemini 3.8 Flash</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">سيتم تحليل العناصر والخطوط والألوان برؤية Gemini المتقدمة</div>
             </div>
 
             <div id="posterEditorArea" style="display:none;" class="poster-preview-container">
@@ -281,6 +284,7 @@
         </div>
     </section>
 
+    <!-- منطقة عرض نتائج خطة المحتوى -->
     <section class="card" id="resultCard" style="display: none;">
         <div id="progressBox" class="progress-box" style="display:none;">
             <div id="progressStatus" class="progress-text">جاري بدء التوليد... ⏳</div>
@@ -316,39 +320,40 @@ function saveApiKey() {
     localStorage.setItem('offgrid_api_key', document.getElementById('apiKey').value.trim());
 }
 
-// دالة الاتصال المباشرة بالموديل Gemini 3.8 Flash
 async function queryGemini(apiKey, promptText, imageBase64 = null) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
-    try {
-        let parts = [{ text: promptText }];
-        if (imageBase64) {
-            parts.push({
-                inline_data: {
-                    mime_type: "image/jpeg",
-                    data: imageBase64.split(',')[1]
-                }
+    const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+
+    for (let model of models) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        try {
+            let parts = [{ text: promptText }];
+            if (imageBase64) {
+                parts.push({
+                    inline_data: {
+                        mime_type: "image/jpeg",
+                        data: imageBase64.split(',')[1]
+                    }
+                });
+            }
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: parts }] })
             });
-        }
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: parts }] })
-        });
-
-        const data = await response.json();
-        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            return data.candidates[0].content.parts[0].text;
-        } else {
-            console.error("Gemini API Error Response:", data);
+            const data = await response.json();
+            if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
+            }
+        } catch (e) {
+            console.warn(`Attempt with ${model} failed...`);
         }
-    } catch (e) {
-        console.error("Fetch Exception:", e);
     }
     return null;
 }
 
-// هندسة البرومبت عبر Gemini 3.8 Flash
+// هندسة البرومبت وتحويل العربي لإنجليزي احترافي فائق الدقة
 async function buildHyperDetailedPrompt(arabicText, quality, apiKey) {
     if (!apiKey) {
         return `${arabicText}, hyper-photorealistic 8k, ultra-detailed product photography, professional studio lighting, 85mm lens, depth of field, vibrant colors, commercial quality`;
@@ -392,7 +397,7 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري تحويل المشهد إلى برومبت سينمائي عبر Gemini 3.8 Flash... ⏳`;
+    statusText.innerText = `جاري تحويل المشهد إلى برومبت سينمائي عبر Gemini... ⏳`;
     gallery.innerHTML = '';
 
     const detailedPrompt = await buildHyperDetailedPrompt(promptText, quality, apiKey);
@@ -403,6 +408,7 @@ async function startImageGeneration() {
         const seed = Math.floor(Math.random() * 9999999) + 10000;
         const encodedPrompt = encodeURIComponent(detailedPrompt);
         
+        // المحرك الخالي من العلامة المائية ومفتوح الحدود
         const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
 
         const card = document.createElement('div');
@@ -455,7 +461,7 @@ async function handlePosterUpload(event) {
 
         uploadedImageObj.onload = async function() {
             document.getElementById('posterEditorArea').style.display = 'flex';
-            document.getElementById('ocrTextDetails').innerText = 'جاري تحليل الصورة بواسطة Gemini 3.8 Flash Vision... ⏳';
+            document.getElementById('ocrTextDetails').innerText = 'جاري تحليل الصورة بواسطة Gemini Vision... ⏳';
 
             if (apiKey) {
                 const visionPrompt = `Analyze this image (poster or product):
@@ -493,6 +499,7 @@ function updateCanvasText() {
     const canvas = document.getElementById('posterCanvas');
     const ctx = canvas.getContext('2d');
 
+    // رسم الصورة الأصلية
     ctx.drawImage(uploadedImageObj, 0, 0, canvas.width, canvas.height);
 
     const titleText = document.getElementById('newPosterTitle').value.trim();
@@ -503,6 +510,7 @@ function updateCanvasText() {
     const posYPercent = document.getElementById('posY').value / 100;
 
     if (titleText || subText) {
+        // إنشاء شريط تدرج ظلي متناسق لإبراز النصوص بدون إتلاف خلفية التصميم
         const gradientHeight = canvas.height * 0.45;
         const startY = canvas.height - gradientHeight;
         const gradient = ctx.createLinearGradient(0, startY, 0, canvas.height);
@@ -582,7 +590,7 @@ async function startGenerationProcess() {
         if (reqReels === 0 && reqPosters === 0) break;
 
         let totalCurrent = currentIdeas.length;
-        progressStatus.innerText = `جاري توليد المحتوى التفصيلي عبر Gemini 3.8 Flash... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
+        progressStatus.innerText = `جاري توليد المحتوى التفصيلي... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
         const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
