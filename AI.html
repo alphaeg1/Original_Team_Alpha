@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مولد أفكار OFFGRID</title>
+    <!-- استدعاء خط احترافي -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Syne:wght@800&display=swap" rel="stylesheet">
     
+    <!-- مكتبة تحويل العناصر إلى صور -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --bg-color: #080c14;
-            --card-bg: #111827;
-            --card-border: #1f293d;
+            --bg-color: #0b0f19;
+            --card-bg: #151c2c;
+            --card-border: #232d42;
             --accent-color: #6366f1;
             --accent-hover: #4f46e5;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --success-color: #10b981;
             --error-color: #ef4444;
-            --offgrid-gradient: linear-gradient(135deg, #ff2a5f 0%, #ff7e33 50%, #facc15 100%);
+            --offgrid-gradient: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
         }
 
         * {
@@ -40,17 +42,17 @@
 
         .container {
             width: 100%;
-            max-width: 880px;
+            max-width: 900px;
         }
 
-        /* الهيدر والوجو الثابت */
+        /* الهيدر والعنوان المتناسق مع ألوان الموقع */
         .header-brand {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
-            gap: 8px;
+            gap: 6px;
         }
 
         .main-title {
@@ -63,17 +65,16 @@
             gap: 10px;
         }
 
-        /* تنسيق الخط وتصميم كلمة OFFGRID */
         .offgrid-badge {
             font-family: 'Syne', sans-serif;
             background: var(--offgrid-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 3px;
-            font-size: 2.2rem;
+            letter-spacing: 2px;
+            font-size: 2.1rem;
             font-weight: 800;
             text-transform: uppercase;
-            filter: drop-shadow(0px 0px 12px rgba(255, 66, 95, 0.35));
+            text-shadow: 0 0 20px rgba(255, 70, 85, 0.25);
         }
 
         .card {
@@ -82,7 +83,17 @@
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #818cf8;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .form-grid {
@@ -109,8 +120,8 @@
             font-weight: 700; 
         }
 
-        input, textarea {
-            background-color: #0b0f19;
+        input, textarea, select {
+            background-color: var(--bg-color);
             border: 1px solid var(--card-border);
             color: var(--text-color);
             padding: 12px 14px;
@@ -119,15 +130,14 @@
             font-family: inherit;
             outline: none;
             width: 100%;
-            transition: border-color 0.2s ease;
         }
 
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             border-color: var(--accent-color);
         }
 
         button.btn-primary {
-            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+            background-color: var(--accent-color);
             color: white;
             border: none;
             padding: 14px;
@@ -137,12 +147,19 @@
             cursor: pointer;
             width: 100%;
             margin-top: 8px;
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-            transition: opacity 0.2s;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
         }
 
-        button.btn-primary:hover {
-            opacity: 0.92;
+        button.btn-ai-edit {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
         }
 
         .btn-download {
@@ -156,10 +173,9 @@
             cursor: pointer;
             width: 100%;
             margin-top: 16px;
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
         }
 
-        /* التقرير القابل للتصدير */
+        /* تحسين التقرير القابل للتصدير */
         #exportContainer {
             background-color: var(--card-bg);
             padding: 20px;
@@ -174,11 +190,6 @@
             border-bottom: 2px solid var(--card-border);
             padding-bottom: 14px;
             margin-bottom: 16px;
-        }
-
-        .brand-info {
-            display: flex;
-            flex-direction: column;
         }
 
         .plan-client-title {
@@ -212,7 +223,7 @@
         }
 
         .output-table td {
-            background-color: #111827;
+            background-color: var(--card-bg);
             border-bottom: 1px solid var(--card-border);
             padding: 14px;
             vertical-align: top;
@@ -229,8 +240,8 @@
             white-space: nowrap;
         }
 
-        .badge-reel { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .badge-reel { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-poster { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
 
         .shot-card {
             background: #0b0f19;
@@ -245,27 +256,6 @@
             color: #38bdf8;
             font-size: 0.82rem;
             margin-bottom: 2px;
-        }
-
-        /* جعل النصوص قابلة للتعديل المباشر */
-        [contenteditable="true"] {
-            outline: none;
-            padding: 2px 4px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-
-        [contenteditable="true"]:hover, [contenteditable="true"]:focus {
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 0 1px var(--accent-color);
-        }
-
-        .editable-hint {
-            font-size: 0.78rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-            display: block;
-            text-align: left;
         }
 
         .default-notes-box {
@@ -283,18 +273,28 @@
             color: #818cf8;
             margin-bottom: 4px;
         }
+
+        /* تصميم خيارات اختيار العناصر للتصدير */
+        .select-item-cb {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
 
+    <!-- الهيدر والوجو الثابت -->
     <div class="header-brand">
         <div class="main-title">
             مولد أفكار <span class="offgrid-badge">OFFGRID</span>
         </div>
     </div>
 
+    <!-- كارت إدخال البيانات الرئيسية -->
     <div class="card">
         <div class="form-grid">
 
@@ -339,21 +339,37 @@
         <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد الخطة ✨</button>
     </div>
 
+    <!-- كارت التعديل بالذكاء الاصطناعي (يظهر بعد التوليد) -->
+    <div class="card" id="aiEditCard" style="display: none;">
+        <div class="card-title">🤖 تعديل أو إضافة معلومة لسكريبت محدد بالـ AI</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="scriptSelect">اختر السكريبت / الفكرة المطلوبة:</label>
+                <select id="scriptSelect"></select>
+            </div>
+            <div class="form-group">
+                <label for="aiPromptInput">المعلومة أو التعديل المطلوب إضافته:</label>
+                <textarea id="aiPromptInput" rows="2" placeholder="مثال: أضف خصم 20% في أخر شوت، أو اجعل البداية مشوقة أكثر..."></textarea>
+            </div>
+            <button id="aiEditBtn" class="btn-ai-edit" onclick="modifyScriptWithAI()">تعديل السكريبت بالذكاء الاصطناعي ⚡</button>
+        </div>
+    </div>
+
+    <!-- كارت النتيجة والتقرير -->
     <div class="card" id="resultCard" style="display: none;">
         <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-muted); font-size: 0.95rem;">
-            جاري تحضير الخطة وتقسيم الشوتات... ⏳
+            جاري معالجة الطلب بواسطة الذكاء الاصطناعي... ⏳
         </div>
         
+        <!-- التقرير القابل للتصدير والتعديل -->
         <div id="exportContainer">
             <div class="export-header">
                 <div class="brand-info">
-                    <div class="plan-client-title" id="planTitle" contenteditable="true">📋 خطة المحتوى</div>
+                    <div class="plan-client-title" id="planTitle">📋 خطة المحتوى</div>
                     <small style="color: var(--text-muted); font-size: 0.78rem;">TEAM ALPHA</small>
                 </div>
                 <div class="offgrid-badge" style="font-size: 1.4rem;">OFFGRID</div>
             </div>
-
-            <span class="editable-hint">💡 يمكنك الضغط على أي نص في الجدول لتعديله/تخصيصه بشكل مباشر قبل التحميل.</span>
 
             <div class="table-responsive">
                 <div id="outputContainer"></div>
@@ -361,16 +377,18 @@
 
             <div id="exportNotesBox" class="default-notes-box" style="display:none;">
                 <div class="default-notes-title">📌 ملاحظات الشروط والأحكام:</div>
-                <div id="exportNotesText" contenteditable="true"></div>
+                <div id="exportNotesText"></div>
             </div>
         </div>
 
-        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة 📸</button>
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة 📸 (للفيديوهات المحددة)</button>
     </div>
 
 </div>
 
 <script>
+let currentIdeas = []; // حفظ الأفكار المولدة
+
 window.onload = function() {
     // استرجاع الـ API Key والملاحظات من المتصفح تلقائياً
     const savedKey = localStorage.getItem('offgrid_api_key');
@@ -415,6 +433,7 @@ async function generateContent() {
 
     const btn = document.getElementById('generateBtn');
     const resultCard = document.getElementById('resultCard');
+    const aiEditCard = document.getElementById('aiEditCard');
     const loading = document.getElementById('loading');
     const outputContainer = document.getElementById('outputContainer');
     const downloadBtn = document.getElementById('downloadBtn');
@@ -475,8 +494,10 @@ async function generateContent() {
             let rawText = data.candidates[0].content.parts[0].text;
             rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
 
-            const ideas = JSON.parse(rawText);
-            renderTable(ideas);
+            currentIdeas = JSON.parse(rawText);
+            renderTable(currentIdeas);
+            populateScriptSelect();
+            aiEditCard.style.display = 'block';
             downloadBtn.style.display = 'block';
         } else {
             outputContainer.innerHTML = `<div style="color:var(--error-color); text-align:center;">⚠️ فشل التوليد، تأكد من صحة الـ API Key.</div>`;
@@ -494,8 +515,9 @@ function renderTable(ideas) {
         <table class="output-table">
             <thead>
                 <tr>
-                    <th style="width: 15%;">النوع</th>
-                    <th style="width: 25%;">عنوان الفكرة</th>
+                    <th style="width: 5%; text-align: center;">تحديد</th>
+                    <th style="width: 12%;">النوع</th>
+                    <th style="width: 23%;">عنوان الفكرة</th>
                     <th style="width: 42%;">التفاصيل والسكريبت (Shots)</th>
                     <th style="width: 18%;">الصوت / الستايل</th>
                 </tr>
@@ -503,7 +525,7 @@ function renderTable(ideas) {
             <tbody>
     `;
 
-    ideas.forEach(item => {
+    ideas.forEach((item, index) => {
         const typeStr = item.type || 'Reel';
         const isReel = typeStr.toLowerCase().includes('reel');
         const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
@@ -513,21 +535,24 @@ function renderTable(ideas) {
             item.shots.forEach(s => {
                 shotsHtml += `
                     <div class="shot-card">
-                        <div class="shot-title" contenteditable="true">${s.name || 'Shot'}</div>
-                        <div class="shot-desc" contenteditable="true">${s.desc || ''}</div>
+                        <div class="shot-title">${s.name || 'Shot'}</div>
+                        <div class="shot-desc">${s.desc || ''}</div>
                     </div>
                 `;
             });
         } else if (item.details) {
-            shotsHtml += `<div class="shot-desc" contenteditable="true">${item.details}</div>`;
+            shotsHtml += `<div class="shot-desc">${item.details}</div>`;
         }
 
         html += `
-            <tr>
-                <td><span class="badge ${badgeClass}" contenteditable="true">${typeStr}</span></td>
-                <td><strong style="color: #f8fafc;" contenteditable="true">${item.title || ''}</strong></td>
+            <tr id="row-${index}">
+                <td style="text-align: center; vertical-align: middle;">
+                    <input type="checkbox" class="select-item-cb" data-index="${index}" checked>
+                </td>
+                <td><span class="badge ${badgeClass}">${typeStr}</span></td>
+                <td><strong style="color: #f8fafc;">${item.title || ''}</strong></td>
                 <td>${shotsHtml}</td>
-                <td><span style="color: #a5b4fc;" contenteditable="true">${item.audio_or_style || '-'}</span></td>
+                <td><span style="color: #a5b4fc;">${item.audio_or_style || '-'}</span></td>
             </tr>
         `;
     });
@@ -536,12 +561,104 @@ function renderTable(ideas) {
     document.getElementById('outputContainer').innerHTML = html;
 }
 
+function populateScriptSelect() {
+    const select = document.getElementById('scriptSelect');
+    select.innerHTML = '';
+    currentIdeas.forEach((item, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.innerText = `[${item.type || 'فكرة'}] ${item.title || 'فكرة ' + (idx + 1)}`;
+        select.appendChild(opt);
+    });
+}
+
+async function modifyScriptWithAI() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const selectedIdx = document.getElementById('scriptSelect').value;
+    const aiPrompt = document.getElementById('aiPromptInput').value.trim();
+
+    if (!aiPrompt) {
+        alert('برجاء كتابة التعديل أو المعلومة المراد إضافتها للسكريبت!');
+        return;
+    }
+
+    const selectedIdea = currentIdeas[selectedIdx];
+    const loading = document.getElementById('loading');
+    const aiEditBtn = document.getElementById('aiEditBtn');
+
+    aiEditBtn.disabled = true;
+    loading.style.display = 'block';
+
+    const promptText = `لديك هذا السكريبت الخاص بـ (${selectedIdea.type}):
+عنوان الفكرة: ${selectedIdea.title}
+الشوتات والسكريبت الحالي:
+${JSON.stringify(selectedIdea.shots || selectedIdea.details)}
+
+المطلوب تعديله أو إضافته:
+"${aiPrompt}"
+
+قم بإنشاء سكريبت معدل إبداعي يحافظ على التقسيم بنفس الهيكل المسبق مع تطبيق التعديلات المطلوبة.
+ارجع الناتج في صيغة JSON Object فقط بنفس الشكل:
+{
+  "type": "${selectedIdea.type}",
+  "title": "${selectedIdea.title}",
+  "shots": [
+    { "name": "Shot 1 - ...", "desc": "..." }
+  ],
+  "audio_or_style": "${selectedIdea.audio_or_style || ''}"
+}`;
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: promptText }] }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            let rawText = data.candidates[0].content.parts[0].text;
+            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+
+            const updatedIdea = JSON.parse(rawText);
+            currentIdeas[selectedIdx] = updatedIdea; // تحديث الفكرة في الترتيب الحالي
+            renderTable(currentIdeas);
+            document.getElementById('aiPromptInput').value = '';
+            alert('تم تعديل السكريبت بنجاح! ✨');
+        } else {
+            alert('تعذر التعديل، تأكد من الـ API Key!');
+        }
+    } catch (e) {
+        alert('حدث خطأ في الاتصال أثناء التعديل.');
+    }
+
+    aiEditBtn.disabled = false;
+    loading.style.display = 'none';
+}
+
 function downloadAsImage() {
+    const checkboxes = document.querySelectorAll('.select-item-cb');
+    
+    // إخفاء الصفوف التي لم يتم اختيارها مؤقتاً للتصدير
+    checkboxes.forEach(cb => {
+        const idx = cb.getAttribute('data-index');
+        const row = document.getElementById(`row-${idx}`);
+        if (!cb.checked && row) {
+            row.style.display = 'none';
+        }
+        cb.style.display = 'none'; // إخفاء خانة الاختيار أثناء التقاط الصورة
+    });
+
     const element = document.getElementById('exportContainer');
     const clientName = document.getElementById('clientName').value.trim() || 'Client';
 
     html2canvas(element, {
-        backgroundColor: '#111827',
+        backgroundColor: '#151c2c',
         scale: 2,
         useCORS: true,
         scrollX: 0,
@@ -551,6 +668,14 @@ function downloadAsImage() {
         link.download = `خطة_محتوى_${clientName}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
+
+        // إرجاع إظهار الصفوف والـ Checkboxes كما كانت
+        checkboxes.forEach(cb => {
+            const idx = cb.getAttribute('data-index');
+            const row = document.getElementById(`row-${idx}`);
+            if (row) row.style.display = '';
+            cb.style.display = '';
+        });
     });
 }
 </script>
