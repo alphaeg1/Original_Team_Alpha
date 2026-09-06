@@ -321,7 +321,7 @@ function saveApiKey() {
 }
 
 async function queryGemini(apiKey, promptText, imageBase64 = null) {
-    const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+    const models = ['gemini-2.5-flash', 'gemini-1.5-flash'];
 
     for (let model of models) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
