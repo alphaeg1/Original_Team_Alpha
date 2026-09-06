@@ -31,6 +31,7 @@
             --text-muted: #64748b;
             --accent-emerald: #10b981;
             --accent-pink: #ec4899;
+            --accent-red: #ef4444;
 
             --radius-lg: 16px;
             --radius-md: 10px;
@@ -163,9 +164,18 @@
             gap: 10px;
         }
 
+        .action-buttons-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
         @media (max-width: 600px) {
             .form-row-2 {
                 grid-template-columns: 1fr;
+            }
+            .action-buttons-group {
+                flex-direction: column;
             }
             .brand-header {
                 flex-direction: column;
@@ -217,14 +227,44 @@
             font-size: 0.95rem;
             font-weight: 800;
             cursor: pointer;
-            width: 100%;
-            margin-top: 6px;
+            flex: 2;
             transition: opacity 0.2s;
             box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-action-primary:hover {
+        .btn-action-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-action-primary:hover:not(:disabled) {
             opacity: 0.92;
+        }
+
+        .btn-action-stop {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.2s;
+        }
+
+        .btn-action-stop:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        .btn-action-stop:hover:not(:disabled) {
+            background: rgba(239, 68, 68, 0.25);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
         }
 
         .btn-action-ai {
@@ -492,7 +532,10 @@
                 <textarea id="defaultNotes" rows="2" placeholder="مدة التنفيذ 7 أيام - يشمل التعديل مرتين مجاناً..." oninput="saveDefaultNotes()"></textarea>
             </div>
 
-            <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد خطة المحتوى الكاملة ✨</button>
+            <div class="action-buttons-group">
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد خطة المحتوى الكاملة ✨</button>
+                <button id="stopBtn" class="btn-action-stop" onclick="stopGenerationProcess()" disabled>إيقاف التوليد 🛑</button>
+            </div>
         </div>
     </section>
 
@@ -550,6 +593,7 @@
 
 <script>
 let currentIdeas = [];
+let abortController = null; // متحكم الإلغاء لطلبات الـ API المتسلسلة
 
 window.onload = function() {
     const savedKey = localStorage.getItem('offgrid_api_key');
@@ -567,7 +611,7 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
 }
 
-// محرك التوليد الدفعي المتسلسل حتى 1000 فكرة
+// محرك التوليد الدفعي المتسلسل حتى 1000 فكرة مع إمكانية الإيقاف
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -580,7 +624,8 @@ async function startGenerationProcess() {
     if (!apiKey) { alert('برجاء إدخال الـ API Key أولاً!'); return; }
     if (!clientName || !industry) { alert('برجاء كتابة اسم العميل والمجال!'); return; }
 
-    const btn = document.getElementById('generateBtn');
+    const generateBtn = document.getElementById('generateBtn');
+    const stopBtn = document.getElementById('stopBtn');
     const resultCard = document.getElementById('resultCard');
     const progressBox = document.getElementById('progressBox');
     const progressStatus = document.getElementById('progressStatus');
@@ -589,7 +634,12 @@ async function startGenerationProcess() {
     const outputContainer = document.getElementById('outputContainer');
     const downloadBtn = document.getElementById('downloadBtn');
 
-    btn.disabled = true;
+    // إنشاء وحدة التحكم بوقف العمليات (AbortController)
+    abortController = new AbortController();
+    const signal = abortController.signal;
+
+    generateBtn.disabled = true;
+    stopBtn.disabled = false;
     resultCard.style.display = 'block';
     progressBox.style.display = 'block';
     downloadBtn.style.display = 'none';
@@ -611,6 +661,12 @@ async function startGenerationProcess() {
     let generatedPosters = 0;
 
     while (generatedReels < totalReels || generatedPosters < totalPosters) {
+        // التحقق مما إذا قام المستخدم بالضغط على زر الإيقاف
+        if (signal.aborted) {
+            progressStatus.innerText = `🛑 تم إيقاف التوليد بواسطة المستخدم عند (${currentIdeas.length} من ${totalRequested}) فكرة.`;
+            break;
+        }
+
         let reqReels = Math.min(chunkSize, totalReels - generatedReels);
         let reqPosters = Math.min(chunkSize - reqReels, totalPosters - generatedPosters);
 
@@ -620,7 +676,13 @@ async function startGenerationProcess() {
         progressStatus.innerText = `جاري توليد الأفكار... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
-        const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
+        const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1, signal);
+        
+        if (signal.aborted) {
+            progressStatus.innerText = `🛑 تم إيقاف التوليد بنجاح عند (${currentIdeas.length} فكرة).`;
+            break;
+        }
+
         if (batchIdeas && batchIdeas.length > 0) {
             currentIdeas = currentIdeas.concat(batchIdeas);
             generatedReels += reqReels;
@@ -632,15 +694,30 @@ async function startGenerationProcess() {
         }
     }
 
-    progressStatus.innerText = `✨ اكتمل التوليد بنجاح! تم تجهيز ${currentIdeas.length} فكرة احترافية.`;
-    progressBarFill.style.width = '100%';
-    populateScriptSelect();
-    aiEditCard.style.display = 'block';
-    downloadBtn.style.display = 'block';
-    btn.disabled = false;
+    if (!signal.aborted) {
+        progressStatus.innerText = `✨ اكتمل التوليد بنجاح! تم تجهيز ${currentIdeas.length} فكرة احترافية.`;
+        progressBarFill.style.width = '100%';
+    }
+
+    if (currentIdeas.length > 0) {
+        populateScriptSelect();
+        aiEditCard.style.display = 'block';
+        downloadBtn.style.display = 'block';
+    }
+
+    generateBtn.disabled = false;
+    stopBtn.disabled = true;
 }
 
-async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex) {
+// دالة إيقاف التوليد
+function stopGenerationProcess() {
+    if (abortController) {
+        document.getElementById('progressStatus').innerText = 'جاري إيقاف العملية... ⏳';
+        abortController.abort();
+    }
+}
+
+async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex, signal) {
     const promptText = `أنت موجه المحتوى ومخرج الإعلانات الاحترافي بشركة OFFGRID Studio.
 قم بإنشاء دفعة أفكار للحملة التالية:
 - العميل: ${clientName} | المجال: ${industry} | الأهداف: ${goals}
@@ -669,7 +746,8 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] }),
+            signal: signal // ربط أمر الإلغاء لطلب الـ Fetch
         });
 
         const data = await response.json();
@@ -679,7 +757,11 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
             return JSON.parse(rawText);
         }
     } catch (e) {
-        console.error("Batch Generation Error", e);
+        if (e.name === 'AbortError') {
+            console.log("تم إلغاء الطلب بواسطة المستخدم.");
+        } else {
+            console.error("Batch Generation Error", e);
+        }
     }
     return null;
 }
