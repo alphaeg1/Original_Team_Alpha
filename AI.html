@@ -771,7 +771,7 @@ async function startImageGeneration() {
             const encodedPrompt = encodeURIComponent(finalPrompt);
             const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
 
-            // تحميل الصورة واستخراج Data URL محلياً لتفادي مشاكل الحفظ والـ CORS
+            // تحميل الصورة واستخرج Data URL محلياً لتفادي مشاكل الحفظ والـ CORS
             const dataUrl = await fetchAndConvertToDataURL(imageUrl, signal);
 
             if (dataUrl) {
@@ -848,7 +848,7 @@ async function startGenerationProcess() {
     const goals = document.getElementById('goals').value.trim();
     const defaultNotes = document.getElementById('defaultNotes').value.trim();
 
-    if (!apiKey) { alert('برجاء إدخال الـ API Key أولاً!'); return; }
+    if (!apiKey) { alert('برجاء إدخل الـ API Key أولاً!'); return; }
     if (!clientName || !industry) { alert('برجاء كتابة اسم العميل والمجال!'); return; }
 
     const generateBtn = document.getElementById('generateBtn');
