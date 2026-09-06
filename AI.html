@@ -271,7 +271,7 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
 }
 
-// مولد الصور المباشر والمضمون
+// توليد وتحميل الصور مباشرة وبدون فتح أية مواقع خارجية
 function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const count = parseInt(document.getElementById('imgCount').value) || 1;
@@ -291,20 +291,21 @@ function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري توليد وعرض الصور... ⏳`;
+    statusText.innerText = `جاري توليد الصورة وتجهيز التحميل... ⏳`;
     gallery.innerHTML = '';
 
     for (let i = 1; i <= count; i++) {
         const seed = Math.floor(Math.random() * 999999);
         const encodedPrompt = encodeURIComponent(promptText);
-        const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
+        // تم تعيين المسار المباشر لخدمة الصور
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux`;
 
         const card = document.createElement('div');
         card.className = 'generated-image-card';
         card.innerHTML = `
             <img src="${imageUrl}" alt="AI Image ${i}" loading="lazy">
             <div class="generated-image-actions">
-                <a href="${imageUrl}" target="_blank" class="btn-download-img">فتح / تحميل الصورة 📥</a>
+                <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_AI_Image_${i}.jpg')" class="btn-download-img">تنزيل الصورة المباشرة 📥</button>
             </div>
         `;
         gallery.appendChild(card);
@@ -314,7 +315,25 @@ function startImageGeneration() {
     genBtn.disabled = false;
 }
 
-// توليد الأفكار عبر API Gemini المصلح
+// دالة تنزيل الصور مباشرة على جهازك دون توجيه لأي صفحة
+async function downloadDirectImage(url, filename) {
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    } catch (e) {
+        window.open(url, '_blank');
+    }
+}
+
+// توليد الأفكار عبر API Gemini وإصلاح مسار الـ Key
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -379,7 +398,7 @@ async function startGenerationProcess() {
             generatedPosters += reqPosters;
             renderIdeasGrid(currentIdeas);
         } else {
-            alert("حدث خطأ في الاتصال بالـ API. تأكد من صحة المفتاح.");
+            alert("فشل التوصيل بالـ API! يرجى التأكد من أن مفتاح Gemini يعمل وأن لديك اتصال إنترنت جيد.");
             break;
         }
     }
@@ -428,14 +447,14 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
   }
 ]`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
+    // تعديل الرابط لاستخدام الكويري المعتمد وإزالة التعارض في CORS
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
-                'x-goog-api-key': apiKey
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
         });
@@ -445,9 +464,11 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
             let rawText = data.candidates[0].content.parts[0].text;
             rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
             return JSON.parse(rawText);
+        } else if (data.error) {
+            console.error("Gemini Error Detail:", data.error);
         }
     } catch (e) {
-        console.error("Batch Error", e);
+        console.error("Batch Fetch Error:", e);
     }
     return null;
 }
@@ -532,14 +553,13 @@ async function modifyScriptWithAI() {
   "audio_or_style": "${selectedIdea.audio_or_style || ''}"
 }`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
-                'x-goog-api-key': apiKey
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
         });
