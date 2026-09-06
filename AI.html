@@ -551,7 +551,7 @@
         
         <div class="form-grid">
             <div class="form-group">
-                <label for="apiKey">مفتاح API الخاص بالوكالة</label>
+                <label for="apiKey">مفتاح API الخاص بالوكالة (Gemini API Key)</label>
                 <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API هنا..." oninput="saveApiKey()">
             </div>
 
@@ -568,7 +568,7 @@
 
             <div class="form-row-2">
                 <div class="form-group">
-                    <label for="reelsCount">عدد فيديوهات Reels (حتى 1000)</label>
+                    <label for="reelsCount">عدد فيديوهات Reels</label>
                     <input type="number" id="reelsCount" value="4" min="0">
                 </div>
                 <div class="form-group">
@@ -607,7 +607,7 @@
 
             <div class="form-row-2">
                 <div class="form-group">
-                    <label for="imageRefInput">صورة مرجعية (اختياري - لتوليد صورة مشابها لها):</label>
+                    <label for="imageRefInput">صورة مرجعية (اختياري - لتوليد صورة مشابهة لها):</label>
                     <input type="file" id="imageRefInput" accept="image/*" onchange="previewRefImage(event)">
                     <div id="imageRefPreview" class="image-preview-container" style="display:none;">
                         <img id="refThumb" class="image-preview-thumb" src="" alt="معاينة">
@@ -618,6 +618,15 @@
                     <label for="imgCount">عدد الصور المطلوب توليدها:</label>
                     <input type="number" id="imgCount" value="2" min="1" max="50">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="aspectRatio">نسبة أبعاد الصورة:</label>
+                <select id="aspectRatio">
+                    <option value="1024x1024" selected>مربع (1:1 - 1024x1024)</option>
+                    <option value="768x1280">ستوري / ريلز (9:16 - 768x1280)</option>
+                    <option value="1280x768">عرضي (16:9 - 1280x768)</option>
+                </select>
             </div>
 
             <div class="action-buttons-group">
@@ -719,10 +728,13 @@ function previewRefImage(event) {
     }
 }
 
-// محرك توليد الصور المحدث (يجبر المتصفح على الانتظار لحين اكتمال تجهيز الصورة)
+// محرك توليد الصور المحدث (ضمان تحميل ومعالجة الصورة في الذاكرة)
 async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const count = parseInt(document.getElementById('imgCount').value) || 1;
+    const dimensions = document.getElementById('aspectRatio').value.split('x');
+    const width = dimensions[0];
+    const height = dimensions[1];
 
     if (!promptText) {
         alert('برجاء إدخال وصف الصورة أولاً!');
@@ -752,26 +764,23 @@ async function startImageGeneration() {
         try {
             let finalPrompt = promptText;
             if (refImageBase64) {
-                finalPrompt += " in similar theme and arrangement";
+                finalPrompt += " in similar aesthetic composition and style";
             }
 
-            const seed = Math.floor(Math.random() * 999999);
+            const seed = Math.floor(Math.random() * 9999999);
             const encodedPrompt = encodeURIComponent(finalPrompt);
-            const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1024&height=1024&seed=${seed}&nologo=true`;
+            const imageUrl = `https://pollinations.ai/p/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
 
-            // جلب الصورة كـ Blob لتأكيد معالجتها بالكامل من السيرفر
-            const response = await fetch(imageUrl, { signal: signal });
-            
-            if (response.ok) {
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
+            // تحميل الصورة واستخراج Data URL محلياً لتفادي مشاكل الحفظ والـ CORS
+            const dataUrl = await fetchAndConvertToDataURL(imageUrl, signal);
 
+            if (dataUrl) {
                 const card = document.createElement('div');
                 card.className = 'generated-image-card';
                 card.innerHTML = `
-                    <img src="${blobUrl}" alt="AI Image ${i}">
+                    <img src="${dataUrl}" alt="AI Generated Image ${i}">
                     <div class="generated-image-actions">
-                        <a href="${blobUrl}" download="OFFGRID_AI_${i}.jpg" class="btn-download-img">تحميل الصورة 📥</a>
+                        <a href="${dataUrl}" download="OFFGRID_AI_${i}.jpg" class="btn-download-img">تحميل الصورة 📥</a>
                     </div>
                 `;
                 gallery.appendChild(card);
@@ -792,6 +801,34 @@ async function startImageGeneration() {
 
     genBtn.disabled = false;
     stopBtn.disabled = true;
+}
+
+// دالة مساعدة لتحويل رابط الصورة إلى Base64 DataURL نقي وقابل للتحميل مباشرة
+function fetchAndConvertToDataURL(url, signal) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        
+        signal.addEventListener('abort', () => {
+            img.src = '';
+            reject(new DOMException('Aborted', 'AbortError'));
+        });
+
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL('image/jpeg', 0.95));
+        };
+
+        img.onerror = function (err) {
+            reject(err);
+        };
+
+        img.src = url;
+    });
 }
 
 function stopImageGeneration() {
@@ -845,7 +882,7 @@ async function startGenerationProcess() {
     }
 
     const totalRequested = totalReels + totalPosters;
-    const chunkSize = 10;
+    const chunkSize = 5;
     let generatedReels = 0;
     let generatedPosters = 0;
 
@@ -923,7 +960,8 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
   }
 ]`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
+    // استخدام موديل Gemini الفعال والرسمي
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     try {
         const response = await fetch(url, {
@@ -1029,7 +1067,7 @@ async function modifyScriptWithAI() {
   "audio_or_style": "${selectedIdea.audio_or_style || ''}"
 }`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     try {
         const response = await fetch(url, {
@@ -1060,6 +1098,7 @@ async function modifyScriptWithAI() {
 function downloadAsImage() {
     const checkboxes = document.querySelectorAll('.idea-checkbox');
     
+    // إخفاء الكروت التي لم يتم تحديدها
     checkboxes.forEach(cb => {
         const idx = cb.getAttribute('data-index');
         const card = document.getElementById(`idea-card-${idx}`);
@@ -1073,19 +1112,24 @@ function downloadAsImage() {
     html2canvas(element, {
         backgroundColor: '#0d111a',
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        logging: false
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = `OFFGRID_Content_Plan_${clientName}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
 
+        // إرجاع الحالة بعد التصدير
         checkboxes.forEach(cb => {
             const idx = cb.getAttribute('data-index');
             const card = document.getElementById(`idea-card-${idx}`);
             if (card) card.style.display = '';
             cb.style.display = '';
         });
+    }).catch(err => {
+        console.error("Error exporting canvas", err);
+        checkboxes.forEach(cb => cb.style.display = '');
     });
 }
 </script>
