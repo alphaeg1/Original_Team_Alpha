@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مولد أفكار OFFGRID</title>
-    <!-- مكتبة تحويل العناصر إلى صور -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #151c2c;
-            --card-border: #232d42;
+            --bg-color: #080c14;
+            --card-bg: #111827;
+            --card-border: #1f293d;
             --accent-color: #6366f1;
             --accent-hover: #4f46e5;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --success-color: #10b981;
             --error-color: #ef4444;
-            --offgrid-gradient: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
+            --offgrid-gradient: linear-gradient(135deg, #ff2a5f 0%, #ff7e33 50%, #facc15 100%);
         }
 
         * {
@@ -26,18 +29,18 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 12px;
+            padding: 20px 12px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 880px;
         }
 
         /* الهيدر والوجو الثابت */
@@ -46,65 +49,52 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
-
-        .logo-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: #1e293b;
-            border: 2px solid var(--accent-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-        }
-
-        .logo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            margin-bottom: 24px;
+            gap: 8px;
         }
 
         .main-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 800;
             margin: 0;
             text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        /* تنسيق الخط وتصميم كلمة OFFGRID */
         .offgrid-badge {
+            font-family: 'Syne', sans-serif;
             background: var(--offgrid-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-family: Impact, sans-serif, system-ui;
-            letter-spacing: 2px;
-            font-size: 1.8rem;
-            text-shadow: 0 0 20px rgba(255, 70, 85, 0.2);
+            letter-spacing: 3px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            filter: drop-shadow(0px 0px 12px rgba(255, 66, 95, 0.35));
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
         }
 
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .form-group {
@@ -114,20 +104,22 @@
         }
 
         label { 
-            font-size: 0.82rem; 
+            font-size: 0.85rem; 
             color: var(--text-muted); 
-            font-weight: 600; 
+            font-weight: 700; 
         }
 
         input, textarea {
-            background-color: var(--bg-color);
+            background-color: #0b0f19;
             border: 1px solid var(--card-border);
             color: var(--text-color);
-            padding: 10px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-family: inherit;
             outline: none;
             width: 100%;
+            transition: border-color 0.2s ease;
         }
 
         input:focus, textarea:focus {
@@ -135,36 +127,43 @@
         }
 
         button.btn-primary {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.98rem;
-            font-weight: 700;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
             cursor: pointer;
             width: 100%;
-            margin-top: 6px;
+            margin-top: 8px;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+            transition: opacity 0.2s;
+        }
+
+        button.btn-primary:hover {
+            opacity: 0.92;
         }
 
         .btn-download {
             background-color: var(--success-color);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 700;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
             cursor: pointer;
             width: 100%;
-            margin-top: 14px;
+            margin-top: 16px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
         }
 
         /* التقرير القابل للتصدير */
         #exportContainer {
             background-color: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 14px;
             border: 1px solid var(--card-border);
         }
 
@@ -173,22 +172,8 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid var(--card-border);
-            padding-bottom: 12px;
-            margin-bottom: 14px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .export-logo {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--card-border);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .brand-info {
@@ -197,7 +182,7 @@
         }
 
         .plan-client-title {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: #ffffff;
         }
@@ -205,81 +190,96 @@
         .table-responsive {
             width: 100%;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .output-table {
             width: 100%;
             min-width: 650px;
             border-collapse: collapse;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--card-border);
         }
 
         .output-table th {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             color: #818cf8;
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 10px 12px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            padding: 12px 14px;
             text-align: right;
             white-space: nowrap;
         }
 
         .output-table td {
-            background-color: #151c2c;
+            background-color: #111827;
             border-bottom: 1px solid var(--card-border);
-            padding: 12px;
+            padding: 14px;
             vertical-align: top;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             line-height: 1.6;
         }
 
         .badge {
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.75rem;
             display: inline-block;
             white-space: nowrap;
         }
 
-        .badge-reel { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
-        .badge-poster { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+        .badge-reel { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
 
         .shot-card {
-            background: #0f172a;
+            background: #0b0f19;
             border-right: 3px solid var(--accent-color);
-            padding: 8px 10px;
-            border-radius: 6px;
-            margin-bottom: 6px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
 
         .shot-title {
-            font-weight: 700;
+            font-weight: 800;
             color: #38bdf8;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
+            margin-bottom: 2px;
         }
 
-        .shot-desc {
-            color: #cbd5e1;
-            font-size: 0.83rem;
-            white-space: normal;
+        /* جعل النصوص قابلة للتعديل المباشر */
+        [contenteditable="true"] {
+            outline: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 1px var(--accent-color);
+        }
+
+        .editable-hint {
+            font-size: 0.78rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
         }
 
         .default-notes-box {
-            margin-top: 14px;
-            padding: 10px 12px;
-            background-color: #0f172a;
-            border-radius: 8px;
+            margin-top: 16px;
+            padding: 12px 14px;
+            background-color: #0b0f19;
+            border-radius: 10px;
             border: 1px dashed var(--card-border);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
         }
 
         .default-notes-title {
-            font-weight: 700;
+            font-weight: 800;
             color: #818cf8;
             margin-bottom: 4px;
         }
@@ -289,12 +289,7 @@
 
 <div class="container">
 
-    <!-- الهيدر والوجو الثابت -->
     <div class="header-brand">
-        <div class="logo-box">
-            <img id="WhatsApp Image‏ 2026-08-29 at 17.44.39.jpeg" src="" alt="WhatsApp Image‏ 2026-08-29 at 17.44.39.jpeg">
-        </div>
-
         <div class="main-title">
             مولد أفكار <span class="offgrid-badge">OFFGRID</span>
         </div>
@@ -345,22 +340,20 @@
     </div>
 
     <div class="card" id="resultCard" style="display: none;">
-        <div id="loading" style="display:none; text-align:center; padding: 16px; color: var(--text-muted); font-size: 0.9rem;">
+        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-muted); font-size: 0.95rem;">
             جاري تحضير الخطة وتقسيم الشوتات... ⏳
         </div>
         
-        <!-- التقرير القابل للتصدير -->
         <div id="exportContainer">
             <div class="export-header">
-                <div class="header-left">
-                    <img id="exportLogoImg" class="export-logo" src="">
-                    <div class="brand-info">
-                        <div class="plan-client-title" id="planTitle">📋 خطة المحتوى</div>
-                        <small style="color: var(--text-muted); font-size: 0.75rem;">TEAM ALPHA</small>
-                    </div>
+                <div class="brand-info">
+                    <div class="plan-client-title" id="planTitle" contenteditable="true">📋 خطة المحتوى</div>
+                    <small style="color: var(--text-muted); font-size: 0.78rem;">TEAM ALPHA</small>
                 </div>
-                <div class="offgrid-badge" style="font-size: 1.2rem;">OFFGRID</div>
+                <div class="offgrid-badge" style="font-size: 1.4rem;">OFFGRID</div>
             </div>
+
+            <span class="editable-hint">💡 يمكنك الضغط على أي نص في الجدول لتعديله/تخصيصه بشكل مباشر قبل التحميل.</span>
 
             <div class="table-responsive">
                 <div id="outputContainer"></div>
@@ -368,7 +361,7 @@
 
             <div id="exportNotesBox" class="default-notes-box" style="display:none;">
                 <div class="default-notes-title">📌 ملاحظات الشروط والأحكام:</div>
-                <div id="exportNotesText"></div>
+                <div id="exportNotesText" contenteditable="true"></div>
             </div>
         </div>
 
@@ -378,15 +371,7 @@
 </div>
 
 <script>
-// ضع رابط صورة اللوجو المباشر من GitHub هنا (Raw URL)
-const GITHUB_LOGO_URL = "https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/logo.png";
-
 window.onload = function() {
-    if (GITHUB_LOGO_URL && !GITHUB_LOGO_URL.includes("YOUR_USER")) {
-        document.getElementById('mainLogo').src = GITHUB_LOGO_URL;
-        document.getElementById('exportLogoImg').src = GITHUB_LOGO_URL;
-    }
-
     // استرجاع الـ API Key والملاحظات من المتصفح تلقائياً
     const savedKey = localStorage.getItem('offgrid_api_key');
     if (savedKey) {
@@ -528,21 +513,21 @@ function renderTable(ideas) {
             item.shots.forEach(s => {
                 shotsHtml += `
                     <div class="shot-card">
-                        <div class="shot-title">${s.name || 'Shot'}</div>
-                        <div class="shot-desc">${s.desc || ''}</div>
+                        <div class="shot-title" contenteditable="true">${s.name || 'Shot'}</div>
+                        <div class="shot-desc" contenteditable="true">${s.desc || ''}</div>
                     </div>
                 `;
             });
         } else if (item.details) {
-            shotsHtml += `<div class="shot-desc">${item.details}</div>`;
+            shotsHtml += `<div class="shot-desc" contenteditable="true">${item.details}</div>`;
         }
 
         html += `
             <tr>
-                <td><span class="badge ${badgeClass}">${typeStr}</span></td>
-                <td><strong style="color: #f8fafc;">${item.title || ''}</strong></td>
+                <td><span class="badge ${badgeClass}" contenteditable="true">${typeStr}</span></td>
+                <td><strong style="color: #f8fafc;" contenteditable="true">${item.title || ''}</strong></td>
                 <td>${shotsHtml}</td>
-                <td><span style="color: #a5b4fc;">${item.audio_or_style || '-'}</span></td>
+                <td><span style="color: #a5b4fc;" contenteditable="true">${item.audio_or_style || '-'}</span></td>
             </tr>
         `;
     });
@@ -556,7 +541,7 @@ function downloadAsImage() {
     const clientName = document.getElementById('clientName').value.trim() || 'Client';
 
     html2canvas(element, {
-        backgroundColor: '#151c2c',
+        backgroundColor: '#111827',
         scale: 2,
         useCORS: true,
         scrollX: 0,
