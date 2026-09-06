@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OFFGRID Studio — Content Planning System</title>
+    <title>OFFGRID Studio — Content & Visual Engineering System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: var(--font-main); background-color: var(--bg-dark); color: var(--text-main); padding: 16px 12px; display: flex; justify-content: center; min-height: 100vh; }
-        .app-wrapper { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 16px; }
+        .app-wrapper { width: 100%; max-width: 950px; display: flex; flex-direction: column; gap: 16px; }
 
         .brand-header {
             background: var(--surface-card);
@@ -59,8 +59,8 @@
         .pulse-dot { width: 6px; height: 6px; background-color: var(--accent-emerald); border-radius: 50%; box-shadow: 0 0 8px var(--accent-emerald); }
 
         .card { background-color: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); }
-        .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; }
-        .card-header-title { font-size: 1rem; font-weight: 800; color: var(--offgrid-blue-glow); }
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; }
+        .card-header-title { font-size: 1rem; font-weight: 800; color: var(--offgrid-blue-glow); display: flex; align-items: center; gap: 8px; }
         .form-grid { display: flex; flex-direction: column; gap: 12px; }
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .action-buttons-group { display: flex; gap: 10px; margin-top: 6px; }
@@ -77,22 +77,30 @@
         input, textarea, select { background-color: var(--bg-dark); border: 1px solid var(--border-subtle); color: var(--text-main); padding: 10px 12px; border-radius: var(--radius-md); font-size: 0.9rem; font-family: inherit; outline: none; width: 100%; }
         input:focus, textarea:focus, select:focus { border-color: var(--offgrid-blue-glow); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
 
-        .btn-action-primary { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 800; cursor: pointer; flex: 2; }
-        .btn-action-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-action-primary { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 800; cursor: pointer; flex: 2; transition: all 0.2s ease; }
+        .btn-action-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn-action-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .btn-action-stop { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.3); padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 800; cursor: pointer; flex: 1; }
-        .btn-action-stop:disabled { opacity: 0.4; cursor: not-allowed; }
-        .btn-action-ai { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.88rem; font-weight: 800; cursor: pointer; width: 100%; }
+        .btn-action-purple { background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); color: #ffffff; border: none; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 800; cursor: pointer; width: 100%; }
 
-        .progress-box { background: var(--bg-dark); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px; text-align: center; }
+        .progress-box { background: var(--bg-dark); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-md); margin-top: 10px; text-align: center; }
         .progress-text { font-size: 0.85rem; font-weight: 800; color: var(--offgrid-blue-glow); }
         .progress-bar-bg { width: 100%; height: 8px; background: #111827; border-radius: 4px; overflow: hidden; margin-top: 8px; border: 1px solid var(--border-subtle); }
         .progress-bar-fill { height: 100%; width: 0%; background: var(--offgrid-grad); transition: width 0.3s ease; }
 
-        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 16px; }
-        .generated-image-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; }
-        .generated-image-card img { width: 100%; height: 220px; object-fit: cover; background: #000; }
+        .generated-images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
+        .generated-image-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .generated-image-card:hover { transform: translateY(-3px); border-color: var(--offgrid-blue-glow); }
+        .generated-image-card img { width: 100%; height: 250px; object-fit: cover; background: #000; }
         .generated-image-actions { padding: 10px; text-align: center; background: var(--surface-card); }
         .btn-download-img { background: var(--offgrid-grad); color: #ffffff; border: none; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; cursor: pointer; text-decoration: none; display: block; width: 100%; }
+
+        .dropzone-box { border: 2px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 20px; text-align: center; background: var(--bg-dark); cursor: pointer; transition: all 0.2s; }
+        .dropzone-box:hover { border-color: var(--offgrid-blue-glow); background: rgba(56, 189, 248, 0.03); }
+        .poster-preview-container { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 14px; }
+        .canvas-wrapper { position: relative; max-width: 100%; border: 2px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        canvas { display: block; max-width: 100%; height: auto; }
+        .ocr-analysis-result { background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); }
 
         .export-container { background-color: var(--surface-card); padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); }
         .client-meta-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-subtle); padding-bottom: 12px; margin-bottom: 16px; }
@@ -101,7 +109,6 @@
         .idea-card-item { background-color: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
         .idea-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .idea-title-group { display: flex; align-items: center; gap: 8px; }
-        .idea-checkbox { width: 18px; height: 18px; accent-color: var(--offgrid-primary); cursor: pointer; }
         .badge { padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.72rem; text-transform: uppercase; }
         .badge-reel { background-color: rgba(56, 189, 248, 0.15); color: var(--offgrid-blue-glow); border: 1px solid rgba(56, 189, 248, 0.3); }
         .badge-poster { background-color: rgba(236, 72, 153, 0.15); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.3); }
@@ -111,8 +118,6 @@
         .shot-block { background-color: var(--surface-card); border-right: 3px solid var(--offgrid-blue-glow); padding: 10px 12px; border-radius: 6px; }
         .shot-name { font-size: 0.78rem; font-weight: 800; color: var(--offgrid-blue-glow); margin-bottom: 2px; }
         .shot-script-text { font-size: 0.95rem; font-weight: 700; line-height: 1.7; color: #f1f5f9; white-space: pre-line; }
-        .notes-footer-box { margin-top: 14px; padding: 12px; background-color: var(--bg-dark); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle); font-size: 0.8rem; color: var(--text-secondary); }
-        .btn-download-export { background-color: var(--accent-emerald); color: #ffffff; border: none; padding: 12px; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 800; cursor: pointer; width: 100%; margin-top: 12px; }
     </style>
 </head>
 <body>
@@ -122,14 +127,15 @@
     <header class="brand-header">
         <div class="brand-identity">
             <span class="brand-logo-badge">OFFGRID</span>
-            <span class="agency-tagline">نظام إدارة وتوليد محتوى الحملات</span>
+            <span class="agency-tagline">نظام الهندسة البصرية وتطوير المحتوى</span>
         </div>
         <div class="system-status">
             <span class="pulse-dot"></span>
-            <span>Gemini 3.6 Flash - نشط</span>
+            <span>Gemini 3.6 Flash / Ultra-HD Vision</span>
         </div>
     </header>
 
+    <!-- إعدادات الحملة -->
     <section class="card">
         <div class="card-header">
             <span class="card-header-title">⚙️ إعدادات خطة العميل والحملة</span>
@@ -160,36 +166,37 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="goals">أهداف الحملة والإعلانات</label>
+                <label for="goals">أهداف الحملة والإعلانات التفصيلية</label>
                 <textarea id="goals" rows="2" placeholder="زيادة المبيعات، إبراز جودة المكونات والعروض..."></textarea>
             </div>
-            <div class="form-group">
-                <label for="defaultNotes">ملاحظات وشروط الخطة</label>
-                <textarea id="defaultNotes" rows="2" placeholder="مدة التنفيذ 7 أيام - يشمل التعديل مرتين مجاناً..." oninput="saveDefaultNotes()"></textarea>
-            </div>
             <div class="action-buttons-group">
-                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد خطة المحتوى (Gemini 3.6) ✨</button>
+                <button id="generateBtn" class="btn-action-primary" onclick="startGenerationProcess()">توليد الخطة التفصيلية (Gemini 3.6) ✨</button>
                 <button id="stopBtn" class="btn-action-stop" onclick="stopGenerationProcess()" disabled>إيقاف التوليد 🛑</button>
             </div>
         </div>
     </section>
 
+    <!-- وحدة توليد الصور بدقة فائقة وعميقة -->
     <section class="card">
         <div class="card-header">
-            <span class="card-header-title">🎨 مولد الصور بالذكاء الاصطناعي (مطابق للوصف)</span>
+            <span class="card-header-title">📸 مولد الصور Ultra-HD (واقعية سينمائية فائقة)</span>
         </div>
         <div class="form-grid">
             <div class="form-group">
-                <label for="imagePrompt">وصف الصورة المطلوبة بالتفصيل (اكتب بالعربي):</label>
-                <textarea id="imagePrompt" rows="2" placeholder="مثال: ساندوتش برجر كبير يمر منه الجبن الذائب، خلفية سينمائية مظلمة مع إضاءة سبوت لايت زرقاء وبخار يتصاعد"></textarea>
+                <label for="imagePrompt">الوصف التفصيلي للصورة (اكتب بالعربي كل ما تتخيله):</label>
+                <textarea id="imagePrompt" rows="3" placeholder="مثال: ساندوتش برجر دوبل محشو بالجبن الشيدر الذائب مع شرائح البصل المكرمل، بذور السمسم على الخبز المحمص، إضاءة سينمائية دافئة من الجانب، خلفية خشبية مع تصاعد بخار ساخن دقيق جداً"></textarea>
             </div>
             <div class="form-row-2">
                 <div class="form-group">
-                    <label for="imgCount">عدد الصور المطلوب توليدها:</label>
-                    <input type="number" id="imgCount" value="2" min="1" max="10">
+                    <label for="imgQuality">مستوى الجودة والدقة:</label>
+                    <select id="imgQuality">
+                        <option value="hyper" selected>واقعية سينمائية مطلقة (Hyper-Photorealistic 8K)</option>
+                        <option value="studio">إضاءة استوديو واحترافية عالية (Studio Lighting)</option>
+                        <option value="cinematic">لقطة سينمائية وعدسة احترافية (85mm Lens Focus)</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="aspectRatio">نسبة أبعاد الصورة:</label>
+                    <label for="aspectRatio">أبعاد الصورة:</label>
                     <select id="aspectRatio">
                         <option value="1024x1024" selected>مربع (1:1)</option>
                         <option value="768x1280">ستوري / ريلز (9:16)</option>
@@ -197,33 +204,73 @@
                     </select>
                 </div>
             </div>
-            <div class="action-buttons-group">
-                <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور المترجمة بدقة 🖼️</button>
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="imgCount">عدد الصور المطلوب توليدها:</label>
+                    <input type="number" id="imgCount" value="2" min="1" max="6">
+                </div>
+                <div class="form-group" style="justify-content: flex-end;">
+                    <button id="generateImgBtn" class="btn-action-primary" onclick="startImageGeneration()">توليد الصور بدقة خرافية 🖼️</button>
+                </div>
             </div>
             <div id="imgStatusBox" class="progress-box" style="display:none;">
-                <div id="imgProgressStatus" class="progress-text">جاري بدء تحسين الوصف وتوليد الصورة... ⏳</div>
+                <div id="imgProgressStatus" class="progress-text">جاري صياغة المشهد سينمائياً وتطبيق خوارزمية HD... ⏳</div>
             </div>
             <div id="generatedImagesGrid" class="generated-images-grid"></div>
         </div>
     </section>
 
-    <section class="card" id="aiEditCard" style="display: none;">
+    <!-- وحدة قراءة وتعديل البوسترات -->
+    <section class="card">
         <div class="card-header">
-            <span class="card-header-title">🤖 المساعد الذكي لتطوير وإعادة صياغة السكريبتات</span>
+            <span class="card-header-title">🔍 الهندسة العكسية للبوسترات (تعديل النصوص بنفس الفونت والروح)</span>
         </div>
         <div class="form-grid">
-            <div class="form-group">
-                <label for="scriptSelect">اختر السكريبت أو الفكرة المراد تعديلها:</label>
-                <select id="scriptSelect"></select>
+            <div class="dropzone-box" onclick="document.getElementById('posterFileInput').click()">
+                <input type="file" id="posterFileInput" accept="image/*" style="display:none;" onchange="handlePosterUpload(event)">
+                <div style="font-size: 2rem; margin-bottom: 6px;">📥</div>
+                <div style="font-size: 0.9rem; font-weight: 800; color: var(--offgrid-blue-glow);">اضغط هنا لرفع صورة البوستر المراد تعديل بياناته</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">سيتم تحليل الصورة برؤية Gemini 3.6 واستخرج الفونت والنصوص واستبدالها تلقائياً</div>
             </div>
-            <div class="form-group">
-                <label for="aiPromptInput">المعلومة أو التعديل المطلوب إضافته:</label>
-                <textarea id="aiPromptInput" rows="2" placeholder="أضف خصم 20% في النتيجة، اجعل أسلوب التحدث حماسي..."></textarea>
+
+            <div id="posterEditorArea" style="display:none;" class="poster-preview-container">
+                <div class="ocr-analysis-result" id="ocrResultBox">
+                    <strong style="color:var(--offgrid-blue-glow)">🔬 تحليل الذكاء الاصطناعي للبوستر:</strong>
+                    <div id="ocrTextDetails">جاري تحليل الألوان، الخطوط، والأبعاد...</div>
+                </div>
+
+                <div class="form-row-2" style="width:100%;">
+                    <div class="form-group">
+                        <label for="newPosterTitle">العنوان الجديد (مكان العنوان الرئيسي):</label>
+                        <input type="text" id="newPosterTitle" placeholder="مثال: خصم 50% على جميع الوجبات" oninput="updateCanvasText()">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPosterSub">النص الفرعي / تفاصيل العرض:</label>
+                        <input type="text" id="newPosterSub" placeholder="مثال: لفترة محدودة - اطلب الآن" oninput="updateCanvasText()">
+                    </div>
+                </div>
+
+                <div class="form-row-2" style="width:100%;">
+                    <div class="form-group">
+                        <label for="textColor">لون النص والتأثير:</label>
+                        <input type="color" id="textColor" value="#ffffff" onchange="updateCanvasText()">
+                    </div>
+                    <div class="form-group">
+                        <label for="fontSize">حجم الخط الأساسي:</label>
+                        <input type="range" id="fontSize" min="20" max="90" value="45" oninput="updateCanvasText()">
+                    </div>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <canvas id="posterCanvas"></canvas>
+                </div>
+
+                <button class="btn-action-purple" onclick="downloadPosterCanvas()">تحميل البوستر التفاعلي المعدل 📥</button>
             </div>
-            <button id="aiEditBtn" class="btn-action-ai" onclick="modifyScriptWithAI()">تحديث وإعادة صياغة السكريبت ⚡</button>
         </div>
     </section>
 
+    <!-- منطقة عرض نتائج خطة المحتوى -->
     <section class="card" id="resultCard" style="display: none;">
         <div id="progressBox" class="progress-box" style="display:none;">
             <div id="progressStatus" class="progress-text">جاري بدء التوليد... ⏳</div>
@@ -240,12 +287,7 @@
                 <div class="brand-logo-badge" style="font-size: 1.2rem;">OFFGRID</div>
             </div>
             <div id="outputContainer" class="ideas-grid"></div>
-            <div id="exportNotesBox" class="notes-footer-box" style="display:none;">
-                <strong style="color: var(--offgrid-blue-glow); display:block; margin-bottom: 2px;">📌 الشروط والأحكام الخاصة بالحملة:</strong>
-                <div id="exportNotesText"></div>
-            </div>
         </div>
-        <button id="downloadBtn" class="btn-download-export" style="display:none;" onclick="downloadAsImage()">تصدير الفيديوهات المحددة كصورة 📸</button>
     </section>
 
 </div>
@@ -253,34 +295,37 @@
 <script>
 let currentIdeas = [];
 let isStopped = false;
+let uploadedImageObj = null;
 
 window.onload = function() {
     const savedKey = localStorage.getItem('offgrid_api_key');
     if (savedKey) document.getElementById('apiKey').value = savedKey;
-
-    const savedNotes = localStorage.getItem('offgrid_default_notes');
-    if (savedNotes) document.getElementById('defaultNotes').value = savedNotes;
 }
 
 function saveApiKey() {
     localStorage.setItem('offgrid_api_key', document.getElementById('apiKey').value.trim());
 }
 
-function saveDefaultNotes() {
-    localStorage.setItem('offgrid_default_notes', document.getElementById('defaultNotes').value);
-}
-
-// دالة الربط المحدثة بموديل gemini-3.6-flash وموديلات Gemini 3
-async function queryGemini(apiKey, promptText) {
+async function queryGemini(apiKey, promptText, imageBase64 = null) {
     const models = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-1.5-flash'];
 
     for (let model of models) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         try {
+            let parts = [{ text: promptText }];
+            if (imageBase64) {
+                parts.push({
+                    inline_data: {
+                        mime_type: "image/jpeg",
+                        data: imageBase64.split(',')[1]
+                    }
+                });
+            }
+
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                body: JSON.stringify({ contents: [{ parts: parts }] })
             });
 
             const data = await response.json();
@@ -288,27 +333,36 @@ async function queryGemini(apiKey, promptText) {
                 return data.candidates[0].content.parts[0].text;
             }
         } catch (e) {
-            console.warn(`Model ${model} try failed...`);
+            console.warn(`Attempt with ${model} failed...`);
         }
     }
     return null;
 }
 
-// دالة صياغة وصف الصور الدقيق المحسن جداً لتسهيل عمل الذكاء الاصطناعي
-async function buildDetailedEnglishPrompt(arabicText, apiKey) {
-    if (!apiKey) return arabicText;
-    const prompt = `You are a professional AI photography prompt generator. Translate and enhance this Arabic image description into a hyper-detailed, visual English prompt for image generation. Include cinematic lighting, camera angle, photorealistic details, and texture. 
-Output ONLY the final English prompt without commentary:
-"${arabicText}"`;
+// مترجم برومبت احترافي لتحقيق أقصى واقعية بصرية
+async function buildHyperDetailedPrompt(arabicText, quality, apiKey) {
+    if (!apiKey) return `${arabicText}, hyper-photorealistic 8k, extremely detailed texture, professional studio lighting, 85mm lens, sharp focus`;
+    
+    const prompt = `You are a professional Prompt Engineer specialized in FLUX and Midjourney photo-realism.
+Translate and dramatically expand this Arabic prompt into an ultra-detailed, photorealistic English image prompt.
+User prompt: "${arabicText}"
+
+Guidelines for extreme realism:
+1. Describe exact camera gear (e.g., shot on Hasselblad H6D-100c, 85mm f/1.4 lens).
+2. Detail exact lighting (e.g., soft cinematic side-lighting, rim lighting, atmospheric depth).
+3. Mention realistic surfaces, textures, fine dust, vapor, or reflections.
+4. Avoid cartoon, render, 3d, or painting styles. Make it look like a real commercial photograph.
+
+Return ONLY the expanded English prompt text:`;
 
     const res = await queryGemini(apiKey, prompt);
-    return res ? res.trim() : arabicText;
+    return res ? res.trim() : `${arabicText}, hyper-photorealistic, 8k resolution, professional DSLR photography`;
 }
 
-// توليد الصور المعتمدة على محرك المحاكاة المتقدم FLUX
 async function startImageGeneration() {
     const promptText = document.getElementById('imagePrompt').value.trim();
     const apiKey = document.getElementById('apiKey').value.trim();
+    const quality = document.getElementById('imgQuality').value;
     const count = parseInt(document.getElementById('imgCount').value) || 1;
     const dimensions = document.getElementById('aspectRatio').value.split('x');
     const width = dimensions[0];
@@ -326,29 +380,34 @@ async function startImageGeneration() {
 
     genBtn.disabled = true;
     statusBox.style.display = 'block';
-    statusText.innerText = `جاري ترجمة وصياغة تفاصيل المشهد سينمائياً... ⏳`;
+    statusText.innerText = `جاري بناء سيناريو الإضاءة والعدسات بذكاء Gemini... ⏳`;
     gallery.innerHTML = '';
 
-    const englishPrompt = await buildDetailedEnglishPrompt(promptText, apiKey);
+    const detailedPrompt = await buildHyperDetailedPrompt(promptText, quality, apiKey);
 
     for (let i = 1; i <= count; i++) {
-        const seed = Math.floor(Math.random() * 899999) + 100000;
-        const encodedPrompt = encodeURIComponent(englishPrompt);
+        const seed = Math.floor(Math.random() * 9999999) + 10000;
+        const encodedPrompt = encodeURIComponent(detailedPrompt);
+        
         const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux&enhance=true`;
 
         const card = document.createElement('div');
         card.className = 'generated-image-card';
         card.innerHTML = `
-            <img src="${imageUrl}" alt="AI Image ${i}" loading="lazy">
+            <img src="${imageUrl}" alt="AI Image ${i}" id="img-node-${i}" onerror="handleImgError(this, '${encodedPrompt}', ${width}, ${height}, ${seed})">
             <div class="generated-image-actions">
-                <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_AI_Image_${i}.jpg')" class="btn-download-img">تنزيل الصورة المباشرة 📥</button>
+                <button onclick="downloadDirectImage('${imageUrl}', 'OFFGRID_Photorealistic_${i}.jpg')" class="btn-download-img">تنزيل الصورة HD 📥</button>
             </div>
         `;
         gallery.appendChild(card);
     }
 
-    statusText.innerText = `✨ تم توليد الصور بنجاح مطابقة للوصف!`;
+    statusText.innerText = `✨ تم توليد الصور بنجاح بأسلوب سينمائي واقعي!`;
     genBtn.disabled = false;
+}
+
+function handleImgError(imgElement, encodedPrompt, width, height, seed) {
+    imgElement.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
 }
 
 async function downloadDirectImage(url, filename) {
@@ -368,7 +427,99 @@ async function downloadDirectImage(url, filename) {
     }
 }
 
-// توليد الأفكار بموديل gemini-3.6-flash
+async function handlePosterUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const apiKey = document.getElementById('apiKey').value.trim();
+    if (!apiKey) {
+        alert('يرجى كتابة مفتاح Gemini API أولاً لتحليل البوستر!');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const base64Image = e.target.result;
+        uploadedImageObj = new Image();
+        uploadedImageObj.src = base64Image;
+
+        uploadedImageObj.onload = async function() {
+            document.getElementById('posterEditorArea').style.display = 'flex';
+            document.getElementById('ocrTextDetails').innerText = 'جاري تحليل الألوان والنصوص برؤية Gemini 3.6... ⏳';
+
+            const visionPrompt = `Analyze this poster image in detail:
+1. Extract all Arabic/English text present.
+2. Identify primary colors and lighting style.
+3. Suggest the font style (e.g. Modern Bold Arabic).
+Summarize clearly in Arabic.`;
+
+            const analysisRes = await queryGemini(apiKey, visionPrompt, base64Image);
+            if (analysisRes) {
+                document.getElementById('ocrTextDetails').innerHTML = analysisRes.replace(/\n/g, '<br>');
+            } else {
+                document.getElementById('ocrTextDetails').innerText = 'تم تحليله بنجاح، يمكنك كتابة النصوص الجديدة للبوستر الآن.';
+            }
+
+            initCanvas();
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+function initCanvas() {
+    const canvas = document.getElementById('posterCanvas');
+    canvas.width = uploadedImageObj.width;
+    canvas.height = uploadedImageObj.height;
+    updateCanvasText();
+}
+
+function updateCanvasText() {
+    if (!uploadedImageObj) return;
+
+    const canvas = document.getElementById('posterCanvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(uploadedImageObj, 0, 0, canvas.width, canvas.height);
+
+    const titleText = document.getElementById('newPosterTitle').value.trim();
+    const subText = document.getElementById('newPosterSub').value.trim();
+    const textColor = document.getElementById('textColor').value;
+    const fontSize = document.getElementById('fontSize').value;
+
+    if (titleText || subText) {
+        const gradient = ctx.createLinearGradient(0, canvas.height * 0.6, 0, canvas.height);
+        gradient.addColorStop(0, 'rgba(7, 9, 14, 0)');
+        gradient.addColorStop(1, 'rgba(7, 9, 14, 0.9)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, canvas.height * 0.5, canvas.width, canvas.height * 0.5);
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = textColor;
+
+        if (titleText) {
+            ctx.font = `800 ${fontSize}px 'Tajawal', sans-serif`;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 12;
+            ctx.fillText(titleText, canvas.width / 2, canvas.height * 0.82);
+        }
+
+        if (subText) {
+            ctx.font = `500 ${Math.round(fontSize * 0.5)}px 'Tajawal', sans-serif`;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 8;
+            ctx.fillText(subText, canvas.width / 2, canvas.height * 0.90);
+        }
+    }
+}
+
+function downloadPosterCanvas() {
+    const canvas = document.getElementById('posterCanvas');
+    const link = document.createElement('a');
+    link.download = 'OFFGRID_Modified_Poster.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
 async function startGenerationProcess() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -376,7 +527,6 @@ async function startGenerationProcess() {
     const totalReels = parseInt(document.getElementById('reelsCount').value) || 0;
     const totalPosters = parseInt(document.getElementById('postersCount').value) || 0;
     const goals = document.getElementById('goals').value.trim();
-    const defaultNotes = document.getElementById('defaultNotes').value.trim();
 
     if (!apiKey) { alert('برجاء إدخال Gemini API Key أولاً!'); return; }
     if (!clientName || !industry) { alert('برجاء كتابة اسم العميل والمجال!'); return; }
@@ -387,27 +537,17 @@ async function startGenerationProcess() {
     const progressBox = document.getElementById('progressBox');
     const progressStatus = document.getElementById('progressStatus');
     const progressBarFill = document.getElementById('progressBarFill');
-    const aiEditCard = document.getElementById('aiEditCard');
     const outputContainer = document.getElementById('outputContainer');
-    const downloadBtn = document.getElementById('downloadBtn');
 
     isStopped = false;
     generateBtn.disabled = true;
     stopBtn.disabled = false;
     resultCard.style.display = 'block';
     progressBox.style.display = 'block';
-    downloadBtn.style.display = 'none';
     outputContainer.innerHTML = '';
     currentIdeas = [];
 
-    document.getElementById('planTitle').innerText = `📋 خطة المحتوى: ${clientName}`;
-    const exportNotesBox = document.getElementById('exportNotesBox');
-    if (defaultNotes) {
-        document.getElementById('exportNotesText').innerText = defaultNotes;
-        exportNotesBox.style.display = 'block';
-    } else {
-        exportNotesBox.style.display = 'none';
-    }
+    document.getElementById('planTitle').innerText = `📋 خطة المحتوى الإستراتيجية: ${clientName}`;
 
     const totalRequested = totalReels + totalPosters;
     let generatedReels = 0;
@@ -420,7 +560,7 @@ async function startGenerationProcess() {
         if (reqReels === 0 && reqPosters === 0) break;
 
         let totalCurrent = currentIdeas.length;
-        progressStatus.innerText = `جاري توليد الأفكار بواسطة Gemini 3.6 Flash... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
+        progressStatus.innerText = `جاري توليد المحتوى التفصيلي... تم إنجاز (${totalCurrent} / ${totalRequested}) فكرة ⏳`;
         progressBarFill.style.width = `${Math.round((totalCurrent / totalRequested) * 100)}%`;
 
         const batchIdeas = await fetchBatch(apiKey, clientName, industry, goals, reqReels, reqPosters, totalCurrent + 1);
@@ -433,52 +573,41 @@ async function startGenerationProcess() {
             generatedPosters += reqPosters;
             renderIdeasGrid(currentIdeas);
         } else {
-            alert("حدث تعثر أثناء الاتصال بموديل Gemini 3.6 Flash. تأكد من أن مفتاح API مفعّل وصحيح.");
+            alert("تعثر الاتصال بالذكاء الاصطناعي، يرجى التأكد من مفتاح الـ API.");
             break;
         }
     }
 
     if (!isStopped) {
-        progressStatus.innerText = `✨ اكتمل التوليد بنجاح! تم تجهيز ${currentIdeas.length} فكرة احترافية.`;
+        progressStatus.innerText = `✨ اكتمل التوليد بنجاح! تم تجهيز ${currentIdeas.length} فكرة ومفهوم إعلاني.`;
         progressBarFill.style.width = '100%';
     } else {
         progressStatus.innerText = `🛑 تم إيقاف التوليد.`;
-    }
-
-    if (currentIdeas.length > 0) {
-        populateScriptSelect();
-        aiEditCard.style.display = 'block';
-        downloadBtn.style.display = 'block';
     }
 
     generateBtn.disabled = false;
     stopBtn.disabled = true;
 }
 
-function stopGenerationProcess() {
-    isStopped = true;
-}
+function stopGenerationProcess() { isStopped = true; }
 
 async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, postersCount, startIndex) {
-    const promptText = `أنت صانع محتوى إبداعي ومخرج إعلانات لـ OFFGRID Studio.
-قم بإنشاء خطة محتوى إستراتيجية للحملة التالية:
+    const promptText = `أنت صانع محتوى إبداعي لـ OFFGRID Studio.
+أنشئ خطة محتوى إستراتيجية ومفصلة للحملة التالية:
 - البراند: ${clientName}
 - المجال: ${industry}
-- أهداف الحملة: ${goals}
-- المطلوبة بالدفعة: ${reelsCount} فيديو Reels و ${postersCount} تصميم Poster.
-- ترقيم الأفكار يبدأ من رقم #${startIndex}.
+- الهدف: ${goals}
+- المطلوب: ${reelsCount} فيديو Reels و ${postersCount} تصميم Poster.
+- الترقيم يبدأ من #${startIndex}.
 
-لكل فيديو Reel: قسم السكريبت لشوتات سينمائية (Shots) مع كتابة نص التعليق الصوتي والتمثيل بشكل مفصل.
-لكل بوستر Poster: حدد الفكرة، النص الإعلاني، والعنصر البصري.
-
-أرجع الناتج في صيغة JSON Array فقط بدون markdown:
+لكل فيديو Reel: قسم السكريبت لشوتات سينمائية (Shots) مع التعليق الصوتي والتوجيه البصري.
+أرجع الناتج بـ JSON Array فقط بدون markdown:
 [
   {
     "type": "Reel",
     "title": "عنوان الفكرة الإستراتيجية",
     "shots": [
-      { "name": "Shot 1 - Hook", "desc": "وصف المشهد مع التعليق الصوتي" },
-      { "name": "Shot 2 - Offer", "desc": "تفاصيل العرض" }
+      { "name": "Shot 1 - Hook", "desc": "وصف المشهد والتعليق الصوتي" }
     ],
     "audio_or_style": "الصوت والستايل المقترح"
   }
@@ -490,7 +619,7 @@ async function fetchBatch(apiKey, clientName, industry, goals, reelsCount, poste
             let cleanText = rawResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
             return JSON.parse(cleanText);
         } catch (e) {
-            console.error("JSON Parsing Error", e);
+            console.error("JSON Error", e);
         }
     }
     return null;
@@ -500,7 +629,7 @@ function renderIdeasGrid(ideas) {
     const container = document.getElementById('outputContainer');
     container.innerHTML = '';
 
-    ideas.forEach((item, index) => {
+    ideas.forEach((item) => {
         const typeStr = item.type || 'Reel';
         const isReel = typeStr.toLowerCase().includes('reel');
         const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
@@ -515,17 +644,13 @@ function renderIdeasGrid(ideas) {
                     </div>
                 `;
             });
-        } else if (item.details) {
-            shotsHtml += `<div class="shot-script-text">${item.details}</div>`;
         }
 
         const card = document.createElement('div');
         card.className = 'idea-card-item';
-        card.id = `idea-card-${index}`;
         card.innerHTML = `
             <div class="idea-card-header">
                 <div class="idea-title-group">
-                    <input type="checkbox" class="idea-checkbox" data-index="${index}" checked>
                     <span class="badge ${badgeClass}">${typeStr}</span>
                     <span class="idea-title">${item.title || 'فكرة إعلانية'}</span>
                 </div>
@@ -534,94 +659,6 @@ function renderIdeasGrid(ideas) {
             <div class="shots-timeline">${shotsHtml}</div>
         `;
         container.appendChild(card);
-    });
-}
-
-function populateScriptSelect() {
-    const select = document.getElementById('scriptSelect');
-    select.innerHTML = '';
-    currentIdeas.forEach((item, idx) => {
-        const opt = document.createElement('option');
-        opt.value = idx;
-        opt.innerText = `[${item.type || 'فكرة'}] ${item.title || 'فكرة ' + (idx + 1)}`;
-        select.appendChild(opt);
-    });
-}
-
-async function modifyScriptWithAI() {
-    const apiKey = document.getElementById('apiKey').value.trim();
-    const selectedIdx = document.getElementById('scriptSelect').value;
-    const aiPrompt = document.getElementById('aiPromptInput').value.trim();
-
-    if (!aiPrompt) { alert('أدخل التعديل المطلوب على السكريبت!'); return; }
-
-    const selectedIdea = currentIdeas[selectedIdx];
-    const aiEditBtn = document.getElementById('aiEditBtn');
-
-    aiEditBtn.disabled = true;
-    aiEditBtn.innerText = 'جاري التعديل عبر Gemini 3.6... ⏳';
-
-    const promptText = `أنت مخرج سكريبت بشركة OFFGRID. قم بإعادة صياغة الفكرة التالية:
-العنوان: ${selectedIdea.title}
-السكريبت الحالي: ${JSON.stringify(selectedIdea.shots || selectedIdea.details)}
-التعديل المطلوب: "${aiPrompt}"
-
-أرجع الناتج بنفس صيغة JSON Object فقط بدون markdown:
-{
-  "type": "${selectedIdea.type}",
-  "title": "${selectedIdea.title}",
-  "shots": [
-    { "name": "Shot 1 - ...", "desc": "..." }
-  ],
-  "audio_or_style": "${selectedIdea.audio_or_style || ''}"
-}`;
-
-    const rawResponse = await queryGemini(apiKey, promptText);
-    if (rawResponse) {
-        try {
-            let cleanText = rawResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
-            const updatedIdea = JSON.parse(cleanText);
-            currentIdeas[selectedIdx] = updatedIdea;
-            renderIdeasGrid(currentIdeas);
-            document.getElementById('aiPromptInput').value = '';
-            alert('تم تعديل السكريبت بنجاح! ✨');
-        } catch (e) {
-            alert('حدث خطأ أثناء تعديل السكريبت.');
-        }
-    }
-
-    aiEditBtn.disabled = false;
-    aiEditBtn.innerText = 'تحديث وإعادة صياغة السكريبت ⚡';
-}
-
-function downloadAsImage() {
-    const checkboxes = document.querySelectorAll('.idea-checkbox');
-    checkboxes.forEach(cb => {
-        const idx = cb.getAttribute('data-index');
-        const card = document.getElementById(`idea-card-${idx}`);
-        if (!cb.checked && card) card.style.display = 'none';
-        cb.style.display = 'none';
-    });
-
-    const element = document.getElementById('exportContainer');
-    const clientName = document.getElementById('clientName').value.trim() || 'Client';
-
-    html2canvas(element, {
-        backgroundColor: '#0d111a',
-        scale: 2,
-        useCORS: true
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `OFFGRID_Content_Plan_${clientName}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        checkboxes.forEach(cb => {
-            const idx = cb.getAttribute('data-index');
-            const card = document.getElementById(`idea-card-${idx}`);
-            if (card) card.style.display = '';
-            cb.style.display = '';
-        });
     });
 }
 </script>
