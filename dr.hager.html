@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صيدلية دكتورة هاجر - صحتك أمانة في أيدينا</title>
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- خط Tajawal من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        :root {
+            --primary-color: #00897b; /* أخضر طبي صيدلي */
+            --secondary-color: #00acc1; /* أزرق تركواز */
+            --dark-color: #263238;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px; /* تصميم إنسيابي ممتاز للموبايل */
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        /* الهيدر واللوجو */
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 5px 15px rgba(0, 137, 123, 0.3);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* قسم أزرار الاتصال السريع */
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px 0 12px 0;
+            text-align: right;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 8px;
+            color: var(--dark-color);
+        }
+
+        .btn-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border: 1.5px solid #e0e0e0;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-link:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-link i {
+            font-size: 20px;
+            width: 30px;
+        }
+
+        /* ألوان خاصة لبعض المنصات */
+        .btn-whatsapp { color: #25D366; }
+        .btn-phone { color: var(--primary-color); }
+        .btn-facebook { color: #1877F2; }
+        .btn-instagram { color: #E4405F; }
+        .btn-location { color: #EA4335; }
+
+        /* قسم الخريطة */
+        .map-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* الفوتر */
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- الهيدر -->
+        <div class="header">
+            <div class="logo-icon">
+                <i class="fa-solid fa-user-nurse"></i>
+            </div>
+            <h1>صيدلية دكتورة هاجر</h1>
+            <p class="subtitle">رعايتكم وصحتكم مسؤوليتنا الأولي 💊✨</p>
+        </div>
+
+        <!-- أرقام التواصل والتوصيل -->
+        <div class="section-title">التواصل الطلبات الدوانية</div>
+        
+        <a href="tel:01000000000" class="btn-link">
+            <span><i class="fa-solid fa-phone btn-phone"></i> اتصل بنا مباشر</span>
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <a href="https://wa.me/201000000000?text=السلام%20علكم،%20عايز%20اطلب%20أدوية" target="_blank" class="btn-link">
+            <span><i class="fa-brands fa-whatsapp btn-whatsapp"></i> اطلب عبر الوتساب</span>
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <!-- وسائل التواصل الاجتماعي -->
+        <div class="section-title">صفحاتنا علي السوشيال ميديا</div>
+
+        <a href="https://facebook.com" target="_blank" class="btn-link">
+            <span><i class="fa-brands fa-facebook btn-facebook"></i> صفحة الفيسبوك</span>
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <a href="https://instagram.com" target="_blank" class="btn-link">
+            <span><i class="fa-brands fa-instagram btn-instagram"></i> انستجرام</span>
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <!-- العنوان والموقع -->
+        <div class="section-title">موقع الصيدلية</div>
+
+        <a href="https://maps.google.com" target="_blank" class="btn-link">
+            <span><i class="fa-solid fa-location-dot btn-location"></i> فتح في خرائط جوجل</span>
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <!-- خريطة Google Maps التفاعلية -->
+        <div class="map-container">
+            <!-- يمكنك استبدال رابط الـ src بالرابط الخاص بالصيدلية من Google Maps Embed -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.0!2d31.25!3d29.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjk_NTE3MDAsMzHCsDE1JzAwLjAiRQ!5e0!3m2!1sar!2seg!4v1600000000000!5m2!1sar!2seg" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="footer">
+            <p>جميع الحقوق محفوظة © صيدلية دكتورة هاجر</p>
+        </div>
+    </div>
+
+</body>
+</html>
