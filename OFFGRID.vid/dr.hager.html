@@ -3,131 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مولد محتوى OFFGRID - صيدلية دكتورة هاجر</title>
+    <title>OFFGRID.vid — صيدلية دكتورة هاجر</title>
     <!-- مكتبة تحويل العناصر إلى صور -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
         :root {
-            --bg-color: #070d14;
-            --card-bg: #0f172a;
-            --card-border: #1e293b;
-            --primary-med: #0ea5e9;
-            --primary-hover: #0284c7;
-            --accent-teal: #10b981;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --offgrid-gradient: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
-            --pharma-gradient: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            --bg-main: #090d16;
+            --panel-bg: rgba(18, 26, 43, 0.75);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --primary-glow: #06b6d4;
+            --primary-accent: #0ea5e9;
+            --emerald-accent: #10b981;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --offgrid-grad: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
+            --med-grad: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
         }
 
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            transition: all 0.25s ease-in-out;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             margin: 0;
-            padding: 16px;
+            padding: 24px 12px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            background-image: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.12), transparent 50%);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
         .container {
             width: 100%;
-            max-width: 850px;
+            max-width: 960px;
         }
 
-        /* الهيدر وشعار الإهداء */
-        .gift-header {
+        /* الهيدر الفاخر */
+        .brand-header {
             text-align: center;
-            margin-bottom: 24px;
-            padding: 20px;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
+            margin-bottom: 28px;
+            padding: 24px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
         }
 
-        .gift-header::before {
+        .brand-header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--pharma-gradient);
+            height: 2px;
+            background: var(--med-grad);
         }
 
         .gift-tag {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .offgrid-spark {
-            background: var(--offgrid-gradient);
+        .offgrid-badge {
+            background: var(--offgrid-grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
-            font-family: Impact, sans-serif, system-ui;
-            font-size: 1.1rem;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 1px;
         }
 
-        .main-title {
-            font-size: 1.6rem;
+        .pharmacy-title {
+            font-size: 1.8rem;
             font-weight: 800;
-            margin: 6px 0;
-            background: var(--pharma-gradient);
+            margin: 8px 0;
+            background: var(--med-grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .sub-title {
-            font-size: 0.88rem;
-            color: var(--text-muted);
+        .pharmacy-sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             margin: 0;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* الكروت واللوحات */
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 14px;
         }
 
-        @media (max-width: 600px) {
-            .form-row-2 {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 640px) {
+            .form-row-2 { grid-template-columns: 1fr; }
         }
 
         .form-group {
@@ -136,41 +138,50 @@
             gap: 8px;
         }
 
-        label { 
-            font-size: 0.85rem; 
-            color: #cbd5e1; 
-            font-weight: 600; 
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        label {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            font-weight: 600;
         }
 
         input, textarea {
-            background-color: #070d14;
-            border: 1px solid var(--card-border);
-            color: var(--text-color);
-            padding: 12px 14px;
-            border-radius: 10px;
+            background-color: rgba(9, 13, 22, 0.8);
+            border: 1px solid var(--panel-border);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: 12px;
             font-size: 0.92rem;
             outline: none;
             width: 100%;
         }
 
         input:focus, textarea:focus {
-            border-color: var(--primary-med);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
         }
 
-        button {
-            transition: transform 0.2s, box-shadow 0.2s;
+        /* الأزرار */
+        .btn-primary {
+            background: var(--med-grad);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
         }
 
-        button:active {
-            transform: scale(0.98);
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.45);
         }
 
-        button.btn-primary {
-            background: var(--pharma-gradient);
+        .btn-download {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
             padding: 14px;
@@ -179,88 +190,78 @@
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 8px;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            margin-top: 18px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
 
-        button.btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-        }
-
-        .btn-download {
-            background-color: var(--accent-teal);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 0.98rem;
-            font-weight: 700;
+        .btn-ai-edit {
+            background: rgba(14, 165, 233, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
             cursor: pointer;
-            width: 100%;
-            margin-top: 16px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        /* التقرير القابل للتصدير */
+        .btn-ai-edit:hover {
+            background: rgba(14, 165, 233, 0.25);
+            border-color: var(--primary-accent);
+        }
+
+        /* التقرير والجدول */
         #exportContainer {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--card-border);
+            background-color: #0b1120;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--panel-border);
         }
 
         .export-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid var(--card-border);
-            padding-bottom: 14px;
-            margin-bottom: 16px;
-        }
-
-        .brand-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .plan-client-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .output-table {
             width: 100%;
-            min-width: 680px;
             border-collapse: collapse;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--panel-border);
         }
 
         .output-table th {
-            background-color: #070d14;
-            color: var(--primary-med);
+            background-color: #070a12;
+            color: var(--primary-accent);
             font-size: 0.85rem;
             font-weight: 700;
-            padding: 12px 14px;
+            padding: 14px;
             text-align: right;
-            white-space: nowrap;
         }
 
         .output-table td {
-            background-color: #0f172a;
-            border-bottom: 1px solid var(--card-border);
-            padding: 12px 14px;
+            background-color: #0e1726;
+            border-bottom: 1px solid var(--panel-border);
+            padding: 14px;
             vertical-align: top;
             font-size: 0.88rem;
             line-height: 1.6;
+        }
+
+        /* إخفاء الخانات غير المختارة عند التصدير */
+        .exporting .no-export,
+        .exporting .select-col,
+        .exporting .ai-edit-box {
+            display: none !important;
         }
 
         .badge {
@@ -269,17 +270,16 @@
             font-weight: 700;
             font-size: 0.75rem;
             display: inline-block;
-            white-space: nowrap;
         }
 
-        .badge-reel { background-color: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); }
-        .badge-poster { background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-reel { background: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); }
+        .badge-poster { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
 
         .shot-card {
-            background: #070d14;
-            border-right: 3px solid var(--primary-med);
-            padding: 8px 12px;
-            border-radius: 6px;
+            background: #070a12;
+            border-right: 3px solid var(--primary-accent);
+            padding: 10px 12px;
+            border-radius: 8px;
             margin-bottom: 8px;
         }
 
@@ -292,65 +292,77 @@
         .shot-desc {
             color: #cbd5e1;
             font-size: 0.85rem;
-            white-space: normal;
         }
 
-        .default-notes-box {
-            margin-top: 16px;
-            padding: 12px 14px;
-            background-color: #070d14;
-            border-radius: 10px;
-            border: 1px dashed var(--card-border);
+        /* مربعات التعديل بالذكاء الاصطناعي */
+        .ai-edit-box {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(7, 10, 18, 0.9);
+            border-radius: 8px;
+            border: 1px solid var(--panel-border);
+            display: none;
+        }
+
+        .ai-edit-box input {
+            padding: 8px;
             font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        .default-notes-title {
-            font-weight: 700;
-            color: var(--primary-med);
             margin-bottom: 6px;
         }
 
-        .pulse-loader {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary-med);
-            box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7);
-            animation: pulse 1.2s infinite;
-            margin-left: 8px;
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-accent);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(14, 165, 233, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+        .default-notes-box {
+            margin-top: 20px;
+            padding: 14px;
+            background-color: #070a12;
+            border-radius: 10px;
+            border: 1px dashed var(--panel-border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- الهيدر والإهداء -->
-    <div class="gift-header">
-        <div class="gift-tag">إهداء خاص من <span class="offgrid-spark">OFFGRID.vid</span> إلى</div>
-        <div class="main-title">💊 صيدلية دكتورة هاجر</div>
-        <div class="sub-title">المولد الذكي لخطط المحتوى، الأفكار الإعلانية، وكابشنات السوشيال ميديا</div>
+    <!-- الهيدر الفاخر -->
+    <div class="brand-header">
+        <div class="gift-tag">إهداء حائل من <span class="offgrid-badge">OFFGRID.vid</span> إلى</div>
+        <div class="pharmacy-title">✨ صيدلية دكتورة هاجر</div>
+        <div class="pharmacy-sub">منصة توليد خطط المحتوى والسكريبتات الإعلانية فائقة الانتشار</div>
     </div>
 
-    <div class="card">
+    <!-- كارت إدخال البيانات -->
+    <div class="glass-card">
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="apiKey">🔑 مفتاح OFFGRID API (يحفظ تلقائياً في المتصفح):</label>
-                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API هنا مرة واحدة" oninput="saveApiKey()">
+                <label for="apiKey">🔑 مفتاح OFFGRID API (يحفظ تلقائياً):</label>
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API الخاص بك هنا" oninput="saveApiKey()">
             </div>
 
             <div class="form-group">
                 <label for="topic">🎯 موضوع الفيديوهات أو الحملة الحالية:</label>
-                <input type="text" id="topic" placeholder="مثال: العناية بالبشرة في الصيف، عروض تساقط الشعر، نصائح للأمهات للأطفال...">
+                <input type="text" id="topic" placeholder="مثال: روتين العناية بالبشرة الصيفي، علاج تساقط الشعر، عروض الأطفال...">
             </div>
 
             <div class="form-row-2">
@@ -365,82 +377,78 @@
             </div>
 
             <div class="form-group">
-                <label for="defaultNotes">📌 ملاحظات أو تعليمات ثابته تظهر في التقرير:</label>
-                <textarea id="defaultNotes" rows="2" placeholder="مثال: التواصل للطلب عبر الواتساب، التوصيل متاح لجميع المناطق..." oninput="saveDefaultNotes()"></textarea>
+                <label for="defaultNotes">📌 ملاحظات الشروط والتنفيذ الثابتة:</label>
+                <textarea id="defaultNotes" rows="2" placeholder="أدخل ملاحظات الصيدلية للعملاء هنا..." oninput="saveDefaultNotes()"></textarea>
             </div>
         </div>
 
-        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد خطة محتوى الصيدلية ✨</button>
+        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد أفكار الخطة والسكريبتات ✨</button>
     </div>
 
-    <div class="card" id="resultCard" style="display: none;">
-        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-muted); font-size: 0.95rem;">
-            <span class="pulse-loader"></span> جاري صياغة السكريبتات والكابشنات البيعية الطبية... ⏳
+    <!-- كارت عرض النتائج والتصدير -->
+    <div class="glass-card" id="resultCard" style="display: none;">
+        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary);">
+            <div class="loading-spinner"></div> جاري كتابة السكريبتات وتجهيز الكابشنات الطبية البيعية...
         </div>
         
-        <!-- التقرير القابل للتصدير -->
+        <!-- التقرير النهائي للتصدير -->
         <div id="exportContainer">
             <div class="export-header">
-                <div class="brand-info">
-                    <div class="plan-client-title" id="planTitle">📋 خطة محتوى: صيدلية دكتورة هاجر</div>
-                    <small style="color: var(--text-muted); font-size: 0.8rem;" id="planSubTopic">الموضوع: عام</small>
+                <div>
+                    <div style="font-size: 1.2rem; font-weight: 800; color: #fff;">📋 خطة محتوى صيدلية دكتورة هاجر</div>
+                    <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 4px;" id="planSubTopic">الموضوع: عام</div>
                 </div>
                 <div style="text-align: left;">
-                    <div class="offgrid-spark">OFFGRID.vid</div>
-                    <small style="color: var(--primary-med); font-size: 0.75rem;">Special Gift Edition</small>
+                    <div class="offgrid-badge" style="font-size: 1.1rem;">OFFGRID.vid</div>
+                    <div style="color: var(--primary-accent); font-size: 0.72rem;">Designed for Dr. Hajar Pharmacy</div>
                 </div>
             </div>
 
-            <div class="table-responsive">
-                <div id="outputContainer"></div>
-            </div>
+            <div id="outputContainer"></div>
 
             <div id="exportNotesBox" class="default-notes-box" style="display:none;">
-                <div class="default-notes-title">📌 ملاحظات وتعليمات للتصوير والتنفيذ:</div>
+                <div style="font-weight: 700; color: var(--primary-accent); margin-bottom: 6px;">📌 ملاحظات الشروط والتنفيذ:</div>
                 <div id="exportNotesText"></div>
             </div>
         </div>
 
-        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة عالية الجودة 📸</button>
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل السكريبتات المختارة كصورة كاملة 📸</button>
     </div>
 
 </div>
 
 <script>
+let globalIdeas = [];
+
 window.onload = function() {
-    // استرجاع الـ API Key والملاحظات تلقائياً
     const savedKey = localStorage.getItem('offgrid_pharma_key');
-    if (savedKey) {
-        document.getElementById('apiKey').value = savedKey;
-    }
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
 
     const savedNotes = localStorage.getItem('offgrid_pharma_notes');
     if (savedNotes) {
         document.getElementById('defaultNotes').value = savedNotes;
     } else {
-        document.getElementById('defaultNotes').value = "شروط الاستخدام: المراجعة الطبية قبل النشر | التوصيل متوفر بجميع المناطق | أرقام التواصل عبر الواتساب بالبايو.";
+        document.getElementById('defaultNotes').value = "المراجعة الطبية قبل النشر | التوصيل متوفر بجميع المناطق | الطلب والتواصل عبر الواتساب بالبايو.";
     }
 }
 
 function saveApiKey() {
-    const key = document.getElementById('apiKey').value.trim();
-    localStorage.setItem('offgrid_pharma_key', key);
+    localStorage.setItem('offgrid_pharma_key', document.getElementById('apiKey').value.trim());
 }
 
 function saveDefaultNotes() {
-    const val = document.getElementById('defaultNotes').value;
-    localStorage.setItem('offgrid_pharma_notes', val);
+    localStorage.setItem('offgrid_pharma_notes', document.getElementById('defaultNotes').value);
 }
 
 async function generateContent() {
     const apiKey = document.getElementById('apiKey').value.trim();
-    const topic = document.getElementById('topic').value.trim() || 'نصائح وعروض صيدلانية متنوعة';
+    const topic = document.getElementById('topic').value.trim() || 'عروض ونصائح طبية متنوعة';
     const reelsCount = document.getElementById('reelsCount').value || 0;
     const postersCount = document.getElementById('postersCount').value || 0;
     const defaultNotes = document.getElementById('defaultNotes').value.trim();
 
     if (!apiKey) {
-        alert('برجاء إدخال الـ API Key أولاً!');
+        alert('برجاء أدخل مفتاح الـ API أولاً!');
         return;
     }
 
@@ -466,59 +474,49 @@ async function generateContent() {
         exportNotesBox.style.display = 'none';
     }
 
-    // هندسة البرومبت الخاصة بصيدلية دكتورة هاجر
-    const promptText = `أنت خبير تسويق إلكتروني وتصميم محتوى متخصص في تسويق الصيدليات والمستحضرات الطبية والتجميلية.
-العميل الثابت: "صيدلية دكتورة هاجر"
-المجال: صيدلية ورعاية صحية وتجميلية.
+    const promptText = `أنت خبير إخراج وصناعة محتوى تسويقي متخصص لصيدلية "دكتورة هاجر".
 الموضوع المطلوب: ${topic}
 المطلوب إنشاء: ${reelsCount} فيديو ريلز (Reel) و ${postersCount} بوستر (Poster).
 
-تعليمات هامة جداً لصياغة الأفكار:
-1. يراعي إمكانيات الصيدلية (التصوير داخل الصيدلية، إبراز المنتجات أو نصائح الدكتورة بشكل مبسط وسريع).
-2. الفيديوهات تهدف لتحقيق ريتش عالي وزيادة مبيعات أدوية أو منتجات العناية بشكل مباشر وبطريقة طبية جَذّابة وأمينة.
-3. لكل Reel: قسم السكريبت لـ 3 شوتات بسيطة (Hook خاطف، الفائدة والمنتج/النصيحة، Call to Action للطلب من الصيدلية)، مع كتابة كابشن كامل جاهز للنشر يحتوي على هاشتاجات مناسبة.
-4. لكل Poster: ضع الفكرة التصميمية والنص المكتوب على البوستر + الكابشن الخاص بالبوستر.
+التعليمات:
+1. مراعاة إمكانيات الصيدلية بالتصوير الداخلي وتسهيل الشرح.
+2. لكل Reel: اقسم المشهد لـ 3 شوتات مع كتابة كابشن بيعي طبي كامل يحتوي على هاشتاجات مناسبة.
+3. لكل Poster: ضع الفكرة التصميمية والنص والإعلان والكابشن.
 
-أرجع الناتج في صيغة JSON Array فقط وبدون أي نص خارجي أو markdown format:
+أرجع الناتج في صيغة JSON Array فقط وبدون أي نص خارجي أو markdown:
 [
   {
     "type": "Reel",
-    "title": "عنوان جذّاب ومثير للاهتمام",
+    "title": "عنوان جذاب جداً",
     "shots": [
-      { "name": "Shot 1 - Hook خاطف", "desc": "وصف المشهد والكلام القوي للفيلم" },
-      { "name": "Shot 2 - حل المشكلة والمنتج", "desc": "الشرح السريع والشكل داخل الصيدلية" },
+      { "name": "Shot 1 - Hook خاطف", "desc": "وصف المشهد والكلام القوي" },
+      { "name": "Shot 2 - حل المشكلة والمنتج", "desc": "الشرح السريع داخل الصيدلية" },
       { "name": "Shot 3 - دعوة للشراء CTA", "desc": "دعوة للطلب أو الزيارة" }
     ],
-    "caption": "الكابشن الكامل الجاهز للنسخ + الهاشتاجات",
-    "audio_or_style": "الصوت أو التون المقترح (مثال: حماسي/طبي هادئ/تريند)"
+    "caption": "الكابشن الكامل الجاهز للنشر مع الهاشتاجات",
+    "audio_or_style": "الصوت أو التون المقترح"
   }
 ]`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: promptText }] }]
-            })
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
         });
 
         const data = await response.json();
         
         if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            let rawText = data.candidates[0].content.parts[0].text;
-            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-
-            const ideas = JSON.parse(rawText);
-            renderTable(ideas);
+            let rawText = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+            globalIdeas = JSON.parse(rawText);
+            renderTable(globalIdeas);
             downloadBtn.style.display = 'block';
         } else {
-            outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد، تأكد من صحة الـ API Key الخاص بك.</div>`;
+            outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد، تأكد من صحة الـ API Key.</div>`;
         }
     } catch (e) {
-        outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ خطأ في الاتصال بالشبكة، حاول مجدداً.</div>`;
+        outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ خطأ في الاتصال بالشبكة.</div>`;
     }
 
     btn.disabled = false;
@@ -530,16 +528,17 @@ function renderTable(ideas) {
         <table class="output-table">
             <thead>
                 <tr>
+                    <th class="select-col" style="width: 5%;">تحديد</th>
                     <th style="width: 12%;">النوع</th>
-                    <th style="width: 22%;">الفكرة والعنوان</th>
-                    <th style="width: 38%;">تفاصيل السكريبت والشوتات</th>
-                    <th style="width: 28%;">الكابشن والنشر (Caption)</th>
+                    <th style="width: 22%;">عنوان الفكرة</th>
+                    <th style="width: 35%;">تفاصيل السكريبت والشوتات</th>
+                    <th style="width: 26%;">الكابشن والتعديل</th>
                 </tr>
             </thead>
             <tbody>
     `;
 
-    ideas.forEach(item => {
+    ideas.forEach((item, index) => {
         const typeStr = item.type || 'Reel';
         const isReel = typeStr.toLowerCase().includes('reel');
         const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
@@ -559,16 +558,26 @@ function renderTable(ideas) {
         }
 
         html += `
-            <tr>
+            <tr id="row-${index}">
+                <td class="select-col" style="text-align: center;">
+                    <input type="checkbox" class="checkbox-custom" checked onchange="toggleRowSelection(${index}, this.checked)">
+                </td>
                 <td>
                     <span class="badge ${badgeClass}">${typeStr}</span>
                     <div style="font-size: 0.72rem; color: #a5b4fc; margin-top: 6px;">🎵 ${item.audio_or_style || 'عادي'}</div>
                 </td>
-                <td><strong style="color: #ffffff; font-size:0.92rem;">${item.title || ''}</strong></td>
-                <td>${shotsHtml}</td>
+                <td><strong style="color: #ffffff; font-size:0.9rem;">${item.title || ''}</strong></td>
+                <td id="shots-cell-${index}">${shotsHtml}</td>
                 <td>
-                    <div style="background:#070d14; padding:8px 10px; border-radius:6px; font-size:0.8rem; color:#cbd5e1; white-space:pre-line; max-height:180px; overflow-y:auto; border:1px solid #1e293b;">
+                    <div id="caption-cell-${index}" style="background:#070a12; padding:8px 10px; border-radius:6px; font-size:0.8rem; color:#cbd5e1; white-space:pre-line; max-height:160px; overflow-y:auto; border:1px solid var(--panel-border);">
                         ${item.caption || item.details || 'لا يوجد كابشن'}
+                    </div>
+
+                    <button class="btn-ai-edit no-export" onclick="toggleAiBox(${index})">✨ تعديل بالـ AI</button>
+
+                    <div id="ai-box-${index}" class="ai-edit-box no-export">
+                        <input type="text" id="ai-input-${index}" placeholder="مثال: ضيف معلومة عن سعر المنتج أو طريقة الاستخدام...">
+                        <button class="btn-primary" style="padding: 6px; font-size: 0.78rem; margin: 0;" onclick="applyAiEdit(${index})">تطبيق التعديل</button>
                     </div>
                 </td>
             </tr>
@@ -579,20 +588,114 @@ function renderTable(ideas) {
     document.getElementById('outputContainer').innerHTML = html;
 }
 
+function toggleRowSelection(index, isChecked) {
+    const row = document.getElementById(`row-${index}`);
+    if (isChecked) {
+        row.classList.remove('no-export');
+    } else {
+        row.classList.add('no-export');
+    }
+}
+
+function toggleAiBox(index) {
+    const box = document.getElementById(`ai-box-${index}`);
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+async function applyAiEdit(index) {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const instruction = document.getElementById(`ai-input-${index}`).value.trim();
+
+    if (!instruction) {
+        alert('أدخل الملاحظة أو التعديل المطلوبة أولاً!');
+        return;
+    }
+
+    const currentItem = globalIdeas[index];
+    const promptText = `أنت خبير محتوى طبّي. قم بتعديل هذا السكريبت والكابشن الخاص بـ "صيدلية دكتورة هاجر" بناءً على التعليمات الجديدة:
+التعليمات المطلوبة: ${instruction}
+البيانات الحالية: ${JSON.stringify(currentItem)}
+
+أرجِع الناتج بنفس الصيغة JSON حصراً بدون markdown:
+{
+  "type": "${currentItem.type}",
+  "title": "عنوان معدّل إن لزم",
+  "shots": [
+    { "name": "Shot 1", "desc": "الوصف المعدل" },
+    { "name": "Shot 2", "desc": "الوصف المعدل" },
+    { "name": "Shot 3", "desc": "الوصف المعدل" }
+  ],
+  "caption": "الكابشن المعدل الكامل",
+  "audio_or_style": "${currentItem.audio_or_style}"
+}`;
+
+    const box = document.getElementById(`ai-box-${index}`);
+    box.innerHTML = `<span style="font-size:0.75rem; color:var(--primary-accent);">جاري تعديل السكريبت بالذكاء الاصطناعي... ⏳</span>`;
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+        });
+
+        const data = await response.json();
+        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            let rawText = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const updatedItem = JSON.parse(rawText);
+            
+            globalIdeas[index] = updatedItem;
+
+            // تحديث الشوتات في الجدول
+            let shotsHtml = '';
+            if (updatedItem.shots && Array.isArray(updatedItem.shots)) {
+                updatedItem.shots.forEach(s => {
+                    shotsHtml += `
+                        <div class="shot-card">
+                            <div class="shot-title">${s.name || 'Shot'}</div>
+                            <div class="shot-desc">${s.desc || ''}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById(`shots-cell-${index}`).innerHTML = shotsHtml;
+            document.getElementById(`caption-cell-${index}`).innerText = updatedItem.caption || '';
+
+            box.style.display = 'none';
+        } else {
+            alert('فشل التعديل، حاول مرة أخرى.');
+        }
+    } catch (e) {
+        alert('خطأ في الاتصال بالشبكة.');
+    }
+}
+
 function downloadAsImage() {
     const element = document.getElementById('exportContainer');
 
+    // إضافة كلاس لإخفاء العناصر غير المرغوب بها عند التقاط الصورة
+    element.classList.add('exporting');
+
     html2canvas(element, {
-        backgroundColor: '#0f172a',
+        backgroundColor: '#0b1120',
         scale: 2,
         useCORS: true,
-        scrollX: 0,
-        scrollY: 0
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        onclone: (clonedDoc) => {
+            // ضمان إظهار العناصر داخل النسخة المصورة بدون شريط التمرير (Scrollbar)
+            const clonedExport = clonedDoc.getElementById('exportContainer');
+            clonedExport.style.overflow = 'visible';
+            clonedExport.style.height = 'auto';
+        }
     }).then(canvas => {
+        element.classList.remove('exporting');
         const link = document.createElement('a');
         link.download = `خطة_محتوى_صيدلية_دكتورة_هاجر.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
+    }).catch(() => {
+        element.classList.remove('exporting');
     });
 }
 </script>
