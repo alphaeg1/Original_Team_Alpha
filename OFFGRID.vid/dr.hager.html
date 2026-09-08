@@ -7,13 +7,10 @@
     <!-- مكتبة تحويل العناصر إلى صور -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-
         :root {
             --bg-main: #090d16;
-            --panel-bg: rgba(18, 26, 43, 0.75);
+            --panel-bg: rgba(18, 26, 43, 0.85);
             --panel-border: rgba(255, 255, 255, 0.08);
-            --primary-glow: #06b6d4;
             --primary-accent: #0ea5e9;
             --emerald-accent: #10b981;
             --text-primary: #f8fafc;
@@ -26,14 +23,14 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-primary);
             margin: 0;
-            padding: 24px 12px;
+            padding: 20px 12px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -48,17 +45,15 @@
             max-width: 960px;
         }
 
-        /* الهيدر الفاخر */
         .brand-header {
             text-align: center;
-            margin-bottom: 28px;
-            padding: 24px;
+            margin-bottom: 24px;
+            padding: 20px;
             background: var(--panel-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--panel-border);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -76,8 +71,7 @@
         .gift-tag {
             font-size: 0.8rem;
             color: var(--text-secondary);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 600;
         }
 
@@ -87,45 +81,43 @@
             -webkit-text-fill-color: transparent;
             font-weight: 900;
             font-family: 'Impact', sans-serif;
-            letter-spacing: 1px;
         }
 
         .pharmacy-title {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 800;
-            margin: 8px 0;
+            margin: 6px 0;
             background: var(--med-grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .pharmacy-sub {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             margin: 0;
         }
 
-        /* الكروت واللوحات */
         .glass-card {
             background: var(--panel-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 12px;
         }
 
         @media (max-width: 640px) {
@@ -135,7 +127,7 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         label {
@@ -148,9 +140,9 @@
             background-color: rgba(9, 13, 22, 0.8);
             border: 1px solid var(--panel-border);
             color: var(--text-primary);
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 0.92rem;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
             outline: none;
             width: 100%;
         }
@@ -160,28 +152,8 @@
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
         }
 
-        /* الأزرار */
         .btn-primary {
             background: var(--med-grad);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
-            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.45);
-        }
-
-        .btn-download {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
             padding: 14px;
@@ -190,35 +162,44 @@
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 18px;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
         .btn-ai-edit {
             background: rgba(14, 165, 233, 0.15);
             color: #38bdf8;
             border: 1px solid rgba(14, 165, 233, 0.3);
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
             font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             margin-top: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
         }
 
-        .btn-ai-edit:hover {
-            background: rgba(14, 165, 233, 0.25);
-            border-color: var(--primary-accent);
-        }
-
-        /* التقرير والجدول */
         #exportContainer {
             background-color: #0b1120;
-            padding: 24px;
-            border-radius: 16px;
+            padding: 20px;
+            border-radius: 14px;
             border: 1px solid var(--panel-border);
         }
 
@@ -227,14 +208,14 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--panel-border);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .output-table {
             width: 100%;
             border-collapse: collapse;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--panel-border);
         }
@@ -244,20 +225,19 @@
             color: var(--primary-accent);
             font-size: 0.85rem;
             font-weight: 700;
-            padding: 14px;
+            padding: 12px;
             text-align: right;
         }
 
         .output-table td {
             background-color: #0e1726;
             border-bottom: 1px solid var(--panel-border);
-            padding: 14px;
+            padding: 12px;
             vertical-align: top;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        /* إخفاء الخانات غير المختارة عند التصدير */
         .exporting .no-export,
         .exporting .select-col,
         .exporting .ai-edit-box {
@@ -265,10 +245,10 @@
         }
 
         .badge {
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             display: inline-block;
         }
 
@@ -278,35 +258,34 @@
         .shot-card {
             background: #070a12;
             border-right: 3px solid var(--primary-accent);
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
         }
 
         .shot-title {
             font-weight: 700;
             color: #38bdf8;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
 
         .shot-desc {
             color: #cbd5e1;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
-        /* مربعات التعديل بالذكاء الاصطناعي */
         .ai-edit-box {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 8px;
+            padding: 8px;
             background: rgba(7, 10, 18, 0.9);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid var(--panel-border);
             display: none;
         }
 
         .ai-edit-box input {
-            padding: 8px;
-            font-size: 0.82rem;
+            padding: 6px;
+            font-size: 0.8rem;
             margin-bottom: 6px;
         }
 
@@ -318,51 +297,37 @@
         }
 
         .default-notes-box {
-            margin-top: 20px;
-            padding: 14px;
+            margin-top: 16px;
+            padding: 12px;
             background-color: #070a12;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px dashed var(--panel-border);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-secondary);
         }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- الهيدر الفاخر -->
     <div class="brand-header">
-        <div class="gift-tag">إهداء حائل من <span class="offgrid-badge">OFFGRID.vid</span> إلى</div>
+        <div class="gift-tag">إهداء من <span class="offgrid-badge">OFFGRID.vid</span> إلى</div>
         <div class="pharmacy-title">✨ صيدلية دكتورة هاجر</div>
-        <div class="pharmacy-sub">منصة توليد خطط المحتوى والسكريبتات الإعلانية فائقة الانتشار</div>
+        <div class="pharmacy-sub">مولد الأفكار والسكريبتات الإعلانية الذكي</div>
     </div>
 
-    <!-- كارت إدخال البيانات -->
     <div class="glass-card">
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="apiKey">🔑 مفتاح OFFGRID API (يحفظ تلقائياً):</label>
-                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API الخاص بك هنا" oninput="saveApiKey()">
+                <label for="apiKey">🔑 مفتاح الـ API (Gemini API Key):</label>
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API هنا" oninput="saveApiKey()">
             </div>
 
             <div class="form-group">
                 <label for="topic">🎯 موضوع الفيديوهات أو الحملة الحالية:</label>
-                <input type="text" id="topic" placeholder="مثال: روتين العناية بالبشرة الصيفي، علاج تساقط الشعر، عروض الأطفال...">
+                <input type="text" id="topic" placeholder="مثال: التوصيل السريع، روتين العناية بالبشرة، عروض الأطفال...">
             </div>
 
             <div class="form-row-2">
@@ -378,46 +343,45 @@
 
             <div class="form-group">
                 <label for="defaultNotes">📌 ملاحظات الشروط والتنفيذ الثابتة:</label>
-                <textarea id="defaultNotes" rows="2" placeholder="أدخل ملاحظات الصيدلية للعملاء هنا..." oninput="saveDefaultNotes()"></textarea>
+                <textarea id="defaultNotes" rows="2" placeholder="المراجعة الطبية قبل النشر | التوصيل متوفر بجميع المناطق..." oninput="saveDefaultNotes()"></textarea>
             </div>
         </div>
 
         <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد أفكار الخطة والسكريبتات ✨</button>
     </div>
 
-    <!-- كارت عرض النتائج والتصدير -->
     <div class="glass-card" id="resultCard" style="display: none;">
         <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary);">
-            <div class="loading-spinner"></div> جاري كتابة السكريبتات وتجهيز الكابشنات الطبية البيعية...
+            ⏳ جاري كتابة الخطة بذكاء OFFGRID...
         </div>
         
-        <!-- التقرير النهائي للتصدير -->
         <div id="exportContainer">
             <div class="export-header">
                 <div>
-                    <div style="font-size: 1.2rem; font-weight: 800; color: #fff;">📋 خطة محتوى صيدلية دكتورة هاجر</div>
-                    <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 4px;" id="planSubTopic">الموضوع: عام</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #fff;">📋 خطة محتوى صيدلية دكتورة هاجر</div>
+                    <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px;" id="planSubTopic">الموضوع: عام</div>
                 </div>
                 <div style="text-align: left;">
-                    <div class="offgrid-badge" style="font-size: 1.1rem;">OFFGRID.vid</div>
-                    <div style="color: var(--primary-accent); font-size: 0.72rem;">Designed for Dr. Hajar Pharmacy</div>
+                    <div class="offgrid-badge" style="font-size: 1rem;">OFFGRID.vid</div>
                 </div>
             </div>
 
             <div id="outputContainer"></div>
 
             <div id="exportNotesBox" class="default-notes-box" style="display:none;">
-                <div style="font-weight: 700; color: var(--primary-accent); margin-bottom: 6px;">📌 ملاحظات الشروط والتنفيذ:</div>
+                <div style="font-weight: 700; color: var(--primary-accent); margin-bottom: 4px;">📌 ملاحظات الشروط والتنفيذ:</div>
                 <div id="exportNotesText"></div>
             </div>
         </div>
 
-        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل السكريبتات المختارة كصورة كاملة 📸</button>
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة كاملة 📸</button>
     </div>
 
 </div>
 
 <script>
+// الموديل الموحد والأكثر استقراراً لجميع عمليات الـ API
+const GEMINI_MODEL = "gemini-1.5-flash"; 
 let globalIdeas = [];
 
 window.onload = function() {
@@ -474,32 +438,32 @@ async function generateContent() {
         exportNotesBox.style.display = 'none';
     }
 
-    const promptText = `أنت خبير إخراج وصناعة محتوى تسويقي متخصص لصيدلية "دكتورة هاجر".
-الموضوع المطلوب: ${topic}
+    const promptText = `أنت خبير محتوى تسويقي متخصص لصيدلية "دكتورة هاجر".
+الموضوع: ${topic}
 المطلوب إنشاء: ${reelsCount} فيديو ريلز (Reel) و ${postersCount} بوستر (Poster).
 
-التعليمات:
-1. مراعاة إمكانيات الصيدلية بالتصوير الداخلي وتسهيل الشرح.
-2. لكل Reel: اقسم المشهد لـ 3 شوتات مع كتابة كابشن بيعي طبي كامل يحتوي على هاشتاجات مناسبة.
-3. لكل Poster: ضع الفكرة التصميمية والنص والإعلان والكابشن.
+تعليمات:
+1. راعِ تصوير الفيديوهات داخل الصيدلية بطريقة جذابة ومباشرة.
+2. لكل Reel: اقسم السكريبت لـ 3 شوتات مع كابشن بيعي طبي كامل وهاشتاجات.
+3. لكل Poster: ضع فكرة التصميم والفرام النصي والكابشن.
 
-أرجع الناتج في صيغة JSON Array فقط وبدون أي نص خارجي أو markdown:
+أرجع الناتج في صيغة JSON Array فقط بدون markdown:
 [
   {
     "type": "Reel",
-    "title": "عنوان جذاب جداً",
+    "title": "عنوان جذاب",
     "shots": [
-      { "name": "Shot 1 - Hook خاطف", "desc": "وصف المشهد والكلام القوي" },
-      { "name": "Shot 2 - حل المشكلة والمنتج", "desc": "الشرح السريع داخل الصيدلية" },
-      { "name": "Shot 3 - دعوة للشراء CTA", "desc": "دعوة للطلب أو الزيارة" }
+      { "name": "Shot 1 - Hook خاطف", "desc": "وصف المشهد والكلام" },
+      { "name": "Shot 2 - الحل والمنتج", "desc": "الشرح داخل الصيدلية" },
+      { "name": "Shot 3 - CTA", "desc": "دعوة للطلب أو الزيارة" }
     ],
-    "caption": "الكابشن الكامل الجاهز للنشر مع الهاشتاجات",
-    "audio_or_style": "الصوت أو التون المقترح"
+    "caption": "الكابشن الكامل الجاهز للنشر",
+    "audio_or_style": "الصوت المقترح"
   }
 ]`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
@@ -513,7 +477,8 @@ async function generateContent() {
             renderTable(globalIdeas);
             downloadBtn.style.display = 'block';
         } else {
-            outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد، تأكد من صحة الـ API Key.</div>`;
+            const errDetail = data.error?.message || 'تأكد من صحة الـ API Key وملاءمته لخدمة Gemini.';
+            outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد: ${errDetail}</div>`;
         }
     } catch (e) {
         outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ خطأ في الاتصال بالشبكة.</div>`;
@@ -530,9 +495,9 @@ function renderTable(ideas) {
                 <tr>
                     <th class="select-col" style="width: 5%;">تحديد</th>
                     <th style="width: 12%;">النوع</th>
-                    <th style="width: 22%;">عنوان الفكرة</th>
+                    <th style="width: 23%;">عنوان الفكرة</th>
                     <th style="width: 35%;">تفاصيل السكريبت والشوتات</th>
-                    <th style="width: 26%;">الكابشن والتعديل</th>
+                    <th style="width: 25%;">الكابشن والتعديل</th>
                 </tr>
             </thead>
             <tbody>
@@ -564,20 +529,20 @@ function renderTable(ideas) {
                 </td>
                 <td>
                     <span class="badge ${badgeClass}">${typeStr}</span>
-                    <div style="font-size: 0.72rem; color: #a5b4fc; margin-top: 6px;">🎵 ${item.audio_or_style || 'عادي'}</div>
+                    <div style="font-size: 0.7rem; color: #a5b4fc; margin-top: 4px;">🎵 ${item.audio_or_style || 'عادي'}</div>
                 </td>
-                <td><strong style="color: #ffffff; font-size:0.9rem;">${item.title || ''}</strong></td>
+                <td><strong style="color: #ffffff; font-size:0.88rem;">${item.title || ''}</strong></td>
                 <td id="shots-cell-${index}">${shotsHtml}</td>
                 <td>
-                    <div id="caption-cell-${index}" style="background:#070a12; padding:8px 10px; border-radius:6px; font-size:0.8rem; color:#cbd5e1; white-space:pre-line; max-height:160px; overflow-y:auto; border:1px solid var(--panel-border);">
+                    <div id="caption-cell-${index}" style="background:#070a12; padding:8px; border-radius:6px; font-size:0.78rem; color:#cbd5e1; white-space:pre-line; max-height:150px; overflow-y:auto; border:1px solid var(--panel-border);">
                         ${item.caption || item.details || 'لا يوجد كابشن'}
                     </div>
 
                     <button class="btn-ai-edit no-export" onclick="toggleAiBox(${index})">✨ تعديل بالـ AI</button>
 
                     <div id="ai-box-${index}" class="ai-edit-box no-export">
-                        <input type="text" id="ai-input-${index}" placeholder="مثال: ضيف معلومة عن سعر المنتج أو طريقة الاستخدام...">
-                        <button class="btn-primary" style="padding: 6px; font-size: 0.78rem; margin: 0;" onclick="applyAiEdit(${index})">تطبيق التعديل</button>
+                        <input type="text" id="ai-input-${index}" placeholder="أدخل الملاحظات والتعديلات هنا...">
+                        <button class="btn-primary" style="padding: 6px; font-size: 0.78rem; margin: 0;" onclick="applyAiEdit(${index})">تعديل الآن</button>
                     </div>
                 </td>
             </tr>
@@ -607,19 +572,17 @@ async function applyAiEdit(index) {
     const instruction = document.getElementById(`ai-input-${index}`).value.trim();
 
     if (!instruction) {
-        alert('أدخل الملاحظة أو التعديل المطلوبة أولاً!');
+        alert('أدخل الملاحظة أولاً!');
         return;
     }
 
     const currentItem = globalIdeas[index];
-    const promptText = `أنت خبير محتوى طبّي. قم بتعديل هذا السكريبت والكابشن الخاص بـ "صيدلية دكتورة هاجر" بناءً على التعليمات الجديدة:
-التعليمات المطلوبة: ${instruction}
-البيانات الحالية: ${JSON.stringify(currentItem)}
-
-أرجِع الناتج بنفس الصيغة JSON حصراً بدون markdown:
+    const promptText = `عدل هذا السكريبت لصيدلية "دكتورة هاجر" بناءً على التعليمات: ${instruction}. 
+البيانات الحالية: ${JSON.stringify(currentItem)}. 
+أرجع الناتج بنفس الصيغة JSON حصراً بدون markdown:
 {
   "type": "${currentItem.type}",
-  "title": "عنوان معدّل إن لزم",
+  "title": "عنوان معدل",
   "shots": [
     { "name": "Shot 1", "desc": "الوصف المعدل" },
     { "name": "Shot 2", "desc": "الوصف المعدل" },
@@ -630,10 +593,10 @@ async function applyAiEdit(index) {
 }`;
 
     const box = document.getElementById(`ai-box-${index}`);
-    box.innerHTML = `<span style="font-size:0.75rem; color:var(--primary-accent);">جاري تعديل السكريبت بالذكاء الاصطناعي... ⏳</span>`;
+    box.innerHTML = `<span style="font-size:0.75rem; color:var(--primary-accent);">جاري التعديل... ⏳</span>`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
@@ -646,7 +609,6 @@ async function applyAiEdit(index) {
             
             globalIdeas[index] = updatedItem;
 
-            // تحديث الشوتات في الجدول
             let shotsHtml = '';
             if (updatedItem.shots && Array.isArray(updatedItem.shots)) {
                 updatedItem.shots.forEach(s => {
@@ -663,17 +625,17 @@ async function applyAiEdit(index) {
 
             box.style.display = 'none';
         } else {
-            alert('فشل التعديل، حاول مرة أخرى.');
+            alert('فشل التعديل، تأكد من الـ API Key.');
+            box.style.display = 'none';
         }
     } catch (e) {
         alert('خطأ في الاتصال بالشبكة.');
+        box.style.display = 'none';
     }
 }
 
 function downloadAsImage() {
     const element = document.getElementById('exportContainer');
-
-    // إضافة كلاس لإخفاء العناصر غير المرغوب بها عند التقاط الصورة
     element.classList.add('exporting');
 
     html2canvas(element, {
@@ -683,7 +645,6 @@ function downloadAsImage() {
         windowWidth: element.scrollWidth,
         windowHeight: element.scrollHeight,
         onclone: (clonedDoc) => {
-            // ضمان إظهار العناصر داخل النسخة المصورة بدون شريط التمرير (Scrollbar)
             const clonedExport = clonedDoc.getElementById('exportContainer');
             clonedExport.style.overflow = 'visible';
             clonedExport.style.height = 'auto';
