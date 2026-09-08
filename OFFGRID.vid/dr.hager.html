@@ -30,7 +30,7 @@
             background-color: var(--bg-main);
             color: var(--text-primary);
             margin: 0;
-            padding: 20px 12px;
+            padding: 16px 10px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -47,8 +47,8 @@
 
         .brand-header {
             text-align: center;
-            margin-bottom: 24px;
-            padding: 20px;
+            margin-bottom: 20px;
+            padding: 18px;
             background: var(--panel-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--panel-border);
@@ -84,7 +84,7 @@
         }
 
         .pharmacy-title {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 800;
             margin: 6px 0;
             background: var(--med-grad);
@@ -103,7 +103,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border);
             border-radius: 18px;
-            padding: 20px;
+            padding: 18px;
             margin-bottom: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
@@ -111,7 +111,7 @@
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .form-row-2 {
@@ -166,10 +166,6 @@
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-        }
-
         .btn-download {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
@@ -196,11 +192,30 @@
             margin-top: 8px;
         }
 
+        /* حاوية التقرير مع العلامة المائية */
         #exportContainer {
             background-color: #0b1120;
-            padding: 20px;
+            padding: 18px;
             border-radius: 14px;
             border: 1px solid var(--panel-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* العلامة المائية للخلفية */
+        #exportContainer::before {
+            content: "OFFGRID";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-family: 'Impact', sans-serif;
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
         }
 
         .export-header {
@@ -210,14 +225,17 @@
             border-bottom: 1px solid var(--panel-border);
             padding-bottom: 14px;
             margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* تنسيق الجدول والتجاوب مع الموبايل */
         .output-table {
             width: 100%;
             border-collapse: collapse;
             border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--panel-border);
+            position: relative;
+            z-index: 1;
         }
 
         .output-table th {
@@ -227,15 +245,48 @@
             font-weight: 700;
             padding: 12px;
             text-align: right;
+            border: 1px solid var(--panel-border);
         }
 
         .output-table td {
-            background-color: #0e1726;
-            border-bottom: 1px solid var(--panel-border);
+            background-color: rgba(14, 23, 38, 0.85);
+            border: 1px solid var(--panel-border);
             padding: 12px;
             vertical-align: top;
             font-size: 0.85rem;
             line-height: 1.6;
+        }
+
+        /* تحويل الجدول لنظام البطاقات على الشاشات الصغيرة (أقل من 768px) */
+        @media (max-width: 768px) {
+            .output-table, .output-table tbody, .output-table tr, .output-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .output-table thead {
+                display: none; /* إخفاء الهيدر الاصلي في الموبايل */
+            }
+
+            .output-table tr {
+                margin-bottom: 14px;
+                background: rgba(14, 23, 38, 0.95);
+                border: 1px solid var(--panel-border);
+                border-radius: 12px;
+                padding: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .output-table td {
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 8px;
+                position: relative;
+            }
+
+            .output-table td:last-child {
+                border-bottom: none;
+            }
         }
 
         .exporting .no-export,
@@ -304,6 +355,8 @@
             border: 1px dashed var(--panel-border);
             font-size: 0.82rem;
             color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
@@ -314,7 +367,7 @@
     <div class="brand-header">
         <div class="gift-tag">إهداء من <span class="offgrid-badge">OFFGRID.vid</span> إلى</div>
         <div class="pharmacy-title">✨ صيدلية دكتورة هاجر</div>
-        <div class="pharmacy-sub">مولد الأفكار والسكريبتات الإعلانية الذكي (Gemini 3.5 Flash)</div>
+        <div class="pharmacy-sub">مولد الأفكار والسكريبتات الإعلانية الذكي</div>
     </div>
 
     <div class="glass-card">
@@ -351,8 +404,9 @@
     </div>
 
     <div class="glass-card" id="resultCard" style="display: none;">
-        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary);">
-            ⏳ جاري كتابة الخطة بذكاء Gemini 3.5...
+        <!-- نص الانتظار المعدل بدون أي إشارة لجيمناي -->
+        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary); font-weight: 600;">
+            ⏳ جاري تجهيز الخطة من أداة الذكاء OFFGRID.vid...
         </div>
         
         <div id="exportContainer">
@@ -380,7 +434,7 @@
 </div>
 
 <script>
-// تحديد الموديل الموحد Gemini 3.5 Flash لجميع طلبات توليد الخطة والتعديل
+// الموديل الموحد للخدمة
 const GEMINI_MODEL = "gemini-3.5-flash"; 
 let globalIdeas = [];
 
@@ -477,7 +531,7 @@ async function generateContent() {
             renderTable(globalIdeas);
             downloadBtn.style.display = 'block';
         } else {
-            const errDetail = data.error?.message || 'تأكد من صحة الـ API Key وملاءمته لخدمة Gemini.';
+            const errDetail = data.error?.message || 'تأكد من صحة المفتاح وبث الإتصال.';
             outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد: ${errDetail}</div>`;
         }
     } catch (e) {
@@ -625,7 +679,7 @@ async function applyAiEdit(index) {
 
             box.style.display = 'none';
         } else {
-            alert('فشل التعديل، تأكد من الـ API Key.');
+            alert('فشل التعديل، تأكد من مفتاح الـ API.');
             box.style.display = 'none';
         }
     } catch (e) {
