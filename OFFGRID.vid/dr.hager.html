@@ -314,7 +314,7 @@
     <div class="brand-header">
         <div class="gift-tag">إهداء من <span class="offgrid-badge">OFFGRID.vid</span> إلى</div>
         <div class="pharmacy-title">✨ صيدلية دكتورة هاجر</div>
-        <div class="pharmacy-sub">مولد الأفكار والسكريبتات الإعلانية الذكي</div>
+        <div class="pharmacy-sub">مولد الأفكار والسكريبتات الإعلانية الذكي (Gemini 3.5 Flash)</div>
     </div>
 
     <div class="glass-card">
@@ -352,7 +352,7 @@
 
     <div class="glass-card" id="resultCard" style="display: none;">
         <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary);">
-            ⏳ جاري كتابة الخطة بذكاء OFFGRID...
+            ⏳ جاري كتابة الخطة بذكاء Gemini 3.5...
         </div>
         
         <div id="exportContainer">
@@ -380,8 +380,8 @@
 </div>
 
 <script>
-// الموديل الموحد والأكثر استقراراً لجميع عمليات الـ API
-const GEMINI_MODEL = "gemini-1.5-flash"; 
+// تحديد الموديل الموحد Gemini 3.5 Flash لجميع طلبات توليد الخطة والتعديل
+const GEMINI_MODEL = "gemini-3.5-flash"; 
 let globalIdeas = [];
 
 window.onload = function() {
