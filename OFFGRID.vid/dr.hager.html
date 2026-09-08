@@ -15,7 +15,8 @@
             --emerald-accent: #10b981;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
-            --offgrid-grad: linear-gradient(135deg, #ff4655 0%, #ff8533 50%, #facc15 100%);
+            /* تغيير تدرج لون OFFGRID إلى لون حاد وجذاب (Neon Cyan / Turquoise) */
+            --offgrid-grad: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00c6ff 100%);
             --med-grad: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
         }
 
@@ -81,6 +82,7 @@
             -webkit-text-fill-color: transparent;
             font-weight: 900;
             font-family: 'Impact', sans-serif;
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
         }
 
         .pharmacy-title {
@@ -192,7 +194,6 @@
             margin-top: 8px;
         }
 
-        /* حاوية التقرير مع العلامة المائية */
         #exportContainer {
             background-color: #0b1120;
             padding: 18px;
@@ -202,7 +203,7 @@
             overflow: hidden;
         }
 
-        /* العلامة المائية للخلفية */
+        /* العلامة المائية للكلمة باللون الجديد في الخلفية */
         #exportContainer::before {
             content: "OFFGRID";
             position: absolute;
@@ -212,7 +213,7 @@
             font-family: 'Impact', sans-serif;
             font-size: clamp(5rem, 15vw, 10rem);
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
+            color: rgba(0, 242, 254, 0.03);
             pointer-events: none;
             z-index: 0;
             white-space: nowrap;
@@ -229,7 +230,6 @@
             z-index: 1;
         }
 
-        /* تنسيق الجدول والتجاوب مع الموبايل */
         .output-table {
             width: 100%;
             border-collapse: collapse;
@@ -257,7 +257,6 @@
             line-height: 1.6;
         }
 
-        /* تحويل الجدول لنظام البطاقات على الشاشات الصغيرة (أقل من 768px) */
         @media (max-width: 768px) {
             .output-table, .output-table tbody, .output-table tr, .output-table td {
                 display: block;
@@ -265,7 +264,7 @@
             }
 
             .output-table thead {
-                display: none; /* إخفاء الهيدر الاصلي في الموبايل */
+                display: none;
             }
 
             .output-table tr {
@@ -374,8 +373,9 @@
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="apiKey">🔑 مفتاح الـ API (Gemini API Key):</label>
-                <input type="password" id="apiKey" placeholder="أدخل مفتاح الـ API هنا" oninput="saveApiKey()">
+                <!-- التغيير بناءً على الطلب -->
+                <label for="apiKey">🔑 مفتاح الـ API (OFFGRID Key):</label>
+                <input type="password" id="apiKey" placeholder="أدخل المفتاح الخاص بك هنا" oninput="saveApiKey()">
             </div>
 
             <div class="form-group">
@@ -404,7 +404,6 @@
     </div>
 
     <div class="glass-card" id="resultCard" style="display: none;">
-        <!-- نص الانتظار المعدل بدون أي إشارة لجيمناي -->
         <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary); font-weight: 600;">
             ⏳ جاري تجهيز الخطة من أداة الذكاء OFFGRID.vid...
         </div>
@@ -434,7 +433,6 @@
 </div>
 
 <script>
-// الموديل الموحد للخدمة
 const GEMINI_MODEL = "gemini-3.5-flash"; 
 let globalIdeas = [];
 
