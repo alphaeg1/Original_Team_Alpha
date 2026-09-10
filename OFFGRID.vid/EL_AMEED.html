@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EL AMEED — مولد الخطة التسويقية والسكريبتات الأمنية</title>
+    <!-- مكتبة تحويل العناصر إلى صور -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            /* الألوان الرئيسية: أزرق نيفي، أزرق سماوي/لبني، وأبيض */
+            --bg-main: #f0f5fa;
+            --panel-bg: #ffffff;
+            --panel-border: #dbeafe;
+            --primary-blue: #1e40af;
+            --sky-blue: #0284c7;
+            --sky-blue-light: #e0f2fe;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            
+            /* التدرجات الهادئة */
+            --brand-grad: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+            --accent-grad: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+            --btn-download-grad: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.06) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 24px 18px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--brand-grad);
+        }
+
+        .gift-tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .elameed-badge {
+            background: var(--brand-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .company-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 6px 0;
+            color: #1e3a8a;
+            letter-spacing: 0.5px;
+        }
+
+        .company-sub {
+            font-size: 0.9rem;
+            color: var(--sky-blue);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .glass-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .form-row-2 { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.88rem;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        input, textarea {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: var(--text-primary);
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            background-color: #ffffff;
+            border-color: var(--sky-blue);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--brand-grad);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-download {
+            background: var(--btn-download-grad);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .btn-ai-edit {
+            background: var(--sky-blue-light);
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-ai-edit:hover {
+            background: #bae6fd;
+        }
+
+        #exportContainer {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid var(--panel-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* العلامة المائية للكلمة باللون الجديد في الخلفية */
+        #exportContainer::before {
+            content: "EL AMEED";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg);
+            font-family: system-ui, sans-serif;
+            font-size: clamp(4rem, 14vw, 9rem);
+            font-weight: 900;
+            color: rgba(2, 132, 199, 0.04);
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+
+        .export-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--sky-blue-light);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .output-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .output-table th {
+            background-color: #f0f9ff;
+            color: #1e3a8a;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 12px;
+            text-align: right;
+            border: 1px solid var(--panel-border);
+        }
+
+        .output-table td {
+            background-color: #ffffff;
+            border: 1px solid var(--panel-border);
+            padding: 12px;
+            vertical-align: top;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .output-table, .output-table tbody, .output-table tr, .output-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .output-table thead {
+                display: none;
+            }
+
+            .output-table tr {
+                margin-bottom: 14px;
+                background: #ffffff;
+                border: 1px solid var(--panel-border);
+                border-radius: 12px;
+                padding: 10px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+
+            .output-table td {
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                padding: 8px 4px;
+                position: relative;
+            }
+
+            .output-table td:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .exporting .no-export,
+        .exporting .select-col,
+        .exporting .ai-edit-box {
+            display: none !important;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-reel { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+        .badge-poster { background: #f0f9ff; color: #1e40af; border: 1px solid #c7d2fe; }
+
+        .shot-card {
+            background: #f8fafc;
+            border-right: 3px solid var(--sky-blue);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-top: 1px solid #f1f5f9;
+            border-left: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .shot-title {
+            font-weight: 700;
+            color: #0284c7;
+            font-size: 0.8rem;
+        }
+
+        .shot-desc {
+            color: #334155;
+            font-size: 0.83rem;
+        }
+
+        .ai-edit-box {
+            margin-top: 8px;
+            padding: 10px;
+            background: #f0f9ff;
+            border-radius: 8px;
+            border: 1px solid #bae6fd;
+            display: none;
+        }
+
+        .ai-edit-box input {
+            padding: 8px;
+            font-size: 0.82rem;
+            margin-bottom: 8px;
+            border: 1px solid #93c5fd;
+        }
+
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--sky-blue);
+        }
+
+        .default-notes-box {
+            margin-top: 18px;
+            padding: 14px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="brand-header">
+        <div class="gift-tag">نظام تسويق المحتوى المتقدم الذكي لـ</div>
+        <div class="company-title">🛡️ EL AMEED</div>
+        <div class="company-sub">أنظمة الأمن، كاميرات المراقبة والحلول الذكية</div>
+    </div>
+
+    <div class="glass-card">
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="apiKey">🔑 مفتاح الـ API (EL AMEED Key):</label>
+                <input type="password" id="apiKey" placeholder="أدخل المفتاح الخاص بك هنا" oninput="saveApiKey()">
+            </div>
+
+            <div class="form-group">
+                <label for="topic">🎯 موضوع الحملة أو المنتجات الأحدث:</label>
+                <input type="text" id="topic" placeholder="مثال: كاميرات المراقبة الليلية، سيستم إنذار للمنازل، أنظمة أكسس كنترول للمكاتب...">
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="reelsCount">🎬 عدد فيديوهات الريلز (Reels):</label>
+                    <input type="number" id="reelsCount" value="4" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="postersCount">🖼️ عدد البوسترات (Posters):</label>
+                    <input type="number" id="postersCount" value="2" min="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="defaultNotes">📌 ملاحظات العروض والضمان الثابتة:</label>
+                <textarea id="defaultNotes" rows="2" placeholder="ضمان شامل مع التركيز على المعاينة الميدانية والتركيب المتقن..." oninput="saveDefaultNotes()"></textarea>
+            </div>
+        </div>
+
+        <button id="generateBtn" class="btn-primary" onclick="generateContent()">توليد أفكار الخطة والسكريبتات الأمنية ✨</button>
+    </div>
+
+    <div class="glass-card" id="resultCard" style="display: none;">
+        <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--sky-blue); font-weight: 700;">
+            ⏳ جاري تجهيز الخطة من أداة الذكاء الاصطناعي الخاصة بـ EL AMEED...
+        </div>
+        
+        <div id="exportContainer">
+            <div class="export-header">
+                <div>
+                    <div style="font-size: 1.15rem; font-weight: 800; color: #1e3a8a;">📋 خطة المحتوى الإعلاني — شركة EL AMEED</div>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 3px;" id="planSubTopic">الموضوع: عام</div>
+                </div>
+                <div style="text-align: left;">
+                    <div class="elameed-badge">EL AMEED Security</div>
+                </div>
+            </div>
+
+            <div id="outputContainer"></div>
+
+            <div id="exportNotesBox" class="default-notes-box" style="display:none;">
+                <div style="font-weight: 700; color: #1e3a8a; margin-bottom: 4px;">📌 ملاحظات الشروط والضمان:</div>
+                <div id="exportNotesText"></div>
+            </div>
+        </div>
+
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة كاملة 📸</button>
+    </div>
+
+</div>
+
+<script>
+const GEMINI_MODEL = "gemini-3.5-flash"; 
+let globalIdeas = [];
+
+window.onload = function() {
+    const savedKey = localStorage.getItem('elameed_security_key');
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
+
+    const savedNotes = localStorage.getItem('elameed_security_notes');
+    if (savedNotes) {
+        document.getElementById('defaultNotes').value = savedNotes;
+    } else {
+        document.getElementById('defaultNotes').value = "ضمان معتمد على جميع الأجهزة | توريد وتركيب بأعلى جودة | معاينة ميدانية وإمكانية المتابعة المباشرة من الهاتف | للطلب والاستفسار تواصل معنا عبر الواتساب أو الهاتف.";
+    }
+}
+
+function saveApiKey() {
+    localStorage.setItem('elameed_security_key', document.getElementById('apiKey').value.trim());
+}
+
+function saveDefaultNotes() {
+    localStorage.setItem('elameed_security_notes', document.getElementById('defaultNotes').value);
+}
+
+async function generateContent() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const topic = document.getElementById('topic').value.trim() || 'أنظمة كاميرات مراقبة وحلول أمنية متكاملة';
+    const reelsCount = document.getElementById('reelsCount').value || 0;
+    const postersCount = document.getElementById('postersCount').value || 0;
+    const defaultNotes = document.getElementById('defaultNotes').value.trim();
+
+    if (!apiKey) {
+        alert('برجاء أدخل مفتاح الـ API أولاً!');
+        return;
+    }
+
+    const btn = document.getElementById('generateBtn');
+    const resultCard = document.getElementById('resultCard');
+    const loading = document.getElementById('loading');
+    const outputContainer = document.getElementById('outputContainer');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    btn.disabled = true;
+    resultCard.style.display = 'block';
+    loading.style.display = 'block';
+    downloadBtn.style.display = 'none';
+    outputContainer.innerHTML = '';
+
+    document.getElementById('planSubTopic').innerText = `الموضوع: ${topic}`;
+
+    const exportNotesBox = document.getElementById('exportNotesBox');
+    if (defaultNotes) {
+        document.getElementById('exportNotesText').innerText = defaultNotes;
+        exportNotesBox.style.display = 'block';
+    } else {
+        exportNotesBox.style.display = 'none';
+    }
+
+    const promptText = `أنت خبير محتوى تسويقي متخصص لشركة "EL AMEED" المتخصصة في بيع وتركيب كاميرات المراقبة، الأجهزة الأمنية، وأنظمة الإنذار وسكيورتي سيستم.
+الموضوع: ${topic}
+المطلوب إنشاء: ${reelsCount} فيديو ريلز (Reel) و ${postersCount} بوستر (Poster).
+
+تعليمات:
+1. اركز على مشاعر الأمان، وحماية الممتلكات (منازل، شركات، محلات)، وجودة التصوير المباشر والربط بالموبايل.
+2. لكل Reel: اقسم السكريبت لـ 3 شوتات (1- المشكلة/الخطورة، 2- الحل التقني والكاميرا، 3- الدعوة للتواصل والحجز) مع كابشن تسويقي حماسي وهاشتاجات مناسبة.
+3. لكل Poster: ضع فكرة التصميم البصري والفريم النصي والكابشن الإعلاني.
+
+أرجع الناتج في صيغة JSON Array فقط بدون markdown:
+[
+  {
+    "type": "Reel",
+    "title": "عنوان جذاب أمني",
+    "shots": [
+      { "name": "Shot 1 - المشكلة/الخطورة", "desc": "وصف المشهد وكلام البداية" },
+      { "name": "Shot 2 - الحل التقني", "desc": "استعراض كاميرات EL AMEED والسيستم" },
+      { "name": "Shot 3 - CTA", "desc": "دعوة للاتصال أو حجز المعاينة" }
+    ],
+    "caption": "الكابشن الكامل الجاهز للنشر",
+    "audio_or_style": "الصوت أو النمط المقترح"
+  }
+]`;
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            let rawText = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+            globalIdeas = JSON.parse(rawText);
+            renderTable(globalIdeas);
+            downloadBtn.style.display = 'block';
+        } else {
+            const errDetail = data.error?.message || 'تأكد من صحة المفتاح وبث الإتصال.';
+            outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ فشل التوليد: ${errDetail}</div>`;
+        }
+    } catch (e) {
+        outputContainer.innerHTML = `<div style="color:#ef4444; text-align:center; padding:15px;">⚠️ خطأ في الاتصال بالشبكة.</div>`;
+    }
+
+    btn.disabled = false;
+    loading.style.display = 'none';
+}
+
+function renderTable(ideas) {
+    let html = `
+        <table class="output-table">
+            <thead>
+                <tr>
+                    <th class="select-col" style="width: 5%;">تحديد</th>
+                    <th style="width: 12%;">النوع</th>
+                    <th style="width: 23%;">عنوان الفكرة</th>
+                    <th style="width: 35%;">تفاصيل السكريبت والشوتات</th>
+                    <th style="width: 25%;">الكابشن والتعديل</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    ideas.forEach((item, index) => {
+        const typeStr = item.type || 'Reel';
+        const isReel = typeStr.toLowerCase().includes('reel');
+        const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
+        
+        let shotsHtml = '';
+        if (item.shots && Array.isArray(item.shots)) {
+            item.shots.forEach(s => {
+                shotsHtml += `
+                    <div class="shot-card">
+                        <div class="shot-title">${s.name || 'Shot'}</div>
+                        <div class="shot-desc">${s.desc || ''}</div>
+                    </div>
+                `;
+            });
+        } else if (item.details) {
+            shotsHtml += `<div class="shot-desc">${item.details}</div>`;
+        }
+
+        html += `
+            <tr id="row-${index}">
+                <td class="select-col" style="text-align: center;">
+                    <input type="checkbox" class="checkbox-custom" checked onchange="toggleRowSelection(${index}, this.checked)">
+                </td>
+                <td>
+                    <span class="badge ${badgeClass}">${typeStr}</span>
+                    <div style="font-size: 0.72rem; color: #0284c7; margin-top: 5px; font-weight:600;">🔊 ${item.audio_or_style || 'حماسي/احترافي'}</div>
+                </td>
+                <td><strong style="color: #1e3a8a; font-size:0.9rem;">${item.title || ''}</strong></td>
+                <td id="shots-cell-${index}">${shotsHtml}</td>
+                <td>
+                    <div id="caption-cell-${index}" style="background:#f8fafc; padding:10px; border-radius:6px; font-size:0.8rem; color:#334155; white-space:pre-line; max-height:160px; overflow-y:auto; border:1px solid #e2e8f0;">
+                        ${item.caption || item.details || 'لا يوجد كابشن'}
+                    </div>
+
+                    <button class="btn-ai-edit no-export" onclick="toggleAiBox(${index})">✨ تعديل بالـ AI</button>
+
+                    <div id="ai-box-${index}" class="ai-edit-box no-export">
+                        <input type="text" id="ai-input-${index}" placeholder="أدخل الملاحظات والتعديلات الأمنية هنا...">
+                        <button class="btn-primary" style="padding: 6px; font-size: 0.78rem; margin: 0;" onclick="applyAiEdit(${index})">تعديل الآن</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    html += `</tbody></table>`;
+    document.getElementById('outputContainer').innerHTML = html;
+}
+
+function toggleRowSelection(index, isChecked) {
+    const row = document.getElementById(`row-${index}`);
+    if (isChecked) {
+        row.classList.remove('no-export');
+    } else {
+        row.classList.add('no-export');
+    }
+}
+
+function toggleAiBox(index) {
+    const box = document.getElementById(`ai-box-${index}`);
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+async function applyAiEdit(index) {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const instruction = document.getElementById(`ai-input-${index}`).value.trim();
+
+    if (!instruction) {
+        alert('أدخل الملاحظة أولاً!');
+        return;
+    }
+
+    const currentItem = globalIdeas[index];
+    const promptText = `عدل هذا السكريبت لشركة "EL AMEED" لأنظمة الأمن وكاميرات المراقبة بناءً على التعليمات: ${instruction}. 
+البيانات الحالية: ${JSON.stringify(currentItem)}. 
+أرجع الناتج بنفس الصيغة JSON حصراً بدون markdown:
+{
+  "type": "${currentItem.type}",
+  "title": "عنوان معدل",
+  "shots": [
+    { "name": "Shot 1", "desc": "الوصف المعدل" },
+    { "name": "Shot 2", "desc": "الوصف المعدل" },
+    { "name": "Shot 3", "desc": "الوصف المعدل" }
+  ],
+  "caption": "الكابشن المعدل الكامل",
+  "audio_or_style": "${currentItem.audio_or_style}"
+}`;
+
+    const box = document.getElementById(`ai-box-${index}`);
+    box.innerHTML = `<span style="font-size:0.75rem; color:var(--sky-blue); font-weight:bold;">جاري التعديل... ⏳</span>`;
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+        });
+
+        const data = await response.json();
+        if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            let rawText = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const updatedItem = JSON.parse(rawText);
+            
+            globalIdeas[index] = updatedItem;
+
+            let shotsHtml = '';
+            if (updatedItem.shots && Array.isArray(updatedItem.shots)) {
+                updatedItem.shots.forEach(s => {
+                    shotsHtml += `
+                        <div class="shot-card">
+                            <div class="shot-title">${s.name || 'Shot'}</div>
+                            <div class="shot-desc">${s.desc || ''}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById(`shots-cell-${index}`).innerHTML = shotsHtml;
+            document.getElementById(`caption-cell-${index}`).innerText = updatedItem.caption || '';
+
+            box.style.display = 'none';
+        } else {
+            alert('فشل التعديل، تأكد من مفتاح الـ API.');
+            box.style.display = 'none';
+        }
+    } catch (e) {
+        alert('خطأ في الاتصال بالشبكة.');
+        box.style.display = 'none';
+    }
+}
+
+function downloadAsImage() {
+    const element = document.getElementById('exportContainer');
+    element.classList.add('exporting');
+
+    html2canvas(element, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        onclone: (clonedDoc) => {
+            const clonedExport = clonedDoc.getElementById('exportContainer');
+            clonedExport.style.overflow = 'visible';
+            clonedExport.style.height = 'auto';
+        }
+    }).then(canvas => {
+        element.classList.remove('exporting');
+        const link = document.createElement('a');
+        link.download = `خطة_محتوى_EL_AMEED_Security.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }).catch(() => {
+        element.classList.remove('exporting');
+    });
+}
+</script>
+
+</body>
+</html>
