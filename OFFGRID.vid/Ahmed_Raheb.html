@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OFFGRID.vid — المستشار أحمد راغب للاستشارات المالية والضريبية و ERP</title>
+    <!-- مكتبة تحويل العناصر إلى صور -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --bg-main: #060911;
+            --panel-bg: rgba(15, 23, 42, 0.9);
+            --panel-border: rgba(212, 175, 55, 0.2);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            --blue-accent: #0284c7;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --offgrid-grad: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00c6ff 100%);
+            --card-inner: #0b1329;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(214, 175, 55, 0.05) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(2, 132, 199, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+        }
+
+        .gift-tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .offgrid-badge {
+            background: var(--offgrid-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+        }
+
+        .office-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 8px 0 4px 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .office-sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 24px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .form-row-2 { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.88rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            background-color: rgba(6, 9, 17, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            color: var(--text-primary);
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            outline: none;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--gold-gradient);
+            color: #060911;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 18px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        /* العداد المباشر للتوليد */
+        .counter-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(11, 19, 41, 0.9);
+            border: 1px solid var(--panel-border);
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .counter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .counter-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--gold-primary);
+        }
+
+        .counter-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        #exportContainer {
+            background-color: #080d1a;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--panel-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* العلامة المائية OFFGRID.vid */
+        #exportContainer::before {
+            content: "OFFGRID.vid";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-family: 'Impact', sans-serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.03);
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+
+        .export-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .output-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .output-table th {
+            background-color: #04060d;
+            color: var(--gold-primary);
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 12px;
+            text-align: right;
+            border: 1px solid var(--panel-border);
+        }
+
+        .output-table td {
+            background-color: rgba(11, 19, 41, 0.85);
+            border: 1px solid var(--panel-border);
+            padding: 14px;
+            vertical-align: top;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* هيكل السكربت الإعلاني (7 عناصر) */
+        .script-part {
+            background: #060a14;
+            border-right: 3px solid var(--gold-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .script-part-title {
+            font-weight: 800;
+            color: var(--gold-primary);
+            font-size: 0.82rem;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .script-part-desc {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            white-space: pre-line;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-reel { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }
+        .badge-poster { background: rgba(212, 175, 55, 0.2); color: #fef08a; border: 1px solid rgba(212, 175, 55, 0.4); }
+
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--gold-primary);
+        }
+
+        .default-notes-box {
+            margin-top: 18px;
+            padding: 14px;
+            background-color: #04060d;
+            border-radius: 10px;
+            border: 1px dashed var(--panel-border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- الهيدر الرئيسي للمكتب -->
+    <div class="brand-header">
+        <div class="gift-tag">تطوير وبرمجة بواسطة <span class="offgrid-badge">OFFGRID.vid</span></div>
+        <div class="office-title">🏛️ المستشار أحمد راغب</div>
+        <div class="office-sub">منصة الاستشارات المالية، الضريبية، وحلول البرامج المحاسبية & ERP Systems</div>
+    </div>
+
+    <!-- كارت المدخلات -->
+    <div class="glass-card">
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="apiKey">🔑 مفتاح الـ API (OFFGRID Key):</label>
+                <input type="password" id="apiKey" placeholder="أدخل مفتاح Gemini API الخاص بك هنا" oninput="saveApiKey()">
+            </div>
+
+            <div class="form-group">
+                <label for="topic">🎯 المشكلة المالية/الضريبية أو موضوع الحملة الحالية:</label>
+                <input type="text" id="topic" placeholder="مثال: الفاتورة الإلكترونية، استبعاد المصروفات، الربط مع الـ ERP، الفحص الضريبي...">
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="reelsCount">🎬 عدد فيديوهات الريلز (Reels):</label>
+                    <input type="number" id="reelsCount" value="3" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="postersCount">🖼️ عدد البوسترات (Posters):</label>
+                    <input type="number" id="postersCount" value="1" min="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="defaultNotes">📌 ملاحظات الشروط والتنفيذ الثابتة للمكتب:</label>
+                <textarea id="defaultNotes" rows="2" placeholder="جميع الاستشارات تحت إشراف المستشار أحمد راغب | التواصل للحجز عبر الواتساب..." oninput="saveDefaultNotes()"></textarea>
+            </div>
+        </div>
+
+        <button id="generateBtn" class="btn-primary" onclick="generateContentStream()">توليد الأفكار والسكربتات الاحترافية ✨</button>
+    </div>
+
+    <!-- كارت النتيجة والعداد المباشر -->
+    <div class="glass-card" id="resultCard" style="display: none;">
+        
+        <!-- عداد الأفكار الحي -->
+        <div class="counter-box" id="counterBox">
+            <div class="counter-item">
+                <div class="counter-value" id="countDone">0</div>
+                <div class="counter-label">جاهز للتنفيذ</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-value" id="countPending" style="color: #94a3b8;">0</div>
+                <div class="counter-label">قيد المعالجة</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-value" id="countTotal" style="color: #38bdf8;">0</div>
+                <div class="counter-label">إجمالي المطلوب</div>
+            </div>
+        </div>
+
+        <div id="loadingStatus" style="text-align:center; padding: 10px; color: var(--gold-primary); font-weight: 600;">
+            ⏳ جاري التحليل المالي واستخراج الحلول الضريبية...
+        </div>
+        
+        <!-- حاوية التصدير والطباعة -->
+        <div id="exportContainer">
+            <div class="export-header">
+                <div>
+                    <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">📋 خطة الاستشارات والسكريبتات الإعلانية</div>
+                    <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 3px;" id="planSubTopic">الموضوع: عام</div>
+                </div>
+                <div style="text-align: left;">
+                    <div class="offgrid-badge" style="font-size: 1.1rem;">OFFGRID.vid</div>
+                    <div style="font-size: 0.7rem; color: #94a3b8;">المستشار أحمد راغب</div>
+                </div>
+            </div>
+
+            <!-- جدول العرض الرئيسي -->
+            <table class="output-table">
+                <thead>
+                    <tr>
+                        <th class="select-col" style="width: 5%;">تحديد</th>
+                        <th style="width: 12%;">النوع</th>
+                        <th style="width: 23%;">عنوان الفكرة والهدف</th>
+                        <th style="width: 60%;">السكربت الإعلاني المباشر (Hook ➔ CTA)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- سيتم إضافة الأفكار هنا فكرة بفكرة فور تجهيزها -->
+                </tbody>
+            </table>
+
+            <div id="exportNotesBox" class="default-notes-box" style="display:none;">
+                <div style="font-weight: 700; color: var(--gold-primary); margin-bottom: 4px;">📌 ملاحظات الشروط والتنفيذ:</div>
+                <div id="exportNotesText"></div>
+            </div>
+        </div>
+
+        <button id="downloadBtn" class="btn-download" style="display:none;" onclick="downloadAsImage()">تحميل التقرير كصورة كاملة 📸</button>
+    </div>
+
+</div>
+
+<script>
+// موديل جميناي دون تغيير كما طلب المستخدم
+const GEMINI_MODEL = "gemini-3.5-flash"; 
+let totalExpected = 0;
+let generatedCount = 0;
+
+window.onload = function() {
+    const savedKey = localStorage.getItem('offgrid_tax_key');
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
+
+    const savedNotes = localStorage.getItem('offgrid_tax_notes');
+    if (savedNotes) {
+        document.getElementById('defaultNotes').value = savedNotes;
+    } else {
+        document.getElementById('defaultNotes').value = "جميع الاستشارات المحاسبية والضريبية يتم تقييمها بدقة | التوافق الكامل مع منظومة الضرائب المصرية والـ ERP | لحجز جلسة استشارية التواصل عبر الواتساب بالبايو.";
+    }
+}
+
+function saveApiKey() {
+    localStorage.setItem('offgrid_tax_key', document.getElementById('apiKey').value.trim());
+}
+
+function saveDefaultNotes() {
+    localStorage.setItem('offgrid_tax_notes', document.getElementById('defaultNotes').value);
+}
+
+// دالة توليد الأفكار والتتابع الحي
+async function generateContentStream() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const topic = document.getElementById('topic').value.trim() || 'مشاكل الفاتورة الإلكترونية والإقرار الضريبي وتطبيق الـ ERP';
+    const reelsCount = parseInt(document.getElementById('reelsCount').value) || 0;
+    const postersCount = parseInt(document.getElementById('postersCount').value) || 0;
+    const defaultNotes = document.getElementById('defaultNotes').value.trim();
+
+    if (!apiKey) {
+        alert('برجاء إدخال مفتاح الـ API أولاً!');
+        return;
+    }
+
+    totalExpected = reelsCount + postersCount;
+    if (totalExpected === 0) {
+        alert('برجاء تحديد عدد الفيديوهات أو البوسترات المطلوب توليدها!');
+        return;
+    }
+
+    generatedCount = 0;
+    updateCounter();
+
+    const btn = document.getElementById('generateBtn');
+    const resultCard = document.getElementById('resultCard');
+    const loadingStatus = document.getElementById('loadingStatus');
+    const tableBody = document.getElementById('tableBody');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    btn.disabled = true;
+    resultCard.style.display = 'block';
+    loadingStatus.style.display = 'block';
+    loadingStatus.innerHTML = `⏳ جاري تحليل المشاكل الضريبية وتوليد الأفكار والسكربتات...`;
+    downloadBtn.style.display = 'none';
+    tableBody.innerHTML = '';
+
+    document.getElementById('planSubTopic').innerText = `الموضوع: ${topic}`;
+
+    const exportNotesBox = document.getElementById('exportNotesBox');
+    if (defaultNotes) {
+        document.getElementById('exportNotesText').innerText = defaultNotes;
+        exportNotesBox.style.display = 'block';
+    } else {
+        exportNotesBox.style.display = 'none';
+    }
+
+    // بناء قائمة الطلبات الفردية لضمان خروج الأفكار فور تجهيزها (Stream / Step-by-Step)
+    let tasks = [];
+    for (let i = 1; i <= reelsCount; i++) {
+        tasks.push({ type: 'Reel', index: i });
+    }
+    for (let i = 1; i <= postersCount; i++) {
+        tasks.push({ type: 'Poster', index: i });
+    }
+
+    // تشغيل التوليد الفردي وتحديث الواجهة والعداد مع كل فكرة تجهز
+    for (const task of tasks) {
+        try {
+            const item = await fetchSingleIdea(apiKey, topic, task.type, task.index);
+            if (item) {
+                appendIdeaToTable(item, generatedCount);
+                generatedCount++;
+                updateCounter();
+            }
+        } catch (e) {
+            console.error("خطأ في توليد العنصر:", e);
+        }
+    }
+
+    loadingStatus.style.display = 'none';
+    btn.disabled = false;
+    if (generatedCount > 0) {
+        downloadBtn.style.display = 'block';
+    }
+}
+
+function updateCounter() {
+    document.getElementById('countDone').innerText = generatedCount;
+    document.getElementById('countTotal').innerText = totalExpected;
+    document.getElementById('countPending').innerText = Math.max(0, totalExpected - generatedCount);
+}
+
+// دالة التواصل مع موديل Gemini لفكرة واحدة بالهيكل المطلوب
+async function fetchSingleIdea(apiKey, topic, type, index) {
+    const promptText = `أنت مستشار تسويقي وخبير محتوى قانوني وضريبي لمكتب "المستشار أحمد راغب" (استشارات مالية، ضريبية، وحلول برامج ERP وميكنة الشركات).
+الموضوع المطلوب: ${topic}
+نوع المحتوى: ${type} (رقم ${index})
+
+تعليمات هامة وأسلوب التصوير:
+1. استايل جميع الفيديوهات ثابت ومفترض ضمناً (Talking Head للمستشار أحمد راغب خلف مكتب فخم مع معدات تصوير وإضاءة سينمائية احترافية) - لا تذكر استايل التصوير في الإجابة إطلاقاً.
+2. ابحث في المشاكل الحقيقية للضرائب المصرية (مثل: رفض الفواتير الورقية، عدم اعتماد المصروفات، مشاكل الفاتورة والإشعار الإلكتروني، تكويد GS1/EGS، وغرامات التأخير في الإقرارات، وتكامل الـ ERP).
+3. يجب أن يتكون السكربت حصراً من الـ 7 عناصر التالية وبنفس الأسماء:
+   - Hook: خطاف جذاب ومباشر للمستثمر أو صاحب الشركة.
+   - Why: السبب والخطورة العملية أو المالية.
+   - Objection: الاعتراض أو الانطباع الخاطئ المعتاد لدى العميل.
+   - Benefit: الفائدة والحل المالي/الضريبي الصحيح.
+   - Story: قصة سريعة أو حالة مكررة من السوق.
+   - Framework: خطوات الحل والبرمجيات (ERP) المطلوبة للتنفيذ.
+   - Call To Action: دعوة صريحة للتواصل مع مكتب المستشار أحمد راغب.
+
+أرجع الناتج بصيغة JSON حصراً بدون أي أسطر markdown:
+{
+  "type": "${type}",
+  "title": "عنوان فكرة جذاب ومباشر",
+  "hook": "الـ Hook الخاطف",
+  "why": "لماذا تهم المشكلة صاحب العمل",
+  "objection": "الاعتراض المعتاد وكيفية تفكيكه",
+  "benefit": "الفائدة المباشرة للحل",
+  "story": "سيناريو قصة واقعية مختصرة",
+  "framework": "الإطار العملي وحل الـ ERP والضرائب",
+  "call_to_action": "دعوة التواصل وتأمين المركز الضريبي"
+}`;
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+    });
+
+    const data = await response.json();
+    if (response.ok && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+        let rawText = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+        return JSON.parse(rawText);
+    }
+    return null;
+}
+
+// دالة إضافة الفكرة الجاهزة للجدول فورا
+function appendIdeaToTable(item, idx) {
+    const tableBody = document.getElementById('tableBody');
+    const isReel = (item.type || '').toLowerCase().includes('reel');
+    const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
+
+    const tr = document.createElement('tr');
+    tr.id = `row-${idx}`;
+    tr.innerHTML = `
+        <td class="select-col" style="text-align: center;">
+            <input type="checkbox" class="checkbox-custom" checked onchange="toggleRowSelection(${idx}, this.checked)">
+        </td>
+        <td>
+            <span class="badge ${badgeClass}">${item.type}</span>
+        </td>
+        <td>
+            <strong style="color: #ffffff; font-size:0.9rem;">${item.title || ''}</strong>
+        </td>
+        <td>
+            <div class="script-part">
+                <div class="script-part-title">🎯 1. Hook (الخطاف):</div>
+                <div class="script-part-desc">${item.hook || ''}</div>
+            </div>
+            <div class="script-part">
+                <div class="script-part-title">💡 2. Why (السبب والخطورة):</div>
+                <div class="script-part-desc">${item.why || ''}</div>
+            </div>
+            <div class="script-part">
+                <div class="script-part-title">🛡️ 3. Objection (الاعتراض المعتاد):</div>
+                <div class="script-part-desc">${item.objection || ''}</div>
+            </div>
+            <div class="script-part">
+                <div class="script-part-title">✨ 4. Benefit (الفائدة):</div>
+                <div class="script-part-desc">${item.benefit || ''}</div>
+            </div>
+            <div class="script-part">
+                <div class="script-part-title">📖 5. Story (القصة الواقعية):</div>
+                <div class="script-part-desc">${item.story || ''}</div>
+            </div>
+            <div class="script-part">
+                <div class="script-part-title">⚙️ 6. Framework (إطار الحل و ERP):</div>
+                <div class="script-part-desc">${item.framework || ''}</div>
+            </div>
+            <div class="script-part" style="border-right-color: #0284c7;">
+                <div class="script-part-title" style="color: #38bdf8;">📞 7. Call To Action (دعوة للتواصل):</div>
+                <div class="script-part-desc">${item.call_to_action || ''}</div>
+            </div>
+        </td>
+    `;
+    tableBody.appendChild(tr);
+}
+
+function toggleRowSelection(index, isChecked) {
+    const row = document.getElementById(`row-${index}`);
+    if (row) {
+        if (isChecked) {
+            row.classList.remove('no-export');
+        } else {
+            row.classList.add('no-export');
+        }
+    }
+}
+
+function downloadAsImage() {
+    const element = document.getElementById('exportContainer');
+    element.classList.add('exporting');
+
+    html2canvas(element, {
+        backgroundColor: '#080d1a',
+        scale: 2,
+        useCORS: true,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        onclone: (clonedDoc) => {
+            const clonedExport = clonedDoc.getElementById('exportContainer');
+            clonedExport.style.overflow = 'visible';
+            clonedExport.style.height = 'auto';
+        }
+    }).then(canvas => {
+        element.classList.remove('exporting');
+        const link = document.createElement('a');
+        link.download = `خطة_محتوى_المستشار_أحمد_راغب.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }).catch(() => {
+        element.classList.remove('exporting');
+    });
+}
+</script>
+
+</body>
+</html>
