@@ -23,7 +23,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         body {
@@ -262,7 +262,6 @@
             z-index: 1;
         }
 
-        /* تنسيقات التجاوب الخاصة بالجدول على الموبايل */
         .output-table {
             width: 100%;
             border-collapse: collapse;
@@ -289,7 +288,6 @@
             line-height: 1.5;
         }
 
-        /* التكيف مع الموبايل لإلغاء السكرول العرضي تماماً */
         @media (max-width: 768px) {
             .output-table, .output-table tbody, .output-table tr, .output-table td {
                 display: block;
@@ -379,11 +377,10 @@
             z-index: 1;
         }
 
-        /* صندوق التعديل بالذكاء الاصطناعي لكل سكريبت */
         .ai-edit-box {
             margin-top: 10px;
-            background: rgba(4, 6, 13, 0.9);
-            border: 1px solid rgba(2, 132, 199, 0.3);
+            background: rgba(4, 6, 13, 0.95);
+            border: 1px solid rgba(2, 132, 199, 0.35);
             border-radius: 8px;
             padding: 8px;
         }
@@ -440,12 +437,12 @@
 
             <div class="form-row-2">
                 <div class="form-group">
-                    <label for="reelsCount">🎬 عدد فيديوهات الريلز (Reels):</label>
-                    <input type="number" id="reelsCount" value="3" min="0">
+                    <label for="reelsCount">🎬 عدد فيديوهات الريلز (حتى 1000):</label>
+                    <input type="number" id="reelsCount" value="3" min="0" max="1000">
                 </div>
                 <div class="form-group">
                     <label for="postersCount">🖼️ عدد البوسترات (Posters):</label>
-                    <input type="number" id="postersCount" value="1" min="0">
+                    <input type="number" id="postersCount" value="1" min="0" max="1000">
                 </div>
             </div>
 
@@ -504,7 +501,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- سيتم إضافة الأفكار هنا -->
+                    <!-- التوليد الديناميكي -->
                 </tbody>
             </table>
 
@@ -587,11 +584,11 @@ async function generateContentStream() {
     btn.style.display = 'none';
     stopBtn.style.display = 'block';
     stopBtn.disabled = false;
-    stopBtn.innerText = "🛑 إيقاف";
+    stopBtn.innerText = "🛑 إيقاف التوليد";
 
     resultCard.style.display = 'block';
     loadingStatus.style.display = 'block';
-    loadingStatus.innerHTML = `⏳ جاري تحليل المشاكل الضريبية وتوليد الأفكار...`;
+    loadingStatus.innerHTML = `⏳ جاري تحليل المشاكل الضريبية وتوليد السكربتات (${generatedCount}/${totalExpected})...`;
     downloadBtn.style.display = 'none';
     tableBody.innerHTML = '';
 
@@ -611,11 +608,12 @@ async function generateContentStream() {
 
     for (const task of tasks) {
         if (isStopping) {
-            loadingStatus.innerHTML = `⚠️ تم إيقاف التوليد بواسطة المستخدم.`;
+            loadingStatus.innerHTML = `⚠️ تم إيقاف التوليد بواسطة المستخدم عند السكربت (${generatedCount}).`;
             break;
         }
 
         try {
+            loadingStatus.innerHTML = `⏳ جاري معالجة السكربت رقم (${generatedCount + 1}) من أصل (${totalExpected})...`;
             const item = await fetchSingleIdea(apiKey, topic, task.type, task.index);
             if (item && !isStopping) {
                 globalData.push(item);
@@ -629,7 +627,7 @@ async function generateContentStream() {
     }
 
     if (!isStopping) {
-        loadingStatus.style.display = 'none';
+        loadingStatus.innerHTML = `✅ اكتمل التوليد بنجاح! تم تجهيز ${generatedCount} سكريبت.`;
     }
 
     btn.disabled = false;
@@ -650,7 +648,7 @@ function updateCounter() {
 async function fetchSingleIdea(apiKey, topic, type, index) {
     const promptText = `أنت مستشار تسويقي وخبير محتوى قانوني وضريبي لمكتب "المستشار أحمد راغب" (استشارات مالية، ضريبية، وحلول برامج ERP وميكنة الشركات).
 الموضوع المطلوب: ${topic}
-نوع المحتوى: ${type} (رقم ${index})
+نوع المحتوى: ${type} (فكرة و زاوية رقم ${index} متفردة كلياً)
 
 تعليمات هامة وأسلوب التصوير ومدته:
 1. مدة فيديو الريلز (Reel) يجب ألا تتجاوز دقيقتين كحد أقصى (تتراوح الكلمات الإجمالية للسكربت بأكمله بين 120 إلى 250 كلمة لتناسب مدة الدقيقتين تماماً عند الإلقاء).
@@ -710,7 +708,7 @@ function renderRowContent(item, idx, badgeClass) {
         </td>
         <td>
             <div class="row-meta-mobile">
-                <span class="badge ${badgeClass}">${item.type}</span>
+                <span class="badge ${badgeClass}">${item.type} #${idx + 1}</span>
                 <span style="font-size: 0.75rem; color: #94a3b8;" class="select-col">تحديد للتصدير</span>
             </div>
         </td>
@@ -747,11 +745,11 @@ function renderRowContent(item, idx, badgeClass) {
                 <div class="script-part-desc">${item.call_to_action || ''}</div>
             </div>
 
-            <!-- خيار التعديل بالذكاء الاصطناعي -->
+            <!-- تعديل الـ AI لكل سكريبت بشكل منفصل بأسلوب الموبايل -->
             <div class="ai-edit-box select-col">
-                <div style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 700;">🪄 تعديل السكربت بواسطة الـ AI:</div>
+                <div style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 700;">🪄 تعديل السكربت بالذكاء الاصطناعي:</div>
                 <div class="ai-edit-input-group">
-                    <input type="text" id="aiInstruction-${idx}" placeholder="أدخل التعديل المطلوب (مثلاً: ركز أكثر على غرامات التأخير، أو اختصره لـ 60 ثانية)..." style="font-size: 0.78rem; padding: 6px 8px;">
+                    <input type="text" id="aiInstruction-${idx}" placeholder="أدخل التعديل المطلوبة على هذا السكربت..." style="font-size: 0.78rem; padding: 6px 8px;">
                     <button class="ai-edit-btn" id="aiEditBtn-${idx}" onclick="modifyScriptWithAI(${idx})">تعديل ✨</button>
                 </div>
             </div>
@@ -770,26 +768,26 @@ async function modifyScriptWithAI(idx) {
         return;
     }
     if (!instruction) {
-        alert('برجاء كتابة التعليمات والتعديل المطلوب أولاً!');
+        alert('برجاء كتابة التعديل المطلوب لهذا السكربت!');
         return;
     }
 
     const currentItem = globalData[idx];
     if (!currentItem) return;
 
-    editBtn.innerText = "جاري التعديل...";
+    editBtn.innerText = "جاري...";
     editBtn.disabled = true;
 
-    const editPrompt = `أنت مستشار تسويقي وخبير محتوى لمكتب "المستشار أحمد راغب" (استشارات مالية وضريبية و ERP).
+    const editPrompt = `أنت مستشار تسويقي وخبير محتوى لمكتب "المستشار أحمد راغب".
 لديك السكربت الحالي التالي:
 ${JSON.stringify(currentItem, null, 2)}
 
-المطلوب: قم بتعديل وإعادة صياغة السكربت بناءً على طلب المستخدم التالي:
+قم بتعديله وإعادة صياغته بناءً على الطلب التالي:
 "${instruction}"
 
 شروط صارمة:
-1. يجب ألا يتجاوز السكربت الإجمالي إطلاقاً مدة دقيقتين (حد أقصى 250 كلمة).
-2. حافظ تماماً على بنية الـ 7 عناصر وبنفس المفاتيح بالظبط في الـ JSON: (type, title, hook, why, objection, benefit, story, framework, call_to_action).
+1. يجب ألا يتجاوز السكربت إطلاقاً مدة دقيقتين (حد أقصى 250 كلمة).
+2. حافظ تماماً على نفس مفاتيح JSON: (type, title, hook, why, objection, benefit, story, framework, call_to_action).
 3. أرجع الناتج بصيغة JSON فقط وبدون أي markdown.`;
 
     try {
