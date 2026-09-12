@@ -17,7 +17,6 @@
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --offgrid-grad: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00c6ff 100%);
-            --card-inner: #0b1329;
         }
 
         * {
@@ -31,7 +30,7 @@
             background-color: var(--bg-main);
             color: var(--text-primary);
             margin: 0;
-            padding: 20px 12px;
+            padding: 12px 8px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -48,13 +47,13 @@
 
         .brand-header {
             text-align: center;
-            margin-bottom: 24px;
-            padding: 24px;
+            margin-bottom: 16px;
+            padding: 18px 12px;
             background: var(--panel-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--panel-border);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             position: relative;
             overflow: hidden;
         }
@@ -70,9 +69,8 @@
         }
 
         .gift-tag {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            letter-spacing: 1px;
             font-weight: 600;
         }
 
@@ -83,20 +81,19 @@
             font-weight: 900;
             font-family: 'Impact', sans-serif;
             letter-spacing: 1px;
-            text-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
         }
 
         .office-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            margin: 8px 0 4px 0;
+            margin: 6px 0 4px 0;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .office-sub {
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             color: var(--text-secondary);
             margin: 0;
         }
@@ -105,22 +102,22 @@
             background: var(--panel-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--panel-border);
-            border-radius: 18px;
-            padding: 22px;
-            margin-bottom: 24px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 12px;
         }
 
         @media (max-width: 640px) {
@@ -134,7 +131,7 @@
         }
 
         label {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: #e2e8f0;
             font-weight: 600;
         }
@@ -143,9 +140,9 @@
             background-color: rgba(6, 9, 17, 0.85);
             border: 1px solid rgba(212, 175, 55, 0.25);
             color: var(--text-primary);
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-size: 0.92rem;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.88rem;
             outline: none;
             width: 100%;
         }
@@ -155,23 +152,36 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
         }
 
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
         .btn-primary {
             background: var(--gold-gradient);
             color: #060911;
             border: none;
             padding: 14px;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 800;
             cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
         }
 
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .btn-stop {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
         .btn-download {
@@ -179,25 +189,24 @@
             color: white;
             border: none;
             padding: 14px;
-            border-radius: 12px;
-            font-size: 0.98rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 18px;
+            margin-top: 16px;
             box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
         }
 
-        /* العداد المباشر للتوليد */
         .counter-box {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
             background: rgba(11, 19, 41, 0.9);
             border: 1px solid var(--panel-border);
-            padding: 12px 18px;
-            border-radius: 12px;
-            margin-bottom: 16px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 14px;
         }
 
         .counter-item {
@@ -207,26 +216,26 @@
         }
 
         .counter-value {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--gold-primary);
         }
 
         .counter-label {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-secondary);
         }
 
         #exportContainer {
             background-color: #080d1a;
-            padding: 20px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 14px;
             border: 1px solid var(--panel-border);
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
-        /* العلامة المائية OFFGRID.vid */
         #exportContainer::before {
             content: "OFFGRID.vid";
             position: absolute;
@@ -234,7 +243,7 @@
             left: 50%;
             transform: translate(-50%, -50%) rotate(-25deg);
             font-family: 'Impact', sans-serif;
-            font-size: clamp(4rem, 12vw, 9rem);
+            font-size: clamp(3rem, 10vw, 7rem);
             font-weight: 900;
             color: rgba(212, 175, 55, 0.03);
             pointer-events: none;
@@ -247,16 +256,16 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--panel-border);
-            padding-bottom: 14px;
-            margin-bottom: 18px;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
             position: relative;
             z-index: 1;
         }
 
+        /* تنسيقات التجاوب الخاصة بالجدول على الموبايل */
         .output-table {
             width: 100%;
             border-collapse: collapse;
-            border-radius: 10px;
             position: relative;
             z-index: 1;
         }
@@ -264,9 +273,9 @@
         .output-table th {
             background-color: #04060d;
             color: var(--gold-primary);
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            padding: 12px;
+            padding: 10px;
             text-align: right;
             border: 1px solid var(--panel-border);
         }
@@ -274,42 +283,77 @@
         .output-table td {
             background-color: rgba(11, 19, 41, 0.85);
             border: 1px solid var(--panel-border);
-            padding: 14px;
+            padding: 10px;
             vertical-align: top;
             font-size: 0.85rem;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* هيكل السكربت الإعلاني (7 عناصر) */
+        /* التكيف مع الموبايل لإلغاء السكرول العرضي تماماً */
+        @media (max-width: 768px) {
+            .output-table, .output-table tbody, .output-table tr, .output-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .output-table thead {
+                display: none;
+            }
+
+            .output-table tr {
+                margin-bottom: 16px;
+                background: rgba(11, 19, 41, 0.95);
+                border: 1px solid var(--panel-border);
+                border-radius: 12px;
+                padding: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            .output-table td {
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 8px 4px;
+            }
+
+            .output-table td:last-child {
+                border-bottom: none;
+            }
+
+            .row-meta-mobile {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 8px;
+            }
+        }
+
         .script-part {
             background: #060a14;
             border-right: 3px solid var(--gold-primary);
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .script-part-title {
             font-weight: 800;
             color: var(--gold-primary);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .script-part-desc {
             color: #cbd5e1;
-            font-size: 0.85rem;
+            font-size: 0.83rem;
             white-space: pre-line;
+            word-break: break-word;
         }
 
         .badge {
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             display: inline-block;
         }
 
@@ -324,15 +368,19 @@
         }
 
         .default-notes-box {
-            margin-top: 18px;
-            padding: 14px;
+            margin-top: 14px;
+            padding: 10px;
             background-color: #04060d;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px dashed var(--panel-border);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             position: relative;
             z-index: 1;
+        }
+
+        .no-export {
+            display: none !important;
         }
     </style>
 </head>
@@ -340,14 +388,12 @@
 
 <div class="container">
 
-    <!-- الهيدر الرئيسي للمكتب -->
     <div class="brand-header">
         <div class="gift-tag">تطوير وبرمجة بواسطة <span class="offgrid-badge">OFFGRID.vid</span></div>
         <div class="office-title">🏛️ المستشار أحمد راغب</div>
-        <div class="office-sub">منصة الاستشارات المالية، الضريبية، وحلول البرامج المحاسبية & ERP Systems</div>
+        <div class="office-sub">الاستشارات المالية والضريبية وحلول برامج ERP</div>
     </div>
 
-    <!-- كارت المدخلات -->
     <div class="glass-card">
         <div class="form-grid">
 
@@ -357,8 +403,8 @@
             </div>
 
             <div class="form-group">
-                <label for="topic">🎯 المشكلة المالية/الضريبية أو موضوع الحملة الحالية:</label>
-                <input type="text" id="topic" placeholder="مثال: الفاتورة الإلكترونية، استبعاد المصروفات، الربط مع الـ ERP، الفحص الضريبي...">
+                <label for="topic">🎯 المشكلة المالية/الضريبية أو موضوع الحملة:</label>
+                <input type="text" id="topic" placeholder="مثال: الفاتورة الإلكترونية، المصروفات، الربط مع ERP...">
             </div>
 
             <div class="form-row-2">
@@ -373,18 +419,19 @@
             </div>
 
             <div class="form-group">
-                <label for="defaultNotes">📌 ملاحظات الشروط والتنفيذ الثابتة للمكتب:</label>
-                <textarea id="defaultNotes" rows="2" placeholder="جميع الاستشارات تحت إشراف المستشار أحمد راغب | التواصل للحجز عبر الواتساب..." oninput="saveDefaultNotes()"></textarea>
+                <label for="defaultNotes">📌 ملاحظات الشروط والتنفيذ الثابتة:</label>
+                <textarea id="defaultNotes" rows="2" placeholder="جميع الاستشارات تحت إشراف المستشار أحمد راغب..." oninput="saveDefaultNotes()"></textarea>
             </div>
         </div>
 
-        <button id="generateBtn" class="btn-primary" onclick="generateContentStream()">توليد الأفكار والسكربتات الاحترافية ✨</button>
+        <div class="action-btns">
+            <button id="generateBtn" class="btn-primary" onclick="generateContentStream()">توليد الأفكار والسكربتات ✨</button>
+            <button id="stopBtn" class="btn-stop" onclick="stopGeneration()">🛑 إيقاف</button>
+        </div>
     </div>
 
-    <!-- كارت النتيجة والعداد المباشر -->
     <div class="glass-card" id="resultCard" style="display: none;">
         
-        <!-- عداد الأفكار الحي -->
         <div class="counter-box" id="counterBox">
             <div class="counter-item">
                 <div class="counter-value" id="countDone">0</div>
@@ -400,35 +447,33 @@
             </div>
         </div>
 
-        <div id="loadingStatus" style="text-align:center; padding: 10px; color: var(--gold-primary); font-weight: 600;">
-            ⏳ جاري التحليل المالي واستخراج الحلول الضريبية...
+        <div id="loadingStatus" style="text-align:center; padding: 8px; color: var(--gold-primary); font-weight: 600; font-size: 0.88rem;">
+            ⏳ جاري تحليل المشاكل الضريبية وتوليد السكربتات...
         </div>
         
-        <!-- حاوية التصدير والطباعة -->
         <div id="exportContainer">
             <div class="export-header">
                 <div>
-                    <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">📋 خطة الاستشارات والسكريبتات الإعلانية</div>
-                    <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 3px;" id="planSubTopic">الموضوع: عام</div>
+                    <div style="font-size: 1rem; font-weight: 800; color: #fff;">📋 خطة الاستشارات والسكريبتات الإعلانية</div>
+                    <div style="color: var(--text-secondary); font-size: 0.78rem; margin-top: 2px;" id="planSubTopic">الموضوع: عام</div>
                 </div>
                 <div style="text-align: left;">
-                    <div class="offgrid-badge" style="font-size: 1.1rem;">OFFGRID.vid</div>
-                    <div style="font-size: 0.7rem; color: #94a3b8;">المستشار أحمد راغب</div>
+                    <div class="offgrid-badge" style="font-size: 0.95rem;">OFFGRID.vid</div>
+                    <div style="font-size: 0.65rem; color: #94a3b8;">المستشار أحمد راغب</div>
                 </div>
             </div>
 
-            <!-- جدول العرض الرئيسي -->
             <table class="output-table">
                 <thead>
                     <tr>
                         <th class="select-col" style="width: 5%;">تحديد</th>
                         <th style="width: 12%;">النوع</th>
-                        <th style="width: 23%;">عنوان الفكرة والهدف</th>
-                        <th style="width: 60%;">السكربت الإعلاني المباشر (Hook ➔ CTA)</th>
+                        <th style="width: 23%;">عنوان الفكرة</th>
+                        <th style="width: 60%;">السكربت الإعلاني (Hook ➔ CTA)</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- سيتم إضافة الأفكار هنا فكرة بفكرة فور تجهيزها -->
+                    <!-- سيتم إضافة الأفكار هنا -->
                 </tbody>
             </table>
 
@@ -444,10 +489,10 @@
 </div>
 
 <script>
-// موديل جميناي دون تغيير كما طلب المستخدم
 const GEMINI_MODEL = "gemini-3.5-flash"; 
 let totalExpected = 0;
 let generatedCount = 0;
+let isStopping = false;
 
 window.onload = function() {
     const savedKey = localStorage.getItem('offgrid_tax_key');
@@ -469,7 +514,13 @@ function saveDefaultNotes() {
     localStorage.setItem('offgrid_tax_notes', document.getElementById('defaultNotes').value);
 }
 
-// دالة توليد الأفكار والتتابع الحي
+function stopGeneration() {
+    isStopping = true;
+    const stopBtn = document.getElementById('stopBtn');
+    stopBtn.innerText = "جاري الإيقاف...";
+    stopBtn.disabled = true;
+}
+
 async function generateContentStream() {
     const apiKey = document.getElementById('apiKey').value.trim();
     const topic = document.getElementById('topic').value.trim() || 'مشاكل الفاتورة الإلكترونية والإقرار الضريبي وتطبيق الـ ERP';
@@ -489,18 +540,25 @@ async function generateContentStream() {
     }
 
     generatedCount = 0;
+    isStopping = false;
     updateCounter();
 
     const btn = document.getElementById('generateBtn');
+    const stopBtn = document.getElementById('stopBtn');
     const resultCard = document.getElementById('resultCard');
     const loadingStatus = document.getElementById('loadingStatus');
     const tableBody = document.getElementById('tableBody');
     const downloadBtn = document.getElementById('downloadBtn');
 
     btn.disabled = true;
+    btn.style.display = 'none';
+    stopBtn.style.display = 'block';
+    stopBtn.disabled = false;
+    stopBtn.innerText = "🛑 إيقاف";
+
     resultCard.style.display = 'block';
     loadingStatus.style.display = 'block';
-    loadingStatus.innerHTML = `⏳ جاري تحليل المشاكل الضريبية وتوليد الأفكار والسكربتات...`;
+    loadingStatus.innerHTML = `⏳ جاري تحليل المشاكل الضريبية وتوليد الأفكار...`;
     downloadBtn.style.display = 'none';
     tableBody.innerHTML = '';
 
@@ -514,31 +572,36 @@ async function generateContentStream() {
         exportNotesBox.style.display = 'none';
     }
 
-    // بناء قائمة الطلبات الفردية لضمان خروج الأفكار فور تجهيزها (Stream / Step-by-Step)
     let tasks = [];
-    for (let i = 1; i <= reelsCount; i++) {
-        tasks.push({ type: 'Reel', index: i });
-    }
-    for (let i = 1; i <= postersCount; i++) {
-        tasks.push({ type: 'Poster', index: i });
-    }
+    for (let i = 1; i <= reelsCount; i++) tasks.push({ type: 'Reel', index: i });
+    for (let i = 1; i <= postersCount; i++) tasks.push({ type: 'Poster', index: i });
 
-    // تشغيل التوليد الفردي وتحديث الواجهة والعداد مع كل فكرة تجهز
     for (const task of tasks) {
+        if (isStopping) {
+            loadingStatus.innerHTML = `⚠️ تم إيقاف التوليد بواسطة المستخدم.`;
+            break;
+        }
+
         try {
             const item = await fetchSingleIdea(apiKey, topic, task.type, task.index);
-            if (item) {
+            if (item && !isStopping) {
                 appendIdeaToTable(item, generatedCount);
                 generatedCount++;
                 updateCounter();
             }
         } catch (e) {
-            console.error("خطأ في توليد العنصر:", e);
+            console.error("خطأ التوليد:", e);
         }
     }
 
-    loadingStatus.style.display = 'none';
+    if (!isStopping) {
+        loadingStatus.style.display = 'none';
+    }
+
     btn.disabled = false;
+    btn.style.display = 'block';
+    stopBtn.style.display = 'none';
+
     if (generatedCount > 0) {
         downloadBtn.style.display = 'block';
     }
@@ -550,7 +613,6 @@ function updateCounter() {
     document.getElementById('countPending').innerText = Math.max(0, totalExpected - generatedCount);
 }
 
-// دالة التواصل مع موديل Gemini لفكرة واحدة بالهيكل المطلوب
 async function fetchSingleIdea(apiKey, topic, type, index) {
     const promptText = `أنت مستشار تسويقي وخبير محتوى قانوني وضريبي لمكتب "المستشار أحمد راغب" (استشارات مالية، ضريبية، وحلول برامج ERP وميكنة الشركات).
 الموضوع المطلوب: ${topic}
@@ -595,7 +657,6 @@ async function fetchSingleIdea(apiKey, topic, type, index) {
     return null;
 }
 
-// دالة إضافة الفكرة الجاهزة للجدول فورا
 function appendIdeaToTable(item, idx) {
     const tableBody = document.getElementById('tableBody');
     const isReel = (item.type || '').toLowerCase().includes('reel');
@@ -608,7 +669,10 @@ function appendIdeaToTable(item, idx) {
             <input type="checkbox" class="checkbox-custom" checked onchange="toggleRowSelection(${idx}, this.checked)">
         </td>
         <td>
-            <span class="badge ${badgeClass}">${item.type}</span>
+            <div class="row-meta-mobile">
+                <span class="badge ${badgeClass}">${item.type}</span>
+                <span style="font-size: 0.75rem; color: #94a3b8;" class="select-col">تحديد للتصدير</span>
+            </div>
         </td>
         <td>
             <strong style="color: #ffffff; font-size:0.9rem;">${item.title || ''}</strong>
