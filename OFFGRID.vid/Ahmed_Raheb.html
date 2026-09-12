@@ -262,7 +262,6 @@
             z-index: 1;
         }
 
-        /* تنسيقات التجاوب الخاصة بالجدول على الموبايل */
         .output-table {
             width: 100%;
             border-collapse: collapse;
@@ -289,7 +288,6 @@
             line-height: 1.5;
         }
 
-        /* التكيف مع الموبايل لإلغاء السكرول العرضي تماماً */
         @media (max-width: 768px) {
             .output-table, .output-table tbody, .output-table tr, .output-table td {
                 display: block;
@@ -349,6 +347,67 @@
             word-break: break-word;
         }
 
+        /* تنسيق قسم الكابشن وتعديل AI */
+        .caption-section {
+            background: rgba(2, 132, 199, 0.08);
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .caption-title {
+            font-weight: 800;
+            color: #38bdf8;
+            font-size: 0.83rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-edit-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed var(--gold-primary);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .ai-edit-title {
+            font-weight: 700;
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .ai-edit-input-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-ai-submit {
+            background: var(--gold-gradient);
+            color: #060911;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.8rem;
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            cursor: pointer;
+        }
+
         .badge {
             padding: 4px 8px;
             border-radius: 6px;
@@ -379,7 +438,7 @@
             z-index: 1;
         }
 
-        .no-export {
+        .no-export, .no-print-ai {
             display: none !important;
         }
     </style>
@@ -469,7 +528,7 @@
                         <th class="select-col" style="width: 5%;">تحديد</th>
                         <th style="width: 12%;">النوع</th>
                         <th style="width: 23%;">عنوان الفكرة</th>
-                        <th style="width: 60%;">السكربت الإعلاني (Hook ➔ CTA)</th>
+                        <th style="width: 60%;">السكربت الإعلاني والكابشن</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -493,6 +552,7 @@ const GEMINI_MODEL = "gemini-3.5-flash";
 let totalExpected = 0;
 let generatedCount = 0;
 let isStopping = false;
+let itemsData = {};
 
 window.onload = function() {
     const savedKey = localStorage.getItem('offgrid_tax_key');
@@ -541,6 +601,7 @@ async function generateContentStream() {
 
     generatedCount = 0;
     isStopping = false;
+    itemsData = {};
     updateCounter();
 
     const btn = document.getElementById('generateBtn');
@@ -585,6 +646,7 @@ async function generateContentStream() {
         try {
             const item = await fetchSingleIdea(apiKey, topic, task.type, task.index);
             if (item && !isStopping) {
+                itemsData[generatedCount] = item;
                 appendIdeaToTable(item, generatedCount);
                 generatedCount++;
                 updateCounter();
@@ -613,15 +675,15 @@ function updateCounter() {
     document.getElementById('countPending').innerText = Math.max(0, totalExpected - generatedCount);
 }
 
-async function fetchSingleIdea(apiKey, topic, type, index) {
-    const promptText = `أنت مستشار تسويقي وخبير محتوى قانوني وضريبي لمكتب "المستشار أحمد راغب" (استشارات مالية، ضريبية، وحلول برامج ERP وميكنة الشركات).
+async function fetchSingleIdea(apiKey, topic, type, index, userInstruction = "") {
+    let promptText = `أنت مستشار تسويقي وخبير محتوى قانوني وضريبي لمكتب "المستشار أحمد راغب" (استشارات مالية، ضريبية، وحلول برامج ERP وميكنة الشركات).
 الموضوع المطلوب: ${topic}
 نوع المحتوى: ${type} (رقم ${index})
 
 تعليمات هامة وأسلوب التصوير:
 1. استايل جميع الفيديوهات ثابت ومفترض ضمناً (Talking Head للمستشار أحمد راغب خلف مكتب فخم مع معدات تصوير وإضاءة سينمائية احترافية) - لا تذكر استايل التصوير في الإجابة إطلاقاً.
 2. ابحث في المشاكل الحقيقية للضرائب المصرية (مثل: رفض الفواتير الورقية، عدم اعتماد المصروفات، مشاكل الفاتورة والإشعار الإلكتروني، تكويد GS1/EGS، وغرامات التأخير في الإقرارات، وتكامل الـ ERP).
-3. يجب أن يتكون السكربت حصراً من الـ 7 عناصر التالية وبنفس الأسماء:
+3. يجب أن يتكون السكربت حصراً من العناصر السبعة بالإضافة للكابشن:
    - Hook: خطاف جذاب ومباشر للمستثمر أو صاحب الشركة.
    - Why: السبب والخطورة العملية أو المالية.
    - Objection: الاعتراض أو الانطباع الخاطئ المعتاد لدى العميل.
@@ -629,8 +691,13 @@ async function fetchSingleIdea(apiKey, topic, type, index) {
    - Story: قصة سريعة أو حالة مكررة من السوق.
    - Framework: خطوات الحل والبرمجيات (ERP) المطلوبة للتنفيذ.
    - Call To Action: دعوة صريحة للتواصل مع مكتب المستشار أحمد راغب.
+   - Caption: كابشن منشورات السوشيال ميديا يشمل الملخص + دعوة للتواصل + هاشتاجات ضريبية ومحاسبية مناسبة.`;
 
-أرجع الناتج بصيغة JSON حصراً بدون أي أسطر markdown:
+    if (userInstruction) {
+        promptText += `\n\nتعديل مطلوب من المستخدم على السكربت أو الفكرة: "${userInstruction}". يرجى إعادة صياغة الناتج بالكامل بناءً على هذا التعديل.`;
+    }
+
+    promptText += `\n\nأرجع الناتج بصيغة JSON حصراً بدون أي أسطر markdown:
 {
   "type": "${type}",
   "title": "عنوان فكرة جذاب ومباشر",
@@ -640,7 +707,8 @@ async function fetchSingleIdea(apiKey, topic, type, index) {
   "benefit": "الفائدة المباشرة للحل",
   "story": "سيناريو قصة واقعية مختصرة",
   "framework": "الإطار العملي وحل الـ ERP والضرائب",
-  "call_to_action": "دعوة التواصل وتأمين المركز الضريبي"
+  "call_to_action": "دعوة التواصل وتأمين المركز الضريبي",
+  "caption": "الكابشن الاحترافي الجاهز للنشر مع الهاشتاجات"
 }`;
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
@@ -664,7 +732,12 @@ function appendIdeaToTable(item, idx) {
 
     const tr = document.createElement('tr');
     tr.id = `row-${idx}`;
-    tr.innerHTML = `
+    tr.innerHTML = getRowHTML(item, idx, badgeClass);
+    tableBody.appendChild(tr);
+}
+
+function getRowHTML(item, idx, badgeClass) {
+    return `
         <td class="select-col" style="text-align: center;">
             <input type="checkbox" class="checkbox-custom" checked onchange="toggleRowSelection(${idx}, this.checked)">
         </td>
@@ -675,9 +748,9 @@ function appendIdeaToTable(item, idx) {
             </div>
         </td>
         <td>
-            <strong style="color: #ffffff; font-size:0.9rem;">${item.title || ''}</strong>
+            <strong style="color: #ffffff; font-size:0.9rem;" id="title-${idx}">${item.title || ''}</strong>
         </td>
-        <td>
+        <td id="content-td-${idx}">
             <div class="script-part">
                 <div class="script-part-title">🎯 1. Hook (الخطاف):</div>
                 <div class="script-part-desc">${item.hook || ''}</div>
@@ -706,9 +779,77 @@ function appendIdeaToTable(item, idx) {
                 <div class="script-part-title" style="color: #38bdf8;">📞 7. Call To Action (دعوة للتواصل):</div>
                 <div class="script-part-desc">${item.call_to_action || ''}</div>
             </div>
+
+            <!-- قسم كابشن الميديا -->
+            <div class="caption-section">
+                <div class="caption-title">
+                    <span>📱 كابشن الميديا (Social Caption):</span>
+                    <button class="btn-copy no-print-ai" onclick="copyCaption(${idx})">نسخ الكابشن 📋</button>
+                </div>
+                <div class="script-part-desc" id="caption-text-${idx}">${item.caption || ''}</div>
+            </div>
+
+            <!-- قسم تعديل AI -->
+            <div class="ai-edit-box no-print-ai">
+                <div class="ai-edit-title">🤖 تعديل بالـ AI (أدخل تعديلك على هذا الفيديو):</div>
+                <div class="ai-edit-input-group">
+                    <input type="text" id="ai-prompt-${idx}" placeholder="مثال: اجعل الفكرة تركز أكتر على غرامات التأخير، أو غير الـ Hook...">
+                    <button class="btn-ai-submit" id="btn-ai-submit-${idx}" onclick="applyAiEdit(${idx})">تعديل ✨</button>
+                </div>
+            </div>
         </td>
     `;
-    tableBody.appendChild(tr);
+}
+
+async function applyAiEdit(idx) {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const promptInput = document.getElementById(`ai-prompt-${idx}`);
+    const userInstruction = promptInput.value.trim();
+
+    if (!apiKey) {
+        alert("يرجى التأكد من وجود API Key!");
+        return;
+    }
+
+    if (!userInstruction) {
+        alert("برجاء كتابة التعديل المطلوب أولاً!");
+        return;
+    }
+
+    const currentItem = itemsData[idx] || {};
+    const submitBtn = document.getElementById(`btn-ai-submit-${idx}`);
+    submitBtn.disabled = true;
+    submitBtn.innerText = "جاري التعديل...";
+
+    try {
+        const topic = document.getElementById('topic').value.trim() || 'مشاكل الفاتورة الإلكترونية';
+        const updatedItem = await fetchSingleIdea(apiKey, topic, currentItem.type || 'Reel', idx + 1, userInstruction);
+
+        if (updatedItem) {
+            itemsData[idx] = updatedItem;
+            const isReel = (updatedItem.type || '').toLowerCase().includes('reel');
+            const badgeClass = isReel ? 'badge-reel' : 'badge-poster';
+            const row = document.getElementById(`row-${idx}`);
+            row.innerHTML = getRowHTML(updatedItem, idx, badgeClass);
+        } else {
+            alert("حدث خطأ أثناء تعديل الفيديو، برجاء المحاولة مرة أخرى.");
+        }
+    } catch (e) {
+        console.error(e);
+        alert("تعذر التعديل بواسطة الذكاء الاصطناعي.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "تعديل ✨";
+    }
+}
+
+function copyCaption(idx) {
+    const captionText = document.getElementById(`caption-text-${idx}`).innerText;
+    navigator.clipboard.writeText(captionText).then(() => {
+        alert("تم نسخ الكابشن بنجاح! 📋");
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
 }
 
 function toggleRowSelection(index, isChecked) {
@@ -724,7 +865,10 @@ function toggleRowSelection(index, isChecked) {
 
 function downloadAsImage() {
     const element = document.getElementById('exportContainer');
-    element.classList.add('exporting');
+
+    // إخفاء عناصر التعديل بالـ AI والأزرار أثناء التصدير
+    const noPrintElements = element.querySelectorAll('.no-print-ai');
+    noPrintElements.forEach(el => el.style.display = 'none');
 
     html2canvas(element, {
         backgroundColor: '#080d1a',
@@ -738,13 +882,16 @@ function downloadAsImage() {
             clonedExport.style.height = 'auto';
         }
     }).then(canvas => {
-        element.classList.remove('exporting');
+        // إعادة إظهار عناصر التعديل بالـ AI بعد التصدير
+        noPrintElements.forEach(el => el.style.display = '');
+
         const link = document.createElement('a');
         link.download = `خطة_محتوى_المستشار_أحمد_راغب.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
-    }).catch(() => {
-        element.classList.remove('exporting');
+    }).catch((e) => {
+        console.error(e);
+        noPrintElements.forEach(el => el.style.display = '');
     });
 }
 </script>
