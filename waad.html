@@ -3,70 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة رئيسية</title>
+    <title>إلى حبيبتاً وعد ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', sans-serif;
         }
+
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
-        .container {
-            max-width: 600px;
+
+        /* القلوب المتساقطة في الخلفية */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: #1e293b;
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #38bdf8;
+
+        .falling-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            animation: fall linear infinite;
         }
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #94a3b8;
-            margin-bottom: 25px;
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
-        .btn {
-            display: inline-block;
-            background-color: #38bdf8;
-            color: #0f172a;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
+
+        /* شاشة البداية - القلب الكبير */
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        .intro-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .big-heart-btn {
+            font-size: 90px;
+            cursor: pointer;
+            animation: pulse 1.2s infinite alternate;
+            filter: drop-shadow(0 10px 20px rgba(230, 57, 70, 0.4));
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .big-heart-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .click-hint {
+            color: white;
+            font-size: 1.4rem;
+            margin-top: 20px;
             font-weight: bold;
-            transition: background 0.3s ease;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: bounce 1.5s infinite;
         }
-        .btn:hover {
-            background-color: #0284c7;
-            color: #ffffff;
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.18); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+            margin: 20px 0;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* أنيميشن ورسمة الحضن */
+        .illustration-box {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hugging-avatar {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* رسمة آرت توضيحية بسيطة بالحجم والأسماء */
+        .couple-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 8px 15px rgba(255, 117, 140, 0.4));
+        }
+
+        /* الأسماء فوق الرسمة */
+        .name-tag {
+            position: absolute;
+            background: #ff4757;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tag-mohamed {
+            top: 25%;
+            right: 15%;
+            background: #2ed573;
+        }
+
+        .tag-waad {
+            top: 35%;
+            left: 15%;
+            background: #ff4757;
+        }
+
+        /* العبارات والرسائل */
+        .main-title {
+            color: #d63031;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-family: 'Reem Kufi', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .love-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: inset 0 0 10px rgba(255, 182, 193, 0.3);
+            border: 1px dashed #ff758c;
+            margin-top: 15px;
+        }
+
+        .love-text {
+            color: #4a4a4a;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 500;
+            min-height: 100px;
+        }
+
+        .heart-beat-icon {
+            color: #ff4757;
+            display: inline-block;
+            animation: pulse 0.8s infinite alternate;
+        }
+
+        /* زر تشغيل الموسيقى/إعادة الأنيميشن */
+        .footer-note {
+            margin-top: 20px;
+            color: #ff6b81;
+            font-size: 0.9rem;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>مرحباً بك في الموقع</h1>
-        <p>تم رفع هذا المشروع بنجاح على GitHub Pages.</p>
-        <a href="#" class="btn">تواصل معنا</a>
+    <!-- القلوب المتساقطة -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <!-- شاشة الهدية والقلب الكبير -->
+    <div class="intro-screen" id="introScreen">
+        <div class="big-heart-btn" onclick="openSurprise()">💖</div>
+        <div class="click-hint">اضغطي هنا يا وعد عشان تفتحي هديتك 🎁</div>
     </div>
 
+    <!-- المحتوى الرئيسي -->
+    <div class="container" id="mainContainer">
+        
+        <!-- انيميشن الحضن والأسماء -->
+        <div class="illustration-box">
+            <!-- SVG لرسم تعبيري لطيف للحضن -->
+            <svg class="couple-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- خلفية قلب ورائي -->
+                <path d="M100 170 C20 100 20 40 60 30 C85 24 100 50 100 50 C100 50 115 24 140 30 C180 40 180 100 100 170 Z" fill="#ffb8c6" opacity="0.6"/>
+                <!-- شبيبة الولد والبنت حاضنين بعض (رسم مبسط أنيق) -->
+                <circle cx="85" cy="70" r="22" fill="#57606f"/> <!-- شعر محمد -->
+                <circle cx="85" cy="73" r="20" fill="#ffeaa7"/> <!-- وجه محمد -->
+                <path d="M65 130 C65 95 105 95 105 130 Z" fill="#2ed573"/> <!-- ملابس محمد -->
+                
+                <circle cx="115" cy="75" r="20" fill="#ff7675"/> <!-- شعر وعد -->
+                <circle cx="115" cy="77" r="18" fill="#ffeaa7"/> <!-- وجه وعد -->
+                <path d="M95 135 C95 100 135 100 135 135 Z" fill="#ff4757"/> <!-- ملابس وعد -->
+
+                <!-- أذرع الحضن -->
+                <path d="M75 110 Q 100 120 125 105" stroke="#ffeaa7" stroke-width="8" stroke-linecap="round"/>
+                <path d="M125 115 Q 100 125 75 110" stroke="#ffeaa7" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+
+            <!-- التاجات بالأسماء -->
+            <div class="name-tag tag-mohamed">محمد 👨🏻‍💼</div>
+            <div class="name-tag tag-waad">وعد 👩🏻‍🦰</div>
+        </div>
+
+        <!-- الجملة الرئيسية -->
+        <h1 class="main-title">
+            هفضل لحد آخر نفس فيا بحبك يا وعد <span class="heart-beat-icon">❤️</span>
+        </h1>
+
+        <!-- كارت كلام الحب -->
+        <div class="love-card">
+            <p class="love-text" id="typewriterText"></p>
+        </div>
+
+        <div class="footer-note">
+            كل ثانية وأنتي نوري ودنيتي كلها ✨
+        </div>
+    </div>
+
+    <!-- موسيقى هادئة تعمل عند الضغط (اختياري) -->
+    <audio id="loveAudio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        console.log("الموقع يعمل بنجاح!");
+        // انشاء قلوب تسقط في الخلفية
+        function createFallingHearts() {
+            const container = id('bgHearts');
+            const heartsCount = 25;
+            
+            for (let i = 0; i < heartsCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('falling-heart');
+                heart.innerHTML = ['❤️', '💖', '💕', '🌸', '✨'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        function id(elemId) {
+            return document.getElementById(elemId);
+        }
+
+        // كلام الحب المكتوب بالتفصيل
+        const message = "وجودك في حياتي هو أجمل نعمة ربنا رزقني بيها.. أنتي مش بس حبيبتي، أنتي أماني وضحكتي وكل حاجة حلوة في أيامي. يوعدني قلبي إنه يفضل يعشقك ويحافظ عليكِ وميشوفش غيرك في الدنيا دي كلها. بحبك وبموت فيكِ يا كل دنيتي ❤️✨";
+
+        let index = 0;
+        function typeWriter() {
+            if (index < message.length) {
+                id('typewriterText').innerHTML += message.charAt(index);
+                index++;
+                setTimeout(typeWriter, 50); // سرعة الكتابة
+            }
+        }
+
+        // عند فتح المفاجأة
+        function openSurprise() {
+            // إخفاء الشاشة الأولى
+            id('introScreen').classList.add('hide');
+            
+            // إظهار الكارت الرئيسي
+            setTimeout(() => {
+                id('mainContainer').classList.add('show');
+                typeWriter();
+            }, 500);
+
+            // تشغيل صوت روماني هادئ
+            const audio = id('loveAudio');
+            if (audio) {
+                audio.play().catch(e => console.log("Audio play blocked by browser"));
+            }
+        }
+
+        // تشغيل خلفية القلوب فور تحميل الصفحة
+        window.onload = createFallingHearts;
     </script>
 </body>
 </html>
