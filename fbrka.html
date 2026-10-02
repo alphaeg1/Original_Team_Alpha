@@ -3,373 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>فبركه | Talking Head Editing</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<title>OFFGRID.vid | Video Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--p:#4b1a8a;--p2:#7b3fe4;--k:#07050d;--k2:#110b1f;--w:#fff;--g:#b9b3c9}
+:root{--bk:#04060b;--bk2:#0a1020;--nv:#0b2a6f;--nv2:#143a9c;--lb:#5cc8ff;--lb2:#a6e3ff;--w:#fff;--g:#9fb0c8}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Cairo',sans-serif;background:var(--k);color:var(--w);overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Cairo',sans-serif;background:var(--bk);color:var(--w);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:.45;animation:float 14s ease-in-out infinite}
-.b1{width:480px;height:480px;background:var(--p);top:-120px;right:-100px}
-.b2{width:420px;height:420px;background:var(--p2);bottom:-120px;left:-100px;animation-delay:-6s}
-@keyframes float{50%{transform:translate(60px,50px) scale(1.15)}}
+.glow{position:fixed;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#5cc8ff33,transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);left:50%;top:30%}
+section,header,footer{position:relative;z-index:1}
 
 /* NAV */
-header{position:fixed;top:0;width:100%;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 5%;background:rgba(7,5,13,.75);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff14}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px}
-.logo .mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--p2),var(--p));display:grid;place-items:center;overflow:hidden;box-shadow:0 0 24px #7b3fe488}
-.logo .mark img{width:100%;height:100%;object-fit:cover}
-nav{display:flex;gap:6px}
-nav button{background:none;border:0;color:var(--g);font:600 15px Cairo;padding:8px 14px;border-radius:30px;cursor:pointer;transition:.3s}
-nav button:hover,nav button.on{background:var(--p);color:#fff}
-.call{background:#fff;color:var(--k);padding:9px 18px;border-radius:30px;font-weight:800;font-size:14px;direction:ltr}
-.menu{display:none;background:none;border:0;color:#fff;font-size:26px}
+header{position:fixed;top:0;width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 5%;background:#04060bcc;backdrop-filter:blur(16px);border-bottom:1px solid #5cc8ff22}
+.logo{display:flex;align-items:center;gap:10px;font:700 20px 'Space Grotesk';direction:ltr;letter-spacing:.5px}
+.mk{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--lb),var(--nv2));display:grid;place-items:center;overflow:hidden;font:700 14px 'Space Grotesk';color:#000;box-shadow:0 0 22px #5cc8ff66;flex:none}
+.mk img{width:100%;height:100%;object-fit:cover}
+.logo em{color:var(--lb);font-style:normal}
+nav{display:flex;gap:2px}
+nav a{color:var(--g);font:600 14px Cairo;padding:8px 13px;border-radius:30px;transition:.3s}
+nav a:hover,nav a.on{color:#000;background:var(--lb)}
+.cta{background:#fff;color:#000;padding:9px 18px;border-radius:30px;font-weight:800;font-size:14px}
+.burger{display:none;background:none;border:0;color:#fff;font-size:26px}
 
-/* PAGES */
-.page{display:none;min-height:100vh;padding:120px 5% 60px}
-.page.on{display:block;animation:in .7s ease}
-@keyframes in{from{opacity:0;transform:translateY(30px)}}
-.pagelogo{display:flex;align-items:center;gap:10px;color:var(--g);font-size:14px;margin-bottom:10px}
-.pagelogo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--p2),var(--p));display:inline-block}
-h1{font-size:clamp(38px,7vw,82px);font-weight:900;line-height:1.15}
-h2{font-size:clamp(28px,4vw,46px);font-weight:900;margin-bottom:10px}
-.grad{background:linear-gradient(90deg,#fff,#b48cff,#fff);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
-@keyframes sh{to{background-position:200%}}
-.sub{color:var(--g);max-width:620px;line-height:1.9;margin:18px 0 28px}
-.btn{display:inline-block;padding:14px 30px;border-radius:40px;font-weight:800;border:0;cursor:pointer;font-family:Cairo;font-size:16px;transition:.3s}
-.btn.pri{background:linear-gradient(135deg,var(--p2),var(--p));color:#fff;box-shadow:0 10px 40px #7b3fe455}
-.btn.pri:hover{transform:translateY(-4px)}
-.btn.out{border:1px solid #ffffff44;background:none;color:#fff;margin-right:10px}
-.btn.out:hover{background:#fff;color:var(--k)}
+/* COMMON */
+section{padding:110px 5% 70px;border-bottom:1px solid #ffffff0d}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--lb);font:600 12px 'Space Grotesk';letter-spacing:3px;direction:ltr;justify-content:flex-end;margin-bottom:14px}
+.eyebrow .mk{width:24px;height:24px;border-radius:7px;font-size:9px}
+h1{font-size:clamp(40px,7.5vw,90px);font-weight:900;line-height:1.1}
+h2{font-size:clamp(30px,4.5vw,54px);font-weight:900;margin-bottom:12px}
+.grad{background:linear-gradient(90deg,#fff,var(--lb),var(--nv2),#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:250%}}
+.sub{color:var(--g);max-width:640px;line-height:1.9;margin:16px 0 28px}
+.btn{display:inline-block;padding:14px 30px;border-radius:40px;font:800 16px Cairo;border:0;cursor:pointer;transition:.3s}
+.pri{background:linear-gradient(135deg,var(--lb),var(--nv2));color:#fff;box-shadow:0 12px 40px #143a9c88}
+.pri:hover{transform:translateY(-4px)}
+.out{border:1px solid #5cc8ff66;background:none;color:#fff;margin-right:10px}
+.out:hover{background:#fff;color:#000}
+.rv{opacity:0;transform:translateY(34px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.rv.show{opacity:1;transform:none}
 
 /* HERO */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.stage{position:relative;aspect-ratio:16/10;border-radius:26px;background:linear-gradient(160deg,var(--k2),#000);border:1px solid #ffffff1f;overflow:hidden;box-shadow:0 30px 80px #4b1a8a66}
-.wave{position:absolute;bottom:60px;left:8%;right:8%;height:90px;display:flex;align-items:center;gap:4px}
-.wave span{flex:1;background:linear-gradient(var(--p2),#fff);border-radius:4px;animation:wv 1.2s ease-in-out infinite}
-@keyframes wv{50%{height:12%}}
-.tl{position:absolute;bottom:14px;left:8%;right:8%;height:30px;display:flex;gap:4px}
-.tl i{border-radius:5px;background:var(--p);animation:pulse 3s infinite}
-.tl i:nth-child(2n){background:var(--p2);animation-delay:-1s}
-@keyframes pulse{50%{opacity:.4}}
-.play{position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:#fff;color:var(--p);display:grid;place-items:center;font-size:30px;animation:ring 2s infinite}
-@keyframes ring{0%{box-shadow:0 0 0 0 #fff8}100%{box-shadow:0 0 0 40px #fff0}}
-.tag{position:absolute;top:16px;right:16px;background:#ffffff18;padding:6px 14px;border-radius:20px;font-size:12px;backdrop-filter:blur(6px)}
-.rec{position:absolute;top:18px;left:18px;display:flex;gap:6px;align-items:center;font-size:12px}
-.rec b{width:10px;height:10px;border-radius:50%;background:#f33;animation:pulse 1s infinite}
+#home{min-height:100vh;display:flex;align-items:center;background:radial-gradient(ellipse at 80% 20%,#0b2a6f66,transparent 55%)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;width:100%}
+.stage{position:relative;aspect-ratio:16/10;border-radius:28px;background:linear-gradient(160deg,var(--bk2),#000);border:1px solid #5cc8ff33;overflow:hidden;box-shadow:0 30px 90px #143a9c66}
+.stage:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff05 3px 4px)}
+.rec{position:absolute;top:16px;left:16px;display:flex;gap:6px;align-items:center;font:600 12px 'Space Grotesk'}
+.rec b{width:9px;height:9px;border-radius:50%;background:#ff3b3b;animation:pl 1s infinite}
+.tag{position:absolute;top:14px;right:14px;background:#ffffff14;padding:5px 12px;border-radius:20px;font:600 11px 'Space Grotesk'}
+.play{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:#fff;color:var(--nv2);display:grid;place-items:center;font-size:28px;animation:ring 2.2s infinite}
+@keyframes ring{to{box-shadow:0 0 0 44px #5cc8ff00}}
+.play{box-shadow:0 0 0 0 #5cc8ff88}
+.wave{position:absolute;bottom:58px;left:8%;right:8%;height:80px;display:flex;align-items:center;gap:3px}
+.wave span{flex:1;background:linear-gradient(var(--lb),var(--nv2));border-radius:3px;animation:wv 1.2s ease-in-out infinite}
+@keyframes wv{50%{height:10%}}
+.tl{position:absolute;bottom:14px;left:8%;right:8%;height:28px;display:flex;gap:4px}
+.tl i{border-radius:5px;background:var(--nv2);animation:pl 3s infinite}
+.tl i:nth-child(2n){background:var(--lb);animation-delay:-1.2s}
+@keyframes pl{50%{opacity:.35}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;margin-top:60px;background:#5cc8ff22;border-radius:20px;overflow:hidden;text-align:center}
+.stats div{background:var(--bk2);padding:26px 10px}
+.stats b{display:block;font:700 42px 'Space Grotesk';color:var(--lb)}
+.stats span{color:var(--g);font-size:14px}
 
-/* CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
-.card{background:linear-gradient(160deg,#ffffff0d,#ffffff05);border:1px solid #ffffff1a;border-radius:22px;padding:28px;transition:.4s}
-.card:hover{transform:translateY(-8px);border-color:var(--p2);box-shadow:0 20px 50px #7b3fe433}
-.card .ic{font-size:34px;margin-bottom:12px}
-.card h3{margin-bottom:8px;font-size:20px}
-.card p{color:var(--g);line-height:1.8;font-size:15px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:50px;text-align:center}
-.stats b{display:block;font-size:44px;font-weight:900;color:#c9a8ff}
-.stats span{color:var(--g)}
-
-/* TOOLS */
-.tool{display:flex;align-items:center;gap:16px}
-.tlogo{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font:900 24px Cairo;flex:none;overflow:hidden}
-.tlogo img{width:100%;height:100%;object-fit:cover}
-.marq{overflow:hidden;margin:40px 0;direction:ltr}
-.marq div{display:flex;gap:50px;width:max-content;animation:mq 25s linear infinite;color:#ffffff55;font:900 34px Cairo}
+/* MARQUEE */
+.mq{overflow:hidden;direction:ltr;border-block:1px solid #5cc8ff22;padding:18px 0;background:var(--bk2);position:relative;z-index:1}
+.mq div{display:flex;gap:40px;width:max-content;animation:mq 30s linear infinite;font:700 26px 'Space Grotesk';color:#5cc8ff55;white-space:nowrap}
 @keyframes mq{to{transform:translateX(-50%)}}
 
+/* SERVICES */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.tabs button{padding:9px 22px;border-radius:30px;border:1px solid #5cc8ff44;background:none;color:#fff;font:600 14px Cairo;cursor:pointer;transition:.3s}
+.tabs button.on,.tabs button:hover{background:var(--lb);color:#000;border-color:var(--lb)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{position:relative;background:linear-gradient(160deg,#0b2a6f33,#ffffff05);border:1px solid #5cc8ff22;border-radius:22px;padding:26px;transition:.4s;overflow:hidden}
+.card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,#5cc8ff22);opacity:0;transition:.4s}
+.card:hover{transform:translateY(-8px);border-color:var(--lb);box-shadow:0 20px 50px #143a9c55}
+.card:hover:before{opacity:1}
+.card .ic{font-size:32px;margin-bottom:10px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p{color:var(--g);line-height:1.8;font-size:14.5px}
+.card .n{position:absolute;top:14px;left:18px;font:700 12px 'Space Grotesk';color:#5cc8ff55}
+
 /* WORKS */
-.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:30px}
-.vid{border-radius:22px;overflow:hidden;background:var(--k2);border:1px solid #ffffff1a}
-.vid .fr{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center;cursor:pointer}
-.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vid .fr:hover .pb{transform:scale(1.15)}
-.pb{width:64px;height:64px;border-radius:50%;background:var(--p2);display:grid;place-items:center;font-size:24px;transition:.3s;z-index:1}
-.vid .info{padding:16px 20px}
-.vid .info small{color:var(--g)}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.filters button{padding:8px 20px;border-radius:30px;border:1px solid #ffffff33;background:none;color:#fff;font:600 14px Cairo;cursor:pointer}
-.filters button.on{background:var(--p2);border-color:var(--p2)}
+.vid{border-radius:22px;overflow:hidden;background:var(--bk2);border:1px solid #5cc8ff22}
+.fr{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center;cursor:pointer;overflow:hidden}
+.fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.65;transition:.5s}
+.fr:hover img{transform:scale(1.07);opacity:.9}
+.fr iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
+.pb{width:62px;height:62px;border-radius:50%;background:var(--lb);color:#000;display:grid;place-items:center;font-size:22px;z-index:1;transition:.3s}
+.fr:hover .pb{transform:scale(1.15)}
+.vid .info{padding:14px 18px}
+.vid small{color:var(--lb)}
+
+/* TOOLS */
+.tool{display:flex;align-items:center;gap:14px}
+.tlogo{width:58px;height:58px;border-radius:15px;display:grid;place-items:center;font:700 22px 'Space Grotesk';flex:none;overflow:hidden}
+.tlogo img{width:100%;height:100%;object-fit:cover}
 
 /* PRICING */
 .price{text-align:center}
-.price .n{font-size:46px;font-weight:900;margin:12px 0}
-.price ul{list-style:none;color:var(--g);line-height:2.2;margin-bottom:20px}
-.price.hot{background:linear-gradient(160deg,var(--p),#1b0a3a);border-color:var(--p2)}
-.price.hot ul{color:#eadfff}
+.price .pr{font:700 44px 'Space Grotesk';margin:10px 0;color:var(--lb)}
+.price ul{list-style:none;color:var(--g);line-height:2.2;margin-bottom:18px}
+.price.hot{background:linear-gradient(160deg,var(--nv2),var(--bk));border-color:var(--lb)}
+.price.hot ul{color:#d6efff}
 
-/* PROCESS / FAQ / FORM */
-.step{display:flex;gap:18px;align-items:flex-start;margin:22px 0}
-.step b{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));display:grid;place-items:center;flex:none;font-size:18px}
-.faq details{background:#ffffff0a;border:1px solid #ffffff1a;border-radius:16px;padding:18px 22px;margin:12px 0;cursor:pointer}
-.faq summary{font-weight:700}
-.faq p{color:var(--g);margin-top:10px;line-height:1.8}
-.form{display:grid;gap:14px;max-width:560px}
-input,select,textarea{width:100%;padding:15px 18px;border-radius:14px;border:1px solid #ffffff2a;background:#ffffff0a;color:#fff;font:16px Cairo}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--p2)}
+/* PROCESS / FAQ / CONTACT */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.step b{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--lb),var(--nv2));font:700 18px 'Space Grotesk';margin-bottom:12px}
+details{background:#ffffff08;border:1px solid #5cc8ff22;border-radius:16px;padding:18px 22px;margin:12px 0;cursor:pointer;max-width:800px}
+summary{font-weight:700}
+details p{color:var(--g);margin-top:10px;line-height:1.8}
+.ct{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.cb{display:grid;gap:12px}
+.cb a{display:flex;align-items:center;gap:14px;padding:18px 22px;border-radius:18px;background:linear-gradient(160deg,#0b2a6f44,#ffffff05);border:1px solid #5cc8ff33;font-weight:800;transition:.3s;direction:ltr;justify-content:flex-end}
+.cb a:hover{border-color:var(--lb);transform:translateX(-6px)}
+.form{display:grid;gap:12px}
+input,select,textarea{width:100%;padding:15px 18px;border-radius:14px;border:1px solid #5cc8ff33;background:#ffffff08;color:#fff;font:16px Cairo}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--lb)}
 select option{color:#000}
-.cbox{display:grid;gap:12px;margin:20px 0;color:var(--g)}
-.cbox a{direction:ltr;text-align:right;font-weight:700;color:#fff}
-footer{text-align:center;padding:40px 5%;color:var(--g);border-top:1px solid #ffffff14;font-size:14px}
-
-.rv{opacity:0;transform:translateY(30px);transition:1s}
-.rv.show{opacity:1;transform:none}
+footer{text-align:center;padding:36px 5%;color:var(--g);font-size:14px}
 
 @media(max-width:860px){
- .hero{grid-template-columns:1fr}
- .menu{display:block}
- nav{position:fixed;top:68px;right:0;left:0;background:var(--k);flex-direction:column;padding:16px;display:none;border-bottom:1px solid #ffffff1a}
+ .hero,.ct{grid-template-columns:1fr}
+ .burger{display:block}
+ nav{position:fixed;top:62px;right:0;left:0;background:var(--bk);flex-direction:column;padding:14px;display:none;border-bottom:1px solid #5cc8ff22}
  nav.open{display:flex}
- .call{display:none}
+ .cta{display:none}
 }
 </style>
 </head>
 <body>
+<div class="glow" id="glow"></div>
 
-<div class="bg"><div class="blob b1"></div><div class="blob b2"></div></div>
-
-<!-- ===== HEADER (اللوجو + الأرقام) ===== -->
 <header>
-  <a class="logo" href="#" onclick="go('home');return false">
-    <span class="mark" id="logoMark">ف</span>
-    <span id="brandName">فبركه</span>
-  </a>
+  <a class="logo" href="#home"><span class="mk logoMk">OG</span>OFFGRID<em>.vid</em></a>
   <nav id="nav">
-    <button data-p="home" class="on">الرئيسية</button>
-    <button data-p="services">الخدمات</button>
-    <button data-p="works">أعمالي</button>
-    <button data-p="tools">البرامج</button>
-    <button data-p="pricing">الأسعار</button>
-    <button data-p="contact">تواصل</button>
+    <a href="#home">الرئيسية</a><a href="#services">الخدمات</a><a href="#works">الأعمال</a>
+    <a href="#tools">البرامج</a><a href="#pricing">الأسعار</a><a href="#contact">تواصل</a>
   </nav>
-  <a class="call" id="callTop" href="#">+20 100 000 0000</a>
-  <button class="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <a class="cta" id="callTop" href="#">01150605708</a>
+  <button class="burger" onclick="nav.classList.toggle('open')">☰</button>
 </header>
 
-<!-- ===== HOME ===== -->
-<section class="page on" id="home">
+<!-- HOME -->
+<section id="home">
+ <div style="width:100%">
   <div class="hero">
-    <div>
-      <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-      <h1>مونتاج <span class="grad">Talking Head</span><br>بلمسة فخمة</h1>
-      <p class="sub">بنحوّل كلامك قدام الكاميرا لمحتوى بيشد المشاهد من أول ثانية: قطّات مضبوطة، ساوند نضيف، سبتايتل متحرك، وإيقاع بيخلّي الناس تكمّل لآخر الفيديو.</p>
-      <button class="btn pri" onclick="go('contact')">ابدأ مشروعك</button>
-      <button class="btn out" onclick="go('works')">شوف أعمالي</button>
-    </div>
-    <div class="stage">
-      <span class="rec"><b></b> REC</span><span class="tag">4K • 60fps</span>
-      <div class="play">▶</div>
-      <div class="wave" id="wave"></div>
-      <div class="tl"><i style="flex:3"></i><i style="flex:1"></i><i style="flex:2"></i><i style="flex:4"></i><i style="flex:1"></i><i style="flex:2"></i></div>
-    </div>
+   <div>
+    <div class="eyebrow">01 — HOME</div>
+    <h1>نقطع <span class="grad">الضجيج</span><br>ونسيب الأثر.</h1>
+    <p class="sub">مونتاج Talking Head، سكيت، سيارات، إعلانات شارع، تصوير، وكمان كروت NFC ومواقع. كل اللي صانع المحتوى محتاجه من مكان واحد.</p>
+    <a class="btn pri" href="#contact">ابدأ مشروعك</a><a class="btn out" href="#works">شوف أعمالي</a>
+   </div>
+   <div class="stage">
+    <span class="rec"><b></b> REC</span><span class="tag">4K • 60fps</span>
+    <div class="play">▶</div><div class="wave" id="wave"></div>
+    <div class="tl"><i style="flex:3"></i><i style="flex:1"></i><i style="flex:2"></i><i style="flex:4"></i><i style="flex:1"></i><i style="flex:2"></i></div>
+   </div>
   </div>
   <div class="stats rv">
-    <div><b data-n="350">0</b><span>فيديو اتسلّم</span></div>
-    <div><b data-n="120">0</b><span>عميل سعيد</span></div>
-    <div><b data-n="48">0</b><span>ساعة تسليم</span></div>
-    <div><b data-n="5">0</b><span>سنين خبرة</span></div>
+   <div><b data-n="350">0</b><span>فيديو اتسلّم</span></div>
+   <div><b data-n="120">0</b><span>عميل</span></div>
+   <div><b data-n="48">0</b><span>ساعة تسليم</span></div>
+   <div><b data-n="5">0</b><span>سنين خبرة</span></div>
   </div>
+ </div>
+</section>
+<div class="mq"><div id="mq1"></div></div>
+
+<!-- SERVICES -->
+<section id="services">
+ <div class="eyebrow">02 — SERVICES</div>
+ <h2>الخدمات</h2><p class="sub">اختار القسم اللي يهمك.</p>
+ <div class="tabs" id="tabs"></div>
+ <div class="grid" id="sgrid"></div>
+
+ <h2 style="margin-top:80px">طريقة الشغل</h2>
+ <div class="steps">
+  <div class="step rv"><b>1</b><h3>الاستلام</h3><p class="sub" style="margin:4px 0">بتبعت الخام والمراجع.</p></div>
+  <div class="step rv"><b>2</b><h3>النسخة الأولى</h3><p class="sub" style="margin:4px 0">نسخة للمراجعة.</p></div>
+  <div class="step rv"><b>3</b><h3>التعديلات</h3><p class="sub" style="margin:4px 0">لحد ما تبقى مظبوطة.</p></div>
+  <div class="step rv"><b>4</b><h3>التسليم</h3><p class="sub" style="margin:4px 0">أعلى جودة وبكل المقاسات.</p></div>
+ </div>
 </section>
 
-<!-- ===== SERVICES ===== -->
-<section class="page" id="services">
-  <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-  <h2>خدماتي</h2><p class="sub">كل اللي محتاجه كصانع محتوى في مكان واحد.</p>
-  <div class="grid">
-    <div class="card rv"><div class="ic">🎙️</div><h3>Talking Head</h3><p>قص الهفوات، Jump Cuts، زوم ديناميكي، وإيقاع محترف للفيديوهات الحوارية.</p></div>
-    <div class="card rv"><div class="ic">📱</div><h3>Reels / Shorts / TikTok</h3><p>مونتاج رأسي سريع بهوك قوي في أول 3 ثواني.</p></div>
-    <div class="card rv"><div class="ic">▶️</div><h3>فيديوهات يوتيوب</h3><p>مونتاج طويل، B-Roll، ترانزيشنز ناعمة، وبنية قصة تحافظ على الـ Retention.</p></div>
-    <div class="card rv"><div class="ic">💬</div><h3>سبتايتل متحرك</h3><p>ترجمة وكابشن عربي وإنجليزي بأنيميشن كلمة بكلمة.</p></div>
-    <div class="card rv"><div class="ic">🎨</div><h3>Color Grading</h3><p>تصحيح وتلوين سينمائي بهوية لونية ثابتة لقناتك.</p></div>
-    <div class="card rv"><div class="ic">✨</div><h3>Motion Graphics</h3><p>لوجو أنيميشن، Lower Thirds، إنترو وأوتــرو، وعناصر رسومية.</p></div>
-    <div class="card rv"><div class="ic">🔊</div><h3>Sound Design</h3><p>تنظيف الصوت، مكس، موسيقى وإيفكتس بتدّي الفيديو حياة.</p></div>
-    <div class="card rv"><div class="ic">🖼️</div><h3>Thumbnails</h3><p>صور مصغرة بتزوّد نسبة النقر على فيديوهاتك.</p></div>
-    <div class="card rv"><div class="ic">📢</div><h3>إعلانات وـ VSL</h3><p>فيديوهات إعلانية وبيع مباشر مصممة للتحويل.</p></div>
-  </div>
-
-  <h2 style="margin-top:70px">طريقة الشغل</h2>
-  <div class="step rv"><b>1</b><div><h3>الاستلام</h3><p class="sub" style="margin:4px 0">بتبعت الخام ومعاه ملاحظاتك ومراجع تعجبك.</p></div></div>
-  <div class="step rv"><b>2</b><div><h3>النسخة الأولى</h3><p class="sub" style="margin:4px 0">بتوصلك نسخة أولية للمراجعة.</p></div></div>
-  <div class="step rv"><b>3</b><div><h3>التعديلات</h3><p class="sub" style="margin:4px 0">بنعدّل لحد ما تقول "ده بالظبط".</p></div></div>
-  <div class="step rv"><b>4</b><div><h3>التسليم</h3><p class="sub" style="margin:4px 0">ملف نهائي بأعلى جودة وبكل الأحجام.</p></div></div>
-
-  <h2 style="margin-top:60px">أسئلة شائعة</h2>
-  <div class="faq">
-    <details><summary>مدة التسليم؟</summary><p>غالبًا من 24 إلى 72 ساعة حسب طول الفيديو.</p></details>
-    <details><summary>كام تعديل مسموح؟</summary><p>حسب الباقة، وفي الباقات الأعلى التعديلات مفتوحة.</p></details>
-    <details><summary>أبعتلك الخام إزاي؟</summary><p>Google Drive أو WeTransfer أو أي لينك تحميل.</p></details>
-  </div>
+<!-- WORKS -->
+<section id="works">
+ <div class="eyebrow">03 — WORKS</div>
+ <h2>معرض الأعمال</h2>
+ <p class="sub">اضغط على الفيديو يشتغل جوه الموقع.</p>
+ <div class="tabs" id="vtabs"></div>
+ <div class="grid" id="vgrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
 </section>
 
-<!-- ===== WORKS ===== -->
-<section class="page" id="works">
-  <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-  <h2>معرض الأعمال</h2>
-  <p class="sub">اضغط على الفيديو يتشغّل جوّه الموقع بدون ما يفتح يوتيوب.</p>
-  <div class="filters" id="filters"></div>
-  <div class="vgrid" id="vgrid"></div>
+<!-- TOOLS -->
+<section id="tools">
+ <div class="eyebrow">04 — TOOLS</div>
+ <h2>البرامج</h2><p class="sub">لوجو كل برنامج يتغير من القائمة في الكود.</p>
+ <div class="grid" id="tgrid"></div>
+</section>
+<div class="mq"><div id="mq2"></div></div>
+
+<!-- PRICING -->
+<section id="pricing">
+ <div class="eyebrow">05 — PRICING</div>
+ <h2>الباقات</h2><p class="sub">أسعار تجريبية، عدّلها من الكود.</p>
+ <div class="grid">
+  <div class="card price rv"><h3>Starter</h3><div class="pr">500 ج</div><ul><li>فيديو حتى 5 دقايق</li><li>قص وتنضيف صوت</li><li>سبتايتل بسيط</li><li>تعديلين</li></ul><a class="btn out" style="margin:0" href="#contact">اطلب</a></div>
+  <div class="card price hot rv"><h3>Pro ⭐</h3><div class="pr">1200 ج</div><ul><li>فيديو حتى 15 دقيقة</li><li>سبتايتل متحرك</li><li>Motion + B-Roll</li><li>Color Grading</li><li>4 تعديلات</li></ul><a class="btn pri" href="#contact">اطلب</a></div>
+  <div class="card price rv"><h3>Premium</h3><div class="pr">اتفاق</div><ul><li>باقة شهرية</li><li>تصوير + مونتاج</li><li>موقع / NFC</li><li>تعديلات مفتوحة</li></ul><a class="btn out" style="margin:0" href="#contact">كلمني</a></div>
+ </div>
+ <h2 style="margin-top:70px">أسئلة شائعة</h2>
+ <details><summary>مدة التسليم؟</summary><p>من 24 إلى 72 ساعة حسب طول الفيديو.</p></details>
+ <details><summary>بتصوّر في الشارع والسكيت؟</summary><p>أيوه، تصوير ومونتاج لمحتوى السكيت والسيارات وإعلانات الشارع.</p></details>
+ <details><summary>أبعتلك الخام إزاي؟</summary><p>Google Drive أو WeTransfer أو أي لينك.</p></details>
 </section>
 
-<!-- ===== TOOLS ===== -->
-<section class="page" id="tools">
-  <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-  <h2>البرامج اللي بشتغل بيها</h2>
-  <p class="sub">كل برنامج بلوجو خاص بيه. حط صورة اللوجو الرسمي في خانة <b>logo</b> بالأسفل.</p>
-  <div class="marq"><div id="marq"></div></div>
-  <div class="grid" id="toolgrid"></div>
-</section>
-
-<!-- ===== PRICING ===== -->
-<section class="page" id="pricing">
-  <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-  <h2>الباقات</h2><p class="sub">أسعار تجريبية، عدّلها زي ما تحب.</p>
-  <div class="grid">
-    <div class="card price rv"><h3>Starter</h3><div class="n">500 ج</div><ul><li>فيديو حتى 5 دقايق</li><li>قص وتنضيف صوت</li><li>سبتايتل بسيط</li><li>تعديلين</li></ul><button class="btn out" style="margin:0" onclick="go('contact')">اطلب</button></div>
-    <div class="card price hot rv"><h3>Pro ⭐</h3><div class="n">1200 ج</div><ul><li>فيديو حتى 15 دقيقة</li><li>سبتايتل متحرك</li><li>Motion + B-Roll</li><li>Color Grading</li><li>4 تعديلات</li></ul><button class="btn pri" onclick="go('contact')">اطلب</button></div>
-    <div class="card price rv"><h3>Premium</h3><div class="n">اتفاق</div><ul><li>باقة شهرية</li><li>هوية بصرية كاملة</li><li>Thumbnails</li><li>تعديلات مفتوحة</li></ul><button class="btn out" style="margin:0" onclick="go('contact')">كلمني</button></div>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section class="page" id="contact">
-  <div class="pagelogo"><i></i><span class="bn">فبركه</span></div>
-  <h2>خلّينا نشتغل سوا</h2>
-  <div class="cbox">
-    <a id="callLink" href="#">📞 +20 100 000 0000</a>
-    <a id="waLink" href="#" target="_blank">💬 واتساب</a>
-    <a id="mailLink" href="#">✉️ hello@fabraka.com</a>
+<!-- CONTACT -->
+<section id="contact">
+ <div class="eyebrow">06 — CONTACT</div>
+ <h2>خلّينا نشتغل سوا</h2>
+ <div class="ct">
+  <div class="cb">
+   <a id="cCall" href="#">📞 اتصال — 01150605708</a>
+   <a id="cWa" href="#" target="_blank">💬 واتساب — 01150605708</a>
+   <a id="cSms" href="#">✉️ رسالة SMS — 01150605708</a>
   </div>
   <div class="form">
-    <input id="fn" placeholder="اسمك">
-    <select id="fs"><option>Talking Head</option><option>Reels / Shorts</option><option>يوتيوب</option><option>إعلان</option><option>أخرى</option></select>
-    <textarea id="fm" rows="4" placeholder="احكيلي عن مشروعك"></textarea>
-    <button class="btn pri" onclick="sendWA()">ابعت على واتساب</button>
+   <input id="fn" placeholder="اسمك">
+   <select id="fs"></select>
+   <textarea id="fm" rows="4" placeholder="احكيلي عن مشروعك"></textarea>
+   <button class="btn pri" onclick="sendWA()">ابعت على واتساب</button>
   </div>
+ </div>
 </section>
-
-<footer><span class="bn">فبركه</span> © 2026 — كل الحقوق محفوظة</footer>
+<footer><span class="mk logoMk" style="display:inline-grid;vertical-align:middle;margin-left:8px;width:24px;height:24px;font-size:9px">OG</span>OFFGRID.vid © 2026</footer>
 
 <script>
-/* ============ إعدادات ثابتة: عدّل من هنا بس ============ */
-const CFG = {
-  brand: "فبركه",
-  logoImg: "",                    // ضع رابط صورة اللوجو بين الأقواس (اختياري)
-  phone: "+201000000000",
-  phoneShow: "+20 100 000 0000",
-  whatsapp: "201000000000",      // بدون + وبدون مسافات
-  email: "hello@fabraka.com"
+/* ===== عدّل من هنا ===== */
+const CFG={
+  logoImg:"",                 // رابط صورة اللوجو (اختياري)
+  phone:"01150605708",
+  intl:"201150605708"
 };
-
-/* فيديوهات يوتيوب (Unlisted): حط الـ ID بس
-   الـ ID هو الجزء بعد v= في اللينك. */
-const VIDEOS = [
-  {id:"dQw4w9WgXcQ", title:"فيديو Talking Head - مثال 1", cat:"Talking Head"},
-  {id:"dQw4w9WgXcQ", title:"ريلز تعليمي - مثال 2",       cat:"Reels"},
-  {id:"dQw4w9WgXcQ", title:"فيديو يوتيوب - مثال 3",      cat:"YouTube"},
-  {id:"dQw4w9WgXcQ", title:"إعلان - مثال 4",             cat:"Ads"}
+/* الفيديوهات: حط الـ ID (اللي بعد v=) — لازم Unlisted مش Private */
+const VIDEOS=[
+ {id:"dQw4w9WgXcQ",t:"Talking Head — مثال",c:"Talking Head"},
+ {id:"dQw4w9WgXcQ",t:"سكيت — مثال",c:"Skate"},
+ {id:"dQw4w9WgXcQ",t:"Dodge — مثال",c:"Dodge"},
+ {id:"dQw4w9WgXcQ",t:"إعلان شارع — مثال",c:"Street Ads"}
+];
+/* الخدمات: g = القسم */
+const SERV=[
+ ["🎙️","Talking Head","قص الهفوات، Jump Cuts، زوم ديناميكي وإيقاع محترف.","فيديو"],
+ ["🛹","مونتاج سكيت","فيديوهات سكيت بإيقاع سريع، سلو موشن وتأثيرات على الموسيقى.","فيديو"],
+ ["🚗","مونتاج Dodge","محتوى سيارات سينمائي بتلوين وصوت محرك قوي.","فيديو"],
+ ["🏙️","إعلانات الشارع","إعلانات وريبورتاجات مصورة في الشارع بروح حقيقية.","فيديو"],
+ ["📱","Reels / Shorts / TikTok","مونتاج رأسي بهوك قوي في أول 3 ثواني.","فيديو"],
+ ["▶️","فيديوهات يوتيوب","مونتاج طويل، B-Roll وبنية قصة تحافظ على الـ Retention.","فيديو"],
+ ["💬","سبتايتل متحرك","كابشن عربي وإنجليزي بأنيميشن كلمة بكلمة.","فيديو"],
+ ["✨","Motion Graphics","لوجو أنيميشن، Lower Thirds، إنترو وأوترو.","فيديو"],
+ ["🎨","Color Grading","تلوين سينمائي بهوية ثابتة.","فيديو"],
+ ["🔊","Sound Design","تنضيف ومكس وإيفكتس.","فيديو"],
+ ["🎥","تصوير ومونتاج","تصوير كامل بالمعدات ثم مونتاج وتسليم نهائي.","تصوير"],
+ ["📸","تصوير فوتوغرافي","صور احترافية للبراندات والأشخاص والمنتجات.","تصوير"],
+ ["🖼️","Thumbnails","صور مصغرة بتزوّد نسبة النقر.","تصوير"],
+ ["📇","كارت NFC","كارت ذكي بلمسة واحدة يفتح بروفايلك وروابطك.","ديجيتال"],
+ ["🌐","تصميم موقع ويب","مواقع كاملة بتصميم فخم وسريعة.","ديجيتال"],
+ ["🚀","Landing Page","صفحة هبوط مصممة للتحويل والمبيعات.","ديجيتال"],
+ ["🗂️","موقع بورتفوليو","موقع يعرض أعمالك بشكل راقي.","ديجيتال"]
+];
+const TOOLS=[
+ {n:"Premiere Pro",s:"Pr",c:"#9999FF",bg:"#00005b",d:"المونتاج الأساسي",logo:""},
+ {n:"After Effects",s:"Ae",c:"#D291FF",bg:"#00005b",d:"موشن جرافيك",logo:""},
+ {n:"DaVinci Resolve",s:"Dv",c:"#fff",bg:"#222",d:"تلوين سينمائي",logo:""},
+ {n:"CapCut",s:"Cc",c:"#fff",bg:"#000",d:"ريلز سريعة",logo:""},
+ {n:"Photoshop",s:"Ps",c:"#31A8FF",bg:"#001e36",d:"Thumbnails",logo:""},
+ {n:"Lightroom",s:"Lr",c:"#74B5FF",bg:"#001e36",d:"تعديل الصور",logo:""},
+ {n:"Audition",s:"Au",c:"#00E4BB",bg:"#00005b",d:"تنضيف الصوت",logo:""},
+ {n:"Illustrator",s:"Ai",c:"#FF9A00",bg:"#330000",d:"لوجوهات وعناصر",logo:""}
 ];
 
-/* البرامج: logo = رابط صورة اللوجو الرسمي (اختياري) */
-const TOOLS = [
-  {n:"Adobe Premiere Pro", s:"Pr", c:"#9999FF", bg:"#00005b", d:"المونتاج الأساسي", logo:""},
-  {n:"After Effects",      s:"Ae", c:"#D291FF", bg:"#00005b", d:"موشن جرافيك وتأثيرات", logo:""},
-  {n:"DaVinci Resolve",    s:"Dv", c:"#fff",    bg:"#222",    d:"تلوين سينمائي", logo:""},
-  {n:"Final Cut Pro",      s:"Fc", c:"#fff",    bg:"#333",    d:"مونتاج على ماك", logo:""},
-  {n:"CapCut",             s:"Cc", c:"#fff",    bg:"#000",    d:"ريلز وتيك توك سريع", logo:""},
-  {n:"Photoshop",          s:"Ps", c:"#31A8FF", bg:"#001e36", d:"Thumbnails", logo:""},
-  {n:"Audition",           s:"Au", c:"#00E4BB", bg:"#00005b", d:"تنضيف الصوت", logo:""},
-  {n:"Illustrator",        s:"Ai", c:"#FF9A00", bg:"#330000", d:"لوجوهات وعناصر", logo:""}
-];
-
-/* ============ كود الموقع ============ */
-const $ = s => document.querySelector(s);
-
-// الاسم واللوجو
-document.querySelectorAll('.bn').forEach(e=>e.textContent=CFG.brand);
-$('#brandName').textContent = CFG.brand;
-if(CFG.logoImg){ $('#logoMark').innerHTML = `<img src="${CFG.logoImg}" alt="logo">`; }
-else { $('#logoMark').textContent = CFG.brand.charAt(0); }
-document.querySelectorAll('.pagelogo i').forEach(i=>{
-  if(CFG.logoImg){ i.style.background=`url(${CFG.logoImg}) center/cover`; }
+/* ===== الكود ===== */
+const $=s=>document.querySelector(s),nav=$('#nav');
+// لوجو
+document.querySelectorAll('.logoMk').forEach(m=>{if(CFG.logoImg)m.innerHTML=`<img src="${CFG.logoImg}" alt="logo">`});
+// لوجو في أعلى كل قسم
+document.querySelectorAll('.eyebrow').forEach(e=>{
+  const m=document.createElement('span');m.className='mk';
+  m.innerHTML=CFG.logoImg?`<img src="${CFG.logoImg}">`:'OG';
+  e.appendChild(m);
+  const t=document.createElement('span');t.textContent='OFFGRID.vid';e.appendChild(t);
 });
-
-// الأرقام
-['callTop','callLink'].forEach(id=>{
-  const a=document.getElementById(id);
-  a.href='tel:'+CFG.phone;
-  if(id==='callTop') a.textContent=CFG.phoneShow; else a.textContent='📞 '+CFG.phoneShow;
-});
-$('#waLink').href='https://wa.me/'+CFG.whatsapp;
-$('#mailLink').href='mailto:'+CFG.email;
-$('#mailLink').textContent='✉️ '+CFG.email;
-
-// صفحات
-function go(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===id));
-  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===id));
-  $('#nav').classList.remove('open');
-  window.scrollTo({top:0,behavior:'smooth'});
-  history.replaceState(null,'','#'+id);
-  setTimeout(reveal,100);
-}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));
-if(location.hash && document.querySelector(location.hash)) go(location.hash.slice(1));
-
-// موجة صوت
-const w=$('#wave');
-for(let i=0;i<46;i++){const s=document.createElement('span');s.style.height=(20+Math.random()*80)+'%';s.style.animationDelay=(-Math.random()*1.2)+'s';w.appendChild(s)}
-
-// عدّاد أرقام
+// أرقام
+$('#callTop').href='tel:'+CFG.phone;
+$('#cCall').href='tel:'+CFG.phone;
+$('#cWa').href='https://wa.me/'+CFG.intl;
+$('#cSms').href='sms:+'+CFG.intl;
+// موجة
+for(let i=0;i<46;i++){const s=document.createElement('span');s.style.height=(15+Math.random()*85)+'%';s.style.animationDelay=(-Math.random()*1.2)+'s';$('#wave').appendChild(s)}
+// عدّاد
 document.querySelectorAll('[data-n]').forEach(el=>{
   const t=+el.dataset.n;let c=0;
-  const step=()=>{c+=Math.ceil(t/60);if(c>=t){el.textContent=t+'+'}else{el.textContent=c;requestAnimationFrame(step)}};
-  step();
+  (function st(){c+=Math.ceil(t/60);if(c>=t)el.textContent=t+'+';else{el.textContent=c;requestAnimationFrame(st)}})();
 });
+// شريط متحرك
+const m1=['TALKING HEAD','SKATE','DODGE','STREET ADS','PHOTO','NFC','WEB','LANDING PAGE','PORTFOLIO'].join(' ✦ ')+' ✦ ';
+$('#mq1').innerHTML=`<span>${m1}</span><span>${m1}</span>`;
+const m2=TOOLS.map(t=>t.n.toUpperCase()).join(' ✦ ')+' ✦ ';
+$('#mq2').innerHTML=`<span>${m2}</span><span>${m2}</span>`;
 
-// معرض الفيديوهات (يوتيوب داخل الموقع)
-const cats=['الكل',...new Set(VIDEOS.map(v=>v.cat))];
-$('#filters').innerHTML=cats.map((c,i)=>`<button class="${i?'':'on'}" data-c="${c}">${c}</button>`).join('');
-function renderVids(cat='الكل'){
-  $('#vgrid').innerHTML=VIDEOS.filter(v=>cat==='الكل'||v.cat===cat).map(v=>`
-    <div class="vid rv show">
-      <div class="fr" data-id="${v.id}">
-        <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7" alt="">
-        <div class="pb">▶</div>
-      </div>
-      <div class="info"><h3>${v.title}</h3><small>${v.cat}</small></div>
-    </div>`).join('');
+// خدمات + تابات
+const groups=['الكل',...new Set(SERV.map(s=>s[3]))];
+$('#tabs').innerHTML=groups.map((g,i)=>`<button class="${i?'':'on'}" data-g="${g}">${g}</button>`).join('');
+function rS(g='الكل'){
+  $('#sgrid').innerHTML=SERV.filter(s=>g==='الكل'||s[3]===g).map((s,i)=>`<div class="card rv show"><span class="n">${String(i+1).padStart(2,'0')}</span><div class="ic">${s[0]}</div><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('');
+}
+rS();
+$('#tabs').onclick=e=>{if(e.target.tagName!=='BUTTON')return;
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');rS(e.target.dataset.g)};
+// قايمة الخدمات في الفورم
+$('#fs').innerHTML=SERV.map(s=>`<option>${s[1]}</option>`).join('');
+
+// فيديوهات
+const vc=['الكل',...new Set(VIDEOS.map(v=>v.c))];
+$('#vtabs').innerHTML=vc.map((c,i)=>`<button class="${i?'':'on'}" data-c="${c}">${c}</button>`).join('');
+function rV(c='الكل'){
+  $('#vgrid').innerHTML=VIDEOS.filter(v=>c==='الكل'||v.c===c).map(v=>`<div class="vid"><div class="fr" data-id="${v.id}"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt=""><div class="pb">▶</div></div><div class="info"><h3>${v.t}</h3><small>${v.c}</small></div></div>`).join('');
   document.querySelectorAll('.fr').forEach(f=>f.onclick=()=>{
-    f.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${f.dataset.id}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
-    f.onclick=null;
-  });
+    f.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${f.dataset.id}?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;f.onclick=null});
 }
-renderVids();
-document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');renderVids(b.dataset.c);
-});
+rV();
+$('#vtabs').onclick=e=>{if(e.target.tagName!=='BUTTON')return;
+  document.querySelectorAll('#vtabs button').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');rV(e.target.dataset.c)};
 
-// البرامج
-const logoHTML=t=>t.logo?`<div class="tlogo"><img src="${t.logo}" alt="${t.n}"></div>`
-  :`<div class="tlogo" style="background:${t.bg};color:${t.c};border:2px solid ${t.c}">${t.s}</div>`;
-$('#toolgrid').innerHTML=TOOLS.map(t=>`<div class="card tool rv">${logoHTML(t)}<div><h3>${t.n}</h3><p>${t.d}</p></div></div>`).join('');
-const mq=TOOLS.map(t=>t.n).join(' ✦ ')+' ✦ ';
-$('#marq').innerHTML=`<span>${mq}</span><span>${mq}</span>`;
+// برامج
+$('#tgrid').innerHTML=TOOLS.map(t=>`<div class="card tool rv"><div class="tlogo" style="${t.logo?'':`background:${t.bg};color:${t.c};border:2px solid ${t.c}`}">${t.logo?`<img src="${t.logo}" alt="${t.n}">`:t.s}</div><div><h3>${t.n}</h3><p>${t.d}</p></div></div>`).join('');
 
-// ظهور تدريجي عند السكرول
-function reveal(){
-  document.querySelectorAll('.page.on .rv').forEach(e=>{
-    if(e.getBoundingClientRect().top<innerHeight-40) e.classList.add('show');
-  });
-}
-addEventListener('scroll',reveal);reveal();
+// ظهور عند السكرول + تمييز القسم + توهج الماوس
+function reveal(){document.querySelectorAll('.rv').forEach(e=>{if(e.getBoundingClientRect().top<innerHeight-40)e.classList.add('show')})}
+function spy(){let cur='home';document.querySelectorAll('section').forEach(s=>{if(s.getBoundingClientRect().top<200)cur=s.id});
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))}
+addEventListener('scroll',()=>{reveal();spy()});reveal();spy();
+nav.onclick=()=>nav.classList.remove('open');
+addEventListener('mousemove',e=>{const g=$('#glow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'});
 
 // واتساب
 function sendWA(){
-  const m=`أهلاً ${CFG.brand}، أنا ${$('#fn').value}%0Aالخدمة: ${$('#fs').value}%0A${$('#fm').value}`;
-  window.open(`https://wa.me/${CFG.whatsapp}?text=${m}`,'_blank');
+  const m=encodeURIComponent(`أهلاً OFFGRID.vid، أنا ${$('#fn').value}\nالخدمة: ${$('#fs').value}\n${$('#fm').value}`);
+  window.open(`https://wa.me/${CFG.intl}?text=${m}`,'_blank');
 }
 </script>
 </body>
